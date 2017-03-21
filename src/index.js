@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 import {IndexRoute, Redirect, Router, Route, hashHistory} from 'react-router';
+import {IntlProvider} from 'react-intl-redux';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import {syncHistoryWithStore} from 'react-router-redux';
@@ -24,12 +25,14 @@ if (module.hot) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={PageHome} />
-        <Route path="about" component={PageAbout} />
-      </Route>
-      <Redirect from="*" to="/" />
-    </Router>
+    <IntlProvider>
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <IndexRoute component={PageHome} />
+          <Route path="about" component={PageAbout} />
+        </Route>
+        <Redirect from="*" to="/" />
+      </Router>
+    </IntlProvider>
   </Provider>
 , document.getElementById('root'));

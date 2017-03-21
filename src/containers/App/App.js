@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {IndexLink} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
+import {FormattedMessage} from 'react-intl';
 
 const styles = require('./App.scss');
 
@@ -37,6 +38,9 @@ export default class App extends Component {
           </Navbar.Collapse>
         </Navbar>
 
+        <h1>
+          <FormattedMessage id="garchen" />
+        </h1>
         <div className={styles.appContent}>{children}</div>
       </div>
     );
