@@ -1,2 +1,2 @@
-# Garchen Desktop
-garchen desktop
+# Garchen Panel
+garchen panel
