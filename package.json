@@ -43,6 +43,7 @@
     "react-dom": "0.14.7",
     "react-inline-css": "2.3.0",
     "react-intl": "2.2.3",
+    "react-intl-redux": "0.4.1",
     "react-pure-render": "1.0.2",
     "react-redux": "4.4.0",
     "react-router": "3.0.2",
