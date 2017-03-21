@@ -10,15 +10,15 @@ import {createStore, applyMiddleware} from 'redux';
 import {syncHistoryWithStore} from 'react-router-redux';
 
 import {App, PageHome, PageAbout} from './containers';
-import reducer from './modules/reducer';
+import reducer from './redux/modules/reducer';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleware(reducer);
 const history = syncHistoryWithStore(hashHistory, store);
 
 if (module.hot) {
-  module.hot.accept('./modules/reducer', () => {
-    store.replaceReducer(require('./modules/reducer').default);
+  module.hot.accept('./redux/modules/reducer', () => {
+    store.replaceReducer(require('./redux/modules/reducer').default);
   });
 }
 
