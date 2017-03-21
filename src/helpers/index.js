@@ -1,0 +1,1 @@
+export mapConnect from './mapConnect';

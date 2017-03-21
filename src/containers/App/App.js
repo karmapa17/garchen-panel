@@ -4,9 +4,10 @@ import {connect} from 'react-redux';
 import {APP_NAME} from './../constants/Constants';
 import Counter from './../components/Counter/Counter';
 import {add} from './../modules/main';
+import {mapConnect} from './../../helpers';
 
-@connect((state) => ({
-  counterValue: state.main.get('counterValue')
+@connect((state) => mapConnect(state, {
+  counterValue: 'main.counterValue'
 }), {add})
 export default class App extends Component {
 
