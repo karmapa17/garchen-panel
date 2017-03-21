@@ -1,16 +1,15 @@
 require('babel-polyfill');
 require('bootstrap-loader');
 
-import {hashHistory} from 'react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
+import {IndexRoute, Redirect, Router, Route, hashHistory} from 'react-router';
 import {Provider} from 'react-redux';
-import {Redirect, Router, Route} from 'react-router';
 import {createStore, applyMiddleware} from 'redux';
 import {syncHistoryWithStore} from 'react-router-redux';
 
-import {App} from './containers';
+import {App, PageHome, PageAbout} from './containers';
 import reducer from './modules/reducer';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -26,7 +25,10 @@ if (module.hot) {
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App} />
+      <Route path="/" component={App}>
+        <IndexRoute component={PageHome} />
+        <Route path="about" component={PageAbout} />
+      </Route>
       <Redirect from="*" to="/" />
     </Router>
   </Provider>

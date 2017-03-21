@@ -2,26 +2,21 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {IndexLink} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
-import {Button, Nav, NavItem, Navbar} from 'react-bootstrap';
-
-import {APP_NAME} from './../../constants/Constants';
-import Counter from './../../components/Counter/Counter';
-import {add} from './../../modules/main';
-import {mapConnect} from './../../helpers';
+import {Nav, NavItem, Navbar} from 'react-bootstrap';
 
 const styles = require('./App.scss');
 
-@connect((state) => mapConnect(state, {
-  counterValue: 'main.counterValue'
-}), {add})
+@connect(() => ({}))
 export default class App extends Component {
 
   static propTypes = {
-    counterValue: PropTypes.number.isRequired,
-    add: PropTypes.func.isRequired
+    children: PropTypes.object.isRequired
   };
 
   render() {
+
+    const {children} = this.props;
+
     return (
       <div className={styles.app}>
 
@@ -42,9 +37,7 @@ export default class App extends Component {
           </Navbar.Collapse>
         </Navbar>
 
-        <h1>{APP_NAME}</h1>
-        <Button>here</Button>
-        <Counter value={this.props.counterValue} onBtnAddClick={this.props.add} />
+        <div className={styles.appContent}>{children}</div>
       </div>
     );
   }
