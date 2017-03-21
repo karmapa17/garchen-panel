@@ -1,5 +1,7 @@
 import {Map} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
+import {updateIntl} from 'react-intl-redux';
+import {getLangData} from './../../helpers';
 
 const ADD = 'garchen-desktop/main/ADD';
 
@@ -17,5 +19,14 @@ export default createReducer(initialState, {
 export function add() {
   return {
     type: ADD
+  };
+}
+
+export function setIntl(locale = 'zh-TW') {
+  return (dispatch) => {
+    return dispatch(updateIntl({
+      locale,
+      messages: getLangData(locale)
+    }));
   };
 }

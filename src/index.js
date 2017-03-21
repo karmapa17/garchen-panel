@@ -9,12 +9,22 @@ import {IntlProvider} from 'react-intl-redux';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import {syncHistoryWithStore} from 'react-router-redux';
+import {addLocaleData} from 'react-intl';
+
+import en from 'react-intl/locale-data/en';
+import bo from 'react-intl/locale-data/bo';
+import zh from 'react-intl/locale-data/zh';
 
 import {App, PageHome, PageAbout} from './containers';
 import reducer from './redux/modules/reducer';
+import {getLang, getLangData} from './helpers';
+
+addLocaleData([...en, ...bo, ...zh]);
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const store = createStoreWithMiddleware(reducer);
+const locale = getLang();
+const localeData = getLangData(locale);
+const store = createStoreWithMiddleware(reducer, {intl: {locale, messages: localeData}});
 const history = syncHistoryWithStore(hashHistory, store);
 
 if (module.hot) {

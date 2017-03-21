@@ -4,15 +4,21 @@ import {IndexLink} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
 import {FormattedMessage} from 'react-intl';
+import {setIntl} from './../../redux/modules/main';
 
 const styles = require('./App.scss');
 
-@connect(() => ({}))
+@connect(() => ({}), {setIntl})
 export default class App extends Component {
 
   static propTypes = {
-    children: PropTypes.object.isRequired
+    children: PropTypes.object.isRequired,
+    setIntl: PropTypes.func.isRequired
   };
+
+  componentDidMount() {
+    this.props.setIntl('en');
+  }
 
   render() {
 
