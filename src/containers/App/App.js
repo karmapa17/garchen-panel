@@ -2,12 +2,14 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {IndexLink} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
-import {Nav, NavItem, Navbar} from 'react-bootstrap';
+import {Button, Nav, NavItem, Navbar} from 'react-bootstrap';
 
 import {APP_NAME} from './../../constants/Constants';
 import Counter from './../../components/Counter/Counter';
 import {add} from './../../modules/main';
 import {mapConnect} from './../../helpers';
+
+const styles = require('./App.scss');
 
 @connect((state) => mapConnect(state, {
   counterValue: 'main.counterValue'
@@ -21,7 +23,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className={styles.app}>
 
         <Navbar fluid>
           <Navbar.Header>
@@ -41,6 +43,7 @@ export default class App extends Component {
         </Navbar>
 
         <h1>{APP_NAME}</h1>
+        <Button>here</Button>
         <Counter value={this.props.counterValue} onBtnAddClick={this.props.add} />
       </div>
     );

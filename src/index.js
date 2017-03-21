@@ -1,5 +1,5 @@
 require('babel-polyfill');
-require('./../assets/styles/index.scss');
+require('bootstrap-loader');
 
 import {hashHistory} from 'react-router';
 import React from 'react';
