@@ -2,10 +2,10 @@ var path = require('path');
 var webpack = require('webpack');
 
 var config = {
-  devtool: 'eval',
+  devtool: 'inline-source-map',
   entry: {
     javascript: [
-      'webpack-dev-server/client?http://0.0.0.0:3000',
+      'webpack-dev-server/client?http://localhost:3000/',
       'webpack/hot/only-dev-server',
       './src/index'
     ],
