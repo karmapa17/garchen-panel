@@ -1,1 +1,1 @@
-export const APP_NAME = 'Karmapa Electron Seed';
+export const APP_NAME = 'Garchen Panel';

@@ -10,7 +10,7 @@ import {Redirect, Router, Route} from 'react-router';
 import {createStore, applyMiddleware} from 'redux';
 import {syncHistoryWithStore} from 'react-router-redux';
 
-import App from './containers/App';
+import {App} from './containers';
 import reducer from './modules/reducer';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);

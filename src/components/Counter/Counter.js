@@ -4,7 +4,7 @@ const styles = require('./Counter.scss');
 
 export default class Counter extends Component {
 
-  static PropTypes = {
+  static propTypes = {
     value: PropTypes.number.isRequired,
     onBtnAddClick: PropTypes.func.isRequired
   };
