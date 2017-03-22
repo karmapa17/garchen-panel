@@ -15,7 +15,7 @@ import en from 'react-intl/locale-data/en';
 import bo from 'react-intl/locale-data/bo';
 import zh from 'react-intl/locale-data/zh';
 
-import {App, PageHome, PageAbout} from './containers';
+import {App, PageHome, PageAbout, PageFolderList} from './containers';
 import reducer from './redux/modules/reducer';
 import {getLang, getLangData} from './helpers';
 
@@ -39,6 +39,7 @@ ReactDOM.render(
       <Router history={history}>
         <Route path="/" component={App}>
           <IndexRoute component={PageHome} />
+          <Route path="folders" component={PageFolderList} />
           <Route path="about" component={PageAbout} />
         </Route>
         <Redirect from="*" to="/" />

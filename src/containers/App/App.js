@@ -37,6 +37,9 @@ export default class App extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav navbar>
+              <LinkContainer to="/folders" key={`nav-item-folders`}>
+                <NavItem>folders</NavItem>
+              </LinkContainer>
               <LinkContainer to="/about" key={`nav-item-about`}>
                 <NavItem>about</NavItem>
               </LinkContainer>
