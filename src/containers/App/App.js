@@ -16,10 +16,6 @@ export default class App extends Component {
     setIntl: PropTypes.func.isRequired
   };
 
-  componentDidMount() {
-    this.props.setIntl('en');
-  }
-
   render() {
 
     const {children} = this.props;

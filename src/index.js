@@ -38,7 +38,7 @@ ReactDOM.render(
     <IntlProvider>
       <Router history={history}>
         <Route path="/" component={App}>
-          <IndexRoute component={PageHome} />
+          <IndexRoute component={PageFolderList} />
           <Route path="folders" component={PageFolderList} />
           <Route path="about" component={PageAbout} />
         </Route>

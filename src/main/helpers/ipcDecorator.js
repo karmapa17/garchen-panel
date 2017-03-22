@@ -10,8 +10,10 @@ export default class ipcDecorator {
         event.sender.send(`${name}::${args._id}`, data);
       };
 
+      this.resolve = this.send;
+
       this.reject = (data) => {
-        data.error = true;
+        data._error = true;
         this.send(data);
       };
 

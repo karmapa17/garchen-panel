@@ -11,14 +11,16 @@ export default class ipc {
       data._id = id;
       ipcRenderer.send(name, data);
       ipcRenderer.once(`${name}::${id}`, (event, data) => {
-        return data.error ? reject(data) : resolve(data);
+        return data._error ? reject(data) : resolve(data);
       });
     });
   }
 
   static on(name, cb) {
+    ipcRenderer.on(name, cb);
   }
 
-  static off(name) {
+  static off(name, cb) {
+    ipcRenderer.removeListener(name, cb);
   }
 }
