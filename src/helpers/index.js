@@ -1,4 +1,2 @@
-export getLang from './getLang';
-export getLangData from './getLangData';
 export mapConnect from './mapConnect';
-export setLang from './setLang';
+export i18n from './i18n';

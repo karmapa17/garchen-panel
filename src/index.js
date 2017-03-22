@@ -17,13 +17,13 @@ import zh from 'react-intl/locale-data/zh';
 
 import {App, PageHome, PageAbout, PageFolderList} from './containers';
 import reducer from './redux/modules/reducer';
-import {getLang, getLangData} from './helpers';
+import {i18n} from './helpers';
 
 addLocaleData([...en, ...bo, ...zh]);
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const locale = getLang();
-const localeData = getLangData(locale);
+const locale = i18n.getLang();
+const localeData = i18n.getLangData(locale);
 const store = createStoreWithMiddleware(reducer, {intl: {locale, messages: localeData}});
 const history = syncHistoryWithStore(hashHistory, store);
 
