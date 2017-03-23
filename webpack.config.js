@@ -48,11 +48,11 @@ var config = {
         loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
       },
       {
-        test: /\.(ttf|eot|svg)$/,
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader?name=[path][name].[ext]'
       },
       {
-        test: /\.woff2?$/,
+        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader?name=[path][name].[ext]&limit=10000&minetype=application/font-woff'
       },
       {

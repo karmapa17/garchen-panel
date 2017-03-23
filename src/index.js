@@ -1,5 +1,6 @@
 require('babel-polyfill');
 require('bootstrap-loader');
+require('font-awesome-sass-loader');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
