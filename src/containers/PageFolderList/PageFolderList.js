@@ -27,7 +27,7 @@ export default class PageFolderList extends Component {
     return (
       <div className={classNames('container', 'list', styles.pageFolderList)}>
         <div className="topbar">
-          <h1>Folders</h1>
+          <h2>Folders</h2>
           <Button className="btn-add">
             <i className="fa fa-plus" />
             <span>Add Folder</span>
