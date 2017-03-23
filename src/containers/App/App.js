@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {IndexLink} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Nav, NavItem, Navbar} from 'react-bootstrap';
-import {FormattedMessage} from 'react-intl';
 import {setIntl} from './../../redux/modules/main';
 
 const styles = require('./App.scss');
