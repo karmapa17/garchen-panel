@@ -11,7 +11,6 @@ const config = require(path.join(__dirname, '..', 'config', 'config.json'))[env]
 
 if (':memory:' !== config.storage) {
   config.storage = path.resolve(APP_DATA_PATH, config.storage);
-  console.log('where is this', config.storage);
 }
 
 let sequelize;
