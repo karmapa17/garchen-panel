@@ -7,33 +7,35 @@ import {sequelize} from './main/models';
 
 import * as folder from './main/controllers/folder';
 
-const ipc = ipcDecorator.decorate(ipcMain);
+let mainWindow = null;
 
-sequelize.sync()
-  .then(init);
+app.on('window-all-closed', () => {
+  app.quit();
+});
 
-function init() {
+app.on('ready', handleAppReady);
 
-  let mainWindow = null;
+function handleAppReady() {
 
-  app.on('window-all-closed', () => {
-    app.quit();
+  const {width, height} = screen.getPrimaryDisplay().workAreaSize;
+  mainWindow = new BrowserWindow({width, height});
+
+  mainWindow.on('close', (event) => {
   });
 
-  app.on('ready', () => {
-
-    const {width, height} = screen.getPrimaryDisplay().workAreaSize;
-    mainWindow = new BrowserWindow({width, height});
-
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
-
-    mainWindow.on('close', (event) => {
-    });
-
-    mainWindow.on('closed', () => {
-      mainWindow = null;
-    });
+  mainWindow.on('closed', () => {
+    mainWindow = null;
   });
+
+  sequelize.sync()
+    .then(() => {
+      mainWindow.loadURL('file://' + __dirname + '/index.html');
+    })
+    .catch((err) => {
+      log.error('err:', err);
+    });
+
+  const ipc = ipcDecorator.decorate(ipcMain);
 
   ipc.on('GET /folders', folder.listFolders);
 }
