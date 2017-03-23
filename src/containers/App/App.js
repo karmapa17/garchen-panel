@@ -42,10 +42,6 @@ export default class App extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-
-        <h1>
-          <FormattedMessage id="garchen" />
-        </h1>
         <div className={styles.appContent}>{children}</div>
       </div>
     );
