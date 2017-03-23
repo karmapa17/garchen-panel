@@ -18,11 +18,12 @@ import zh from 'react-intl/locale-data/zh';
 
 import {App, PageHome, PageAbout, PageFolderList} from './containers';
 import reducer from './redux/modules/reducer';
-import {i18n} from './helpers';
+import {clientMiddleware} from './redux/middlewares';
+import {i18n, ipc} from './helpers';
 
 addLocaleData([...en, ...bo, ...zh]);
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk, clientMiddleware(ipc))(createStore);
 const locale = i18n.getLang();
 const localeData = i18n.getLangData(locale);
 const store = createStoreWithMiddleware(reducer, {intl: {locale, messages: localeData}});
