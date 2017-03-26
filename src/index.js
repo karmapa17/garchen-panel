@@ -16,7 +16,7 @@ import en from 'react-intl/locale-data/en';
 import bo from 'react-intl/locale-data/bo';
 import zh from 'react-intl/locale-data/zh';
 
-import {App, PageHome, PageAbout, PageFolderList} from './containers';
+import {App, PageHome, PageAbout, PageFolderList, PageAddFolder} from './containers';
 import reducer from './redux/modules/reducer';
 import {clientMiddleware} from './redux/middlewares';
 import {i18n, ipc} from './helpers';
@@ -42,6 +42,7 @@ ReactDOM.render(
         <Route path="/" component={App}>
           <IndexRoute component={PageFolderList} />
           <Route path="folders" component={PageFolderList} />
+          <Route path="folders/add" component={PageAddFolder} />
           <Route path="about" component={PageAbout} />
         </Route>
         <Redirect from="*" to="/" />
