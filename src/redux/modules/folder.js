@@ -1,7 +1,5 @@
 import {Map} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
-import {updateIntl} from 'react-intl-redux';
-import {i18n} from './../../helpers';
 
 const LOAD_FOLDERS = 'garchen-panel/folder/LOAD_FOLDERS';
 const LOAD_FOLDERS_SUCCESS = 'garchen-panel/folder/LOAD_FOLDERS_SUCCESS';
