@@ -25,6 +25,10 @@ injectTapEventPlugin();
 }), {setIntl, setDrawerOpen, toggleDrawerOpen})
 export default class App extends Component {
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  };
+
   static propTypes = {
     isDrawerOpen: PropTypes.bool.isRequired,
     isLoadingAuth: PropTypes.bool.isRequired,
