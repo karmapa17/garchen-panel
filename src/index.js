@@ -1,25 +1,25 @@
 require('babel-polyfill');
-require('bootstrap-loader');
 require('font-awesome-sass-loader');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import reducer from './redux/modules/reducer';
 import thunk from 'redux-thunk';
 import {IndexRoute, Redirect, Router, Route, hashHistory} from 'react-router';
 import {IntlProvider} from 'react-intl-redux';
 import {Provider} from 'react-redux';
+import {addLocaleData} from 'react-intl';
+import {clientMiddleware} from './redux/middlewares';
 import {createStore, applyMiddleware} from 'redux';
 import {syncHistoryWithStore} from 'react-router-redux';
-import {addLocaleData} from 'react-intl';
 
-import en from 'react-intl/locale-data/en';
 import bo from 'react-intl/locale-data/bo';
+import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
 
 import {App, PageHome, PageAbout, PageFolderList, PageAddFolder} from './containers';
-import reducer from './redux/modules/reducer';
-import {clientMiddleware} from './redux/middlewares';
-import {i18n, ipc} from './helpers';
+import i18n from './helpers/i18n';
+import ipc from './helpers/ipc';
 
 addLocaleData([...en, ...bo, ...zh]);
 

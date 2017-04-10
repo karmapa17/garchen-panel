@@ -1,7 +1,8 @@
 import {Map} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
 import {updateIntl} from 'react-intl-redux';
-import {i18n} from './../../helpers';
+
+import i18n from './../../helpers/i18n';
 
 const ADD = 'garchen-desktop/main/ADD';
 
