@@ -3,23 +3,26 @@ import {connect} from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CircularProgress from 'material-ui/CircularProgress';
 import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
-import injectTapEventPlugin from 'react-tap-event-plugin'
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import {setIntl} from './../../redux/modules/main';
 import muiTheme from './../../constants/muiTheme';
 const styles = require('./App.scss');
 
-injectTapEventPlugin()
+injectTapEventPlugin();
 
 @connect(() => ({}), {setIntl})
 export default class App extends Component {
 
   static propTypes = {
     isLoadingAuth: PropTypes.bool.isRequired,
+    login: PropTypes.func,
+    logout: PropTypes.func,
     auth: PropTypes.object,
     children: PropTypes.object.isRequired,
     setIntl: PropTypes.func.isRequired
@@ -30,7 +33,7 @@ export default class App extends Component {
     const {auth, isLoadingAuth, login, logout} = this.props;
 
     if (isLoadingAuth) {
-      return <CircularProgress mode="indeterminate" color="white" style={{marginTop: '16px', marginRight: '12px'}} size={30} />
+      return <CircularProgress mode="indeterminate" color="white" style={{marginTop: '16px', marginRight: '12px'}} size={30} />;
     }
 
     if (auth) {

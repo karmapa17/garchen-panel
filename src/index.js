@@ -17,7 +17,11 @@ import bo from 'react-intl/locale-data/bo';
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
 
-import {App, PageHome, PageAbout, PageFolderList, PageAddFolder} from './containers';
+import App from './containers/App/App';
+import PageAbout from './containers/PageAbout/PageAbout';
+import PageFolderList from './containers/PageFolderList/PageFolderList';
+import PageAddFolder from './containers/PageAddFolder/PageAddFolder';
+
 import i18n from './helpers/i18n';
 import ipc from './helpers/ipc';
 
