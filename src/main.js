@@ -3,7 +3,6 @@ import path from 'path';
 
 import {mkdirp, ipcDecorator} from './main/helpers';
 import {APP_DATA_PATH} from './main/constants';
-import {sequelize} from './main/models';
 
 import * as folder from './main/controllers/folder';
 
@@ -27,13 +26,7 @@ function handleAppReady() {
     mainWindow = null;
   });
 
-  sequelize.sync()
-    .then(() => {
-      mainWindow.loadURL('file://' + __dirname + '/index.html');
-    })
-    .catch((err) => {
-      log.error('err:', err);
-    });
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
 
   const ipc = ipcDecorator.decorate(ipcMain);
 
