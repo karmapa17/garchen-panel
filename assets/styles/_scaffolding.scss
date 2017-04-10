@@ -1,16 +1,6 @@
 body {
 }
 
-:global(.navbar) {
-  margin-bottom: 0;
-}
-
-:global(.btn) {
-  :global(.fa) {
-    margin-right: 7px;
-  }
-}
-
 h1, h2, h3, h4, h5 {
   padding: 0;
   margin: 0;

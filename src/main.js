@@ -4,7 +4,7 @@ import path from 'path';
 import {mkdirp, ipcDecorator} from './main/helpers';
 import {APP_DATA_PATH} from './main/constants';
 
-import * as folder from './main/controllers/folder';
+import listFolders from './main/controllers/folder/listFolders';
 
 let mainWindow = null;
 
@@ -30,5 +30,5 @@ function handleAppReady() {
 
   const ipc = ipcDecorator.decorate(ipcMain);
 
-  ipc.on('GET /folders', folder.listFolders);
+  ipc.on('GET /folders', listFolders);
 }

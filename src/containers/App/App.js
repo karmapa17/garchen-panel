@@ -8,25 +8,38 @@ import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
+import Drawer from 'material-ui/Drawer';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import {setIntl} from './../../redux/modules/main';
+import {setIntl, setDrawerOpen, toggleDrawerOpen} from './../../redux/modules/main';
 import muiTheme from './../../constants/muiTheme';
+
 const styles = require('./App.scss');
 
 injectTapEventPlugin();
 
-@connect(() => ({}), {setIntl})
+@connect(({auth, main}) => ({
+  isDrawerOpen: main.get('isDrawerOpen'),
+  isLoadingAuth: auth.get('isLoadingAuth'),
+  auth: auth.get('auth')
+}), {setIntl, setDrawerOpen, toggleDrawerOpen})
 export default class App extends Component {
 
   static propTypes = {
+    isDrawerOpen: PropTypes.bool.isRequired,
     isLoadingAuth: PropTypes.bool.isRequired,
     login: PropTypes.func,
     logout: PropTypes.func,
     auth: PropTypes.object,
+    toggleDrawerOpen: PropTypes.func.isRequired,
+    setDrawerOpen: PropTypes.func.isRequired,
     children: PropTypes.object.isRequired,
     setIntl: PropTypes.func.isRequired
   };
+
+  constructor(props) {
+    super(props);
+  }
 
   renderElementRight() {
 
@@ -64,20 +77,36 @@ export default class App extends Component {
     return <FlatButton style={{marginTop: '14px'}} onClick={login} label="Login" />;
   }
 
+  handleDrawerChange = (open) => this.props.setDrawerOpen(open);
+
+  handleHamburgerTouchTap = () => this.props.toggleDrawerOpen();
+
+  handleMenuItemTouchTap = (route) => {
+    return () => {
+      this.props.setDrawerOpen(false);
+      this.context.router.push(route);
+    };
+  };
+
   render() {
 
-    const {children} = this.props;
+    const {children, isDrawerOpen} = this.props;
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-
-        <AppBar title="Garchen Panel" iconElementRight={this.renderElementRight()}
-          titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
-          onLeftIconButtonTouchTap={this.handleHamburgerTouchTap} onTitleTouchTap={this.handleTitleTouchTap} />
-
-          <div className="app-content">{children}</div>
         <div className={styles.app}>
+
+          <AppBar title="Garchen Panel" iconElementRight={this.renderElementRight()}
+            titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
+            onLeftIconButtonTouchTap={this.handleHamburgerTouchTap} onTitleTouchTap={this.handleTitleTouchTap} />
+
           <div className={styles.appContent}>{children}</div>
+
+          <Drawer docked={false} open={isDrawerOpen} onRequestChange={this.handleDrawerChange}>
+            <MenuItem onTouchTap={this.handleMenuItemTouchTap('/')}>Home</MenuItem>
+            <MenuItem onTouchTap={this.handleMenuItemTouchTap('/folders')}>Folders</MenuItem>
+            <MenuItem onTouchTap={this.handleMenuItemTouchTap('/about')}>About</MenuItem>
+          </Drawer>
         </div>
       </MuiThemeProvider>
     );

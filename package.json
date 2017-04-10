@@ -16,6 +16,7 @@
     "font-awesome": "4.7.0",
     "immutable": "3.8.1",
     "lodash": "4.8.2",
+    "lodash.get": "4.4.2",
     "material-ui": "0.17.2",
     "mkdirp": "0.5.1",
     "node-sass": "4.5.2",
@@ -34,6 +35,7 @@
     "redux": "3.3.1",
     "redux-immutablejs": "0.0.8",
     "redux-thunk": "2.2.0",
+    "reset-css": "2.2.0",
     "sql.js": "0.4.0",
     "toastr": "2.1.2",
     "trilogy": "1.1.0"
