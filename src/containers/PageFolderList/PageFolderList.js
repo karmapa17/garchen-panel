@@ -31,17 +31,26 @@ export default class PageFolderList extends Component {
 
   handleAddFolderDialogClose = () => this.props.setAddFolderDialogOpen(false);
 
+  handleSubmitButtonTouchTap = () => {
+    this.refs.addFolderForm.submit();
+  };
+
+  handleSubmit = (data) => {
+    this.props.setAddFolderDialogOpen(false);
+  };
+
   renderAddFolderDialog() {
 
     const {isAddFolderDialogOpen} = this.props;
 
     const actions = [
       <FlatButton label="Cancel" onTouchTap={this.handleAddFolderDialogClose} />,
-      <FlatButton label="Submit" primary onTouchTap={this.handleAddFolderDialogClose} />,
+      <FlatButton label="Submit" primary onTouchTap={this.handleSubmitButtonTouchTap} />,
     ];
     return (
-      <Dialog title="Add a folder" actions={actions} modal={false} open={isAddFolderDialogOpen}>
-        here
+      <Dialog title="Add a folder" actions={actions} open={isAddFolderDialogOpen}
+        onRequestClose={this.handleAddFolderDialogClose}>
+        <AddFolderForm ref="addFolderForm" onSubmit={this.handleSubmit} />
       </Dialog>
     );
   }

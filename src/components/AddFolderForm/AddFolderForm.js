@@ -1,17 +1,29 @@
 import React, {Component, PropTypes} from 'react';
 import {Field, reduxForm} from 'redux-form';
+import TextField from 'material-ui/TextField';
 
 const styles = require('./AddFolderForm.scss');
 
-console.log('here', reduxForm);
+const validate = (values) => {
+  const errors = {};
+  if (! values.name) {
+    errors.name = 'folder name is required';
+  }
+  return errors;
+};
 
 @reduxForm({
-  form: 'addFolderForm'
+  form: 'addFolderForm',
+  validate
 })
 export default class AddFolderForm extends Component {
 
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
+  };
+
+  renderTextField = ({input, label, meta: {touched, error}, ...custom}) => {
+    return <TextField floatingLabelText={label} errorText={touched && error} {...input} {...custom} />;
   };
 
   render() {
@@ -21,8 +33,7 @@ export default class AddFolderForm extends Component {
     return (
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Folder name</label>
-          <Field name="name" component="input" type="text"/>
+          <Field name="name" component={this.renderTextField} label="folder name" autoFocus />
         </div>
       </form>
     );
