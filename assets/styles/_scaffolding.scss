@@ -31,8 +31,12 @@ h5 {
   font-weight: 400;
 }
 
-.list {
-  .topbar {
+:global(.page) {
+  padding: 7px;
+}
+
+:global(.page-list) {
+  :global(.topbar) {
     display: flex;
     justify-content: space-between;
   }
