@@ -3,6 +3,7 @@ import {Field, reduxForm} from 'redux-form';
 import MenuItem from 'material-ui/MenuItem';
 import {injectIntl} from 'react-intl';
 import {connect} from 'react-redux';
+import cloneDeep from 'lodash.clonedeep';
 
 import objToArr from './../../helpers/objToArr';
 import renderTextField from './../../helpers/renderTextField';
@@ -63,7 +64,8 @@ export default class AddFolderForm extends Component {
       });
   };
 
-  handleTargetLanguagesChange = (data) => {
+  handleTargetLanguagesChange = (rawData) => {
+    const data = cloneDeep(rawData);
     delete data.preventDefault;
     this.props.setTargetLanguages(objToArr(data));
   };
