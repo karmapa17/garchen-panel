@@ -63,7 +63,7 @@ export default class PageFolderList extends Component {
   render() {
 
     return (
-      <div className={c('page', 'page-list', styles.pageFolderList)}>
+      <div className={c('page-list', styles.pageFolderList)}>
         <div className="topbar">
           <h2>Folders</h2>
           <FlatButton className="btn-add" icon={<i className="fa fa-plus" />}

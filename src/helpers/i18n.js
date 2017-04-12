@@ -1,14 +1,14 @@
 export default class i18n {
 
-  static getLang() {
-    return localStorage.getItem('garchen:lang') || 'zh-TW';
+  static getLocale() {
+    return localStorage.getItem('garchen:locale') || 'en';
   }
 
-  static setLang(lang) {
-    localStorage.setItem('garchen:lang', lang);
+  static setLocale(locale) {
+    localStorage.setItem('garchen:locale', locale);
   }
 
-  static getLangData(lang) {
-    return require(`./../langs/${lang}.js`);
+  static getLocaleData(locale) {
+    return require(`./../langs/${locale}.js`);
   }
 }

@@ -1,16 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import MenuItem from 'material-ui/MenuItem';
+import {connect} from 'react-redux';
 
 import renderTextField from './../../helpers/renderTextField';
 import renderSelectField from './../../helpers/renderSelectField';
-import LANGS from './../../constants/langs';
+import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
+import {setNewFolderName} from './../../redux/modules/main';
 
 const validate = (values) => {
   const errors = {};
-  if (! values.name) {
-    errors.name = 'folder name is required';
-  }
   return errors;
 };
 
@@ -18,38 +17,45 @@ const validate = (values) => {
   form: 'addFolderForm',
   validate
 })
+@connect(({main}) => ({
+  newFolderName: main.get('newFolderName')
+}), {setNewFolderName})
 export default class AddFolderForm extends Component {
 
   static propTypes = {
+    setNewFolderName: PropTypes.func.isRequired,
+    newFolderName: PropTypes.string.isRequired,
     handleSubmit: PropTypes.func.isRequired
   };
 
-  renderLangMenuItems() {
-    return LANGS.map(({value, text}) => {
-      return <MenuItem value={value} primaryText={text} />;
+  renderLangMenuItems(key) {
+    return DICTIONARY_LANGS.map(({value, text}) => {
+      return <MenuItem key={`${key}-${value}`} value={value} primaryText={text} />;
     });
   }
 
+  handleNewFolderNameChange = (event) => this.props.setNewFolderName(event.target.value);
+
   render() {
 
-    const {handleSubmit} = this.props;
+    const {handleSubmit, newFolderName} = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
 
         <div>
-          <Field name="name" component={renderTextField} label="folder name" autoFocus />
+          <Field name="name" component={renderTextField} onChange={this.handleNewFolderNameChange} label="folder name" autoFocus value={newFolderName} />
         </div>
 
         <div>
           <Field name="sourceLanguage" component={renderSelectField} label="Source Language" value="bo">
-            {this.renderLangMenuItems()}
+            {this.renderLangMenuItems('source-lang')}
           </Field>
         </div>
 
         <div>
           <Field name="targetLanguage" component={renderSelectField} label="Target Language" multiple>
-            {this.renderLangMenuItems()}
+            {this.renderLangMenuItems('target-lang')}
           </Field>
         </div>
 

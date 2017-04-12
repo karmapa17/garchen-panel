@@ -9,7 +9,9 @@ import Avatar from 'material-ui/Avatar';
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import Drawer from 'material-ui/Drawer';
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import {injectIntl} from 'react-intl';
 
 import {setIntl, setDrawerOpen, toggleDrawerOpen} from './../../redux/modules/main';
 import muiTheme from './../../constants/muiTheme';
@@ -22,7 +24,8 @@ injectTapEventPlugin();
   isDrawerOpen: main.get('isDrawerOpen'),
   isLoadingAuth: auth.get('isLoadingAuth'),
   auth: auth.get('auth')
-}), {setIntl, setDrawerOpen, toggleDrawerOpen})
+}), {setDrawerOpen, toggleDrawerOpen, setIntl})
+@injectIntl
 export default class App extends Component {
 
   static contextTypes = {
@@ -30,6 +33,7 @@ export default class App extends Component {
   };
 
   static propTypes = {
+    intl: PropTypes.object.isRequired,
     isDrawerOpen: PropTypes.bool.isRequired,
     isLoadingAuth: PropTypes.bool.isRequired,
     login: PropTypes.func,
@@ -37,17 +41,12 @@ export default class App extends Component {
     auth: PropTypes.object,
     toggleDrawerOpen: PropTypes.func.isRequired,
     setDrawerOpen: PropTypes.func.isRequired,
-    children: PropTypes.object.isRequired,
-    setIntl: PropTypes.func.isRequired
+    setIntl: PropTypes.func.isRequired,
+    children: PropTypes.object.isRequired
   };
 
-  constructor(props) {
-    super(props);
-  }
-
-  renderElementRight() {
-
-    const {auth, isLoadingAuth, login, logout} = this.props;
+  renderIconElementRight() {
+    const {auth, isLoadingAuth, login, logout, intl: {formatMessage}} = this.props;
 
     if (isLoadingAuth) {
       return <CircularProgress mode="indeterminate" color="white" style={{marginTop: '16px', marginRight: '12px'}} size={30} />;
@@ -78,7 +77,7 @@ export default class App extends Component {
         </IconMenu>
       );
     }
-    return <FlatButton style={{marginTop: '14px'}} onClick={login} label="Login" />;
+    return <FlatButton style={{marginTop: '14px', color: '#fff'}} onClick={login} label={formatMessage({id: 'login'})} />;
   }
 
   handleDrawerChange = (open) => this.props.setDrawerOpen(open);
@@ -94,22 +93,24 @@ export default class App extends Component {
 
   render() {
 
-    const {children, isDrawerOpen} = this.props;
+    const {children, isDrawerOpen, intl: {formatMessage}} = this.props;
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className={styles.app}>
 
-          <AppBar title="Garchen Panel" iconElementRight={this.renderElementRight()}
+          <AppBar title={formatMessage({id: 'garchen'})} iconElementRight={this.renderIconElementRight()}
             titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
             onLeftIconButtonTouchTap={this.handleHamburgerTouchTap} onTitleTouchTap={this.handleTitleTouchTap} />
 
           <div className={styles.appContent}>{children}</div>
 
           <Drawer docked={false} open={isDrawerOpen} onRequestChange={this.handleDrawerChange}>
-            <MenuItem onTouchTap={this.handleMenuItemTouchTap('/')}>Home</MenuItem>
-            <MenuItem onTouchTap={this.handleMenuItemTouchTap('/folders')}>Folders</MenuItem>
-            <MenuItem onTouchTap={this.handleMenuItemTouchTap('/about')}>About</MenuItem>
+            <MenuItem primaryText={formatMessage({id: 'folders'})} onTouchTap={this.handleMenuItemTouchTap('/')} />
+            <MenuItem primaryText={formatMessage({id: 'about'})} onTouchTap={this.handleMenuItemTouchTap('/about')} />
+
+            <hr className="divider" />
+            <MenuItem primaryText={formatMessage({id: 'settings'})} leftIcon={(<SettingsIcon />)} onTouchTap={this.handleMenuItemTouchTap('/settings')} />
           </Drawer>
         </div>
       </MuiThemeProvider>
