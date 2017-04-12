@@ -1,5 +1,6 @@
-import {db} from './../../models';
-
 export default async function listFolders(event, data) {
-  this.resolve([]);
+  const {Folder} =  this.params.models;
+  const folders = await Folder.find();
+
+  this.resolve(folders);
 }

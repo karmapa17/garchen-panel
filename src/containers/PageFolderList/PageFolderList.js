@@ -1,11 +1,16 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import c from 'classnames';
-
+import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import IconMenu from 'material-ui/IconMenu';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+
 import {setAddFolderDialogOpen} from './../../redux/modules/main';
-import {loadFolders} from './../../redux/modules/folder';
+import {addFolder, loadFolders} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 
 const styles = require('./PageFolderList.scss');
@@ -17,10 +22,11 @@ const dialogStyle = {
 @connect(({main, folder}) => ({
   folders: folder.get('folders'),
   isAddFolderDialogOpen: main.get('isAddFolderDialogOpen')
-}), {loadFolders, setAddFolderDialogOpen})
+}), {loadFolders, setAddFolderDialogOpen, addFolder})
 export default class PageFolderList extends Component {
 
   static propTypes = {
+    addFolder: PropTypes.func.isRequired,
     folders: PropTypes.array.isRequired,
     loadFolders: PropTypes.func.isRequired,
     isAddFolderDialogOpen: PropTypes.bool.isRequired,
@@ -40,7 +46,7 @@ export default class PageFolderList extends Component {
   };
 
   handleSubmit = (data) => {
-    console.log('submitted data', data);
+    this.props.addFolder(data);
     this.props.setAddFolderDialogOpen(false);
   };
 
@@ -61,6 +67,26 @@ export default class PageFolderList extends Component {
     );
   }
 
+  renderFolders() {
+    const {folders} = this.props;
+    return folders.map((folder) => {
+      const {id, name} = folder;
+      return (
+        <Paper className={styles.folder} key={`paper-${id}`}>
+          <a className={styles.folderName}>{name}</a>
+          <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            onChange={this.handleEditMenuItemTouchTap}
+            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}>
+            <MenuItem primaryText="Edit" value={{type: 'edit', id}} />
+            <MenuItem primaryText="Delete" value={{type: 'delete', id}} />
+          </IconMenu>
+        </Paper>
+      );
+    });
+  }
+
   render() {
 
     return (
@@ -70,6 +96,7 @@ export default class PageFolderList extends Component {
           <FlatButton className="btn-add" icon={<i className="fa fa-plus" />}
             label="Add Folder" primary onTouchTap={this.openAddFolderDialog} />
         </div>
+        {this.renderFolders()}
         {this.renderAddFolderDialog()}
       </div>
     );

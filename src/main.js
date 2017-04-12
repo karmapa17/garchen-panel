@@ -7,7 +7,9 @@ import ipcDecorator from './main/helpers/ipcDecorator';
 import APP_DATA_PATH from './main/constants/appDataPath';
 
 import listFolders from './main/controllers/folder/listFolders';
+import addFolder from './main/controllers/folder/addFolder';
 
+import initDb from './main/models';
 
 let mainWindow = null;
 
@@ -17,7 +19,7 @@ app.on('window-all-closed', () => {
 
 app.on('ready', handleAppReady);
 
-function handleAppReady() {
+async function handleAppReady() {
 
   const {width, height} = screen.getPrimaryDisplay().workAreaSize;
   mainWindow = new BrowserWindow({width, height});
@@ -31,7 +33,9 @@ function handleAppReady() {
 
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-  const ipc = ipcDecorator.decorate(ipcMain);
+  const {models} = await initDb();
+  const ipc = ipcDecorator.decorate(ipcMain, {models});
 
   ipc.on('GET /folders', listFolders);
+  ipc.on('POST /folders', addFolder);
 }

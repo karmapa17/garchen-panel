@@ -9,13 +9,8 @@ import objToArr from './../../helpers/objToArr';
 import renderTextField from './../../helpers/renderTextField';
 import renderSelectField from './../../helpers/renderSelectField';
 import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
-
 import {setTargetLanguages} from './../../redux/modules/main';
-
-const validate = () => {
-  const errors = {};
-  return errors;
-};
+import validate from './addFolderFormValidate';
 
 @reduxForm({
   form: 'addFolderForm',
@@ -29,7 +24,7 @@ export default class AddFolderForm extends Component {
 
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    setTargetLanguages: PropTypes.func.isRequired,
+    setTargetLanguages: PropTypes.func,
     targetLanguages: PropTypes.array,
     intl: PropTypes.object.isRequired,
     values: PropTypes.object
@@ -53,7 +48,7 @@ export default class AddFolderForm extends Component {
     const fields = [];
 
     ['target-entry-lang', 'explaination-lang', 'original-lang', 'source-lang'].forEach((textId) => {
-      targetLanguages.forEach((lang) => {
+      (targetLanguages || []).forEach((lang) => {
         fields.push({textId, params: {lang: formatMessage({id: lang})}, value: `${textId}-${lang}`});
       });
     });
@@ -82,7 +77,7 @@ export default class AddFolderForm extends Component {
         </div>
 
         <div>
-          <Field name="sourceLanguage" component={renderSelectField} label={formatMessage({id: 'source-language'})} value="bo">
+          <Field name="sourceLanguage" component={renderSelectField} label={formatMessage({id: 'source-language'})}>
             {this.renderLangMenuItems('source-lang')}
           </Field>
         </div>
