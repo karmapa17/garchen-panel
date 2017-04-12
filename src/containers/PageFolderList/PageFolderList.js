@@ -10,6 +10,10 @@ import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 
 const styles = require('./PageFolderList.scss');
 
+const dialogStyle = {
+  maxHeight: '100%'
+};
+
 @connect(({main, folder}) => ({
   folders: folder.get('folders'),
   isAddFolderDialogOpen: main.get('isAddFolderDialogOpen')
@@ -35,7 +39,7 @@ export default class PageFolderList extends Component {
     this.refs.addFolderForm.submit();
   };
 
-  handleSubmit = (data) => {
+  handleSubmit = () => {
     this.props.setAddFolderDialogOpen(false);
   };
 
@@ -49,6 +53,7 @@ export default class PageFolderList extends Component {
     ];
     return (
       <Dialog title="Add a folder" actions={actions} open={isAddFolderDialogOpen}
+        contentStyle={dialogStyle}
         onRequestClose={this.handleAddFolderDialogClose}>
         <AddFolderForm ref="addFolderForm" onSubmit={this.handleSubmit} />
       </Dialog>
