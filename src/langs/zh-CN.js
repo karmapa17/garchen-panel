@@ -1,9 +1,23 @@
 module.exports = {
+  'en': '英文',
+  'zh-TW': '繁体中文',
+  'zh-CN': '简体中文',
+  'bo': '藏文',
   'garchen': '噶千',
   'settings': '设定',
   'app-language': '应用程式语言',
   'home': '首页',
   'folders': '资料夹',
   'about': '关于',
-  'login': '登入'
+  'login': '登入',
+  'folder-name': '资料夹名称',
+  'source-language': '来源语言',
+  'target-language': '目标语言',
+  'targt-entry-lang': '词条 - {lang}',
+  'category': '类别',
+  'sect': '宗派',
+  'explaination-lang': '解释 - {lang}',
+  'original-lang': '原文 - {lang}',
+  'source-lang': '出处 - {lang}',
+  'content-fields': '内容栏位'
 };

@@ -8,13 +8,14 @@ const SET_DRAWER_OPEN = 'garchen-panel/main/SET_DRAWER_OPEN';
 const TOGGLE_DRAWER_OPEN = 'garchen-panel/main/TOGGLE_DRAWER_OPEN';
 const SET_ADD_FOLDER_DIALOG_OPEN = 'garchen-panel/main/SET_ADD_FOLDER_DIALOG_OPEN';
 const SET_APP_LOCALE = 'garchen-panel/main/SET_APP_LOCALE';
-const SET_NEW_FOLDER_NAME = 'garchen-panel/main/SET_NEW_FOLDER_NAME';
+
+const SET_TARGET_LANGUAGES = 'garchen-panel/main/SET_TARGET_LANGUAGES';
 
 const initialState = Map({
   appLocale: i18n.getLocale(),
   isDrawerOpen: false,
   isAddFolderDialogOpen: false,
-  newFolderName: ''
+  targetLanguages: []
 });
 
 export default createReducer(initialState, {
@@ -35,8 +36,8 @@ export default createReducer(initialState, {
     return state.set('appLocale', action.appLocale);
   },
 
-  [SET_NEW_FOLDER_NAME]: (state, action) => {
-    return state.set('newFolderName', action.newFolderName);
+  [SET_TARGET_LANGUAGES]: (state, action) => {
+    return state.set('targetLanguages', action.targetLanguages);
   }
 });
 
@@ -67,10 +68,10 @@ export function setAppLocale(appLocale) {
   };
 }
 
-export function setNewFolderName(newFolderName) {
+export function setTargetLanguages(targetLanguages) {
   return {
-    type: SET_NEW_FOLDER_NAME,
-    newFolderName
+    type: SET_TARGET_LANGUAGES,
+    targetLanguages
   };
 }
 

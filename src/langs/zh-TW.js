@@ -1,9 +1,23 @@
 module.exports = {
+  'en': '英文',
+  'zh-TW': '繁體中文',
+  'zh-CN': '簡體中文',
+  'bo': '藏文',
   'garchen': '噶千',
   'settings': '設定',
   'app-language': '應用程式語言',
   'home': '首頁',
   'folders': '資料夾',
   'about': '關於',
-  'login': '登入'
+  'login': '登入',
+  'folder-name': '資料夾名稱',
+  'source-language': '來源語言',
+  'target-language': '目標語言',
+  'target-entry-lang': '詞條 - {lang}',
+  'category': '類別',
+  'sect': '宗派',
+  'explaination-lang': '解釋 - {lang}',
+  'original-lang': '原文 - {lang}',
+  'source-lang': '出處 - {lang}',
+  'content-fields': '內容欄位'
 };

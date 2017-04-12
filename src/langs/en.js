@@ -1,9 +1,23 @@
 module.exports = {
+  'en': 'English',
+  'zh-TW': 'Traditial Chinese',
+  'zh-CN': 'Simplified Chinese',
+  'bo': 'Tibetan',
   'garchen': 'Garchen',
   'settings': 'Settings',
   'app-language': 'App Language',
   'home': 'Home',
   'folders': 'Folders',
   'about': 'About',
-  'login': 'Login'
+  'login': 'Login',
+  'folder-name': 'Folder Name',
+  'source-language': 'Source Language',
+  'target-language': 'Target Language',
+  'target-entry-lang': 'Entry - {lang}',
+  'category': 'Category',
+  'sect': 'Sect',
+  'explaination-lang': 'Explaination - {lang}',
+  'original-lang': 'Original - {lang}',
+  'source-lang': 'Source - {lang}',
+  'content-fields': 'Content Fields'
 };

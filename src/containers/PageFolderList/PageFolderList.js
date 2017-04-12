@@ -39,7 +39,8 @@ export default class PageFolderList extends Component {
     this.refs.addFolderForm.submit();
   };
 
-  handleSubmit = () => {
+  handleSubmit = (data) => {
+    console.log('submitted data', data);
     this.props.setAddFolderDialogOpen(false);
   };
 
