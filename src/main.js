@@ -1,10 +1,13 @@
 import {app, screen, BrowserWindow, ipcMain} from 'electron';
 import path from 'path';
+import Trilogy from 'trilogy';
 
-import {mkdirp, ipcDecorator} from './main/helpers';
-import {APP_DATA_PATH} from './main/constants';
+import mkdirp from './main/helpers/mkdirp';
+import ipcDecorator from './main/helpers/ipcDecorator';
+import APP_DATA_PATH from './main/constants/appDataPath';
 
 import listFolders from './main/controllers/folder/listFolders';
+
 
 let mainWindow = null;
 

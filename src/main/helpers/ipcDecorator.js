@@ -1,4 +1,4 @@
-import {NOOP} from './../constants';
+import NOOP from './../constants/noop';
 
 export default class ipcDecorator {
 

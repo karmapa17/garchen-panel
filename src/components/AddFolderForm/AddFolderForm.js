@@ -3,7 +3,7 @@ import {Field, reduxForm} from 'redux-form';
 import MenuItem from 'material-ui/MenuItem';
 import {injectIntl} from 'react-intl';
 import {connect} from 'react-redux';
-import cloneDeep from 'lodash.clonedeep';
+import {cloneDeep} from 'lodash';
 
 import objToArr from './../../helpers/objToArr';
 import renderTextField from './../../helpers/renderTextField';
