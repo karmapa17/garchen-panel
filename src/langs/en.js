@@ -1,4 +1,6 @@
 module.exports = {
+  'edit': 'Edit',
+  'add-folder': 'Add Folder',
   'en': 'English',
   'zh-TW': 'Traditial Chinese',
   'zh-CN': 'Simplified Chinese',

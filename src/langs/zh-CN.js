@@ -1,4 +1,6 @@
 module.exports = {
+  'edit': '编辑',
+  'add-folder': '新增资料夹',
   'en': '英文',
   'zh-TW': '繁体中文',
   'zh-CN': '简体中文',

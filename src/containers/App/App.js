@@ -15,6 +15,8 @@ import {injectIntl} from 'react-intl';
 
 import {setIntl, setDrawerOpen, toggleDrawerOpen} from './../../redux/modules/main';
 import muiTheme from './../../constants/muiTheme';
+import injectF from './../../helpers/injectF';
+import injectPush from './../../helpers/injectPush';
 
 const styles = require('./App.scss');
 
@@ -26,14 +28,13 @@ injectTapEventPlugin();
   auth: auth.get('auth')
 }), {setDrawerOpen, toggleDrawerOpen, setIntl})
 @injectIntl
+@injectF
+@injectPush
 export default class App extends Component {
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  };
-
   static propTypes = {
-    intl: PropTypes.object.isRequired,
+    f: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired,
     isDrawerOpen: PropTypes.bool.isRequired,
     isLoadingAuth: PropTypes.bool.isRequired,
     login: PropTypes.func,
@@ -46,7 +47,7 @@ export default class App extends Component {
   };
 
   renderIconElementRight() {
-    const {auth, isLoadingAuth, login, logout, intl: {formatMessage}} = this.props;
+    const {auth, isLoadingAuth, login, logout, f} = this.props;
 
     if (isLoadingAuth) {
       return <CircularProgress mode="indeterminate" color="white" style={{marginTop: '16px', marginRight: '12px'}} size={30} />;
@@ -77,7 +78,7 @@ export default class App extends Component {
         </IconMenu>
       );
     }
-    return <FlatButton style={{marginTop: '14px', color: '#fff'}} onClick={login} label={formatMessage({id: 'login'})} />;
+    return <FlatButton style={{marginTop: '14px', color: '#fff'}} onClick={login} label={f('login')} />;
   }
 
   handleDrawerChange = (open) => this.props.setDrawerOpen(open);
@@ -87,30 +88,30 @@ export default class App extends Component {
   handleMenuItemTouchTap = (route) => {
     return () => {
       this.props.setDrawerOpen(false);
-      this.context.router.push(route);
+      this.props.push(route);
     };
   };
 
   render() {
 
-    const {children, isDrawerOpen, intl: {formatMessage}} = this.props;
+    const {children, isDrawerOpen, f} = this.props;
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className={styles.app}>
 
-          <AppBar title={formatMessage({id: 'garchen'})} iconElementRight={this.renderIconElementRight()}
+          <AppBar title={f('garchen')} iconElementRight={this.renderIconElementRight()}
             titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
             onLeftIconButtonTouchTap={this.handleHamburgerTouchTap} onTitleTouchTap={this.handleTitleTouchTap} />
 
           <div className={styles.appContent}>{children}</div>
 
           <Drawer docked={false} open={isDrawerOpen} onRequestChange={this.handleDrawerChange}>
-            <MenuItem primaryText={formatMessage({id: 'folders'})} onTouchTap={this.handleMenuItemTouchTap('/')} />
-            <MenuItem primaryText={formatMessage({id: 'about'})} onTouchTap={this.handleMenuItemTouchTap('/about')} />
+            <MenuItem primaryText={f('folders')} onTouchTap={this.handleMenuItemTouchTap('/')} />
+            <MenuItem primaryText={f('about')} onTouchTap={this.handleMenuItemTouchTap('/about')} />
 
             <hr className="divider" />
-            <MenuItem primaryText={formatMessage({id: 'settings'})} leftIcon={(<SettingsIcon />)} onTouchTap={this.handleMenuItemTouchTap('/settings')} />
+            <MenuItem primaryText={f('settings')} leftIcon={(<SettingsIcon />)} onTouchTap={this.handleMenuItemTouchTap('/settings')} />
           </Drawer>
         </div>
       </MuiThemeProvider>

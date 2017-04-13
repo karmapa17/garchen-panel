@@ -1,4 +1,6 @@
 module.exports = {
+  'edit': '編輯',
+  'add-folder': '新增資料夾',
   'en': '英文',
   'zh-TW': '繁體中文',
   'zh-CN': '簡體中文',

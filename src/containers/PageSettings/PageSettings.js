@@ -7,6 +7,7 @@ import {injectIntl} from 'react-intl';
 
 import APP_LANGS from './../../constants/appLangs';
 import {setIntl} from './../../redux/modules/main';
+import injectF from './../../helpers/injectF';
 
 const styles = require('./PageSettings.scss');
 
@@ -14,10 +15,11 @@ const styles = require('./PageSettings.scss');
   appLocale: main.get('appLocale')
 }), {setIntl})
 @injectIntl
+@injectF
 export default class PageSettings extends Component {
 
   static propTypes = {
-    intl: PropTypes.object.isRequired,
+    f: PropTypes.func.isRequired,
     appLocale: PropTypes.string.isRequired,
     setIntl: PropTypes.func.isRequired
   };
@@ -33,13 +35,13 @@ export default class PageSettings extends Component {
   };
 
   render() {
-    const {appLocale, intl: {formatMessage}} = this.props;
+    const {appLocale, f} = this.props;
     return (
       <div className={styles.pageSettings}>
-        <h1>{formatMessage({id: 'settings'})}</h1>
+        <h1>{f('settings')}</h1>
         <div>
           <LanguageIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-          <SelectField floatingLabelText={formatMessage({id: 'app-language'})} onChange={this.handleLangSelectFieldChange} value={appLocale}>
+          <SelectField floatingLabelText={f('app-language')} onChange={this.handleLangSelectFieldChange} value={appLocale}>
             {this.renderLangMenuItems('site-lang')}
           </SelectField>
         </div>

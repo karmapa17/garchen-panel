@@ -13,6 +13,10 @@ import {setAddFolderDialogOpen} from './../../redux/modules/main';
 import {addFolder, loadFolders, setPageParams} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
+import {injectIntl} from 'react-intl';
+
+import injectF from './../../helpers/injectF';
+import injectPush from './../../helpers/injectPush';
 
 const styles = require('./PageFolders.scss');
 
@@ -27,9 +31,14 @@ const dialogStyle = {
   folderCount: folder.get('folderCount'),
   isAddFolderDialogOpen: main.get('isAddFolderDialogOpen')
 }), {loadFolders, setAddFolderDialogOpen, addFolder, setPageParams})
+@injectIntl
+@injectPush
+@injectF
 export default class PageFolders extends Component {
 
   static propTypes = {
+    push: PropTypes.func.isRequired,
+    f: PropTypes.func.isRequired,
     page: PropTypes.number.isRequired,
     perpage: PropTypes.number.isRequired,
     setPageParams: PropTypes.func.isRequired,
@@ -91,7 +100,7 @@ export default class PageFolders extends Component {
   }
 
   renderFolders() {
-    const {folders} = this.props;
+    const {f, folders} = this.props;
     return folders.map((folder) => {
       const {id, name} = folder;
       return (
@@ -102,26 +111,29 @@ export default class PageFolders extends Component {
             onChange={this.handleEditMenuItemTouchTap}
             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-            <MenuItem primaryText="Edit" value={{type: 'edit', id}} />
-            <MenuItem primaryText="Delete" value={{type: 'delete', id}} />
+            <MenuItem primaryText={f('edit')} value={{type: 'edit', id}} onTouchTap={this.goToEditPage(id)} />
           </IconMenu>
         </Paper>
       );
     });
   }
 
+  goToEditPage = (id) => {
+    return () => this.props.push(`/folders/${id}/edit`);
+  };
+
   handlePageButtonTouchTap = (page) => this.props.setPageParams(page);
 
   render() {
 
-    const {page, perpage, folderCount} = this.props;
+    const {f, page, perpage, folderCount} = this.props;
 
     return (
       <div className={c('page-list', styles.pageFolders)}>
         <div className="topbar">
-          <h2>Folders</h2>
+          <h2>{f('folders')}</h2>
           <FlatButton className="btn-add" icon={<i className="fa fa-plus" />}
-            label="Add Folder" primary onTouchTap={this.openAddFolderDialog} />
+            label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
         </div>
         {this.renderFolders()}
         <Pagination pathname="/" current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />
