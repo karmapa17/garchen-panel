@@ -2,18 +2,18 @@ import FlatButton from 'material-ui/FlatButton';
 import React, {Component, PropTypes} from 'react';
 import {range} from 'ramda';
 
+import injectF from './../../helpers/injectF';
+
 const styles = require('./Pagination.scss');
 
 const MAX_NUM = 10;
 const LIMIT = MAX_NUM / 2;
 
+@injectF
 export default class Pagination extends Component {
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  };
-
   static propTypes = {
+    f: PropTypes.func.isRequired,
     current: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
     onButtonTouchTap: PropTypes.func.isRequired
@@ -59,7 +59,7 @@ export default class Pagination extends Component {
     return range(firstNum, lastNum + 1).map((num) => {
       return (
         <li key={`pager-num-${num}`}>
-          <FlatButton primary={(current === num)} onTouchTap={this.handleTouchTap(num)}>{num}</FlatButton>
+          <FlatButton label={num} primary={(current === num)} onTouchTap={this.handleTouchTap(num)} />
         </li>
       );
     });
@@ -71,16 +71,16 @@ export default class Pagination extends Component {
 
   render() {
 
-    const {current} = this.props;
+    const {current, f} = this.props;
 
     return (
       <ul className={styles.pagination}>
         {this.hasPrev() && <li>
-          <FlatButton onTouchTap={this.handleTouchTap(current - 1)}>Prev</FlatButton>
+          <FlatButton label={f('prev-page')} onTouchTap={this.handleTouchTap(current - 1)} />
         </li>}
         {this.renderPageNums()}
         {this.hasNext() && <li>
-          <FlatButton onTouchTap={this.handleTouchTap(current + 1)}>Next</FlatButton>
+          <FlatButton label={f('next-page')} onTouchTap={this.handleTouchTap(current + 1)} />
         </li>}
       </ul>
     );

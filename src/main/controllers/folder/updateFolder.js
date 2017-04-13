@@ -9,12 +9,15 @@ export default async function updateFolder(event, rawData) {
   delete data.id;
   delete data.folderName;
 
+  const columns = {
+    name: rawData.folderName,
+    fields: data
+  };
+
   try {
-    const folder = await Folder.update({id: rawData.id}, {
-      name: rawData.folderName,
-      fields: data
-    });
-    this.resolve(folder);
+    await Folder.update({id: rawData.id}, columns);
+    columns.id = rawData.id;
+    this.resolve(columns);
   }
   catch (err) {
     log.error(err);

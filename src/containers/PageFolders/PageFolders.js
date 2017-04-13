@@ -50,7 +50,8 @@ export default class PageFolders extends Component {
     folderCount: PropTypes.number.isRequired,
     loadFolders: PropTypes.func.isRequired,
     isAddFolderDialogOpen: PropTypes.bool.isRequired,
-    setAddFolderDialogOpen: PropTypes.func.isRequired
+    setAddFolderDialogOpen: PropTypes.func.isRequired,
+    setSnackBarParams: PropTypes.func.isRequired
   };
 
   componentWillReceiveProps(nextProps) {
@@ -71,15 +72,20 @@ export default class PageFolders extends Component {
     this.refs.addFolderForm.submit();
   };
 
-  handleSubmit = (data) => {
-    const {f, addFolder, setAddFolderDialogOpen, loadFolders, page, perpage} = this.props;
+  handleSubmit = async (data) => {
+    const {f, addFolder, setAddFolderDialogOpen, loadFolders,
+      page, perpage, setSnackBarParams} = this.props;
 
-    addFolder(data)
-      .then(() => loadFolders({page, perpage}))
-      .then(() => {
-        setSnackBarParams(true, f('folder-has-been-created'));
-        setAddFolderDialogOpen(false);
-      });
+    await addFolder(data);
+    await loadFolders({page, perpage});
+
+    try {
+      setSnackBarParams(true, f('folder-has-been-created', {folderName: data.folderName}));
+      setAddFolderDialogOpen(false);
+    }
+    catch (err) {
+      console.log('err??', err);
+    }
   };
 
   renderAddFolderDialog() {

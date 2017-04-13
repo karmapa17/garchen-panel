@@ -1,4 +1,8 @@
 module.exports = {
+  'back': '上一页',
+  'next-page': '下一页',
+  'prev-page': '上一页',
+  'folder-has-been-updated': '已更新资料夹 {folderName}',
   'folder-has-been-created': '已建立资料夹',
   'update': '更新',
   'edit-folder': '编辑资料夹',

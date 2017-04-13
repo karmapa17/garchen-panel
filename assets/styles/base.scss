@@ -39,10 +39,15 @@ h5 {
   background-color: rgb(224, 224, 224);
 }
 
-:global(.page-list) {
-  :global(.topbar) {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 14px;
+:global(.topbar) {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+:global(.page-edit) {
+  :global(.button-wrap) {
+    padding-top: 14px;
+    text-align: right;
   }
 }

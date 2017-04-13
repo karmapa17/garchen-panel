@@ -112,7 +112,7 @@ export default class EditFolderForm extends Component {
           </Field>
         </div>
 
-        <div>
+        <div className="button-wrap">
           <RaisedButton primary type="submit" label={f('update')} />
         </div>
       </form>

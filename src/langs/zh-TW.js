@@ -1,5 +1,9 @@
 module.exports = {
-  'folder-has-been-created': '已建立資料夾',
+  'back': '上一頁',
+  'next-page': '下一頁',
+  'prev-page': '上一頁',
+  'folder-has-been-updated': '已更新資料夾 {folderName}',
+  'folder-has-been-created': '已建立資料夾 {folderName}',
   'update': '更新',
   'edit-folder': '編輯資料夾',
   'edit': '編輯',
