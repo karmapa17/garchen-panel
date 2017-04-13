@@ -11,6 +11,8 @@ import addFolder from './controllers/folder/addFolder';
 
 import initDb from './models';
 
+require('electron-debug')({showDevTools: true});
+
 let mainWindow = null;
 
 app.on('window-all-closed', () => {

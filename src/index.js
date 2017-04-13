@@ -30,7 +30,7 @@ const localeData = i18n.getLocaleData(locale);
 const store = createStoreWithMiddleware(reducer, {intl: {locale, messages: localeData}});
 const history = syncHistoryWithStore(hashHistory, store);
 
-const routes = getRoutes();
+const routes = getRoutes(store);
 
 if (module.hot) {
   module.hot.accept('./redux/modules/reducer', () => {

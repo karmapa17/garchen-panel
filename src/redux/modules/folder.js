@@ -9,22 +9,34 @@ const ADD_FOLDER = 'garchen-panel/folder/ADD_FOLDER';
 const ADD_FOLDER_SUCCESS = 'garchen-panel/folder/ADD_FOLDER_SUCCESS';
 const ADD_FOLDER_FAIL = 'garchen-panel/folder/ADD_FOLDER_FAIL';
 
+const SET_PAGE_PARAMS = 'garchen-panel/folder/SET_PAGE_PARAMS';
+
+const FOLDER_PERPAGE = 20;
 
 const initialState = Map({
-  folders: []
+  page: 1,
+  perpage: FOLDER_PERPAGE,
+  folders: [],
+  folderCount: 0
 });
 
 export default createReducer(initialState, {
 
   [LOAD_FOLDERS_SUCCESS]: (state, action) => {
-    return state.set('folders', action.result);
+    return state.set('folders', action.result.data)
+      .set('folderCount', action.result.total);
+  },
+
+  [SET_PAGE_PARAMS]: (state, action) => {
+    return state.set('page', action.page)
+      .set('perpage', action.perpage);
   }
 });
 
-export function loadFolders() {
+export function loadFolders(data) {
   return {
     types: [LOAD_FOLDERS, LOAD_FOLDERS_SUCCESS, LOAD_FOLDERS_FAIL],
-    promise: (client) => client.send('GET /folders')
+    promise: (client) => client.send('GET /folders', data)
   };
 }
 
@@ -34,5 +46,13 @@ export function addFolder(data) {
     promise: (client) => {
       return client.send('POST /folders', data);
     }
+  };
+}
+
+export function setPageParams(page, perpage = FOLDER_PERPAGE) {
+  return {
+    type: SET_PAGE_PARAMS,
+    page,
+    perpage
   };
 }

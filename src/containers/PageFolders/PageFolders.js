@@ -10,31 +10,51 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 
 import {setAddFolderDialogOpen} from './../../redux/modules/main';
-import {addFolder, loadFolders} from './../../redux/modules/folder';
+import {addFolder, loadFolders, setPageParams} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
+import Pagination from './../../components/Pagination/Pagination';
 
-const styles = require('./PageFolderList.scss');
+const styles = require('./PageFolders.scss');
 
 const dialogStyle = {
   maxHeight: '100%'
 };
 
 @connect(({main, folder}) => ({
+  page: folder.get('page'),
+  perpage: folder.get('perpage'),
   folders: folder.get('folders'),
+  folderCount: folder.get('folderCount'),
   isAddFolderDialogOpen: main.get('isAddFolderDialogOpen')
-}), {loadFolders, setAddFolderDialogOpen, addFolder})
-export default class PageFolderList extends Component {
+}), {loadFolders, setAddFolderDialogOpen, addFolder, setPageParams})
+export default class PageFolders extends Component {
 
   static propTypes = {
+    page: PropTypes.number.isRequired,
+    perpage: PropTypes.number.isRequired,
+    setPageParams: PropTypes.func.isRequired,
+    query: PropTypes.object,
     addFolder: PropTypes.func.isRequired,
     folders: PropTypes.array.isRequired,
+    folderCount: PropTypes.number.isRequired,
     loadFolders: PropTypes.func.isRequired,
     isAddFolderDialogOpen: PropTypes.bool.isRequired,
     setAddFolderDialogOpen: PropTypes.func.isRequired
   };
 
   componentWillMount() {
-    this.props.loadFolders();
+    const {page, perpage} = this.props;
+    this.props.loadFolders({page, perpage});
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {page, perpage, loadFolders} = this.props;
+    if ((page !== nextProps.page) || (perpage !== nextProps.perpage)) {
+      loadFolders({
+        page: nextProps.page,
+        perpage: nextProps.perpage
+      });
+    }
   }
 
   openAddFolderDialog = () => this.props.setAddFolderDialogOpen(true);
@@ -46,8 +66,11 @@ export default class PageFolderList extends Component {
   };
 
   handleSubmit = (data) => {
-    this.props.addFolder(data);
-    this.props.setAddFolderDialogOpen(false);
+    const {addFolder, setAddFolderDialogOpen, loadFolders, page, perpage} = this.props;
+
+    addFolder(data)
+      .then(() => loadFolders({page, perpage}))
+      .then(() => setAddFolderDialogOpen(false));
   };
 
   renderAddFolderDialog() {
@@ -87,16 +110,21 @@ export default class PageFolderList extends Component {
     });
   }
 
+  handlePageButtonTouchTap = (page) => this.props.setPageParams(page);
+
   render() {
 
+    const {page, perpage, folderCount} = this.props;
+
     return (
-      <div className={c('page-list', styles.pageFolderList)}>
+      <div className={c('page-list', styles.pageFolders)}>
         <div className="topbar">
           <h2>Folders</h2>
           <FlatButton className="btn-add" icon={<i className="fa fa-plus" />}
             label="Add Folder" primary onTouchTap={this.openAddFolderDialog} />
         </div>
         {this.renderFolders()}
+        <Pagination pathname="/" current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />
         {this.renderAddFolderDialog()}
       </div>
     );
