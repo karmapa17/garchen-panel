@@ -1,4 +1,5 @@
 import {cloneDeep, noop} from 'lodash';
+import log from 'karmapa-log';
 
 export default class ipcDecorator {
 
@@ -29,7 +30,12 @@ export default class ipcDecorator {
       const data = cloneDeep(args);
       delete data._id;
 
-      fn.call(this, event, data);
+      const promise = fn.call(this, event, data);
+
+      // make the error clearer
+      if (promise && ('function' === typeof promise.catch)) {
+        promise.catch((err) => log.error(`unhandled error in event ${name}:`, err));
+      }
     };
   }
 

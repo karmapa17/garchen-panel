@@ -10,6 +10,7 @@ import getFolder from './controllers/folder/getFolder';
 import updateFolder from './controllers/folder/updateFolder';
 import listFolders from './controllers/folder/listFolders';
 import addFolder from './controllers/folder/addFolder';
+import checkFolderExists from './controllers/folder/checkFolderExists';
 
 import initDb from './models';
 
@@ -41,6 +42,7 @@ async function handleAppReady() {
   const ipc = ipcDecorator.decorate(ipcMain, {models});
 
   ipc.on('GET /folder', getFolder);
+  ipc.on('GET /folder/exists', checkFolderExists);
   ipc.on('PUT /folder', updateFolder);
   ipc.on('GET /folders', listFolders);
   ipc.on('POST /folders', addFolder);

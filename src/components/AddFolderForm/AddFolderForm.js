@@ -1,34 +1,42 @@
 import React, {Component, PropTypes} from 'react';
 import {Field, reduxForm} from 'redux-form';
 import MenuItem from 'material-ui/MenuItem';
-import {injectIntl} from 'react-intl';
 import {connect} from 'react-redux';
 import {cloneDeep} from 'lodash';
 
+import injectF from './../../helpers/injectF';
 import objToArr from './../../helpers/objToArr';
-import renderTextField from './../../helpers/renderTextField';
-import renderSelectField from './../../helpers/renderSelectField';
+import createRenderTextField from './../../helpers/createRenderTextField';
+import createRenderSelectField from './../../helpers/createRenderSelectField';
 import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
 import {setTargetLanguages} from './../../redux/modules/main';
 import validate from './addFolderFormValidate';
+import asyncValidate from './addFolderFormAsyncValidate';
 
 @reduxForm({
   form: 'addFolderForm',
+  asyncValidate,
   validate
 })
 @connect(({main}) => ({
   targetLanguages: main.get('targetLanguages')
 }), {setTargetLanguages})
-@injectIntl
+@injectF
 export default class AddFolderForm extends Component {
 
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     setTargetLanguages: PropTypes.func,
     targetLanguages: PropTypes.array,
-    intl: PropTypes.object.isRequired,
+    f: PropTypes.func.isRequired,
     values: PropTypes.object
   };
+
+  constructor(props) {
+    super(props);
+    this.renderTextField = createRenderTextField(props.f);
+    this.renderSelectField = createRenderSelectField(props.f);
+  }
 
   componentWillMount() {
     this.props.setTargetLanguages([]);
@@ -42,7 +50,7 @@ export default class AddFolderForm extends Component {
 
   renderContentFields = () => {
 
-    const {intl: {formatMessage}, targetLanguages} = this.props;
+    const {f, targetLanguages} = this.props;
 
     const DEFAULT_CONTENT_FILEDS = [
       {textId: 'category', value: 'category'},
@@ -53,13 +61,13 @@ export default class AddFolderForm extends Component {
 
     ['target-entry-lang', 'explaination-lang', 'original-lang', 'source-lang'].forEach((textId) => {
       (targetLanguages || []).forEach((lang) => {
-        fields.push({textId, params: {lang: formatMessage({id: lang})}, value: `${textId}-${lang}`});
+        fields.push({textId, params: {lang: f(lang)}, value: `${textId}-${lang}`});
       });
     });
 
     return fields.concat(DEFAULT_CONTENT_FILEDS)
       .map(({value, textId, params}) => {
-        return <MenuItem key={`content-field-${value}`} value={value} primaryText={formatMessage({id: textId}, params)} />;
+        return <MenuItem key={`content-field-${value}`} value={value} primaryText={f(textId, params)} />;
       });
   };
 
@@ -71,29 +79,29 @@ export default class AddFolderForm extends Component {
 
   render() {
 
-    const {handleSubmit, intl: {formatMessage}} = this.props;
+    const {handleSubmit, f} = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
 
         <div>
-          <Field name="folderName" component={renderTextField} label={formatMessage({id: 'folder-name'})} autoFocus />
+          <Field name="folderName" component={this.renderTextField} label={f('folder-name')} autoFocus />
         </div>
 
         <div>
-          <Field name="sourceLanguage" component={renderSelectField} label={formatMessage({id: 'source-language'})}>
+          <Field name="sourceLanguage" component={this.renderSelectField} label={f('source-language')}>
             {this.renderLangMenuItems('source-lang')}
           </Field>
         </div>
 
         <div>
-          <Field name="targetLanguages" component={renderSelectField} onChange={this.handleTargetLanguagesChange} label={formatMessage({id: 'target-language'})} multiple>
+          <Field name="targetLanguages" component={this.renderSelectField} onChange={this.handleTargetLanguagesChange} label={f('target-language')} multiple>
             {this.renderLangMenuItems('target-lang')}
           </Field>
         </div>
 
         <div>
-          <Field name="contentFields" component={renderSelectField} label={formatMessage({id: 'content-fields'})} multiple fullWidth>
+          <Field name="contentFields" component={this.renderSelectField} label={f('content-fields')} multiple fullWidth>
             {this.renderContentFields()}
           </Field>
         </div>

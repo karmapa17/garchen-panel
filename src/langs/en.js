@@ -1,4 +1,9 @@
 module.exports = {
+  'field-source-language-required': 'Field source language is required.',
+  'choose-at-least-one-target-language': 'Please choose at least one target language.',
+  'choose-at-least-one-content-field': 'Please choose at least one content field.',
+  'folder-name-taken': 'Folder name {folderName} exists',
+  'folder-name-required': 'Field folder name is required.',
   'back': 'Back',
   'next-page': 'Next',
   'prev-page': 'Prev',

@@ -1,4 +1,9 @@
 module.exports = {
+  'field-source-language-required': '必須填寫來源語言',
+  'choose-at-least-one-target-language': '請至少選擇一個目標語言',
+  'choose-at-least-one-content-field': '請至少選擇一個內容欄位',
+  'folder-name-taken': '資料夾名稱 {folderName} 已經存在',
+  'folder-name-required': '必須填寫資料夾名稱',
   'back': '上一頁',
   'next-page': '下一頁',
   'prev-page': '上一頁',

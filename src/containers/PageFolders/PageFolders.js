@@ -79,13 +79,8 @@ export default class PageFolders extends Component {
     await addFolder(data);
     await loadFolders({page, perpage});
 
-    try {
-      setSnackBarParams(true, f('folder-has-been-created', {folderName: data.folderName}));
-      setAddFolderDialogOpen(false);
-    }
-    catch (err) {
-      console.log('err??', err);
-    }
+    setSnackBarParams(true, f('folder-has-been-created', {folderName: data.folderName}));
+    setAddFolderDialogOpen(false);
   };
 
   renderAddFolderDialog() {
@@ -138,11 +133,11 @@ export default class PageFolders extends Component {
       <div className={c('page-list', styles.pageFolders)}>
         <div className="topbar">
           <h2>{f('folders')}</h2>
-          <FlatButton className="btn-add" icon={<i className="fa fa-plus" />}
+          <FlatButton icon={<i className="fa fa-plus" />}
             label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
         </div>
         {this.renderFolders()}
-        <Pagination pathname="/" current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />
+        {(folderCount > perpage) && <Pagination pathname="/" current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />}
         {this.renderAddFolderDialog()}
       </div>
     );

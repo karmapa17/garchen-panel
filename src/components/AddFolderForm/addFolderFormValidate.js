@@ -5,15 +5,15 @@ export default function addFolderFormValidate(values) {
   const errors = {};
 
   if (! values.sourceLanguage) {
-    errors.sourceLanguage = 'Field source language is required.';
+    errors.sourceLanguage = {id: 'field-source-language-required'};
   }
 
   if (isEmpty(values.targetLanguages)) {
-    errors.targetLanguages = 'Please choose at least one target language.';
+    errors.targetLanguages = {id: 'choose-at-least-one-target-language'};
   }
 
   if (isEmpty(values.contentFields)) {
-    errors.contentFields = 'Please choose at least one content field.';
+    errors.contentFields = {id: 'choose-at-least-one-content-field'};
   }
 
   return errors;
