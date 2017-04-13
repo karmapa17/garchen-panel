@@ -17,7 +17,7 @@ NODE_ENV=production webpack
 sed -i '' -e 's/http:\/\/localhost:3000\///g' dist/index.html
 mv dist/index.html dist/bundle.js dist/src/
 cp -r assets/images/*.ico assets/images/*.icns .babelrc package.json index.js dist/
-cp -r src/main.js src/main dist/src
+cp -r src/main dist/src
 
 cd dist;
 npm install --production > /dev/null;

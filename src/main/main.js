@@ -2,14 +2,14 @@ import {app, screen, BrowserWindow, ipcMain} from 'electron';
 import path from 'path';
 import Trilogy from 'trilogy';
 
-import mkdirp from './main/helpers/mkdirp';
-import ipcDecorator from './main/helpers/ipcDecorator';
-import APP_DATA_PATH from './main/constants/appDataPath';
+import mkdirp from './helpers/mkdirp';
+import ipcDecorator from './helpers/ipcDecorator';
+import APP_DATA_PATH from './constants/appDataPath';
 
-import listFolders from './main/controllers/folder/listFolders';
-import addFolder from './main/controllers/folder/addFolder';
+import listFolders from './controllers/folder/listFolders';
+import addFolder from './controllers/folder/addFolder';
 
-import initDb from './main/models';
+import initDb from './models';
 
 let mainWindow = null;
 
@@ -31,7 +31,7 @@ async function handleAppReady() {
     mainWindow = null;
   });
 
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/../index.html');
 
   const {models} = await initDb();
   const ipc = ipcDecorator.decorate(ipcMain, {models});
