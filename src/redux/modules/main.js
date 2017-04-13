@@ -11,9 +11,13 @@ const SET_APP_LOCALE = 'garchen-panel/main/SET_APP_LOCALE';
 
 const SET_TARGET_LANGUAGES = 'garchen-panel/main/SET_TARGET_LANGUAGES';
 
+const SET_SNACK_BAR_PARAMS = 'garchen-panel/main/SET_SNACK_BAR_PARAMS';
+
 const initialState = Map({
   appLocale: i18n.getLocale(),
   isDrawerOpen: false,
+  snackBarMessage: '',
+  isSnackBarOpen: false,
   isAddFolderDialogOpen: false,
   targetLanguages: []
 });
@@ -38,6 +42,11 @@ export default createReducer(initialState, {
 
   [SET_TARGET_LANGUAGES]: (state, action) => {
     return state.set('targetLanguages', action.targetLanguages);
+  },
+
+  [SET_SNACK_BAR_PARAMS]: (state, action) => {
+    return state.set('isSnackBarOpen', action.isSnackBarOpen)
+      .set('snackBarMessage', action.snackBarMessage);
   }
 });
 
@@ -51,6 +60,14 @@ export function setDrawerOpen(isDrawerOpen) {
   return {
     type: SET_DRAWER_OPEN,
     isDrawerOpen
+  };
+}
+
+export function setSnackBarParams(isSnackBarOpen, snackBarMessage = '') {
+  return {
+    type: SET_SNACK_BAR_PARAMS,
+    isSnackBarOpen,
+    snackBarMessage
   };
 }
 

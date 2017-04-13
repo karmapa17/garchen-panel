@@ -1,4 +1,7 @@
 module.exports = {
+  'folder-has-been-created': 'Folder has been created.',
+  'update': 'Update',
+  'edit-folder': 'Edit Folder',
   'edit': 'Edit',
   'add-folder': 'Add Folder',
   'en': 'English',

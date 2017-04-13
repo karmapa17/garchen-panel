@@ -11,9 +11,9 @@ import MenuItem from 'material-ui/MenuItem';
 import Drawer from 'material-ui/Drawer';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import {injectIntl} from 'react-intl';
+import Snackbar from 'material-ui/Snackbar';
 
-import {setIntl, setDrawerOpen, toggleDrawerOpen} from './../../redux/modules/main';
+import {setIntl, setDrawerOpen, toggleDrawerOpen, setSnackBarParams} from './../../redux/modules/main';
 import muiTheme from './../../constants/muiTheme';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
@@ -25,9 +25,10 @@ injectTapEventPlugin();
 @connect(({auth, main}) => ({
   isDrawerOpen: main.get('isDrawerOpen'),
   isLoadingAuth: auth.get('isLoadingAuth'),
+  snackBarMessage: main.get('snackBarMessage'),
+  isSnackBarOpen: main.get('isSnackBarOpen'),
   auth: auth.get('auth')
-}), {setDrawerOpen, toggleDrawerOpen, setIntl})
-@injectIntl
+}), {setDrawerOpen, toggleDrawerOpen, setIntl, setSnackBarParams})
 @injectF
 @injectPush
 export default class App extends Component {
@@ -37,6 +38,9 @@ export default class App extends Component {
     push: PropTypes.func.isRequired,
     isDrawerOpen: PropTypes.bool.isRequired,
     isLoadingAuth: PropTypes.bool.isRequired,
+    snackBarMessage: PropTypes.string.isRequired,
+    isSnackBarOpen: PropTypes.bool.isRequired,
+    setSnackBarParams: PropTypes.func.isRequired,
     login: PropTypes.func,
     logout: PropTypes.func,
     auth: PropTypes.object,
@@ -92,9 +96,11 @@ export default class App extends Component {
     };
   };
 
+  handleSnackBarRequestClose = () => this.props.setSnackBarParams(false);
+
   render() {
 
-    const {children, isDrawerOpen, f} = this.props;
+    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage} = this.props;
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -113,6 +119,7 @@ export default class App extends Component {
             <hr className="divider" />
             <MenuItem primaryText={f('settings')} leftIcon={(<SettingsIcon />)} onTouchTap={this.handleMenuItemTouchTap('/settings')} />
           </Drawer>
+          <Snackbar open={isSnackBarOpen} message={snackBarMessage} autoHideDuration={4000} onRequestClose={this.handleSnackBarRequestClose} />
         </div>
       </MuiThemeProvider>
     );

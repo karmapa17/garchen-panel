@@ -6,6 +6,7 @@ import PageAbout from './containers/PageAbout/PageAbout';
 import PageFolders from './containers/PageFolders/PageFolders';
 import PageSettings from './containers/PageSettings/PageSettings';
 import PageNotFound from './containers/PageNotFound/PageNotFound';
+import PageEditFolder from './containers/PageEditFolder/PageEditFolder';
 
 export default () => {
 
@@ -13,6 +14,7 @@ export default () => {
     <Route path="/" component={App}>
 
       <IndexRoute component={PageFolders} />
+      <Route path="folders/:id/edit" component={PageEditFolder} />
       <Route path="about" component={PageAbout} />
       <Route path="settings" component={PageSettings} />
       <Route path="*" component={PageNotFound} status={404} />

@@ -9,14 +9,14 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 
-import {setAddFolderDialogOpen} from './../../redux/modules/main';
+import {setAddFolderDialogOpen, setSnackBarParams} from './../../redux/modules/main';
 import {addFolder, loadFolders, setPageParams} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
-import {injectIntl} from 'react-intl';
 
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
+import resolve from './../../helpers/resolve';
 
 const styles = require('./PageFolders.scss');
 
@@ -30,10 +30,12 @@ const dialogStyle = {
   folders: folder.get('folders'),
   folderCount: folder.get('folderCount'),
   isAddFolderDialogOpen: main.get('isAddFolderDialogOpen')
-}), {loadFolders, setAddFolderDialogOpen, addFolder, setPageParams})
-@injectIntl
+}), {loadFolders, setAddFolderDialogOpen, addFolder, setPageParams, setSnackBarParams})
 @injectPush
 @injectF
+@resolve(({dispatch}, {page, perpage}) => {
+  return dispatch(loadFolders({page, perpage}));
+})
 export default class PageFolders extends Component {
 
   static propTypes = {
@@ -50,11 +52,6 @@ export default class PageFolders extends Component {
     isAddFolderDialogOpen: PropTypes.bool.isRequired,
     setAddFolderDialogOpen: PropTypes.func.isRequired
   };
-
-  componentWillMount() {
-    const {page, perpage} = this.props;
-    this.props.loadFolders({page, perpage});
-  }
 
   componentWillReceiveProps(nextProps) {
     const {page, perpage, loadFolders} = this.props;
@@ -75,11 +72,14 @@ export default class PageFolders extends Component {
   };
 
   handleSubmit = (data) => {
-    const {addFolder, setAddFolderDialogOpen, loadFolders, page, perpage} = this.props;
+    const {f, addFolder, setAddFolderDialogOpen, loadFolders, page, perpage} = this.props;
 
     addFolder(data)
       .then(() => loadFolders({page, perpage}))
-      .then(() => setAddFolderDialogOpen(false));
+      .then(() => {
+        setSnackBarParams(true, f('folder-has-been-created'));
+        setAddFolderDialogOpen(false);
+      });
   };
 
   renderAddFolderDialog() {

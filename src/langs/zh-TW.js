@@ -1,4 +1,7 @@
 module.exports = {
+  'folder-has-been-created': '已建立資料夾',
+  'update': '更新',
+  'edit-folder': '編輯資料夾',
   'edit': '編輯',
   'add-folder': '新增資料夾',
   'en': '英文',
