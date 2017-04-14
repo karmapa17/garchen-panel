@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
 import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
-import {loadFolder, updateFolder} from './../../redux/modules/folder';
+import {loadFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
 import {setSnackBarParams} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
@@ -15,7 +15,7 @@ const styles = require('./PageEditFolder.scss');
 
 @connect(({folder}) => ({
   folder: folder.get('folder'),
-}), {loadFolder, updateFolder, setSnackBarParams})
+}), {loadFolder, updateFolder, setSnackBarParams, deleteFolder})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
@@ -28,6 +28,7 @@ export default class PageEditFolder extends Component {
     folder: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
     loadFolder: PropTypes.func.isRequired,
+    deleteFolder: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,
     updateFolder: PropTypes.func.isRequired
@@ -41,8 +42,11 @@ export default class PageEditFolder extends Component {
     push('/');
   };
 
-  handleDeleteFolderFormSubmit = async (data) => {
-    console.log('!!!', data);
+  handleDeleteFolderFormSubmit = async () => {
+    const {f, deleteFolder, folder, push, setSnackBarParams} = this.props;
+    await deleteFolder({id: folder.id});
+    setSnackBarParams(true, f('folder-has-been-deleted', {folderName: folder.name}));
+    push('/');
   };
 
   goToFoldersPage = () => this.props.push('/');

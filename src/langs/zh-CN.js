@@ -1,4 +1,5 @@
 module.exports = {
+  'folder-has-been-deleted': '已删除资料夹 {folderName}',
   'please-input-exact-the-same-folder-name': '请输入{folderName}',
   'delete': '删除',
   'delete-folder-instruction': '输入 {folderName} 删除这个资料夹, 被删除的资料将没办法复原',

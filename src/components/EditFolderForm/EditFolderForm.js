@@ -42,6 +42,7 @@ export default class EditFolderForm extends Component {
     setTargetLanguages: PropTypes.func,
     initialValues: PropTypes.object.isRequired,
     targetLanguages: PropTypes.array,
+    invalid: PropTypes.bool.isRequired,
     f: PropTypes.func.isRequired,
     values: PropTypes.object
   };
@@ -94,7 +95,7 @@ export default class EditFolderForm extends Component {
 
   render() {
 
-    const {handleSubmit, f} = this.props;
+    const {handleSubmit, f, invalid} = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
@@ -122,7 +123,7 @@ export default class EditFolderForm extends Component {
         </div>
 
         <div className="button-wrap">
-          <RaisedButton primary type="submit" label={f('update')} />
+          <RaisedButton disabled={invalid} primary type="submit" label={f('update')} />
         </div>
       </form>
     );

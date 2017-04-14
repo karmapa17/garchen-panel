@@ -11,6 +11,7 @@ import updateFolder from './controllers/folder/updateFolder';
 import listFolders from './controllers/folder/listFolders';
 import listFolderEntries from './controllers/folderEntry/listFolderEntries';
 import addFolder from './controllers/folder/addFolder';
+import deleteFolder from './controllers/folder/deleteFolder';
 import checkFolderExists from './controllers/folder/checkFolderExists';
 
 import initDb from './models';
@@ -46,6 +47,8 @@ async function handleAppReady() {
   ipc.on('GET /folder/exists', checkFolderExists);
   ipc.on('GET /folder/entries', listFolderEntries);
   ipc.on('PUT /folder', updateFolder);
+  ipc.on('DELETE /folder', deleteFolder);
+
   ipc.on('GET /folders', listFolders);
   ipc.on('POST /folders', addFolder);
 }

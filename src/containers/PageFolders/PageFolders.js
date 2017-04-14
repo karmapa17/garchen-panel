@@ -20,10 +20,6 @@ import resolve from './../../helpers/resolve';
 
 const styles = require('./PageFolders.scss');
 
-const dialogStyle = {
-  maxHeight: '100%'
-};
-
 @connect(({main, folder}) => ({
   page: folder.get('page'),
   perpage: folder.get('perpage'),
@@ -65,10 +61,14 @@ export default class PageFolders extends Component {
 
   openAddFolderDialog = () => this.props.setAddFolderDialogOpen(true);
 
-  handleAddFolderDialogClose = () => this.props.setAddFolderDialogOpen(false);
+  handleAddFolderDialogClose = (event) => {
 
-  handleAddFolderSubmitButtonTouchTap = () => {
-    this.refs.addFolderForm.submit();
+    // removing this code will cause cancel to be clicked twice to hide the dialog
+    // bebause of first input's autoFucus behavior
+    if (event.nativeEvent) {
+      event.nativeEvent.stopImmediatePropagation();
+    }
+    this.props.setAddFolderDialogOpen(false);
   };
 
   handleSubmit = async (data) => {
@@ -86,15 +86,12 @@ export default class PageFolders extends Component {
 
     const {isAddFolderDialogOpen} = this.props;
 
-    const actions = [
-      <FlatButton label="Cancel" onTouchTap={this.handleAddFolderDialogClose} />,
-      <FlatButton label="Submit" primary onTouchTap={this.handleAddFolderSubmitButtonTouchTap} />,
-    ];
     return (
-      <Dialog title="Add a folder" actions={actions} open={isAddFolderDialogOpen}
-        contentStyle={dialogStyle}
+      <Dialog title="Add a folder" open={isAddFolderDialogOpen}
+        bodyStyle={{paddingLeft: '8px', paddingRight: '8px', paddingBottom: '8px'}}
         onRequestClose={this.handleAddFolderDialogClose}>
-        <AddFolderForm ref="addFolderForm" onSubmit={this.handleSubmit} />
+        <AddFolderForm ref="addFolderForm" onSubmit={this.handleSubmit}
+          onCancelButtonClick={this.handleAddFolderDialogClose} />
       </Dialog>
     );
   }

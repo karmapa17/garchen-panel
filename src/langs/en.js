@@ -1,4 +1,5 @@
 module.exports = {
+  'folder-has-been-deleted': 'Folder {folderName} has been deleted.',
   'please-input-exact-the-same-folder-name': 'Please input {folderName}',
   'delete': 'delete',
   'delete-folder-instruction': 'Input {folderName} to delete this folder, once you delete a repository, there is no going back. Please be certain.',

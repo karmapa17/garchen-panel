@@ -5,7 +5,7 @@ const LOAD_ENTRIES = 'garchen-panel/entry/LOAD_ENTRIES';
 const LOAD_ENTRIES_SUCCESS = 'garchen-panel/entry/LOAD_ENTRIES_SUCCESS';
 const LOAD_ENTRIES_FAIL = 'garchen-panel/entry/LOAD_ENTRIES_FAIL';
 
-const ENTRIE_PERPAGE = 20;
+// const ENTRIE_PERPAGE = 20;
 
 const initialState = Map({
   folderEntries: [],

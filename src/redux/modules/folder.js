@@ -23,6 +23,10 @@ const CHECK_FOLDER_EXISTS_FOLDER = 'garchen-panel/folder/CHECK_FOLDER_EXISTS_FOL
 const CHECK_FOLDER_EXISTS_FOLDER_SUCCESS = 'garchen-panel/folder/CHECK_FOLDER_EXISTS_FOLDER_SUCCESS';
 const CHECK_FOLDER_EXISTS_FOLDER_FAIL = 'garchen-panel/folder/CHECK_FOLDER_EXISTS_FOLDER_FAIL';
 
+const DELETE_FOLDER = 'garchen-panel/folder/DELETE_FOLDER';
+const DELETE_FOLDER_SUCCESS = 'garchen-panel/folder/DELETE_FOLDER_SUCCESS';
+const DELETE_FOLDER_FAIL = 'garchen-panel/folder/DELETE_FOLDER_FAIL';
+
 const FOLDER_PERPAGE = 20;
 
 const initialState = Map({
@@ -78,6 +82,15 @@ export function updateFolder(data) {
     types: [UPDATE_FOLDER, UPDATE_FOLDER_SUCCESS, UPDATE_FOLDER_FAIL],
     promise: (client) => {
       return client.send('PUT /folder', data);
+    }
+  };
+}
+
+export function deleteFolder(data) {
+  return {
+    types: [DELETE_FOLDER, DELETE_FOLDER_SUCCESS, DELETE_FOLDER_FAIL],
+    promise: (client) => {
+      return client.send('DELETE /folder', data);
     }
   };
 }

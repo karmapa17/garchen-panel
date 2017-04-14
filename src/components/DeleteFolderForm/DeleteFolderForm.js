@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {Field, reduxForm} from 'redux-form';
-import MenuItem from 'material-ui/MenuItem';
 import {connect} from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import WarningIcon from 'material-ui/svg-icons/alert/warning';
@@ -43,15 +42,12 @@ export default class DeleteFolderForm extends Component {
       formProps.className = className;
     }
 
-    console.log('here', invalid);
-
     return (
       <form {...formProps} onSubmit={handleSubmit}>
         <p><WarningIcon style={{verticalAlign: 'middle', marginRight: '7px'}} />{f('delete-folder-instruction', {folderName: folder.name})}</p>
         <div>
           <input name="targetFolderName" type="hidden" />
-          <Field name="folderName" component={renderTextField} label={f('folder-name')} />
-          <RaisedButton disabled={invalid} primary type="submit" label={f('delete')} style={{verticalAlign: 'top', marginTop: '30px'}} />
+          <Field name="folderName" component={renderTextField} label={f('folder-name')} /><RaisedButton disabled={invalid} primary type="submit" label={f('delete')} style={{verticalAlign: 'top', marginTop: '28px'}} />
         </div>
       </form>
     );

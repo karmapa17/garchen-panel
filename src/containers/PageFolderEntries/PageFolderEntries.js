@@ -40,7 +40,7 @@ export default class PageFolderEntries extends Component {
   };
 
   renderFolderEntries() {
-    const {f, folderEntries} = this.props;
+    const {folderEntries} = this.props;
     return folderEntries.map((entry) => {
       return (<div key={entry.id}>{entry.entry}</div>);
     });
