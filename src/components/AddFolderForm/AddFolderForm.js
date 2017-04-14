@@ -6,9 +6,8 @@ import {cloneDeep} from 'lodash';
 import FlatButton from 'material-ui/FlatButton';
 
 import injectF from './../../helpers/injectF';
+import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import objToArr from './../../helpers/objToArr';
-import createRenderTextField from './../../helpers/createRenderTextField';
-import createRenderSelectField from './../../helpers/createRenderSelectField';
 import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
 import {setTargetLanguages} from './../../redux/modules/main';
 import validate from './addFolderFormValidate';
@@ -25,9 +24,12 @@ const styles = require('./AddFolderForm.scss');
   targetLanguages: main.get('targetLanguages')
 }), {setTargetLanguages})
 @injectF
+@injectMuiReduxFormHelper
 export default class AddFolderForm extends Component {
 
   static propTypes = {
+    renderTextField: PropTypes.func.isRequired,
+    renderSelectField: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     invalid: PropTypes.bool.isRequired,
     setTargetLanguages: PropTypes.func,
@@ -36,12 +38,6 @@ export default class AddFolderForm extends Component {
     onCancelButtonClick: PropTypes.func.isRequired,
     values: PropTypes.object
   };
-
-  constructor(props) {
-    super(props);
-    this.renderTextField = createRenderTextField(props.f);
-    this.renderSelectField = createRenderSelectField(props.f);
-  }
 
   componentWillMount() {
     this.props.setTargetLanguages([]);
@@ -84,30 +80,30 @@ export default class AddFolderForm extends Component {
 
   render() {
 
-    const {handleSubmit, f, onCancelButtonClick, invalid} = this.props;
+    const {handleSubmit, f, onCancelButtonClick, invalid, renderTextField, renderSelectField} = this.props;
 
     return (
       <form className={styles.addFolderForm} onSubmit={handleSubmit}>
 
         <div className={styles.formBody}>
           <div>
-            <Field name="folderName" component={this.renderTextField} label={f('folder-name')} autoFocus />
+            <Field name="folderName" component={renderTextField} label={f('folder-name')} autoFocus />
           </div>
 
           <div>
-            <Field name="sourceLanguage" component={this.renderSelectField} label={f('source-language')}>
+            <Field name="sourceLanguage" component={renderSelectField} label={f('source-language')}>
               {this.renderLangMenuItems('source-lang')}
             </Field>
           </div>
 
           <div>
-            <Field name="targetLanguages" component={this.renderSelectField} onChange={this.handleTargetLanguagesChange} label={f('target-language')} multiple>
+            <Field name="targetLanguages" component={renderSelectField} onChange={this.handleTargetLanguagesChange} label={f('target-language')} multiple>
               {this.renderLangMenuItems('target-lang')}
             </Field>
           </div>
 
           <div>
-            <Field name="contentFields" component={this.renderSelectField} label={f('content-fields')} multiple fullWidth>
+            <Field name="contentFields" component={renderSelectField} label={f('content-fields')} multiple fullWidth>
               {this.renderContentFields()}
             </Field>
           </div>

@@ -5,7 +5,10 @@
     padding-right: 16px;
   }
 
-  .formFooter {
-    text-align: right;
+  .submitButton {
+    display: block;
+    position: fixed;
+    bottom: 14px;
+    right: 14px;
   }
 }

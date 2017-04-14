@@ -1,4 +1,4 @@
-export default function addFolderEntryFormValidate(values) {
+export default function addFolderEntryFormValidate() {
   const errors = {};
   return errors;
 }
