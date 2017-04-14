@@ -17,6 +17,7 @@ export default function resolve(func) {
       };
 
       componentWillMount() {
+
         func(this.context.store, this.props)
           .then(() => {
             this.setState({isResolved: true});

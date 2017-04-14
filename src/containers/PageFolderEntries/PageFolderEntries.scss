@@ -1,0 +1,22 @@
+.pageFolders {
+  .folder {
+    position: relative;
+    width: 240px;
+    height: 120px;
+    display: inline-block;
+    margin: 0 7px 14px;
+    padding: 14px;
+
+    .folderName {
+      cursor: pointer;
+      &:hover, &:active {
+        text-decoration: underline;
+      }
+    }
+    .folderIconMenu {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}

@@ -44,7 +44,6 @@ export default class PageFolders extends Component {
     page: PropTypes.number.isRequired,
     perpage: PropTypes.number.isRequired,
     setPageParams: PropTypes.func.isRequired,
-    query: PropTypes.object,
     addFolder: PropTypes.func.isRequired,
     folders: PropTypes.array.isRequired,
     folderCount: PropTypes.number.isRequired,
@@ -68,7 +67,7 @@ export default class PageFolders extends Component {
 
   handleAddFolderDialogClose = () => this.props.setAddFolderDialogOpen(false);
 
-  handleSubmitButtonTouchTap = () => {
+  handleAddFolderSubmitButtonTouchTap = () => {
     this.refs.addFolderForm.submit();
   };
 
@@ -89,7 +88,7 @@ export default class PageFolders extends Component {
 
     const actions = [
       <FlatButton label="Cancel" onTouchTap={this.handleAddFolderDialogClose} />,
-      <FlatButton label="Submit" primary onTouchTap={this.handleSubmitButtonTouchTap} />,
+      <FlatButton label="Submit" primary onTouchTap={this.handleAddFolderSubmitButtonTouchTap} />,
     ];
     return (
       <Dialog title="Add a folder" actions={actions} open={isAddFolderDialogOpen}
@@ -100,28 +99,37 @@ export default class PageFolders extends Component {
     );
   }
 
+  handleFolderAnchorTouchTap = (folderId) => {
+    return () => this.props.push(`/folders/${folderId}/entries`);
+  };
+
+  handleFolderMenuItemTouchTap = (event, value) => {
+    const {type, id} = value;
+    switch (type) {
+      case 'edit':
+        return this.props.push(`/folders/${id}/edit`);
+      default:
+    }
+  };
+
   renderFolders() {
     const {f, folders} = this.props;
     return folders.map((folder) => {
       const {id, name} = folder;
       return (
         <Paper className={styles.folder} key={`paper-${id}`}>
-          <a className={styles.folderName}>{name}</a>
+          <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            onChange={this.handleEditMenuItemTouchTap}
+            onChange={this.handleFolderMenuItemTouchTap}
             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-            <MenuItem primaryText={f('edit')} value={{type: 'edit', id}} onTouchTap={this.goToEditPage(id)} />
+            <MenuItem primaryText={f('edit')} value={{type: 'edit', id}} />
           </IconMenu>
         </Paper>
       );
     });
   }
-
-  goToEditPage = (id) => {
-    return () => this.props.push(`/folders/${id}/edit`);
-  };
 
   handlePageButtonTouchTap = (page) => this.props.setPageParams(page);
 

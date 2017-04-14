@@ -4,6 +4,7 @@ import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
+import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
 import {loadFolder, updateFolder} from './../../redux/modules/folder';
 import {setSnackBarParams} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
@@ -32,7 +33,7 @@ export default class PageEditFolder extends Component {
     updateFolder: PropTypes.func.isRequired
   };
 
-  handleSubmit = async (data) => {
+  handleEditFolderFormSubmit = async (data) => {
     const {f, params, updateFolder, push, setSnackBarParams} = this.props;
     data.id = params.id;
     const folder = await updateFolder(data);
@@ -40,11 +41,15 @@ export default class PageEditFolder extends Component {
     push('/');
   };
 
+  handleDeleteFolderFormSubmit = async (data) => {
+    console.log('!!!', data);
+  };
+
   goToFoldersPage = () => this.props.push('/');
 
   render() {
 
-    const {f} = this.props;
+    const {f, folder} = this.props;
 
     return (
       <div className={c('page-edit', styles.pageEditFolder)}>
@@ -53,7 +58,8 @@ export default class PageEditFolder extends Component {
           <FlatButton icon={<i className="fa fa-arrow-left" />}
             label={f('back')} primary onTouchTap={this.goToFoldersPage} />
         </div>
-        <EditFolderForm onSubmit={this.handleSubmit} />
+        <EditFolderForm onSubmit={this.handleEditFolderFormSubmit} />
+        <DeleteFolderForm className={styles.deleteFolderForm} onSubmit={this.handleDeleteFolderFormSubmit} folder={folder} />
       </div>
     );
   }

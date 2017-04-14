@@ -9,6 +9,7 @@ import APP_DATA_PATH from './constants/appDataPath';
 import getFolder from './controllers/folder/getFolder';
 import updateFolder from './controllers/folder/updateFolder';
 import listFolders from './controllers/folder/listFolders';
+import listFolderEntries from './controllers/folderEntry/listFolderEntries';
 import addFolder from './controllers/folder/addFolder';
 import checkFolderExists from './controllers/folder/checkFolderExists';
 
@@ -43,6 +44,7 @@ async function handleAppReady() {
 
   ipc.on('GET /folder', getFolder);
   ipc.on('GET /folder/exists', checkFolderExists);
+  ipc.on('GET /folder/entries', listFolderEntries);
   ipc.on('PUT /folder', updateFolder);
   ipc.on('GET /folders', listFolders);
   ipc.on('POST /folders', addFolder);

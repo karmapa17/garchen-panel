@@ -1,4 +1,9 @@
 module.exports = {
+  'please-input-exact-the-same-folder-name': '請輸入{folderName}',
+  'delete': '刪除',
+  'delete-folder-instruction': '輸入 {folderName} 刪除這個資料夾, 被刪除的資料將沒辦法復原',
+  'add-entry': '新增詞條',
+  'folder-entries': '資料夾 {folderName} 的詞條',
   'field-source-language-required': '必須填寫來源語言',
   'choose-at-least-one-target-language': '請至少選擇一個目標語言',
   'choose-at-least-one-content-field': '請至少選擇一個內容欄位',

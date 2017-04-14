@@ -34,7 +34,11 @@ export default class ipcDecorator {
 
       // make the error clearer
       if (promise && ('function' === typeof promise.catch)) {
-        promise.catch((err) => log.error(`unhandled error in event ${name}:`, err));
+        promise.catch((err) => {
+          const message = `unhandled error in event ${name}: `;
+          this.reject({message: message + err.toString()});
+          log.error(message, err);
+        });
       }
     };
   }
