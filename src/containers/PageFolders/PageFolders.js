@@ -105,6 +105,7 @@ export default class PageFolders extends Component {
     switch (type) {
       case 'edit':
         return this.props.push(`/folders/${id}/edit`);
+      case 'export':
       default:
     }
   };
@@ -122,6 +123,7 @@ export default class PageFolders extends Component {
             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}>
             <MenuItem primaryText={f('edit')} value={{type: 'edit', id}} />
+            <MenuItem primaryText={f('export')} value={{type: 'export', id}} />
           </IconMenu>
         </Paper>
       );

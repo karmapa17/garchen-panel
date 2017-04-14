@@ -2,21 +2,25 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 
-import {setSnackBarParams} from './../../redux/modules/main';
+import {setSnackBarParams, setAddFolderEntryDialogOpen} from './../../redux/modules/main';
 import {loadFolder} from './../../redux/modules/folder';
 import {loadFolderEntries} from './../../redux/modules/folderEntry';
 
+import AddFolderEntryForm from './../../components/AddFolderEntryForm/AddFolderEntryForm';
 import injectF from './../../helpers/injectF';
+import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
 
 const styles = require('./PageFolderEntries.scss');
 
-@connect(({folder, folderEntry}) => ({
+@connect(({main, folder, folderEntry}) => ({
   folder: folder.get('folder'),
-  folderEntries: folderEntry.get('folderEntries')
-}), {loadFolderEntries, setSnackBarParams})
+  folderEntries: folderEntry.get('folderEntries'),
+  isAddFolderEntryDialogOpen: main.get('isAddFolderEntryDialogOpen')
+}), {loadFolderEntries, setSnackBarParams, setAddFolderEntryDialogOpen})
 @injectPush
 @injectF
 @resolve(({dispatch}, {params}) => {
@@ -36,6 +40,8 @@ export default class PageFolderEntries extends Component {
     folderEntries: PropTypes.array.isRequired,
     params: PropTypes.object.isRequired,
     loadFolderEntries: PropTypes.func.isRequired,
+    isAddFolderEntryDialogOpen: PropTypes.bool.isRequired,
+    setAddFolderEntryDialogOpen: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
   };
 
@@ -47,6 +53,26 @@ export default class PageFolderEntries extends Component {
   }
 
   goBack = () => this.props.push('/');
+
+  handleAddFolderEntryDialogClose = () => this.props.setAddFolderEntryDialogOpen(false);
+
+  openAddFolderEntryDialog = () => this.props.setAddFolderEntryDialogOpen(true);
+
+  handleSubmit = (data) => {
+    console.log('data', data);
+  };
+
+  renderAddFolderEntryDialog() {
+    const {isAddFolderEntryDialogOpen, folder} = this.props;
+    return (
+      <Dialog title="Add a entry" open={isAddFolderEntryDialogOpen}
+        bodyStyle={{paddingLeft: '8px', paddingRight: '8px', paddingBottom: '8px'}}
+        onRequestClose={this.handleAddFolderEntryDialogClose}>
+        <AddFolderEntryForm onSubmit={this.handleSubmit} folder={folder}
+          onCancelButtonClick={this.handleAddFolderEntryDialogClose} />
+      </Dialog>
+    );
+  }
 
   render() {
 
@@ -64,6 +90,7 @@ export default class PageFolderEntries extends Component {
           </div>
         </div>
         {this.renderFolderEntries()}
+        {this.renderAddFolderEntryDialog()}
       </div>
     );
   }

@@ -1,4 +1,7 @@
 module.exports = {
+  'cancel': 'Cancel',
+  'submit': 'Submit',
+  'export': 'Export',
   'folder-has-been-deleted': 'Folder {folderName} has been deleted.',
   'please-input-exact-the-same-folder-name': 'Please input {folderName}',
   'delete': 'delete',

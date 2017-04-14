@@ -1,4 +1,7 @@
 module.exports = {
+  'cancel': '取消',
+  'submit': '送出',
+  'export': '匯出',
   'please-input-exact-the-same-folder-name': '請輸入{folderName}',
   'delete': '刪除',
   'delete-folder-instruction': '輸入 {folderName} 刪除這個資料夾, 被刪除的資料將沒辦法復原',

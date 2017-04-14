@@ -1,4 +1,7 @@
 module.exports = {
+  'cancel': '取消',
+  'submit': '送出',
+  'export': '汇出',
   'folder-has-been-deleted': '已删除资料夹 {folderName}',
   'please-input-exact-the-same-folder-name': '请输入{folderName}',
   'delete': '删除',
