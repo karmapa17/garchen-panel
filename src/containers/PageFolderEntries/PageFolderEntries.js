@@ -51,6 +51,8 @@ export default class PageFolderEntries extends Component {
     push(`/folders/${folder.id}/entries/add`);
   };
 
+  goToFoldersPage = () => this.props.push('/');
+
   goBack = () => this.props.push('/');
 
   render() {
@@ -60,12 +62,19 @@ export default class PageFolderEntries extends Component {
     return (
       <div className={c('page-list', styles.pageFolderEntries)}>
         <div className="topbar">
-          <h2>{f('folder-entries', {folderName: folder.name})}</h2>
+          <ul className="breadcrumb">
+            <li>
+              <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
+            </li>
+            <li>
+              <span>{f('folder-entries', {folderName: folder.name})}</span>
+            </li>
+          </ul>
           <div>
             <FlatButton icon={<i className="fa fa-plus" />}
-              label={f('add-entry')} primary onTouchTap={this.goToAddFolderEntryPage} />
+              label={f('add-entry')} onTouchTap={this.goToAddFolderEntryPage} />
             <FlatButton icon={<i className="fa fa-arrow-left" />}
-              label={f('back')} primary onTouchTap={this.goBack} />
+              label={f('back')} onTouchTap={this.goBack} />
           </div>
         </div>
         {this.renderFolderEntries()}

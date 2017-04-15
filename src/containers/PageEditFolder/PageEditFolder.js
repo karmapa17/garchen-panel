@@ -58,9 +58,16 @@ export default class PageEditFolder extends Component {
     return (
       <div className={c('page-edit', styles.pageEditFolder)}>
         <div className="topbar">
-          <h2>{f('edit-folder')}</h2>
+          <ul className="breadcrumb">
+            <li>
+              <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
+            </li>
+            <li>
+              <span>{f('edit-folder')}</span>
+            </li>
+          </ul>
           <FlatButton icon={<i className="fa fa-arrow-left" />}
-            label={f('back')} primary onTouchTap={this.goToFoldersPage} />
+            label={f('back')} onTouchTap={this.goToFoldersPage} />
         </div>
         <EditFolderForm onSubmit={this.handleEditFolderFormSubmit} />
         <DeleteFolderForm className={styles.deleteFolderForm} onSubmit={this.handleDeleteFolderFormSubmit} folder={folder} />

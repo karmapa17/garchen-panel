@@ -23,7 +23,7 @@ module.exports = {
   'delete': 'delete',
   'delete-folder-instruction': 'Input {folderName} to delete this folder, once you delete a repository, there is no going back. Please be certain.',
   'add-entry': 'Add entry',
-  'folder-entries': 'Folder {folderName}\'s entries',
+  'folder-entries': '{folderName}\'s entries',
   'field-source-language-required': 'Field source language is required.',
   'choose-at-least-one-target-language': 'Please choose at least one target language.',
   'choose-at-least-one-content-field': 'Please choose at least one content field.',
