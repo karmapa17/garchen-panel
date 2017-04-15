@@ -31,11 +31,10 @@ export default class AddFolderForm extends Component {
     renderTextField: PropTypes.func.isRequired,
     renderSelectField: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    invalid: PropTypes.bool.isRequired,
     setTargetLanguages: PropTypes.func,
     targetLanguages: PropTypes.array,
     f: PropTypes.func.isRequired,
-    onCancelButtonClick: PropTypes.func.isRequired,
+    onCancelButtonTouchTap: PropTypes.func.isRequired,
     values: PropTypes.object
   };
 
@@ -78,16 +77,23 @@ export default class AddFolderForm extends Component {
     this.props.setTargetLanguages(objToArr(data));
   };
 
+  handleBlur = (event) => {
+    const {relatedTarget} = event;
+    if (relatedTarget && ('button' === relatedTarget.getAttribute('type'))) {
+      event.preventDefault();
+    }
+  };
+
   render() {
 
-    const {handleSubmit, f, onCancelButtonClick, invalid, renderTextField, renderSelectField} = this.props;
+    const {handleSubmit, f, onCancelButtonTouchTap, renderTextField, renderSelectField} = this.props;
 
     return (
       <form className={styles.addFolderForm} onSubmit={handleSubmit}>
 
         <div className={styles.formBody}>
           <div>
-            <Field name="folderName" component={renderTextField} label={f('folder-name')} autoFocus />
+            <Field name="folderName" component={renderTextField} label={f('folder-name')} onFocus={this.handleFocus} onBlur={this.handleBlur} autoFocus />
           </div>
 
           <div>
@@ -110,8 +116,8 @@ export default class AddFolderForm extends Component {
         </div>
 
         <div className={styles.formFooter}>
-          <FlatButton label="Cancel" onTouchTap={onCancelButtonClick} />
-          <FlatButton type="submit" label="Submit" primary disabled={invalid} />
+          <FlatButton type="button" label="Cancel" onTouchTap={onCancelButtonTouchTap} />
+          <FlatButton type="submit" label="Submit" primary />
         </div>
       </form>
     );

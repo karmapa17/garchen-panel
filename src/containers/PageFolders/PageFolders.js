@@ -61,15 +61,7 @@ export default class PageFolders extends Component {
 
   openAddFolderDialog = () => this.props.setAddFolderDialogOpen(true);
 
-  handleAddFolderDialogClose = (event) => {
-
-    // removing this code will cause cancel to be clicked twice to hide the dialog
-    // bebause of first input's autoFucus behavior
-    if (event.nativeEvent) {
-      event.nativeEvent.stopImmediatePropagation();
-    }
-    this.props.setAddFolderDialogOpen(false);
-  };
+  handleAddFolderDialogClose = () => this.props.setAddFolderDialogOpen(false);
 
   handleSubmit = async (data) => {
     const {f, addFolder, setAddFolderDialogOpen, loadFolders,
@@ -82,6 +74,8 @@ export default class PageFolders extends Component {
     setAddFolderDialogOpen(false);
   };
 
+  handleCancelButtonTouchTap = (event) => this.props.setAddFolderDialogOpen(false);
+
   renderAddFolderDialog() {
 
     const {isAddFolderDialogOpen} = this.props;
@@ -91,7 +85,7 @@ export default class PageFolders extends Component {
         bodyStyle={{paddingLeft: '8px', paddingRight: '8px', paddingBottom: '8px'}}
         onRequestClose={this.handleAddFolderDialogClose}>
         <AddFolderForm ref="addFolderForm" onSubmit={this.handleSubmit}
-          onCancelButtonClick={this.handleAddFolderDialogClose} />
+          onCancelButtonTouchTap={this.handleCancelButtonTouchTap} />
       </Dialog>
     );
   }
