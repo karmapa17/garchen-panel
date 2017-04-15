@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 
+import sortContentFields from './../../helpers/sortContentFields';
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
 import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
 import {loadFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
@@ -37,6 +38,7 @@ export default class PageEditFolder extends Component {
   handleEditFolderFormSubmit = async (data) => {
     const {f, params, updateFolder, push, setSnackBarParams} = this.props;
     data.id = params.id;
+    data.contentFields = sortContentFields(data.contentFields);
     const folder = await updateFolder(data);
     setSnackBarParams(true, f('folder-has-been-updated', {folderName: folder.name}));
     push('/');

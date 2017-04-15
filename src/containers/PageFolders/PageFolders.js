@@ -8,12 +8,14 @@ import IconMenu from 'material-ui/IconMenu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
+import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
 
 import {setAddFolderDialogOpen, setSnackBarParams} from './../../redux/modules/main';
 import {addFolder, loadFolders, setPageParams} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 
+import sortContentFields from './../../helpers/sortContentFields';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
@@ -64,8 +66,11 @@ export default class PageFolders extends Component {
   handleAddFolderDialogClose = () => this.props.setAddFolderDialogOpen(false);
 
   handleSubmit = async (data) => {
+
     const {f, addFolder, setAddFolderDialogOpen, loadFolders,
       page, perpage, setSnackBarParams} = this.props;
+
+    data.contentFields = sortContentFields(data.contentFields);
 
     await addFolder(data);
     await loadFolders({page, perpage});

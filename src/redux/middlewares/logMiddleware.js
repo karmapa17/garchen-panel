@@ -1,7 +1,7 @@
 export default function logMiddleware() {
 
   return (next) => (action) => {
-    console.log(action);
+    console.info(action);
     return next(action);
   };
 }
