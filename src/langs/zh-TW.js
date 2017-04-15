@@ -53,7 +53,7 @@ module.exports = {
   'source-language': '來源語言',
   'target-language': '目標語言',
   'target-entry-lang': '詞條 - {lang}',
-  'source-entry-lang': '詞條 - {lang}',
+  'source-entry-lang': '主詞條 - {lang}',
   'category': '類別',
   'sect': '宗派',
   'explaination-lang': '解釋 - {lang}',

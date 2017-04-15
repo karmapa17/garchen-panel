@@ -1,4 +1,5 @@
 module.exports = {
+  'add-entry': '新增词条',
   'old': '旧',
   'when': '当',
   'sa': '萨',
@@ -22,7 +23,6 @@ module.exports = {
   'please-input-exact-the-same-folder-name': '请输入{folderName}',
   'delete': '删除',
   'delete-folder-instruction': '输入 {folderName} 删除这个资料夹, 被删除的资料将没办法复原',
-  'add-entry': '新增詞條',
   'folder-entries': '{folderName} 的詞條',
   'field-source-language-required': '必须填写来源语言',
   'choose-at-least-one-target-language': '请至少选择一个目标语言',
@@ -53,7 +53,7 @@ module.exports = {
   'source-language': '来源语言',
   'target-language': '目标语言',
   'targt-entry-lang': '词条 - {lang}',
-  'source-entry-lang': '词条 - {lang}',
+  'source-entry-lang': '主词条 - {lang}',
   'category': '类别',
   'sect': '宗派',
   'explaination-lang': '解释 - {lang}',

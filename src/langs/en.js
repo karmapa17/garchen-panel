@@ -1,4 +1,5 @@
 module.exports = {
+  'add-entry': 'Add Entry',
   'old': 'Old',
   'when': 'When',
   'sa': 'Sa',
@@ -22,7 +23,6 @@ module.exports = {
   'please-input-exact-the-same-folder-name': 'Please input {folderName}',
   'delete': 'delete',
   'delete-folder-instruction': 'Input {folderName} to delete this folder, once you delete a repository, there is no going back. Please be certain.',
-  'add-entry': 'Add entry',
   'folder-entries': '{folderName}\'s entries',
   'field-source-language-required': 'Field source language is required.',
   'choose-at-least-one-target-language': 'Please choose at least one target language.',
@@ -53,7 +53,7 @@ module.exports = {
   'source-language': 'Source Language',
   'target-language': 'Target Language',
   'target-entry-lang': 'Entry - {lang}',
-  'source-entry-lang': 'Entry - {lang}',
+  'source-entry-lang': 'Main Entry - {lang}',
   'category': 'Category',
   'sect': 'Sect',
   'explaination-lang': 'Explaination - {lang}',
