@@ -23,7 +23,7 @@ const styles = require('./PageFolderEntries.scss');
 
   const promises = [];
   promises.push(dispatch(loadFolder({id: params.id})));
-  promises.push(dispatch(loadFolderEntries({folderId: params.id})));
+  promises.push(dispatch(loadFolderEntries({folderId: params.id, page: 1, perpage: 10})));
 
   return Promise.all(promises);
 })
@@ -42,7 +42,7 @@ export default class PageFolderEntries extends Component {
   renderFolderEntries() {
     const {folderEntries} = this.props;
     return folderEntries.map((entry) => {
-      return (<div key={entry.id}>{entry.entry}</div>);
+      return (<div key={entry.id}>{entry.id} {entry.sourceEntry}</div>);
     });
   }
 
@@ -52,8 +52,6 @@ export default class PageFolderEntries extends Component {
   };
 
   goToFoldersPage = () => this.props.push('/');
-
-  goBack = () => this.props.push('/');
 
   render() {
 
@@ -74,7 +72,7 @@ export default class PageFolderEntries extends Component {
             <FlatButton icon={<i className="fa fa-plus" />}
               label={f('add-entry')} onTouchTap={this.goToAddFolderEntryPage} />
             <FlatButton icon={<i className="fa fa-arrow-left" />}
-              label={f('back')} onTouchTap={this.goBack} />
+              label={f('back')} onTouchTap={this.goToFoldersPage} />
           </div>
         </div>
         {this.renderFolderEntries()}

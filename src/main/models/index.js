@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import log from 'karmapa-log';
 import {indexBy, prop} from 'ramda';
+import {isArray} from 'lodash';
 
 import APP_DATA_PATH from './../constants/appDataPath';
 
@@ -23,8 +24,8 @@ export default async function initDb() {
   const promises = fs.readdirSync(__dirname)
     .filter((filename) => (0 !== filename.indexOf('.')) && ('index.js' !== filename))
     .map((filename) => {
-      const {name, schema} = require(path.resolve(__dirname, filename));
-      return db.model(name, schema);
+      const {name, schema, options} = require(path.resolve(__dirname, filename));
+      return db.model(name, schema, options);
     });
 
   const models = indexBy(prop('name'), (await Promise.all(promises)));

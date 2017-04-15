@@ -8,7 +8,6 @@ import IconMenu from 'material-ui/IconMenu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
 
 import {setAddFolderDialogOpen, setSnackBarParams} from './../../redux/modules/main';
 import {addFolder, loadFolders, setPageParams} from './../../redux/modules/folder';
@@ -79,7 +78,7 @@ export default class PageFolders extends Component {
     setAddFolderDialogOpen(false);
   };
 
-  handleCancelButtonTouchTap = (event) => this.props.setAddFolderDialogOpen(false);
+  handleCancelButtonTouchTap = () => this.props.setAddFolderDialogOpen(false);
 
   renderAddFolderDialog() {
 

@@ -1,4 +1,5 @@
 module.exports = {
+  'folder-entry-has-been-creatd': '已新增詞條 {folderEntry}',
   'add-entry': '新增词条',
   'old': '旧',
   'when': '当',

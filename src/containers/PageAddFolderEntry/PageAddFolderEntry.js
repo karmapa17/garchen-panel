@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 import AddFolderEntryForm from './../../components/AddFolderEntryForm/AddFolderEntryForm';
 import {loadFolder} from './../../redux/modules/folder';
+import {addFolderEntry} from './../../redux/modules/folderEntry';
 import {setSnackBarParams} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
@@ -14,7 +15,7 @@ const styles = require('./PageAddFolderEntry.scss');
 
 @connect(({folder}) => ({
   folder: folder.get('folder'),
-}), {setSnackBarParams})
+}), {setSnackBarParams, addFolderEntry})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
@@ -26,12 +27,24 @@ export default class PageAddFolderEntry extends Component {
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
+    addFolderEntry: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired
   };
 
-  handleSubmit = (data) => {
-    console.log('data', data);
+  handleSubmit = async (data) => {
+
+    const {f, folder, addFolderEntry, setSnackBarParams, push} = this.props;
+    const sourceEntry = data.sourceEntry;
+    delete data.sourceEntry;
+
+    const folderEntry = await addFolderEntry({
+      folderId: folder.id,
+      sourceEntry,
+      data
+    });
+    setSnackBarParams(true, f('folder-entry-has-been-created', {folderEntryName: folderEntry.sourceEntry}));
+    push(`/folders/${folder.id}/entries`);
   };
 
   goBack = () => {

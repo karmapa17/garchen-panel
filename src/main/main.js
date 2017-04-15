@@ -10,6 +10,7 @@ import getFolder from './controllers/folder/getFolder';
 import updateFolder from './controllers/folder/updateFolder';
 import listFolders from './controllers/folder/listFolders';
 import listFolderEntries from './controllers/folderEntry/listFolderEntries';
+import addFolderEntry from './controllers/folderEntry/addFolderEntry';
 import addFolder from './controllers/folder/addFolder';
 import deleteFolder from './controllers/folder/deleteFolder';
 import checkFolderExists from './controllers/folder/checkFolderExists';
@@ -46,6 +47,7 @@ async function handleAppReady() {
   ipc.on('GET /folder', getFolder);
   ipc.on('GET /folder/exists', checkFolderExists);
   ipc.on('GET /folder/entries', listFolderEntries);
+  ipc.on('POST /folder/entries', addFolderEntry);
   ipc.on('PUT /folder', updateFolder);
   ipc.on('DELETE /folder', deleteFolder);
 
