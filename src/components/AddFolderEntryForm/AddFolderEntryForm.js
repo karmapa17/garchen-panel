@@ -128,7 +128,6 @@ export default class AddFolderEntryForm extends Component {
 
     const {handleSubmit, f, invalid, renderTextField, folder} = this.props;
 
-    console.log('folder', folder);
     const {sourceLanguage} = folder.fields;
 
     return (

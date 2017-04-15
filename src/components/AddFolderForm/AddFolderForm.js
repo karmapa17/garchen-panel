@@ -78,6 +78,8 @@ export default class AddFolderForm extends Component {
   };
 
   handleBlur = (event) => {
+    // fix leaving a form takes two clicks
+    // https://github.com/erikras/redux-form/issues/860
     const {relatedTarget} = event;
     if (relatedTarget && ('button' === relatedTarget.getAttribute('type'))) {
       event.preventDefault();
