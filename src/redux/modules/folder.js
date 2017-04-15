@@ -19,9 +19,9 @@ const UPDATE_FOLDER = 'garchen-panel/folder/UPDATE_FOLDER';
 const UPDATE_FOLDER_SUCCESS = 'garchen-panel/folder/UPDATE_FOLDER_SUCCESS';
 const UPDATE_FOLDER_FAIL = 'garchen-panel/folder/UPDATE_FOLDER_FAIL';
 
-const CHECK_FOLDER_EXISTS_FOLDER = 'garchen-panel/folder/CHECK_FOLDER_EXISTS_FOLDER';
-const CHECK_FOLDER_EXISTS_FOLDER_SUCCESS = 'garchen-panel/folder/CHECK_FOLDER_EXISTS_FOLDER_SUCCESS';
-const CHECK_FOLDER_EXISTS_FOLDER_FAIL = 'garchen-panel/folder/CHECK_FOLDER_EXISTS_FOLDER_FAIL';
+const CHECK_FOLDER_EXISTS = 'garchen-panel/folder/CHECK_FOLDER_EXISTS';
+const CHECK_FOLDER_EXISTS_SUCCESS = 'garchen-panel/folder/CHECK_FOLDER_EXISTS_SUCCESS';
+const CHECK_FOLDER_EXISTS_FAIL = 'garchen-panel/folder/CHECK_FOLDER_EXISTS_FAIL';
 
 const DELETE_FOLDER = 'garchen-panel/folder/DELETE_FOLDER';
 const DELETE_FOLDER_SUCCESS = 'garchen-panel/folder/DELETE_FOLDER_SUCCESS';
@@ -105,7 +105,7 @@ export function setPageParams(page, perpage = FOLDER_PERPAGE) {
 
 export function checkFolderExists(data) {
   return {
-    types: [CHECK_FOLDER_EXISTS_FOLDER, CHECK_FOLDER_EXISTS_FOLDER_SUCCESS, CHECK_FOLDER_EXISTS_FOLDER_FAIL],
+    types: [CHECK_FOLDER_EXISTS, CHECK_FOLDER_EXISTS_SUCCESS, CHECK_FOLDER_EXISTS_FAIL],
     promise: (client) => {
       return client.send('GET /folder/exists', data);
     }

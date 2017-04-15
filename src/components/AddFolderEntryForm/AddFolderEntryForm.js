@@ -1,12 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {Field, reduxForm} from 'redux-form';
-import {connect} from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import injectF from './../../helpers/injectF';
-import validate from './addFolderEntryFormValidate';
+import asyncValidate from './addFolderEntryFormAsyncValidate';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import SECT_VALUES from './../../constants/sectValues';
 
@@ -14,10 +13,8 @@ const styles = require('./AddFolderEntryForm.scss');
 
 @reduxForm({
   form: 'addFolderEntryForm',
-  validate
+  asyncValidate
 })
-@connect(({}) => ({
-}), {})
 @injectF
 @injectMuiReduxFormHelper
 export default class AddFolderEntryForm extends Component {

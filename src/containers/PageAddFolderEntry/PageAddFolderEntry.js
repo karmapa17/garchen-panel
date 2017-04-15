@@ -75,7 +75,7 @@ export default class PageAddFolderEntry extends Component {
           <FlatButton icon={<i className="fa fa-arrow-left" />}
             label={f('back')} primary onTouchTap={this.goBack} />
         </div>
-        <AddFolderEntryForm onSubmit={this.handleSubmit} folder={folder} />
+        <AddFolderEntryForm onSubmit={this.handleSubmit} folder={folder} initialValues={{folderId: folder.id}} />
       </div>
     );
   }

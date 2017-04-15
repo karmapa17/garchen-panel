@@ -1,5 +1,3 @@
-import log from 'karmapa-log';
-
 export default async function checkFolderExists(event, data) {
 
   const {Folder} =  this.params.models;
