@@ -1,4 +1,5 @@
 module.exports = {
+  'folder-entry-name-required': '必須填寫詞條',
   'folder-entry-has-been-creatd': '詞條 {folderEntry} 已被建立',
   'old': '舊',
   'when': '當',

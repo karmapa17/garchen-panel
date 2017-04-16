@@ -19,6 +19,7 @@ export default getMuiTheme({
     verticalAlign: 'middle'
   },
   tableRowColumn: {
+    fontSize: 40,
     spacing: 14
   }
 });

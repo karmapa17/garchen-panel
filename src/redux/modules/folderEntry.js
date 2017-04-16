@@ -13,13 +13,18 @@ const CHECK_FOLDER_ENTRY_EXISTS = 'garchen-panel/folderEntry/CHECK_FOLDER_ENTRY_
 const CHECK_FOLDER_ENTRY_EXISTS_SUCCESS = 'garchen-panel/folderEntry/CHECK_FOLDER_ENTRY_EXISTS_ENTRY_SUCCESS';
 const CHECK_FOLDER_ENTRY_EXISTS_FAIL = 'garchen-panel/folderEntry/CHECK_FOLDER_ENTRY_EXISTS_ENTRY_FAIL';
 
+const SET_SELECTED_FOLDER_ENTRIES = 'garchen-panel/folderEntry/SET_SELECTED_FOLDER_ENTRIES';
+
+const SET_FODLER_ENTRY_PAGE_PARAMS = 'garchen-panel/folderEntry/SET_FODLER_ENTRY_PAGE_PARAMS';
+
 const ENTRY_PERPAGE = 3;
 
 const initialState = Map({
   page: 1,
   perpage: ENTRY_PERPAGE,
   folderEntries: [],
-  folderEntryCount: 0
+  folderEntryCount: 0,
+  selectedFolderEntryIndices: []
 });
 
 export default createReducer(initialState, {
@@ -27,8 +32,24 @@ export default createReducer(initialState, {
   [LOAD_FOLDER_ENTRIES_SUCCESS]: (state, action) => {
     return state.set('folderEntries', action.result.data)
       .set('folderEntryCount', action.result.total);
+  },
+
+  [SET_SELECTED_FOLDER_ENTRIES]: (state, action) => {
+    return state.set('selectedFolderEntryIndices', action.indices);
+  },
+
+  [SET_FODLER_ENTRY_PAGE_PARAMS]: (state, action) => {
+    return state.set('page', action.page)
+      .set('perpage', action.perpage);
   }
 });
+
+export function setSelectedFolderEntryIndices(indices) {
+  return {
+    type: SET_SELECTED_FOLDER_ENTRIES,
+    indices
+  };
+}
 
 export function loadFolderEntries(data) {
   return {
@@ -48,5 +69,13 @@ export function checkFolderEntryExists(data) {
   return {
     types: [CHECK_FOLDER_ENTRY_EXISTS, CHECK_FOLDER_ENTRY_EXISTS_SUCCESS, CHECK_FOLDER_ENTRY_EXISTS_FAIL],
     promise: (client) => client.send('GET /folder/entry/exists', data)
+  };
+}
+
+export function setFolderEntryPageParams(page, perpage) {
+  return {
+    type: SET_FODLER_ENTRY_PAGE_PARAMS,
+    page,
+    perpage
   };
 }

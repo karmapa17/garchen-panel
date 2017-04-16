@@ -20,6 +20,8 @@ import injectPush from './../../helpers/injectPush';
 
 const styles = require('./App.scss');
 
+console.log('muiTheme', muiTheme);
+
 injectTapEventPlugin();
 
 @connect(({auth, main}) => ({
