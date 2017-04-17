@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import {range} from 'ramda';
 
 import injectF from './../../helpers/injectF';
+import {COLOR_LINK_EX} from './../../constants/constants';
 
 const styles = require('./Pagination.scss');
 
@@ -57,9 +58,11 @@ export default class Pagination extends Component {
     }
 
     return range(firstNum, lastNum + 1).map((num) => {
+      const isCurrent = (current === num);
+      const buttonStyle = isCurrent ? {textDecoration: 'underline', color: COLOR_LINK_EX} : {};
       return (
         <li key={`pager-num-${num}`}>
-          <FlatButton label={num} primary={(current === num)} onTouchTap={this.handleTouchTap(num)} />
+          <FlatButton label={num} primary={isCurrent} style={buttonStyle} onTouchTap={this.handleTouchTap(num)} />
         </li>
       );
     });

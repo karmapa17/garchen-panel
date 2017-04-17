@@ -7,9 +7,11 @@ import auth from './auth';
 import main from './main';
 import folder from './folder';
 import folderEntry from './folderEntry';
+import entry from './entry';
 
 export default combineReducers({
   auth,
+  entry,
   folderEntry,
   form: formReducer,
   folder,

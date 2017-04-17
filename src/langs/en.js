@@ -1,7 +1,8 @@
 module.exports = {
   'folder-entry-name-taken': 'Entry already existed in this folder.',
   'folder-entry-name-required': 'Entry field is required.',
-  'folder-entry-has-been-creatd': 'Entry {folderEntry} has been created.',
+  'folder-entry-has-been-created': 'Entry {folderEntry} has been created.',
+  'folder-entries-has-been-deleted': 'Deleted {count} entries.',
   'add-entry': 'Add Entry',
   'old': 'Old',
   'when': 'When',

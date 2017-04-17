@@ -75,3 +75,11 @@ h5 {
 th, td {
   vertical-align: middle;
 }
+
+a {
+  cursor: pointer;
+  &:hover, &:active, &:focus {
+    color: #05966c;
+    text-decoration: underline;
+  }
+}

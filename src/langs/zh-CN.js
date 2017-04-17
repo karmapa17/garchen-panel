@@ -1,7 +1,7 @@
 module.exports = {
   'folder-entry-name-taken': '词条在这个资料夹已经存在',
   'folder-entry-name-required': '必须填写词条',
-  'folder-entry-has-been-creatd': '已新增词条 {folderEntry}',
+  'folder-entry-has-been-created': '已新增词条 {folderEntry}',
   'add-entry': '新增词条',
   'old': '旧',
   'when': '当',

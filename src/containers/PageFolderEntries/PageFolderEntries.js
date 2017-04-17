@@ -82,6 +82,11 @@ export default class PageFolderEntries extends Component {
     setSelectedFolderEntryIndices(indices);
   };
 
+  goToSingleFolderEntryPage = (entryId) => {
+    const {folder, push} = this.props;
+    return () => this.props.push(`/folders/${folder.id}/entries/${entryId}`);
+  };
+
   renderFolderEntries() {
 
     const rowStyle = {fontSize: 20};
@@ -91,7 +96,9 @@ export default class PageFolderEntries extends Component {
       return (
         <TableRow key={`table-row-${entry.id}`}>
           <TableRowColumn style={rowStyle}>{entry.id}</TableRowColumn>
-          <TableRowColumn style={rowStyle}>{entry.sourceEntry}</TableRowColumn>
+          <TableRowColumn style={rowStyle}>
+            <a onTouchTap={this.goToSingleFolderEntryPage(entry.id)}>{entry.sourceEntry}</a>
+          </TableRowColumn>
         </TableRow>
       );
     });
@@ -117,7 +124,11 @@ export default class PageFolderEntries extends Component {
   goToFoldersPage = () => this.props.push('/');
 
   deleteSelectedFolderEntries = async () => {
-    const {selectedFolderEntryIndices, folderEntries, deleteFolderEntries, page, perpage, params, loadFolderEntries} = this.props;
+
+    const {selectedFolderEntryIndices, folderEntries, f,
+      deleteFolderEntries, page, perpage, params, loadFolderEntries,
+      setSnackBarParams} = this.props;
+
     const ids = folderEntries.filter((row, index) => (-1 !== selectedFolderEntryIndices.indexOf(index)))
       .map((row) => row.id);
     await deleteFolderEntries({ids});
@@ -128,6 +139,7 @@ export default class PageFolderEntries extends Component {
     else {
       await loadFolderEntries({folderId: params.id, page, perpage});
     }
+    setSnackBarParams(true, f('folder-entries-has-been-deleted', {count: ids.length}));
   };
 
   renderDeleteButton() {
