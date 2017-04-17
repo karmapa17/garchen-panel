@@ -7,11 +7,13 @@ import {range} from 'ramda';
 
 import {setSnackBarParams} from './../../redux/modules/main';
 import {loadFolder} from './../../redux/modules/folder';
-import {loadFolderEntries, setSelectedFolderEntryIndices} from './../../redux/modules/folderEntry';
+import {loadFolderEntries, setSelectedFolderEntryIndices, setFolderEntryPage} from './../../redux/modules/folderEntry';
+import {deleteFolderEntries} from './../../redux/modules/entry';
 
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
+import Pagination from './../../components/Pagination/Pagination';
 
 const styles = require('./PageFolderEntries.scss');
 
@@ -20,8 +22,9 @@ const styles = require('./PageFolderEntries.scss');
   perpage: folderEntry.get('perpage'),
   folder: folder.get('folder'),
   folderEntries: folderEntry.get('folderEntries'),
+  folderEntryCount: folderEntry.get('folderEntryCount'),
   selectedFolderEntryIndices: folderEntry.get('selectedFolderEntryIndices')
-}), {loadFolderEntries, setSnackBarParams, setSelectedFolderEntryIndices})
+}), {loadFolderEntries, setSnackBarParams, setSelectedFolderEntryIndices, deleteFolderEntries, setFolderEntryPage})
 @injectPush
 @injectF
 @resolve(({dispatch}, {params, page, perpage}) => {
@@ -41,16 +44,41 @@ export default class PageFolderEntries extends Component {
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     folderEntries: PropTypes.array.isRequired,
+    folderEntryCount: PropTypes.number.isRequired,
     params: PropTypes.object.isRequired,
     loadFolderEntries: PropTypes.func.isRequired,
     setSelectedFolderEntryIndices: PropTypes.func.isRequired,
     selectedFolderEntryIndices: PropTypes.array.isRequired,
+    deleteFolderEntries: PropTypes.func.isRequired,
+    setFolderEntryPage: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
   };
 
+  componentWillReceiveProps(nextProps) {
+    const {page, perpage, loadFolderEntries} = this.props;
+    if ((page !== nextProps.page) || (perpage !== nextProps.perpage)) {
+
+      loadFolderEntries({
+        folderId: nextProps.folder.id,
+        page: nextProps.page,
+        perpage: nextProps.perpage
+      });
+    }
+  }
+
   handleRowSelection = (res) => {
+
     const {setSelectedFolderEntryIndices, perpage} = this.props;
-    const indices = ('all' === res) ? range(0, perpage) : res;
+
+    let indices = res;
+
+    if ('all' === res) {
+      indices = range(0, perpage);
+    }
+    else if ('none' === res) {
+      indices = [];
+    }
+
     setSelectedFolderEntryIndices(indices);
   };
 
@@ -88,16 +116,32 @@ export default class PageFolderEntries extends Component {
 
   goToFoldersPage = () => this.props.push('/');
 
+  deleteSelectedFolderEntries = async () => {
+    const {selectedFolderEntryIndices, folderEntries, deleteFolderEntries, page, perpage, params, loadFolderEntries} = this.props;
+    const ids = folderEntries.filter((row, index) => (-1 !== selectedFolderEntryIndices.indexOf(index)))
+      .map((row) => row.id);
+    await deleteFolderEntries({ids});
+
+    if ((ids.length === perpage) && (page > 1)) {
+      await loadFolderEntries({folderId: params.id, page: page - 1, perpage});
+    }
+    else {
+      await loadFolderEntries({folderId: params.id, page, perpage});
+    }
+  };
+
   renderDeleteButton() {
     const {selectedFolderEntryIndices, f} = this.props;
     if (selectedFolderEntryIndices.length > 0) {
-      return <FlatButton label={f('delete')} icon={<i className="fa fa-trash" />} />;
+      return <FlatButton label={f('delete')} icon={<i className="fa fa-trash" />} onTouchTap={this.deleteSelectedFolderEntries} />;
     }
   }
 
+  handlePageButtonTouchTap = (page) => this.props.setFolderEntryPage(page);
+
   render() {
 
-    const {f, folder} = this.props;
+    const {f, folder, folderEntryCount, page, perpage} = this.props;
 
     return (
       <div className={c('page-list', styles.pageFolderEntries)}>
@@ -119,6 +163,8 @@ export default class PageFolderEntries extends Component {
           </div>
         </div>
         {this.renderFolderEntries()}
+        {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
+          onButtonTouchTap={this.handlePageButtonTouchTap} />}
       </div>
     );
   }

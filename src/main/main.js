@@ -16,6 +16,8 @@ import addFolder from './controllers/folder/addFolder';
 import deleteFolder from './controllers/folder/deleteFolder';
 import checkFolderExists from './controllers/folder/checkFolderExists';
 
+import deleteEntries from './controllers/entry/deleteEntries';
+
 import initDb from './models';
 
 require('electron-debug')({showDevTools: true});
@@ -42,8 +44,8 @@ async function handleAppReady() {
 
   mainWindow.loadURL('file://' + __dirname + '/../index.html');
 
-  const {models} = await initDb();
-  const ipc = ipcDecorator.decorate(ipcMain, {models});
+  const {db, models} = await initDb();
+  const ipc = ipcDecorator.decorate(ipcMain, {db, models});
 
   ipc.on('GET /folder', getFolder);
   ipc.on('GET /folder/exists', checkFolderExists);
@@ -51,6 +53,8 @@ async function handleAppReady() {
   ipc.on('GET /folder/entries', listFolderEntries);
   ipc.on('POST /folder/entries', addFolderEntry);
   ipc.on('GET /folder/entry/exists', checkFolderEntryExists);
+
+  ipc.on('DELETE /entries', deleteEntries);
 
   ipc.on('PUT /folder', updateFolder);
   ipc.on('DELETE /folder', deleteFolder);

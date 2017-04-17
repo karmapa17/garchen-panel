@@ -142,7 +142,7 @@ export default class PageFolders extends Component {
             label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
         </div>
         {this.renderFolders()}
-        {(folderCount > perpage) && <Pagination pathname="/" current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />}
+        {(folderCount > perpage) && <Pagination current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />}
         {this.renderAddFolderDialog()}
       </div>
     );

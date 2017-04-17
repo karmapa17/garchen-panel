@@ -15,13 +15,13 @@ const CHECK_FOLDER_ENTRY_EXISTS_FAIL = 'garchen-panel/folderEntry/CHECK_FOLDER_E
 
 const SET_SELECTED_FOLDER_ENTRIES = 'garchen-panel/folderEntry/SET_SELECTED_FOLDER_ENTRIES';
 
-const SET_FODLER_ENTRY_PAGE_PARAMS = 'garchen-panel/folderEntry/SET_FODLER_ENTRY_PAGE_PARAMS';
+const SET_FODLER_ENTRY_PAGE = 'garchen-panel/folderEntry/SET_FODLER_ENTRY_PAGE';
 
-const ENTRY_PERPAGE = 3;
+const FOLDER_ENTRY_PERPAGE = 3;
 
 const initialState = Map({
   page: 1,
-  perpage: ENTRY_PERPAGE,
+  perpage: FOLDER_ENTRY_PERPAGE,
   folderEntries: [],
   folderEntryCount: 0,
   selectedFolderEntryIndices: []
@@ -38,9 +38,8 @@ export default createReducer(initialState, {
     return state.set('selectedFolderEntryIndices', action.indices);
   },
 
-  [SET_FODLER_ENTRY_PAGE_PARAMS]: (state, action) => {
-    return state.set('page', action.page)
-      .set('perpage', action.perpage);
+  [SET_FODLER_ENTRY_PAGE]: (state, action) => {
+    return state.set('page', action.page);
   }
 });
 
@@ -72,10 +71,9 @@ export function checkFolderEntryExists(data) {
   };
 }
 
-export function setFolderEntryPageParams(page, perpage) {
+export function setFolderEntryPage(page) {
   return {
-    type: SET_FODLER_ENTRY_PAGE_PARAMS,
-    page,
-    perpage
+    type: SET_FODLER_ENTRY_PAGE,
+    page
   };
 }
