@@ -17,7 +17,7 @@ const SET_SELECTED_FOLDER_ENTRIES = 'garchen-panel/folderEntry/SET_SELECTED_FOLD
 
 const SET_FODLER_ENTRY_PAGE = 'garchen-panel/folderEntry/SET_FODLER_ENTRY_PAGE';
 
-const FOLDER_ENTRY_PERPAGE = 3;
+const FOLDER_ENTRY_PERPAGE = 10;
 
 const initialState = Map({
   page: 1,
