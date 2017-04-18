@@ -45,6 +45,7 @@ export default class AddFolderEntryForm extends Component {
   renderContentFields() {
     const {folder, f, renderTextField, renderSelectField} = this.props;
     const {contentFields} = folder.fields;
+
     return contentFields.map((field) => {
 
       const matchTargetLanguage = field.match(/^target-entry-lang-(.+)$/);

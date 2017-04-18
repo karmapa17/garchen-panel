@@ -1,4 +1,9 @@
-body {
+:global(.bo) {
+  font-family: 'Tibetan Machine Uni';
+}
+
+:global(.en, .zh-TW, .zh-CN) {
+  font-family: 'helvetica neue';
 }
 
 h1, h2, h3, h4, h5 {

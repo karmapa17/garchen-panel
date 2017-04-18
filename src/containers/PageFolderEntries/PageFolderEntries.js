@@ -84,7 +84,7 @@ export default class PageFolderEntries extends Component {
 
   goToSingleFolderEntryPage = (entryId) => {
     const {folder, push} = this.props;
-    return () => this.props.push(`/folders/${folder.id}/entries/${entryId}`);
+    return () => push(`/folders/${folder.id}/entries/${entryId}`);
   };
 
   renderFolderEntries() {

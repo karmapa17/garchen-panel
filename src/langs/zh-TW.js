@@ -1,7 +1,7 @@
 module.exports = {
   'folder-entry-name-taken': '詞條在這個資料夾已經存在',
   'folder-entry-name-required': '必須填寫詞條',
-  'folder-entry-has-been-created': '詞條 {folderEntryName} 已被建立',
+  'folder-entry-has-been-created': '詞條 {sourceEntry} 已被建立',
   'folder-entries-has-been-deleted': '已刪除 {count} 個詞條',
   'old': '舊',
   'when': '當',
