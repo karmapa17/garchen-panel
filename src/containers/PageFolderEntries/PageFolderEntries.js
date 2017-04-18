@@ -32,6 +32,7 @@ const styles = require('./PageFolderEntries.scss');
   const promises = [];
   promises.push(dispatch(loadFolder({id: params.id})));
   promises.push(dispatch(loadFolderEntries({folderId: params.id, page, perpage})));
+  promises.push(dispatch(setSelectedFolderEntryIndices([])));
 
   return Promise.all(promises);
 })

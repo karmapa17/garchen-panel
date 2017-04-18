@@ -8,8 +8,6 @@ const order = flatten(langKeys.map((key) => {
 }))
 .concat(restKeys);
 
-console.log('order', order);
-
 export default function sortEntryKeys(keys) {
   return sortBy(keys, (key) => order.indexOf(key));
 }

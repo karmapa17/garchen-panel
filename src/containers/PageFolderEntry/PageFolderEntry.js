@@ -54,8 +54,6 @@ export default class PageFolderEntry extends Component {
 
     return map(keys, (key) => {
 
-      console.log('key', key);
-
       const value = entry.data[key];
       const matchTargetLanguage = key.match(/^targetEntry-(.+)$/);
 
