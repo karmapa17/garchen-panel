@@ -2,12 +2,14 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
+import {cloneDeep} from 'lodash';
 
+import objToArr from './../../helpers/objToArr';
 import sortContentFields from './../../helpers/sortContentFields';
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
 import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
 import {getFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
-import {setSnackBarParams} from './../../redux/modules/main';
+import {setSnackBarParams, setTargetLanguages} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
@@ -16,9 +18,10 @@ import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 
 const styles = require('./PageEditFolder.scss');
 
-@connect(({folder}) => ({
+@connect(({main, folder}) => ({
   folder: folder.get('folder'),
-}), {getFolder, updateFolder, setSnackBarParams, deleteFolder})
+  targetLanguages: main.get('targetLanguages')
+}), {getFolder, updateFolder, setSnackBarParams, deleteFolder, setTargetLanguages})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
@@ -32,9 +35,17 @@ export default class PageEditFolder extends Component {
     params: PropTypes.object.isRequired,
     getFolder: PropTypes.func.isRequired,
     deleteFolder: PropTypes.func.isRequired,
+    targetLanguages: PropTypes.array.isRequired,
+    setTargetLanguages: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,
     updateFolder: PropTypes.func.isRequired
+  };
+
+  handleTargetLanguagesChange = (rawData) => {
+    const data = cloneDeep(rawData);
+    delete data.preventDefault;
+    this.props.setTargetLanguages(objToArr(data));
   };
 
   handleEditFolderFormSubmit = async (data) => {
@@ -55,9 +66,22 @@ export default class PageEditFolder extends Component {
 
   goToFoldersPage = () => this.props.push('/');
 
+  componentWillMount() {
+    const {folder, setTargetLanguages} = this.props;
+    setTargetLanguages(folder.data.targetLanguages);
+  }
+
   render() {
 
-    const {f, folder} = this.props;
+    const {f, folder, targetLanguages} = this.props;
+    const {sourceLanguage, contentFields} = folder.data;
+    const initialValues = {
+      id: folder.id,
+      folderName: folder.name,
+      targetLanguages: folder.data.targetLanguages,
+      sourceLanguage,
+      contentFields
+    };
 
     return (
       <div className={c('page-edit', styles.pageEditFolder)}>
@@ -69,7 +93,8 @@ export default class PageEditFolder extends Component {
           <FlatButton icon={<i className="fa fa-arrow-left" />}
             label={f('back')} onTouchTap={this.goToFoldersPage} />
         </TopBar>
-        <EditFolderForm onSubmit={this.handleEditFolderFormSubmit} />
+        <EditFolderForm onSubmit={this.handleEditFolderFormSubmit}
+          initialValues={initialValues} onTargetLanguagesChange={this.handleTargetLanguagesChange} targetLanguages={targetLanguages} />
         <DeleteFolderForm className={styles.deleteFolderForm} initialValues={{targetFolderName: folder.name}}
           onSubmit={this.handleDeleteFolderFormSubmit} />
       </div>
