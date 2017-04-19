@@ -1,16 +1,17 @@
-import log from 'karmapa-log';
-import {cloneDeep} from 'lodash';
+import {pick, isEmpty} from 'lodash';
 
-export default async function addFolder(event, rawData) {
+export default async function addFolder(event, data) {
 
-  const data = cloneDeep(rawData);
   const {Folder} =  this.params.models;
 
-  delete data.folderName;
-
   const folder = await Folder.create({
-    name: rawData.folderName,
-    fields: data
+    name: data.folderName,
+    data: pick(data, ['sourceLanguage', 'targetLanguages', 'contentFields'])
   });
+
+  if (isEmpty(folder)) {
+    return this.reject({message: 'Failed to create folder'});
+  }
+
   this.resolve(folder);
 }

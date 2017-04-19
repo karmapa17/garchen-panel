@@ -1,17 +1,17 @@
+
 export default async function addFolderEntry(event, rawData) {
 
-  const {data, folderId, sourceEntry} = rawData;
-  const {Entry} =  this.params.models;
+  const {Entry} = this.params.models;
+  const {folderId, data} = rawData;
 
-  const folderEntry = await Entry.create({
-    folderId,
-    sourceEntry,
-    data
-  });
+  const sourceEntry = data.sourceEntry;
+  delete data.sourceEntry;
 
-  if (! folderEntry) {
+  const entry = await Entry.create({folderId, sourceEntry, data});
+
+  if (! entry) {
     return this.reject({message: 'Failed to create folder entry'});
   }
 
-  this.resolve(folderEntry);
+  this.resolve(entry);
 }

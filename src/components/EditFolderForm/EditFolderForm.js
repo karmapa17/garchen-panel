@@ -17,7 +17,7 @@ import MULTI_LANG_FIELDS from './../../constants/multiLangFields';
 
 @connect(({main, folder}) => {
   const row = folder.get('folder');
-  const {sourceLanguage, targetLanguages, contentFields} = row.fields;
+  const {sourceLanguage, targetLanguages, contentFields} = row.data;
   return {
     initialValues: {
       id: row.id,

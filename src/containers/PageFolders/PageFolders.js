@@ -110,6 +110,7 @@ export default class PageFolders extends Component {
 
   renderFolders() {
     const {f, folders} = this.props;
+    console.log('folders', folders);
     return folders.map((folder) => {
       const {id, name} = folder;
       return (
