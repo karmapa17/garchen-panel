@@ -55,7 +55,7 @@ export default class AddFolderEntryForm extends Component {
 
         return (
           <div key={`target-entry-${lang}`}>
-            <Field name={`targetEntry-${lang}`} type="text"
+            <Field name={`target-entry-${lang}`} type="text"
               component={renderTextField} label={f('target-entry-lang', {lang: f(lang)})} />
           </div>
         );

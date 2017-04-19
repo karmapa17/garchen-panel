@@ -5,7 +5,9 @@ export default async function addFolderEntry(event, rawData) {
   const {folderId, data} = rawData;
 
   const sourceEntry = data.sourceEntry;
+
   delete data.sourceEntry;
+  delete data.folderId;
 
   const entry = await Entry.create({folderId, sourceEntry, data});
 
