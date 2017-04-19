@@ -1,4 +1,5 @@
 module.exports = {
+  'add-a-folder': 'Add a folder',
   'folder-entry-name-taken': 'Entry already existed in this folder.',
   'folder-entry-name-required': 'Entry field is required.',
   'folder-entry-has-been-created': 'Entry {sourceEntry} has been created.',

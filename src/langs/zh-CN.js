@@ -1,4 +1,5 @@
 module.exports = {
+  'add-a-folder': '新增一个资料夹',
   'folder-entry-name-taken': '词条在这个资料夹已经存在',
   'folder-entry-name-required': '必须填写词条',
   'folder-entry-has-been-created': '已新增词条 {sourceEntry}',
