@@ -7,6 +7,9 @@ import {isArray} from 'lodash';
 
 import APP_DATA_PATH from './../constants/appDataPath';
 
+const version = require('./../../../package.json').version;
+console.log('version', version);
+
 export default async function initDb() {
 
   const dbPath = path.resolve(APP_DATA_PATH, 'garchen-panel.db');

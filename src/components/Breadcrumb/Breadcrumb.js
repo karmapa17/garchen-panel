@@ -5,12 +5,12 @@ const styles = require('./Breadcrumb.scss');
 export default class Breadcrumb extends Component {
 
   static propTypes = {
-    children: PropTypes.object.isRequired
+    children: PropTypes.array.isRequired
   };
 
   renderListContent() {
-    return this.props.children.map((child) => {
-      return <li>{child}</li>;
+    return this.props.children.map((child, index) => {
+      return <li key={`breadcrumb-item-${index}`}>{child}</li>;
     });
   }
 

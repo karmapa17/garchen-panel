@@ -83,10 +83,10 @@ export default class PageFolders extends Component {
 
   renderAddFolderDialog() {
 
-    const {isAddFolderDialogOpen} = this.props;
+    const {isAddFolderDialogOpen, f} = this.props;
 
     return (
-      <Dialog title="Add a folder" open={isAddFolderDialogOpen}
+      <Dialog title={f('add-a-folder')} open={isAddFolderDialogOpen}
         bodyStyle={{paddingLeft: '8px', paddingRight: '8px', paddingBottom: '8px'}}
         onRequestClose={this.handleAddFolderDialogClose}>
         <AddFolderForm ref="addFolderForm" onSubmit={this.handleSubmit}
