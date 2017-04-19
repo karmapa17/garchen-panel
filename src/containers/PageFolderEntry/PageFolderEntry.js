@@ -158,7 +158,7 @@ export default class PageFolderEntry extends Component {
         <table className={styles.table}>
           <tbody>
             <tr>
-              <th>{f('source-entry-lang', {lang: f(folder.fields.sourceLanguage)})}</th>
+              <th>{f('source-entry-lang', {lang: f(folder.data.sourceLanguage)})}</th>
               <td>{entry.sourceEntry}</td>
             </tr>
             {this.renderContentFields()}

@@ -1,20 +1,16 @@
-import log from 'karmapa-log';
-import {cloneDeep} from 'lodash';
+import {pick} from 'lodash';
 
-export default async function updateFolder(event, rawData) {
+export default async function updateFolder(event, data) {
 
-  const data = cloneDeep(rawData);
   const {Folder} =  this.params.models;
 
-  delete data.id;
-  delete data.folderName;
-
-  const columns = {
-    name: rawData.folderName,
-    fields: data
+  const newData = {
+    name: data.folderName,
+    data: pick(data, ['sourceLanguage', 'targetLanguages', 'contentFields'])
   };
 
-  await Folder.update({id: rawData.id}, columns);
-  columns.id = rawData.id;
-  this.resolve(columns);
+  await Folder.update({id: data.id}, newData);
+  newData.id = data.id;
+
+  this.resolve(newData);
 }

@@ -35,16 +35,8 @@ export default class PageAddFolderEntry extends Component {
   handleSubmit = async (data) => {
 
     const {f, folder, addFolderEntry, setSnackBarParams, push} = this.props;
-    const sourceEntry = data.sourceEntry;
+    const folderEntry = await addFolderEntry({folderId: folder.id, data});
 
-    delete data.sourceEntry;
-    delete data.folderId;
-
-    const folderEntry = await addFolderEntry({
-      folderId: folder.id,
-      sourceEntry,
-      data
-    });
     setSnackBarParams(true, f('folder-entry-has-been-created', {sourceEntry: folderEntry.sourceEntry}));
     push(`/folders/${folder.id}/entries`);
   };

@@ -44,7 +44,7 @@ export default class AddFolderEntryForm extends Component {
 
   renderContentFields() {
     const {folder, f, renderTextField, renderSelectField} = this.props;
-    const {contentFields} = folder.fields;
+    const {contentFields} = folder.data;
 
     return contentFields.map((field) => {
 
@@ -125,8 +125,7 @@ export default class AddFolderEntryForm extends Component {
   render() {
 
     const {handleSubmit, f, invalid, renderTextField, folder} = this.props;
-
-    const {sourceLanguage} = folder.fields;
+    const {sourceLanguage} = folder.data;
 
     return (
       <form className={styles.addFolderEntryForm} onSubmit={handleSubmit}>
