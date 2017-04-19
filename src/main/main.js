@@ -21,7 +21,7 @@ import deleteEntries from './controllers/entry/deleteEntries';
 
 import initDb from './models';
 
-require('electron-debug')({showDevTools: true});
+require('electron-debug')({showDevTools: true, enabled: true});
 
 let mainWindow = null;
 
