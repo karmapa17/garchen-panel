@@ -70,7 +70,8 @@ export default class PageEditFolder extends Component {
             label={f('back')} onTouchTap={this.goToFoldersPage} />
         </TopBar>
         <EditFolderForm onSubmit={this.handleEditFolderFormSubmit} />
-        <DeleteFolderForm className={styles.deleteFolderForm} onSubmit={this.handleDeleteFolderFormSubmit} folder={folder} />
+        <DeleteFolderForm className={styles.deleteFolderForm} initialValues={{targetFolderName: folder.name}}
+          onSubmit={this.handleDeleteFolderFormSubmit} />
       </div>
     );
   }
