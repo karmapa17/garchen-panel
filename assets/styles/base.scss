@@ -44,37 +44,10 @@ h5 {
   background-color: rgb(224, 224, 224);
 }
 
-:global(.topbar) {
-  padding-top: 7px;    // this space is for tibatan
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
 :global(.page-edit) {
   :global(.button-wrap) {
     padding-top: 14px;
     text-align: right;
-  }
-}
-
-:global(.breadcrumb) {
-  li {
-    display: inline-block;
-    span {
-      font-size: 28px;
-      font-weight: 500;
-    }
-    &:after {
-      content: '/'
-    }
-    margin-right: 14px;
-  }
-  li:last-child {
-    &:after {
-      content: ''
-    }
-    margin-right: 0;
   }
 }
 

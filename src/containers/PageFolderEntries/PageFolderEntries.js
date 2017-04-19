@@ -5,11 +5,12 @@ import FlatButton from 'material-ui/FlatButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {range} from 'ramda';
 
+import TopBar from './../../components/TopBar/TopBar';
+import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {setSnackBarParams} from './../../redux/modules/main';
 import {loadFolder} from './../../redux/modules/folder';
 import {loadFolderEntries, setSelectedFolderEntryIndices, setFolderEntryPage} from './../../redux/modules/folderEntry';
 import {deleteFolderEntries} from './../../redux/modules/entry';
-
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
@@ -158,15 +159,11 @@ export default class PageFolderEntries extends Component {
 
     return (
       <div className={c('page-list', styles.pageFolderEntries)}>
-        <div className="topbar">
-          <ul className="breadcrumb">
-            <li>
-              <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
-            </li>
-            <li>
-              <span>{f('folder-entries', {folderName: folder.name})}</span>
-            </li>
-          </ul>
+        <TopBar>
+          <Breadcrumb>
+            <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
+            <span>{f('folder-entries', {folderName: folder.name})}</span>
+          </Breadcrumb>
           <div>
             {this.renderDeleteButton()}
             <FlatButton icon={<i className="fa fa-plus" />}
@@ -174,7 +171,7 @@ export default class PageFolderEntries extends Component {
             <FlatButton icon={<i className="fa fa-arrow-left" />}
               label={f('back')} onTouchTap={this.goToFoldersPage} />
           </div>
-        </div>
+        </TopBar>
         {this.renderFolderEntries()}
         {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
           onButtonTouchTap={this.handlePageButtonTouchTap} />}

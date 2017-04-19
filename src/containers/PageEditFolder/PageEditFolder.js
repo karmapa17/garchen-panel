@@ -11,6 +11,8 @@ import {setSnackBarParams} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
+import TopBar from './../../components/TopBar/TopBar';
+import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 
 const styles = require('./PageEditFolder.scss');
 
@@ -59,18 +61,14 @@ export default class PageEditFolder extends Component {
 
     return (
       <div className={c('page-edit', styles.pageEditFolder)}>
-        <div className="topbar">
-          <ul className="breadcrumb">
-            <li>
-              <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
-            </li>
-            <li>
-              <span>{f('edit-folder')}</span>
-            </li>
-          </ul>
+        <TopBar>
+          <Breadcrumb>
+            <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
+            <span>{f('edit-folder')}</span>
+          </Breadcrumb>
           <FlatButton icon={<i className="fa fa-arrow-left" />}
             label={f('back')} onTouchTap={this.goToFoldersPage} />
-        </div>
+        </TopBar>
         <EditFolderForm onSubmit={this.handleEditFolderFormSubmit} />
         <DeleteFolderForm className={styles.deleteFolderForm} onSubmit={this.handleDeleteFolderFormSubmit} folder={folder} />
       </div>

@@ -11,6 +11,8 @@ import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
 import sortEntryKeys from './../../helpers/sortEntryKeys';
 import entryKeysToDataRows from './../../helpers/entryKeysToDataRows';
+import TopBar from './../../components/TopBar/TopBar';
+import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 
 const styles = require('./PageFolderEntry.scss');
 
@@ -76,21 +78,15 @@ export default class PageFolderEntry extends Component {
 
     return (
       <div className={c('page-info', styles.pageFolderEntry)}>
-        <div className="topbar">
-          <ul className="breadcrumb">
-            <li>
-              <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
-            </li>
-            <li>
-              <FlatButton label={f('folder-entries', {folderName: folder.name})} onTouchTap={this.goBack} />
-            </li>
-            <li>
-              <span>{entry.sourceEntry}</span>
-            </li>
-          </ul>
+        <TopBar>
+          <Breadcrumb>
+            <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
+            <FlatButton label={f('folder-entries', {folderName: folder.name})} onTouchTap={this.goBack} />
+            <span>{entry.sourceEntry}</span>
+          </Breadcrumb>
           <FlatButton icon={<i className="fa fa-arrow-left" />}
             label={f('back')} primary onTouchTap={this.goBack} />
-        </div>
+        </TopBar>
         <table className={styles.table}>
           <tbody>
             <tr>

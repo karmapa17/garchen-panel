@@ -4,6 +4,8 @@ import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 
 import AddFolderEntryForm from './../../components/AddFolderEntryForm/AddFolderEntryForm';
+import TopBar from './../../components/TopBar/TopBar';
+import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {loadFolder} from './../../redux/modules/folder';
 import {addFolderEntry} from './../../redux/modules/folderEntry';
 import {setSnackBarParams} from './../../redux/modules/main';
@@ -54,21 +56,15 @@ export default class PageAddFolderEntry extends Component {
 
     return (
       <div className={c('page-add', styles.pageAddFolderEntry)}>
-        <div className="topbar">
-          <ul className="breadcrumb">
-            <li>
+        <TopBar>
+          <Breadcrumb>
               <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
-            </li>
-            <li>
               <FlatButton label={f('folder-entries', {folderName: folder.name})} onTouchTap={this.goBack} />
-            </li>
-            <li>
               <span>{f('add-entry')}</span>
-            </li>
-          </ul>
+          </Breadcrumb>
           <FlatButton icon={<i className="fa fa-arrow-left" />}
             label={f('back')} primary onTouchTap={this.goBack} />
-        </div>
+        </TopBar>
         <AddFolderEntryForm onSubmit={this.handleSubmit} folder={folder} initialValues={{folderId: folder.id}} />
       </div>
     );

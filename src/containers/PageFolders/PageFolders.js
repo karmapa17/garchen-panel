@@ -13,6 +13,7 @@ import {setAddFolderDialogOpen, setSnackBarParams} from './../../redux/modules/m
 import {addFolder, loadFolders, setPageParams} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
+import TopBar from './../../components/TopBar/TopBar';
 
 import sortContentFields from './../../helpers/sortContentFields';
 import injectF from './../../helpers/injectF';
@@ -110,7 +111,7 @@ export default class PageFolders extends Component {
 
   renderFolders() {
     const {f, folders} = this.props;
-    console.log('folders', folders);
+
     return folders.map((folder) => {
       const {id, name} = folder;
       return (
@@ -137,11 +138,11 @@ export default class PageFolders extends Component {
 
     return (
       <div className={c('page-list', styles.pageFolders)}>
-        <div className="topbar">
+        <TopBar>
           <h2>{f('folders')}</h2>
           <FlatButton icon={<i className="fa fa-plus" />}
             label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
-        </div>
+        </TopBar>
         {this.renderFolders()}
         {(folderCount > perpage) && <Pagination current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />}
         {this.renderAddFolderDialog()}
