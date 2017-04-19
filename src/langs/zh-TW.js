@@ -1,8 +1,10 @@
 module.exports = {
+  'info': '資訊',
   'add-a-folder': '新增一個資料夾',
   'folder-entry-name-taken': '詞條在這個資料夾已經存在',
   'folder-entry-name-required': '必須填寫詞條',
   'folder-entry-has-been-created': '詞條 {sourceEntry} 已被建立',
+  'edit-folder-entry': '編輯 {sourceEntry}',
   'folder-entries-has-been-deleted': '已刪除 {count} 個詞條',
   'old': '舊',
   'when': '當',

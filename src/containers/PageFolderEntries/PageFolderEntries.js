@@ -89,17 +89,41 @@ export default class PageFolderEntries extends Component {
     return () => push(`/folders/${folder.id}/entries/${entryId}`);
   };
 
+  handleInfoButtonClick = (entryId) => {
+    return (event) => {
+      const {folder, push} = this.props;
+      event.preventDefault();
+      push(`/folders/${folder.id}/entries/${entryId}`);
+    };
+  };
+
+  handleEditButtonClick = (entryId) => {
+    return (event) => {
+      // have to use onClick instead of onTouchTap to workaround this
+      // https://github.com/zilverline/react-tap-event-plugin/issues/54
+      event.preventDefault();
+      const {folder, push} = this.props;
+      push(`/folders/${folder.id}/entries/${entryId}/edit`);
+    };
+  };
+
   renderFolderEntries() {
 
     const rowStyle = {fontSize: 20};
 
-    const {folderEntries} = this.props;
+    const {f, folderEntries} = this.props;
     const tableRows = folderEntries.map((entry) => {
       return (
         <TableRow key={`table-row-${entry.id}`}>
           <TableRowColumn style={rowStyle}>{entry.id}</TableRowColumn>
           <TableRowColumn style={rowStyle}>
             <a onTouchTap={this.goToSingleFolderEntryPage(entry.id)}>{entry.sourceEntry}</a>
+          </TableRowColumn>
+          <TableRowColumn style={rowStyle}>
+            <FlatButton label={f('info')} onClick={this.handleInfoButtonClick(entry.id)} />
+          </TableRowColumn>
+          <TableRowColumn style={rowStyle}>
+            <FlatButton label={f('edit')} onClick={this.handleEditButtonClick(entry.id)} />
           </TableRowColumn>
         </TableRow>
       );
@@ -111,6 +135,8 @@ export default class PageFolderEntries extends Component {
           <TableRow>
             <TableHeaderColumn style={rowStyle}>ID</TableHeaderColumn>
             <TableHeaderColumn style={rowStyle}>Name</TableHeaderColumn>
+            <TableHeaderColumn style={rowStyle} />
+            <TableHeaderColumn style={rowStyle} />
           </TableRow>
         </TableHeader>
         <TableBody>{tableRows}</TableBody>
