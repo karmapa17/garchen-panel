@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 
-import {loadFolder} from './../../redux/modules/folder';
+import {getFolder} from './../../redux/modules/folder';
 import {loadEntry} from './../../redux/modules/entry';
 import {setSnackBarParams} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
@@ -24,7 +24,7 @@ const styles = require('./PageFolderEntry.scss');
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
   const promises = [];
-  promises.push(dispatch(loadFolder({id: params.folderId})));
+  promises.push(dispatch(getFolder({id: params.folderId})));
   promises.push(dispatch(loadEntry({id: params.entryId})));
   return Promise.all(promises);
 })

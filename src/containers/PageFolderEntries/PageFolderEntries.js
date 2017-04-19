@@ -8,9 +8,9 @@ import {range} from 'ramda';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {setSnackBarParams} from './../../redux/modules/main';
-import {loadFolder} from './../../redux/modules/folder';
-import {loadFolderEntries, setSelectedFolderEntryIndices, setFolderEntryPage} from './../../redux/modules/folderEntry';
-import {deleteFolderEntries} from './../../redux/modules/entry';
+import {getFolder} from './../../redux/modules/folder';
+import {listFolderEntries, setSelectedFolderEntryIndices, setFolderEntryPage} from './../../redux/modules/folderEntry';
+import {deleteEntries} from './../../redux/modules/entry';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
@@ -25,14 +25,14 @@ const styles = require('./PageFolderEntries.scss');
   folderEntries: folderEntry.get('folderEntries'),
   folderEntryCount: folderEntry.get('folderEntryCount'),
   selectedFolderEntryIndices: folderEntry.get('selectedFolderEntryIndices')
-}), {loadFolderEntries, setSnackBarParams, setSelectedFolderEntryIndices, deleteFolderEntries, setFolderEntryPage})
+}), {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIndices, deleteEntries, setFolderEntryPage})
 @injectPush
 @injectF
 @resolve(({dispatch}, {params, page, perpage}) => {
 
   const promises = [];
-  promises.push(dispatch(loadFolder({id: params.id})));
-  promises.push(dispatch(loadFolderEntries({folderId: params.id, page, perpage})));
+  promises.push(dispatch(getFolder({id: params.id})));
+  promises.push(dispatch(listFolderEntries({folderId: params.id, page, perpage})));
   promises.push(dispatch(setSelectedFolderEntryIndices([])));
 
   return Promise.all(promises);
@@ -48,19 +48,19 @@ export default class PageFolderEntries extends Component {
     folderEntries: PropTypes.array.isRequired,
     folderEntryCount: PropTypes.number.isRequired,
     params: PropTypes.object.isRequired,
-    loadFolderEntries: PropTypes.func.isRequired,
+    listFolderEntries: PropTypes.func.isRequired,
     setSelectedFolderEntryIndices: PropTypes.func.isRequired,
     selectedFolderEntryIndices: PropTypes.array.isRequired,
-    deleteFolderEntries: PropTypes.func.isRequired,
+    deleteEntries: PropTypes.func.isRequired,
     setFolderEntryPage: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
   };
 
   componentWillReceiveProps(nextProps) {
-    const {page, perpage, loadFolderEntries} = this.props;
+    const {page, perpage, listFolderEntries} = this.props;
     if ((page !== nextProps.page) || (perpage !== nextProps.perpage)) {
 
-      loadFolderEntries({
+      listFolderEntries({
         folderId: nextProps.folder.id,
         page: nextProps.page,
         perpage: nextProps.perpage
@@ -128,18 +128,18 @@ export default class PageFolderEntries extends Component {
   deleteSelectedFolderEntries = async () => {
 
     const {selectedFolderEntryIndices, folderEntries, f,
-      deleteFolderEntries, page, perpage, params, loadFolderEntries,
+      deleteEntries, page, perpage, params, listFolderEntries,
       setSnackBarParams} = this.props;
 
     const ids = folderEntries.filter((row, index) => (-1 !== selectedFolderEntryIndices.indexOf(index)))
       .map((row) => row.id);
-    await deleteFolderEntries({ids});
+    await deleteEntries({ids});
 
     if ((ids.length === perpage) && (page > 1)) {
-      await loadFolderEntries({folderId: params.id, page: page - 1, perpage});
+      await listFolderEntries({folderId: params.id, page: page - 1, perpage});
     }
     else {
-      await loadFolderEntries({folderId: params.id, page, perpage});
+      await listFolderEntries({folderId: params.id, page, perpage});
     }
     setSnackBarParams(true, f('folder-entries-has-been-deleted', {count: ids.length}));
   };

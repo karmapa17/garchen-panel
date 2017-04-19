@@ -48,19 +48,17 @@ async function handleAppReady() {
   const {db, models} = await initDb();
   const ipc = ipcDecorator.decorate(ipcMain, {db, models});
 
-  ipc.on('GET /folder', getFolder);
-  ipc.on('GET /folder/exists', checkFolderExists);
+  ipc.on('get-folder', getFolder);
+  ipc.on('check-folder-exists', checkFolderExists);
+  ipc.on('update-folder', updateFolder);
+  ipc.on('delete-folder', deleteFolder);
+  ipc.on('list-folders', listFolders);
+  ipc.on('add-folder', addFolder);
 
-  ipc.on('GET /folder/entries', listFolderEntries);
-  ipc.on('POST /folder/entries', addFolderEntry);
-  ipc.on('GET /folder/entry/exists', checkFolderEntryExists);
+  ipc.on('list-folder-entries', listFolderEntries);
+  ipc.on('add-folder-entry', addFolderEntry);
+  ipc.on('check-folder-entry-exists', checkFolderEntryExists);
 
-  ipc.on('GET /entry', getEntry);
-  ipc.on('DELETE /entries', deleteEntries);
-
-  ipc.on('PUT /folder', updateFolder);
-  ipc.on('DELETE /folder', deleteFolder);
-
-  ipc.on('GET /folders', listFolders);
-  ipc.on('POST /folders', addFolder);
+  ipc.on('get-entry', getEntry);
+  ipc.on('delete-entries', deleteEntries);
 }

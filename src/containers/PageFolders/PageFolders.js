@@ -10,7 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 
 import {setAddFolderDialogOpen, setSnackBarParams} from './../../redux/modules/main';
-import {addFolder, loadFolders, setPageParams} from './../../redux/modules/folder';
+import {addFolder, listFolders, setPageParams} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
@@ -28,11 +28,11 @@ const styles = require('./PageFolders.scss');
   folders: folder.get('folders'),
   folderCount: folder.get('folderCount'),
   isAddFolderDialogOpen: main.get('isAddFolderDialogOpen')
-}), {loadFolders, setAddFolderDialogOpen, addFolder, setPageParams, setSnackBarParams})
+}), {listFolders, setAddFolderDialogOpen, addFolder, setPageParams, setSnackBarParams})
 @injectPush
 @injectF
 @resolve(({dispatch}, {page, perpage}) => {
-  return dispatch(loadFolders({page, perpage}));
+  return dispatch(listFolders({page, perpage}));
 })
 export default class PageFolders extends Component {
 
@@ -45,16 +45,16 @@ export default class PageFolders extends Component {
     addFolder: PropTypes.func.isRequired,
     folders: PropTypes.array.isRequired,
     folderCount: PropTypes.number.isRequired,
-    loadFolders: PropTypes.func.isRequired,
+    listFolders: PropTypes.func.isRequired,
     isAddFolderDialogOpen: PropTypes.bool.isRequired,
     setAddFolderDialogOpen: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
   };
 
   componentWillReceiveProps(nextProps) {
-    const {page, perpage, loadFolders} = this.props;
+    const {page, perpage, listFolders} = this.props;
     if ((page !== nextProps.page) || (perpage !== nextProps.perpage)) {
-      loadFolders({
+      listFolders({
         page: nextProps.page,
         perpage: nextProps.perpage
       });
@@ -67,13 +67,13 @@ export default class PageFolders extends Component {
 
   handleSubmit = async (data) => {
 
-    const {f, addFolder, setAddFolderDialogOpen, loadFolders,
+    const {f, addFolder, setAddFolderDialogOpen, listFolders,
       page, perpage, setSnackBarParams} = this.props;
 
     data.contentFields = sortContentFields(data.contentFields);
 
     await addFolder(data);
-    await loadFolders({page, perpage});
+    await listFolders({page, perpage});
 
     setSnackBarParams(true, f('folder-has-been-created', {folderName: data.folderName}));
     setAddFolderDialogOpen(false);

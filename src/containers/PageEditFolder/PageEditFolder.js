@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import sortContentFields from './../../helpers/sortContentFields';
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
 import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
-import {loadFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
+import {getFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
 import {setSnackBarParams} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
@@ -18,11 +18,11 @@ const styles = require('./PageEditFolder.scss');
 
 @connect(({folder}) => ({
   folder: folder.get('folder'),
-}), {loadFolder, updateFolder, setSnackBarParams, deleteFolder})
+}), {getFolder, updateFolder, setSnackBarParams, deleteFolder})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
-  return dispatch(loadFolder({id: params.id}));
+  return dispatch(getFolder({id: params.id}));
 })
 export default class PageEditFolder extends Component {
 
@@ -30,7 +30,7 @@ export default class PageEditFolder extends Component {
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
-    loadFolder: PropTypes.func.isRequired,
+    getFolder: PropTypes.func.isRequired,
     deleteFolder: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,

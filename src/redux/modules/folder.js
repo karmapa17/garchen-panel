@@ -1,9 +1,9 @@
 import {Map} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
 
-const LOAD_FOLDERS = 'garchen-panel/folder/LOAD_FOLDERS';
-const LOAD_FOLDERS_SUCCESS = 'garchen-panel/folder/LOAD_FOLDERS_SUCCESS';
-const LOAD_FOLDERS_FAIL = 'garchen-panel/folder/LOAD_FOLDERS_FAIL';
+const LIST_FOLDERS = 'garchen-panel/folder/LIST_FOLDERS';
+const LIST_FOLDERS_SUCCESS = 'garchen-panel/folder/LIST_FOLDERS_SUCCESS';
+const LIST_FOLDERS_FAIL = 'garchen-panel/folder/LIST_FOLDERS_FAIL';
 
 const ADD_FOLDER = 'garchen-panel/folder/ADD_FOLDER';
 const ADD_FOLDER_SUCCESS = 'garchen-panel/folder/ADD_FOLDER_SUCCESS';
@@ -11,9 +11,9 @@ const ADD_FOLDER_FAIL = 'garchen-panel/folder/ADD_FOLDER_FAIL';
 
 const SET_PAGE_PARAMS = 'garchen-panel/folder/SET_PAGE_PARAMS';
 
-const LOAD_FOLDER = 'garchen-panel/folder/LOAD_FOLDER';
-const LOAD_FOLDER_SUCCESS = 'garchen-panel/folder/LOAD_FOLDER_SUCCESS';
-const LOAD_FOLDER_FAIL = 'garchen-panel/folder/LOAD_FOLDER_FAIL';
+const GET_FOLDER = 'garchen-panel/folder/GET_FOLDER';
+const GET_FOLDER_SUCCESS = 'garchen-panel/folder/GET_FOLDER_SUCCESS';
+const GET_FOLDER_FAIL = 'garchen-panel/folder/GET_FOLDER_FAIL';
 
 const UPDATE_FOLDER = 'garchen-panel/folder/UPDATE_FOLDER';
 const UPDATE_FOLDER_SUCCESS = 'garchen-panel/folder/UPDATE_FOLDER_SUCCESS';
@@ -39,11 +39,11 @@ const initialState = Map({
 
 export default createReducer(initialState, {
 
-  [LOAD_FOLDER_SUCCESS]: (state, action) => {
+  [GET_FOLDER_SUCCESS]: (state, action) => {
     return state.set('folder', action.result);
   },
 
-  [LOAD_FOLDERS_SUCCESS]: (state, action) => {
+  [LIST_FOLDERS_SUCCESS]: (state, action) => {
     return state.set('folders', action.result.data)
       .set('folderCount', action.result.total);
   },
@@ -54,17 +54,17 @@ export default createReducer(initialState, {
   }
 });
 
-export function loadFolder(data) {
+export function getFolder(data) {
   return {
-    types: [LOAD_FOLDER, LOAD_FOLDER_SUCCESS, LOAD_FOLDER_FAIL],
-    promise: (client) => client.send('GET /folder', data)
+    types: [GET_FOLDER, GET_FOLDER_SUCCESS, GET_FOLDER_FAIL],
+    promise: (client) => client.send('get-folder', data)
   };
 }
 
-export function loadFolders(data) {
+export function listFolders(data) {
   return {
-    types: [LOAD_FOLDERS, LOAD_FOLDERS_SUCCESS, LOAD_FOLDERS_FAIL],
-    promise: (client) => client.send('GET /folders', data)
+    types: [LIST_FOLDERS, LIST_FOLDERS_SUCCESS, LIST_FOLDERS_FAIL],
+    promise: (client) => client.send('list-folders', data)
   };
 }
 
@@ -72,7 +72,7 @@ export function addFolder(data) {
   return {
     types: [ADD_FOLDER, ADD_FOLDER_SUCCESS, ADD_FOLDER_FAIL],
     promise: (client) => {
-      return client.send('POST /folders', data);
+      return client.send('add-folder', data);
     }
   };
 }
@@ -81,7 +81,7 @@ export function updateFolder(data) {
   return {
     types: [UPDATE_FOLDER, UPDATE_FOLDER_SUCCESS, UPDATE_FOLDER_FAIL],
     promise: (client) => {
-      return client.send('PUT /folder', data);
+      return client.send('update-folder', data);
     }
   };
 }
@@ -90,7 +90,7 @@ export function deleteFolder(data) {
   return {
     types: [DELETE_FOLDER, DELETE_FOLDER_SUCCESS, DELETE_FOLDER_FAIL],
     promise: (client) => {
-      return client.send('DELETE /folder', data);
+      return client.send('delete-folder', data);
     }
   };
 }
@@ -107,7 +107,7 @@ export function checkFolderExists(data) {
   return {
     types: [CHECK_FOLDER_EXISTS, CHECK_FOLDER_EXISTS_SUCCESS, CHECK_FOLDER_EXISTS_FAIL],
     promise: (client) => {
-      return client.send('GET /folder/exists', data);
+      return client.send('check-folder-exists', data);
     }
   };
 }

@@ -1,9 +1,9 @@
 import {Map} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
 
-const LOAD_FOLDER_ENTRIES = 'garchen-panel/folderEntry/LOAD_FOLDER_ENTRIES';
-const LOAD_FOLDER_ENTRIES_SUCCESS = 'garchen-panel/folderEntry/LOAD_FOLDER_ENTRIES_SUCCESS';
-const LOAD_FOLDER_ENTRIES_FAIL = 'garchen-panel/folderEntry/LOAD_FOLDER_ENTRIES_FAIL';
+const LIST_FOLDER_ENTRIES = 'garchen-panel/folderEntry/LIST_FOLDER_ENTRIES';
+const LIST_FOLDER_ENTRIES_SUCCESS = 'garchen-panel/folderEntry/LIST_FOLDER_ENTRIES_SUCCESS';
+const LIST_FOLDER_ENTRIES_FAIL = 'garchen-panel/folderEntry/LIST_FOLDER_ENTRIES_FAIL';
 
 const ADD_FOLDER_ENTRY = 'garchen-panel/folderEntry/ADD_FOLDER_ENTRY';
 const ADD_FOLDER_ENTRY_SUCCESS = 'garchen-panel/folderEntry/ADD_FOLDER_ENTRY_SUCCESS';
@@ -29,7 +29,7 @@ const initialState = Map({
 
 export default createReducer(initialState, {
 
-  [LOAD_FOLDER_ENTRIES_SUCCESS]: (state, action) => {
+  [LIST_FOLDER_ENTRIES_SUCCESS]: (state, action) => {
     return state.set('folderEntries', action.result.data)
       .set('folderEntryCount', action.result.total);
   },
@@ -50,24 +50,24 @@ export function setSelectedFolderEntryIndices(indices) {
   };
 }
 
-export function loadFolderEntries(data) {
+export function listFolderEntries(data) {
   return {
-    types: [LOAD_FOLDER_ENTRIES, LOAD_FOLDER_ENTRIES_SUCCESS, LOAD_FOLDER_ENTRIES_FAIL],
-    promise: (client) => client.send('GET /folder/entries', data)
+    types: [LIST_FOLDER_ENTRIES, LIST_FOLDER_ENTRIES_SUCCESS, LIST_FOLDER_ENTRIES_FAIL],
+    promise: (client) => client.send('list-folder-entries', data)
   };
 }
 
 export function addFolderEntry(data) {
   return {
     types: [ADD_FOLDER_ENTRY, ADD_FOLDER_ENTRY_SUCCESS, ADD_FOLDER_ENTRY_FAIL],
-    promise: (client) => client.send('POST /folder/entries', data)
+    promise: (client) => client.send('add-folder-entry', data)
   };
 }
 
 export function checkFolderEntryExists(data) {
   return {
     types: [CHECK_FOLDER_ENTRY_EXISTS, CHECK_FOLDER_ENTRY_EXISTS_SUCCESS, CHECK_FOLDER_ENTRY_EXISTS_FAIL],
-    promise: (client) => client.send('GET /folder/entry/exists', data)
+    promise: (client) => client.send('check-folder-entry-exists', data)
   };
 }
 

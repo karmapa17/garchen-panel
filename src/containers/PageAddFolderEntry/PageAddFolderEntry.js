@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import AddFolderEntryForm from './../../components/AddFolderEntryForm/AddFolderEntryForm';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
-import {loadFolder} from './../../redux/modules/folder';
+import {getFolder} from './../../redux/modules/folder';
 import {addFolderEntry} from './../../redux/modules/folderEntry';
 import {setSnackBarParams} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
@@ -21,7 +21,7 @@ const styles = require('./PageAddFolderEntry.scss');
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
-  return dispatch(loadFolder({id: params.id}));
+  return dispatch(getFolder({id: params.id}));
 })
 export default class PageAddFolderEntry extends Component {
 
