@@ -1,5 +1,5 @@
 require('babel-polyfill');
-require('font-awesome-sass-loader');
+require('font-awesome-sass-loader!./../assets/styles/font-awesome-sass.config.js');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
