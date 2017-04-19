@@ -7,12 +7,12 @@ import {isArray} from 'lodash';
 
 import APP_DATA_PATH from './../constants/appDataPath';
 
-const version = require('./../../../package.json').version;
-console.log('version', version);
+// if db version change, user will have to convert their db via online tool
+const dbVersion = '0.0.1';
 
 export default async function initDb() {
 
-  const dbPath = path.resolve(APP_DATA_PATH, 'garchen-panel.db');
+  const dbPath = path.resolve(APP_DATA_PATH, `garchen-panel-${dbVersion}.db`);
 
   try {
     fs.closeSync(fs.openSync(dbPath, 'wx'));
