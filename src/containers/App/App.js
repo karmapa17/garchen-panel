@@ -12,6 +12,7 @@ import Drawer from 'material-ui/Drawer';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Snackbar from 'material-ui/Snackbar';
+import c from 'classnames';
 
 import {setIntl, setDrawerOpen, toggleDrawerOpen, setSnackBarParams} from './../../redux/modules/main';
 import muiTheme from './../../constants/muiTheme';
@@ -23,6 +24,7 @@ const styles = require('./App.scss');
 injectTapEventPlugin();
 
 @connect(({auth, main}) => ({
+  appLocale: main.get('appLocale'),
   isDrawerOpen: main.get('isDrawerOpen'),
   isLoadingAuth: auth.get('isLoadingAuth'),
   snackBarMessage: main.get('snackBarMessage'),
@@ -36,6 +38,7 @@ export default class App extends Component {
   static propTypes = {
     f: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,
+    appLocale: PropTypes.string.isRequired,
     isDrawerOpen: PropTypes.bool.isRequired,
     isLoadingAuth: PropTypes.bool.isRequired,
     snackBarMessage: PropTypes.string.isRequired,
@@ -100,11 +103,11 @@ export default class App extends Component {
 
   render() {
 
-    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage} = this.props;
+    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage, appLocale} = this.props;
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div className={styles.app}>
+        <div className={c(styles.app, appLocale)}>
 
           <AppBar title={f('garchen')} iconElementRight={this.renderIconElementRight()}
             titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
