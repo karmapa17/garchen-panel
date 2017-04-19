@@ -52,6 +52,7 @@
     "babel-runtime": "5.8.20",
     "concurrently": "3.4.0",
     "css-loader": "0.15.4",
+    "devtron": "1.4.0",
     "electron": "1.6.2",
     "eslint": "1.10.3",
     "eslint-config-airbnb": "0.1.0",
