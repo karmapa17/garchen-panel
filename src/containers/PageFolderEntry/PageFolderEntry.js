@@ -4,7 +4,7 @@ import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 
 import {getFolder} from './../../redux/modules/folder';
-import {loadEntry} from './../../redux/modules/entry';
+import {getEntry} from './../../redux/modules/entry';
 import {setSnackBarParams} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
@@ -25,7 +25,7 @@ const styles = require('./PageFolderEntry.scss');
 @resolve(({dispatch, getState}, {params}) => {
   const promises = [];
   promises.push(dispatch(getFolder({id: params.folderId})));
-  promises.push(dispatch(loadEntry({id: params.entryId})));
+  promises.push(dispatch(getEntry({id: params.entryId})));
   return Promise.all(promises);
 })
 export default class PageFolderEntry extends Component {

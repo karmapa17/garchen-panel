@@ -18,6 +18,7 @@ import checkFolderExists from './controllers/folder/checkFolderExists';
 
 import getEntry from './controllers/entry/getEntry';
 import deleteEntries from './controllers/entry/deleteEntries';
+import updateEntry from './controllers/entry/updateEntry';
 
 import initDb from './models';
 
@@ -61,4 +62,5 @@ async function handleAppReady() {
 
   ipc.on('get-entry', getEntry);
   ipc.on('delete-entries', deleteEntries);
+  ipc.on('update-entry', updateEntry);
 }

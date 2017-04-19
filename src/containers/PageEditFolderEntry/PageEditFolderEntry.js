@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 
 import {getFolder} from './../../redux/modules/folder';
-import {loadEntry} from './../../redux/modules/entry';
+import {getEntry, updateEntry} from './../../redux/modules/entry';
 import {setSnackBarParams} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
@@ -17,13 +17,13 @@ const styles = require('./PageEditFolderEntry.scss');
 @connect(({folder, entry}) => ({
   folder: folder.get('folder'),
   entry: entry.get('entry')
-}), {setSnackBarParams})
+}), {setSnackBarParams, updateEntry})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
   const promises = [];
   promises.push(dispatch(getFolder({id: params.folderId})));
-  promises.push(dispatch(loadEntry({id: params.entryId})));
+  promises.push(dispatch(getEntry({id: params.entryId})));
   return Promise.all(promises);
 })
 export default class PageEditFolderEntry extends Component {
@@ -33,6 +33,7 @@ export default class PageEditFolderEntry extends Component {
     folder: PropTypes.object.isRequired,
     entry: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
+    updateEntry: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired
   };
@@ -44,9 +45,25 @@ export default class PageEditFolderEntry extends Component {
 
   goToFoldersPage = () => this.props.push('/');
 
+  handleSubmit = async (data) => {
+    const {entry, updateEntry, setSnackBarParams, f} = this.props;
+    await updateEntry({
+      id: entry.id,
+      data
+    });
+    this.goBack();
+    setSnackBarParams(true, f('folder-entry-has-been-updated', {sourceEntry: data.sourceEntry}));
+  };
+
   render() {
 
     const {f, folder, entry} = this.props;
+    const initialValues = {
+      entryId: entry.id,
+      folderId: folder.id,
+      sourceEntry: entry.sourceEntry,
+      ...entry.data
+    };
 
     return (
       <div className={styles.pageFolderEntry}>
@@ -59,7 +76,7 @@ export default class PageEditFolderEntry extends Component {
           <FlatButton icon={<i className="fa fa-arrow-left" />}
             label={f('back')} primary onTouchTap={this.goBack} />
         </TopBar>
-        <EditEntryForm />
+        <EditEntryForm onSubmit={this.handleSubmit} folder={folder} initialValues={initialValues} />
       </div>
     );
   }

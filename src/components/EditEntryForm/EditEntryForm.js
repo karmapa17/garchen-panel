@@ -21,6 +21,7 @@ export default class EditEntryForm extends Component {
 
   static propTypes = {
     folder: PropTypes.object.isRequired,
+    initialValues: PropTypes.object.isRequired,
     renderTextField: PropTypes.func.isRequired,
     renderSelectField: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,

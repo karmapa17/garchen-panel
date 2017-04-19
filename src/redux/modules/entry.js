@@ -9,6 +9,10 @@ const GET_ENTRY = 'garchen-panel/entry/GET_ENTRY';
 const GET_ENTRY_SUCCESS = 'garchen-panel/entry/GET_ENTRY_SUCCESS';
 const GET_ENTRY_FAIL = 'garchen-panel/entry/GET_ENTRY_FAIL';
 
+const UPDATE_ENTRY = 'garchen-panel/entry/UPDATE_ENTRY';
+const UPDATE_ENTRY_SUCCESS = 'garchen-panel/entry/UPDATE_ENTRY_SUCCESS';
+const UPDATE_ENTRY_FAIL = 'garchen-panel/entry/UPDATE_ENTRY_FAIL';
+
 const initialState = Map({
   entry: null
 });
@@ -26,9 +30,16 @@ export function deleteEntries(data) {
   };
 }
 
-export function loadEntry(data) {
+export function getEntry(data) {
   return {
     types: [GET_ENTRY, GET_ENTRY_SUCCESS, GET_ENTRY_FAIL],
     promise: (client) => client.send('get-entry', data)
+  };
+}
+
+export function updateEntry(data) {
+  return {
+    types: [UPDATE_ENTRY, UPDATE_ENTRY_SUCCESS, UPDATE_ENTRY_FAIL],
+    promise: (client) => client.send('update-entry', data)
   };
 }
