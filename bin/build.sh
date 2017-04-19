@@ -11,12 +11,13 @@ ZIP_WIN="${PACKAGE_NAME}-win32-ia32-v${PACKAGE_VERSION}.zip"
 
 cd $ROOT_DIR
 rm -r dist zips
-mkdir -p dist/src
+mkdir -p dist/src/assets/fonts
 mkdir -p zips
 NODE_ENV=production webpack
 sed -i '' -e 's/http:\/\/localhost:3000\///g' dist/index.html
 mv dist/index.html dist/bundle.js dist/src/
 cp -r assets/images/*.ico assets/images/*.icns .babelrc package.json index.js dist/
+cp -r assets/fonts/* dist/src/assets/fonts
 cp -r src/main dist/src
 
 cd dist;
