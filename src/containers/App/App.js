@@ -63,14 +63,16 @@ export default class App extends Component {
 
     if (auth) {
 
+      const {profile} = auth;
+
       const iconButton = (
         <IconButton style={{width: '64px', height: '64px', marginRight: 0}} disableTouchRipple>
           <div>
             <div className="hidden-mobile">
-              <Avatar src={auth.photoURL} />
+              <Avatar src={profile.image.url} />
             </div>
             <div>
-              <span className="hidden-mobile">{auth.displayName}</span>
+              <span className="hidden-mobile">{profile.displayName}</span>
             </div>
           </div>
         </IconButton>
