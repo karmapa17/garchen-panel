@@ -25,5 +25,5 @@ export default async function login(event, data) {
 
   const profile = await GoogleOAuth.getProfile({accessToken: accessTokenRow.access_token});
 
-  this.resolve(profile);
+  this.resolve({profile, accessTokenRow});
 }
