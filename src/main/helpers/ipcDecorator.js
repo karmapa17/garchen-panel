@@ -1,7 +1,7 @@
 import {cloneDeep, noop} from 'lodash';
 import log from 'karmapa-log';
 
-export default class ipcDecorator {
+export default class IpcDecorator {
 
   static bindHandler(fn, params = {}) {
 

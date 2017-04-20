@@ -3,7 +3,7 @@ import path from 'path';
 import Trilogy from 'trilogy';
 
 import mkdirp from './helpers/mkdirp';
-import ipcDecorator from './helpers/ipcDecorator';
+import IpcDecorator from './helpers/IpcDecorator';
 import APP_DATA_PATH from './constants/appDataPath';
 
 import getFolder from './controllers/folder/getFolder';
@@ -47,7 +47,7 @@ async function handleAppReady() {
   mainWindow.loadURL('file://' + __dirname + '/../index.html');
 
   const {db, models} = await initDb();
-  const ipc = ipcDecorator.decorate(ipcMain, {db, models});
+  const ipc = IpcDecorator.decorate(ipcMain, {db, models});
 
   ipc.on('get-folder', getFolder);
   ipc.on('check-folder-exists', checkFolderExists);
