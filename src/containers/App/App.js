@@ -15,6 +15,7 @@ import Snackbar from 'material-ui/Snackbar';
 import c from 'classnames';
 
 import {setIntl, setDrawerOpen, toggleDrawerOpen, setSnackBarParams} from './../../redux/modules/main';
+import {login, logout} from './../../redux/modules/auth';
 import muiTheme from './../../constants/muiTheme';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
@@ -30,7 +31,7 @@ injectTapEventPlugin();
   snackBarMessage: main.get('snackBarMessage'),
   isSnackBarOpen: main.get('isSnackBarOpen'),
   auth: auth.get('auth')
-}), {setDrawerOpen, toggleDrawerOpen, setIntl, setSnackBarParams})
+}), {setDrawerOpen, toggleDrawerOpen, setIntl, setSnackBarParams, login, logout})
 @injectF
 @injectPush
 export default class App extends Component {
@@ -44,8 +45,8 @@ export default class App extends Component {
     snackBarMessage: PropTypes.string.isRequired,
     isSnackBarOpen: PropTypes.bool.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
-    login: PropTypes.func,
-    logout: PropTypes.func,
+    login: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
     auth: PropTypes.object,
     toggleDrawerOpen: PropTypes.func.isRequired,
     setDrawerOpen: PropTypes.func.isRequired,

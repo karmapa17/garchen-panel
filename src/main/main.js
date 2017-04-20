@@ -20,6 +20,8 @@ import getEntry from './controllers/entry/getEntry';
 import deleteEntries from './controllers/entry/deleteEntries';
 import updateEntry from './controllers/entry/updateEntry';
 
+import login from './controllers/auth/login';
+
 import initDb from './models';
 
 require('electron-debug')({enabled: true});
@@ -63,4 +65,6 @@ async function handleAppReady() {
   ipc.on('get-entry', getEntry);
   ipc.on('delete-entries', deleteEntries);
   ipc.on('update-entry', updateEntry);
+
+  ipc.on('login', login);
 }

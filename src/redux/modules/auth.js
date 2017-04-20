@@ -5,6 +5,10 @@ const LOAD_AUTH = 'garchen-panel/auth/LOAD_AUTH';
 const LOAD_AUTH_SUCCESS = 'garchen-panel/auth/LOAD_AUTH_SUCCESS';
 const LOAD_AUTH_FAIL = 'garchen-panel/auth/LOAD_AUTH_FAIL';
 
+const LOGIN = 'garchen-panel/auth/LOGIN';
+const LOGIN_SUCCESS = 'garchen-panel/auth/LOGIN_SUCCESS';
+const LOGIN_FAIL = 'garchen-panel/auth/LOGIN_FAIL';
+
 const initialState = Immutable.Map({
   auth: null,
   isLoadingAuth: false
@@ -28,7 +32,9 @@ export default createReducer(initialState, {
 });
 
 export function login() {
-  return () => {
+  return {
+    types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
+    promise: (client) => client.send('login')
   };
 }
 
