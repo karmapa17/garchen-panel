@@ -1,7 +1,14 @@
+import {app} from 'electron';
+
 export default [
   {
     label: 'App',
     submenu: [
+      {
+        label: "Quit",
+        accelerator: "Command+Q",
+        click: () => app.quit()
+      },
       {
         label: 'Undo',
         accelerator: 'CmdOrCtrl+Z',
