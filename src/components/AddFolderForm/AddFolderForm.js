@@ -79,7 +79,7 @@ export default class AddFolderForm extends Component {
 
         <div className={styles.formBody}>
           <div>
-            <Field name="folderName" component={renderTextField} label={f('folder-name')} onFocus={this.handleFocus} onBlur={this.handleBlur} autoFocus />
+            <Field name="folderName" component={renderTextField} label={f('folder-name')} onBlur={this.handleBlur} autoFocus />
           </div>
 
           <div>
