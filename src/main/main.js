@@ -42,9 +42,6 @@ async function handleAppReady() {
   const {width, height} = screen.getPrimaryDisplay().workAreaSize;
   mainWindow = new BrowserWindow({width, height});
 
-  mainWindow.on('close', (event) => {
-  });
-
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
