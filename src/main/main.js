@@ -1,4 +1,4 @@
-import {app, screen, BrowserWindow, ipcMain} from 'electron';
+import {app, screen, BrowserWindow, ipcMain, Menu} from 'electron';
 import path from 'path';
 import Trilogy from 'trilogy';
 
@@ -19,6 +19,7 @@ import checkFolderExists from './controllers/folder/checkFolderExists';
 import getEntry from './controllers/entry/getEntry';
 import deleteEntries from './controllers/entry/deleteEntries';
 import updateEntry from './controllers/entry/updateEntry';
+import menuTemplate from './constants/menuTemplate';
 
 import login from './controllers/auth/login';
 
@@ -35,6 +36,8 @@ app.on('window-all-closed', () => {
 app.on('ready', handleAppReady);
 
 async function handleAppReady() {
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 
   const {width, height} = screen.getPrimaryDisplay().workAreaSize;
   mainWindow = new BrowserWindow({width, height});
