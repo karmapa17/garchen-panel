@@ -6,6 +6,7 @@ export default async function updateFolder(event, data) {
 
   const newData = {
     name: data.folderName,
+    source: data.source,
     data: pick(data, ['sourceLanguage', 'targetLanguages', 'contentFields'])
   };
 

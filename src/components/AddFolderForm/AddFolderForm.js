@@ -99,6 +99,10 @@ export default class AddFolderForm extends Component {
               {this.renderContentFields()}
             </Field>
           </div>
+
+          <div>
+            <Field name="source" component={renderTextField} label={f('source')} />
+          </div>
         </div>
 
         <div className={styles.formFooter}>

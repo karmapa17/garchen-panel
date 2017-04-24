@@ -80,7 +80,8 @@ export default class PageEditFolder extends Component {
       folderName: folder.name,
       targetLanguages: folder.data.targetLanguages,
       sourceLanguage,
-      contentFields
+      contentFields,
+      source: folder.source
     };
 
     return (

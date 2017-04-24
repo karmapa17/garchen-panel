@@ -66,5 +66,6 @@ module.exports = {
   'explaination-lang': '解释 - {lang}',
   'original-lang': '原文 - {lang}',
   'source-lang': '出处 - {lang}',
+  'source': '出处',
   'content-fields': '内容栏位'
 };

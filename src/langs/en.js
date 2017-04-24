@@ -67,5 +67,6 @@ module.exports = {
   'explaination-lang': 'Explaination - {lang}',
   'original-lang': 'Original - {lang}',
   'source-lang': 'Source - {lang}',
+  'source': 'Source',
   'content-fields': 'Content Fields'
 };
