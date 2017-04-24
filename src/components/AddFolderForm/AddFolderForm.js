@@ -106,8 +106,8 @@ export default class AddFolderForm extends Component {
         </div>
 
         <div className={styles.formFooter}>
-          <FlatButton type="button" label="Cancel" onTouchTap={onCancelButtonTouchTap} />
-          <FlatButton type="submit" label="Submit" primary />
+          <FlatButton type="button" label={f('cancel')} onTouchTap={onCancelButtonTouchTap} />
+          <FlatButton type="submit" label={f('submit')} primary />
         </div>
       </form>
     );
