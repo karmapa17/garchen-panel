@@ -13,7 +13,7 @@ const CHECK_FOLDER_ENTRY_EXISTS = 'garchen-panel/folderEntry/CHECK_FOLDER_ENTRY_
 const CHECK_FOLDER_ENTRY_EXISTS_SUCCESS = 'garchen-panel/folderEntry/CHECK_FOLDER_ENTRY_EXISTS_ENTRY_SUCCESS';
 const CHECK_FOLDER_ENTRY_EXISTS_FAIL = 'garchen-panel/folderEntry/CHECK_FOLDER_ENTRY_EXISTS_ENTRY_FAIL';
 
-const SET_SELECTED_FOLDER_ENTRIES = 'garchen-panel/folderEntry/SET_SELECTED_FOLDER_ENTRIES';
+const SET_SELECTED_FOLDER_ENTRY_IDS = 'garchen-panel/folderEntry/SET_SELECTED_FOLDER_ENTRY_IDS';
 
 const SET_FODLER_ENTRY_PAGE = 'garchen-panel/folderEntry/SET_FODLER_ENTRY_PAGE';
 
@@ -34,8 +34,8 @@ export default createReducer(initialState, {
       .set('folderEntryCount', action.result.total);
   },
 
-  [SET_SELECTED_FOLDER_ENTRIES]: (state, action) => {
-    return state.set('selectedFolderEntryIndices', action.indices);
+  [SET_SELECTED_FOLDER_ENTRY_IDS]: (state, action) => {
+    return state.set('selectedFolderEntryIds', action.ids);
   },
 
   [SET_FODLER_ENTRY_PAGE]: (state, action) => {
@@ -43,10 +43,10 @@ export default createReducer(initialState, {
   }
 });
 
-export function setSelectedFolderEntryIndices(indices) {
+export function setSelectedFolderEntryIds(ids) {
   return {
-    type: SET_SELECTED_FOLDER_ENTRIES,
-    indices
+    type: SET_SELECTED_FOLDER_ENTRY_IDS,
+    ids
   };
 }
 

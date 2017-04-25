@@ -10,7 +10,7 @@ import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {setSnackBarParams} from './../../redux/modules/main';
 import {getFolder} from './../../redux/modules/folder';
-import {listFolderEntries, setSelectedFolderEntryIndices, setFolderEntryPage} from './../../redux/modules/folderEntry';
+import {listFolderEntries, setSelectedFolderEntryIds, setFolderEntryPage} from './../../redux/modules/folderEntry';
 import {deleteEntries} from './../../redux/modules/entry';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
@@ -25,8 +25,8 @@ const styles = require('./PageFolderEntries.scss');
   folder: folder.get('folder'),
   folderEntries: folderEntry.get('folderEntries'),
   folderEntryCount: folderEntry.get('folderEntryCount'),
-  selectedFolderEntryIndices: folderEntry.get('selectedFolderEntryIndices')
-}), {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIndices, deleteEntries, setFolderEntryPage})
+  selectedFolderEntryIds: folderEntry.get('selectedFolderEntryIds')
+}), {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIds, deleteEntries, setFolderEntryPage})
 @injectPush
 @injectF
 @resolve(({dispatch}, {params, page, perpage}) => {
@@ -34,7 +34,7 @@ const styles = require('./PageFolderEntries.scss');
   const promises = [];
   promises.push(dispatch(getFolder({id: params.id})));
   promises.push(dispatch(listFolderEntries({folderId: params.id, page, perpage})));
-  promises.push(dispatch(setSelectedFolderEntryIndices([])));
+  promises.push(dispatch(setSelectedFolderEntryIds([])));
 
   return Promise.all(promises);
 })
@@ -50,8 +50,8 @@ export default class PageFolderEntries extends Component {
     folderEntryCount: PropTypes.number.isRequired,
     params: PropTypes.object.isRequired,
     listFolderEntries: PropTypes.func.isRequired,
-    setSelectedFolderEntryIndices: PropTypes.func.isRequired,
-    selectedFolderEntryIndices: PropTypes.array.isRequired,
+    setSelectedFolderEntryIds: PropTypes.func.isRequired,
+    selectedFolderEntryIds: PropTypes.array.isRequired,
     deleteEntries: PropTypes.func.isRequired,
     setFolderEntryPage: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
@@ -71,7 +71,7 @@ export default class PageFolderEntries extends Component {
 
   handleRowSelection = (res) => {
 
-    const {setSelectedFolderEntryIndices, perpage} = this.props;
+    const {setSelectedFolderEntryIds, perpage, folderEntries} = this.props;
 
     let indices = res;
 
@@ -82,7 +82,10 @@ export default class PageFolderEntries extends Component {
       indices = [];
     }
 
-    setSelectedFolderEntryIndices(indices);
+    const ids = folderEntries.filter((row, index) => (-1 !== indices.indexOf(index)))
+      .map((row) => row.id);
+
+    setSelectedFolderEntryIds(ids);
   };
 
   goToSingleFolderEntryPage = (entryId) => {
@@ -154,26 +157,21 @@ export default class PageFolderEntries extends Component {
 
   deleteSelectedFolderEntries = async () => {
 
-    const {selectedFolderEntryIndices, folderEntries, f,
-      deleteEntries, page, perpage, params, listFolderEntries,
-      setSnackBarParams} = this.props;
+    const {selectedFolderEntryIds, f, deleteEntries, page, perpage, params, listFolderEntries,
+      setSnackBarParams, folderEntryCount} = this.props;
 
-    const ids = folderEntries.filter((row, index) => (-1 !== selectedFolderEntryIndices.indexOf(index)))
-      .map((row) => row.id);
+    const ids = selectedFolderEntryIds;
     await deleteEntries({ids});
+    const totalPages = Math.ceil((folderEntryCount - ids.length) / perpage);
+    const nextPage = (page > totalPages) ? totalPages : page;
 
-    if ((ids.length === perpage) && (page > 1)) {
-      await listFolderEntries({folderId: params.id, page: page - 1, perpage});
-    }
-    else {
-      await listFolderEntries({folderId: params.id, page, perpage});
-    }
+    await listFolderEntries({folderId: params.id, page: nextPage, perpage});
     setSnackBarParams(true, f('folder-entries-has-been-deleted', {count: ids.length}));
   };
 
   renderDeleteButton() {
-    const {selectedFolderEntryIndices, f} = this.props;
-    if (selectedFolderEntryIndices.length > 0) {
+    const {selectedFolderEntryIds, f} = this.props;
+    if (selectedFolderEntryIds.length > 0) {
       return <FlatButton label={f('delete')} icon={<i className="fa fa-trash" />} onTouchTap={this.deleteSelectedFolderEntries} />;
     }
   }
