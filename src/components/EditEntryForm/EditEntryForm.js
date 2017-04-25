@@ -137,6 +137,7 @@ export default class EditEntryForm extends Component {
           </div>
           <div>{this.renderContentFields()}</div>
         </div>
+        <RaisedButton className={styles.submitButton} type="submit" label={f('submit')} primary disabled={invalid} />
       </form>
     );
   }
