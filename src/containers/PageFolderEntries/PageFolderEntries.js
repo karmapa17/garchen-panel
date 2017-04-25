@@ -44,7 +44,6 @@ export default class PageFolderEntries extends Component {
 
   static propTypes = {
     push: PropTypes.func.isRequired,
-    page: PropTypes.number.isRequired,
     perpage: PropTypes.number.isRequired,
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
