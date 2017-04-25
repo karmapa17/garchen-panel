@@ -5,7 +5,7 @@ var path = require('path');
 
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
-  hot: false,
+  hot: true,
   historyApiFallback: true,
   stats: {
     colors: true
