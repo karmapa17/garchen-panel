@@ -1,11 +1,12 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {brandPrimary} from './appStyle';
 
 export default getMuiTheme({
   appBar: {
-    color: '#0c353b'
+    color: brandPrimary
   },
   palette: {
-    primary1Color: '#0c353b'
+    primary1Color: brandPrimary
   },
   button: {
     minWidth: 50
