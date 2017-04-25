@@ -1,4 +1,10 @@
-.pageEditFolder {
+@import './../../../assets/styles/variables';
+
+.pageAddFolderEntry {
+  .content {
+    width: $page-width;
+    margin: 0 auto;
+  }
   .deleteFolderForm {
     margin-top: 40px;
   }
