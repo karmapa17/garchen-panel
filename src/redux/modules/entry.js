@@ -18,7 +18,12 @@ const initialState = Map({
 });
 
 export default createReducer(initialState, {
+
   [GET_ENTRY_SUCCESS]: (state, action) => {
+    return state.set('entry', action.result);
+  },
+
+  [UPDATE_ENTRY_SUCCESS]: (state, action) => {
     return state.set('entry', action.result);
   }
 });
