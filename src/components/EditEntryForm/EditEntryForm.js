@@ -56,7 +56,7 @@ export default class EditEntryForm extends Component {
 
         return (
           <div key={`target-entry-${lang}`}>
-            <Field name={`target-entry-${lang}`} type="text"
+            <Field name={`target-entry-${lang}`} type="text" fullWidth
               component={renderTextField} label={f('target-entry-lang', {lang: f(lang)})} />
           </div>
         );
@@ -65,7 +65,7 @@ export default class EditEntryForm extends Component {
       if ('category' === field) {
         return (
           <div key="category">
-            <Field name="category" component={renderSelectField} label={f('category')}>
+            <Field name="category" component={renderSelectField} label={f('category')} fullWidth>
               {this.renderCategoryMenuItems()}
             </Field>
           </div>
@@ -75,7 +75,7 @@ export default class EditEntryForm extends Component {
       if ('sect' === field) {
         return (
           <div key="sect">
-            <Field name="sect" component={renderSelectField} label={f('sect')}>
+            <Field name="sect" component={renderSelectField} label={f('sect')} fullWidth>
               {this.renderSectMenuItems()}
             </Field>
           </div>
@@ -89,7 +89,7 @@ export default class EditEntryForm extends Component {
 
         return (
           <div key={`explaination-${lang}`}>
-            <Field name={`explaination-${lang}`} type="text"
+            <Field name={`explaination-${lang}`} type="text" fullWidth
               component={renderTextField} label={f('explaination-lang', {lang: f(lang)})} multiLine />
           </div>
         );
@@ -102,7 +102,7 @@ export default class EditEntryForm extends Component {
 
         return (
           <div key={`original-${lang}`}>
-            <Field name={`original-${lang}`} type="text"
+            <Field name={`original-${lang}`} type="text" fullWidth
               component={renderTextField} label={f('original-lang', {lang: f(lang)})} multiLine />
           </div>
         );
@@ -115,7 +115,7 @@ export default class EditEntryForm extends Component {
 
         return (
           <div key={`source-${lang}`}>
-            <Field name={`source-${lang}`} type="text"
+            <Field name={`source-${lang}`} type="text" fullWidth
               component={renderTextField} label={f('source-lang', {lang: f(lang)})} multiLine />
           </div>
         );
@@ -130,15 +130,13 @@ export default class EditEntryForm extends Component {
 
     return (
       <form className={styles.editEntryForm} onSubmit={handleSubmit}>
-
         <div className={styles.formBody}>
           <div>
-            <Field name="sourceEntry" type="text" component={renderTextField} label={f('source-entry-lang', {lang: f(sourceLanguage)})} autoFocus />
+            <Field name="sourceEntry" type="text" component={renderTextField}
+            label={f('source-entry-lang', {lang: f(sourceLanguage)})} autoFocus fullWidth />
           </div>
           <div>{this.renderContentFields()}</div>
         </div>
-
-        <RaisedButton className={styles.submitButton} type="submit" label={f('submit')} primary disabled={invalid} />
       </form>
     );
   }
