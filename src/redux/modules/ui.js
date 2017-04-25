@@ -4,16 +4,11 @@ import {createReducer} from 'redux-immutablejs';
 const SET_DRAWER_OPEN = 'garchen-panel/ui/SET_DRAWER_OPEN';
 const TOGGLE_DRAWER_OPEN = 'garchen-panel/ui/TOGGLE_DRAWER_OPEN';
 const SET_SNACK_BAR_PARAMS = 'garchen-panel/ui/SET_SNACK_BAR_PARAMS';
-const UPDATE_TABLE_FOLDER_ENTRY_LIST_KEY = 'garchen-panel/ui/UPDATE_TABLE_FOLDER_ENTRY_LIST_KEY';
 
 const initialState = Map({
-
   isDrawerOpen: false,
-
   snackBarMessage: '',
-  isSnackBarOpen: false,
-
-  tableFolderEntryListKey: 0
+  isSnackBarOpen: false
 });
 
 export default createReducer(initialState, {
@@ -29,10 +24,6 @@ export default createReducer(initialState, {
   [SET_SNACK_BAR_PARAMS]: (state, action) => {
     return state.set('isSnackBarOpen', action.isSnackBarOpen)
       .set('snackBarMessage', action.snackBarMessage);
-  },
-
-  [UPDATE_TABLE_FOLDER_ENTRY_LIST_KEY]: (state) => {
-    return state.set('tableFolderEntryListKey', state.get('tableFolderEntryListKey') + 1);
   }
 });
 
@@ -54,11 +45,5 @@ export function setSnackBarParams(isSnackBarOpen, snackBarMessage = '') {
     type: SET_SNACK_BAR_PARAMS,
     isSnackBarOpen,
     snackBarMessage
-  };
-}
-
-export function updateTableFolderEntryListKey() {
-  return {
-    type: UPDATE_TABLE_FOLDER_ENTRY_LIST_KEY
   };
 }
