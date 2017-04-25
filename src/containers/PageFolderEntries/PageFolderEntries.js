@@ -4,6 +4,7 @@ import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {range} from 'ramda';
+import {Link} from 'react-router';
 
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
@@ -187,7 +188,7 @@ export default class PageFolderEntries extends Component {
       <div className={c('page-list', styles.pageFolderEntries)}>
         <TopBar>
           <Breadcrumb>
-            <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
+            <Link to="/">{f('folders')}</Link>
             <span>{f('folder-entries', {folderName: folder.name})}</span>
           </Breadcrumb>
           <div>
