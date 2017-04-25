@@ -56,6 +56,10 @@ export default class PageFolders extends Component {
     setSnackBarParams: PropTypes.func.isRequired
   };
 
+  componentWillMount() {
+    this.props.setFolderPage(1);
+  }
+
   componentWillReceiveProps(nextProps) {
     const {page, perpage, listFolders} = this.props;
     if ((page !== nextProps.page) || (perpage !== nextProps.perpage)) {
