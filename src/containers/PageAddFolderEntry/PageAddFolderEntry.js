@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 
@@ -56,7 +55,7 @@ export default class PageAddFolderEntry extends Component {
     const {f, folder} = this.props;
 
     return (
-      <div className={c('page-add', styles.pageAddFolderEntry)}>
+      <div className={styles.pageAddFolderEntry}>
         <TopBar>
           <Breadcrumb>
             <Link to="/">{f('folders')}</Link>
