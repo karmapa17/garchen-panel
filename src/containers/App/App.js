@@ -15,7 +15,7 @@ import Snackbar from 'material-ui/Snackbar';
 import c from 'classnames';
 
 import {setIntl} from './../../redux/modules/main';
-import {setDrawerOpen, toggleDrawerOpen, setSnackBarParams} from './../../redux/modules/ui';
+import {setDrawerOpen, setSnackBarParams} from './../../redux/modules/ui';
 import {login, logout} from './../../redux/modules/auth';
 import muiTheme from './../../constants/muiTheme';
 import injectF from './../../helpers/injectF';
@@ -32,7 +32,7 @@ injectTapEventPlugin();
   isDrawerOpen: ui.get('isDrawerOpen'),
   snackBarMessage: ui.get('snackBarMessage'),
   isSnackBarOpen: ui.get('isSnackBarOpen')
-}), {setDrawerOpen, toggleDrawerOpen, setIntl, setSnackBarParams, login, logout})
+}), {setDrawerOpen, setIntl, setSnackBarParams, login, logout})
 @injectF
 @injectPush
 export default class App extends Component {
@@ -49,7 +49,6 @@ export default class App extends Component {
     login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     auth: PropTypes.object,
-    toggleDrawerOpen: PropTypes.func.isRequired,
     setDrawerOpen: PropTypes.func.isRequired,
     setIntl: PropTypes.func.isRequired,
     children: PropTypes.object.isRequired
@@ -96,7 +95,7 @@ export default class App extends Component {
 
   handleDrawerChange = (open) => this.props.setDrawerOpen(open);
 
-  handleHamburgerTouchTap = () => this.props.toggleDrawerOpen();
+  handleHamburgerTouchTap = () => this.props.setDrawerOpen(true);
 
   handleMenuItemTouchTap = (route) => {
     return () => {

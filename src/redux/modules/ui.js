@@ -2,7 +2,6 @@ import {Map} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
 
 const SET_DRAWER_OPEN = 'garchen-panel/ui/SET_DRAWER_OPEN';
-const TOGGLE_DRAWER_OPEN = 'garchen-panel/ui/TOGGLE_DRAWER_OPEN';
 const SET_SNACK_BAR_PARAMS = 'garchen-panel/ui/SET_SNACK_BAR_PARAMS';
 
 const initialState = Map({
@@ -17,21 +16,11 @@ export default createReducer(initialState, {
     return state.set('isDrawerOpen', action.isDrawerOpen);
   },
 
-  [TOGGLE_DRAWER_OPEN]: (state) => {
-    return state.set('isDrawerOpen', (! state.get('isDrawerOpen')));
-  },
-
   [SET_SNACK_BAR_PARAMS]: (state, action) => {
     return state.set('isSnackBarOpen', action.isSnackBarOpen)
       .set('snackBarMessage', action.snackBarMessage);
   }
 });
-
-export function toggleDrawerOpen() {
-  return {
-    type: TOGGLE_DRAWER_OPEN
-  };
-}
 
 export function setDrawerOpen(isDrawerOpen) {
   return {
