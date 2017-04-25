@@ -13,12 +13,15 @@ const SET_TARGET_LANGUAGES = 'garchen-panel/main/SET_TARGET_LANGUAGES';
 
 const SET_SNACK_BAR_PARAMS = 'garchen-panel/main/SET_SNACK_BAR_PARAMS';
 
+const SET_EDIT_FOLDER_ENTRY_STATUS = 'garchen-panel/main/SET_EDIT_FOLDER_ENTRY_STATUS';
+
 const initialState = Map({
   appLocale: i18n.getLocale(),
   isDrawerOpen: false,
   snackBarMessage: '',
   isSnackBarOpen: false,
   isAddFolderDialogOpen: false,
+  isEditingFolderEntry: false,
   targetLanguages: []
 });
 
@@ -47,6 +50,10 @@ export default createReducer(initialState, {
   [SET_SNACK_BAR_PARAMS]: (state, action) => {
     return state.set('isSnackBarOpen', action.isSnackBarOpen)
       .set('snackBarMessage', action.snackBarMessage);
+  },
+
+  [SET_EDIT_FOLDER_ENTRY_STATUS]: (state, action) => {
+    return state.set('isEditingFolderEntry', action.isEditingFolderEntry);
   }
 });
 
@@ -100,5 +107,12 @@ export function setIntl(locale = 'zh-TW') {
       locale,
       messages: i18n.getLocaleData(locale)
     }));
+  };
+}
+
+export function setEditFolderEntryStatus(isEditingFolderEntry) {
+  return {
+    type: SET_EDIT_FOLDER_ENTRY_STATUS,
+    isEditingFolderEntry
   };
 }
