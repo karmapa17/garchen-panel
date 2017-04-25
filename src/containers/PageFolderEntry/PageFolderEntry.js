@@ -123,9 +123,7 @@ export default class PageFolderEntry extends Component {
     );
   }
 
-  done = () => {
-    this.refs.editEntryForm.submit();
-  };
+  cancelEdit = () => this.props.setEditFolderEntryStatus(false);
 
   componentWillUnmount() {
     this.props.setEditFolderEntryStatus(false);
@@ -145,8 +143,8 @@ export default class PageFolderEntry extends Component {
           </Breadcrumb>
           <div>
 
-           {(isEditingFolderEntry) && <FlatButton icon={<i className="fa fa-check" />}
-              label={f('done')} primary onTouchTap={this.done} />}
+           {(isEditingFolderEntry) && <FlatButton icon={<i className="fa fa-ban" />}
+              label={f('cancel')} primary onTouchTap={this.cancelEdit} />}
 
            {(! isEditingFolderEntry) && <FlatButton icon={<i className="fa fa-pencil" />}
               label={f('edit')} primary onTouchTap={this.setEditMode} />}
