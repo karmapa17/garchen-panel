@@ -46,9 +46,11 @@ th, td {
 }
 
 a {
+  color: #05966c;
   cursor: pointer;
+  text-decoration: none;
   &:hover, &:active, &:focus {
-    color: #05966c;
+    color: #0c353b;
     text-decoration: underline;
   }
 }
