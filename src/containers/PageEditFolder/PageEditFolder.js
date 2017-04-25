@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 import {cloneDeep} from 'lodash';
+import {Link} from 'react-router';
 
 import objToArr from './../../helpers/objToArr';
 import sortContentFields from './../../helpers/sortContentFields';
@@ -88,7 +89,7 @@ export default class PageEditFolder extends Component {
       <div className={c('page-edit', styles.pageEditFolder)}>
         <TopBar>
           <Breadcrumb>
-            <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
+            <Link to="/">{f('folders')}</Link>
             <span>{f('edit-folder')}</span>
           </Breadcrumb>
           <FlatButton icon={<i className="fa fa-arrow-left" />}
