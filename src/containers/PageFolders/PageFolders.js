@@ -12,7 +12,7 @@ import IconButton from 'material-ui/IconButton';
 
 import {setAddFolderDialogOpen, setSnackBarParams, setTargetLanguages} from './../../redux/modules/ui';
 import objToArr from './../../helpers/objToArr';
-import {addFolder, listFolders, setPageParams} from './../../redux/modules/folder';
+import {addFolder, listFolders, setFolderPage} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
@@ -31,7 +31,7 @@ const styles = require('./PageFolders.scss');
   folders: folder.get('folders'),
   folderCount: folder.get('folderCount'),
   isAddFolderDialogOpen: ui.get('isAddFolderDialogOpen')
-}), {listFolders, setAddFolderDialogOpen, addFolder, setPageParams, setSnackBarParams, setTargetLanguages})
+}), {listFolders, setAddFolderDialogOpen, addFolder, setFolderPage, setSnackBarParams, setTargetLanguages})
 @injectPush
 @injectF
 @resolve(({dispatch}, {page, perpage}) => {
@@ -44,7 +44,7 @@ export default class PageFolders extends Component {
     f: PropTypes.func.isRequired,
     page: PropTypes.number.isRequired,
     perpage: PropTypes.number.isRequired,
-    setPageParams: PropTypes.func.isRequired,
+    setFolderPage: PropTypes.func.isRequired,
     setTargetLanguages: PropTypes.func.isRequired,
     targetLanguages: PropTypes.array.isRequired,
     addFolder: PropTypes.func.isRequired,
@@ -145,7 +145,7 @@ export default class PageFolders extends Component {
     });
   }
 
-  handlePageButtonTouchTap = (page) => this.props.setPageParams(page);
+  handlePageButtonTouchTap = (page) => this.props.setFolderPage(page);
 
   render() {
 

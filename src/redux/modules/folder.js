@@ -9,7 +9,7 @@ const ADD_FOLDER = 'garchen-panel/folder/ADD_FOLDER';
 const ADD_FOLDER_SUCCESS = 'garchen-panel/folder/ADD_FOLDER_SUCCESS';
 const ADD_FOLDER_FAIL = 'garchen-panel/folder/ADD_FOLDER_FAIL';
 
-const SET_PAGE_PARAMS = 'garchen-panel/folder/SET_PAGE_PARAMS';
+const SET_FOLDER_PAGE = 'garchen-panel/folder/SET_FOLDER_PAGE';
 
 const GET_FOLDER = 'garchen-panel/folder/GET_FOLDER';
 const GET_FOLDER_SUCCESS = 'garchen-panel/folder/GET_FOLDER_SUCCESS';
@@ -48,9 +48,8 @@ export default createReducer(initialState, {
       .set('folderCount', action.result.total);
   },
 
-  [SET_PAGE_PARAMS]: (state, action) => {
-    return state.set('page', action.page)
-      .set('perpage', action.perpage);
+  [SET_FOLDER_PAGE]: (state, action) => {
+    return state.set('page', action.page);
   }
 });
 
@@ -95,11 +94,10 @@ export function deleteFolder(data) {
   };
 }
 
-export function setPageParams(page, perpage = FOLDER_PERPAGE) {
+export function setFolderPage(page) {
   return {
-    type: SET_PAGE_PARAMS,
-    page,
-    perpage
+    type: SET_FOLDER_PAGE,
+    page
   };
 }
 
