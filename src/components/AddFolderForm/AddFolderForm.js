@@ -8,6 +8,7 @@ import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
 import validate from './addFolderFormValidate';
 import asyncValidate from './addFolderFormAsyncValidate';
+import MULTI_LANG_FIELDS from './../../constants/multiLangFields';
 
 const styles = require('./AddFolderForm.scss');
 
@@ -48,7 +49,7 @@ export default class AddFolderForm extends Component {
 
     const fields = [];
 
-    ['target-entry-lang', 'explaination-lang', 'original-lang', 'source-lang'].forEach((textId) => {
+    MULTI_LANG_FIELDS.forEach((textId) => {
       (targetLanguages || []).forEach((lang) => {
         fields.push({textId, params: {lang: f(lang)}, value: `${textId}-${lang}`});
       });
