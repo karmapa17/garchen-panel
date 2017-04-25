@@ -5,7 +5,6 @@ const SET_DRAWER_OPEN = 'garchen-panel/ui/SET_DRAWER_OPEN';
 const TOGGLE_DRAWER_OPEN = 'garchen-panel/ui/TOGGLE_DRAWER_OPEN';
 const SET_ADD_FOLDER_DIALOG_OPEN = 'garchen-panel/ui/SET_ADD_FOLDER_DIALOG_OPEN';
 const SET_SNACK_BAR_PARAMS = 'garchen-panel/ui/SET_SNACK_BAR_PARAMS';
-const SET_EDIT_FOLDER_ENTRY_STATUS = 'garchen-panel/ui/SET_EDIT_FOLDER_ENTRY_STATUS';
 const UPDATE_TABLE_FOLDER_ENTRY_LIST_KEY = 'garchen-panel/ui/UPDATE_TABLE_FOLDER_ENTRY_LIST_KEY';
 
 const initialState = Map({
@@ -16,8 +15,6 @@ const initialState = Map({
   isSnackBarOpen: false,
 
   isAddFolderDialogOpen: false,
-
-  isEditingFolderEntry: false,
 
   tableFolderEntryListKey: 0
 });
@@ -39,10 +36,6 @@ export default createReducer(initialState, {
   [SET_SNACK_BAR_PARAMS]: (state, action) => {
     return state.set('isSnackBarOpen', action.isSnackBarOpen)
       .set('snackBarMessage', action.snackBarMessage);
-  },
-
-  [SET_EDIT_FOLDER_ENTRY_STATUS]: (state, action) => {
-    return state.set('isEditingFolderEntry', action.isEditingFolderEntry);
   },
 
   [UPDATE_TABLE_FOLDER_ENTRY_LIST_KEY]: (state) => {
@@ -75,13 +68,6 @@ export function setAddFolderDialogOpen(isAddFolderDialogOpen) {
   return {
     type: SET_ADD_FOLDER_DIALOG_OPEN,
     isAddFolderDialogOpen
-  };
-}
-
-export function setEditFolderEntryStatus(isEditingFolderEntry) {
-  return {
-    type: SET_EDIT_FOLDER_ENTRY_STATUS,
-    isEditingFolderEntry
   };
 }
 

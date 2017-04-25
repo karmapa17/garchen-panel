@@ -6,7 +6,7 @@ import {Link} from 'react-router';
 
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry} from './../../redux/modules/entry';
-import {setSnackBarParams, setEditFolderEntryStatus} from './../../redux/modules/ui';
+import {setSnackBarParams} from './../../redux/modules/ui';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
@@ -18,11 +18,10 @@ import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
 
 const styles = require('./PageFolderEntry.scss');
 
-@connect(({folder, entry, ui}) => ({
+@connect(({folder, entry}) => ({
   folder: folder.get('folder'),
-  entry: entry.get('entry'),
-  isEditingFolderEntry: ui.get('isEditingFolderEntry')
-}), {setSnackBarParams, setEditFolderEntryStatus, updateEntry})
+  entry: entry.get('entry')
+}), {setSnackBarParams, updateEntry})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
@@ -40,10 +39,13 @@ export default class PageFolderEntry extends Component {
     params: PropTypes.object.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     updateEntry: PropTypes.func.isRequired,
-    setEditFolderEntryStatus: PropTypes.func.isRequired,
-    isEditingFolderEntry: PropTypes.bool.isRequired,
     push: PropTypes.func.isRequired
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {isEditMode: false};
+  }
 
   goBack = () => {
     const {folder, push} = this.props;
@@ -84,20 +86,21 @@ export default class PageFolderEntry extends Component {
   };
 
   handleSubmit = async (data) => {
-    const {entry, updateEntry, setSnackBarParams, f, setEditFolderEntryStatus} = this.props;
+    const {entry, updateEntry, setSnackBarParams, f} = this.props;
     await updateEntry({
       id: entry.id,
       data
     });
     setSnackBarParams(true, f('folder-entry-has-been-updated', {sourceEntry: data.sourceEntry}));
-    setEditFolderEntryStatus(false);
+    this.setState({isEditMode: false});
   };
 
-  setEditMode = () => this.props.setEditFolderEntryStatus(true);
+  setEditMode = () => this.setState({isEditMode: true});
 
   renderContent() {
 
-    const {f, folder, entry, isEditingFolderEntry} = this.props;
+    const {isEditMode} = this.state;
+    const {f, folder, entry} = this.props;
 
     const initialValues = {
       entryId: entry.id,
@@ -106,7 +109,7 @@ export default class PageFolderEntry extends Component {
       ...entry.data
     };
 
-    if (isEditingFolderEntry) {
+    if (isEditMode) {
       return <EditEntryForm ref="editEntryForm" onSubmit={this.handleSubmit} folder={folder} initialValues={initialValues} />;
     }
 
@@ -123,15 +126,12 @@ export default class PageFolderEntry extends Component {
     );
   }
 
-  cancelEdit = () => this.props.setEditFolderEntryStatus(false);
-
-  componentWillUnmount() {
-    this.props.setEditFolderEntryStatus(false);
-  }
+  cancelEdit = () => this.setState({isEditMode: false});
 
   render() {
 
-    const {f, folder, entry, isEditingFolderEntry} = this.props;
+    const {isEditMode} = this.state;
+    const {f, folder, entry} = this.props;
 
     return (
       <div className={c('page-info', styles.pageFolderEntry)}>
@@ -143,10 +143,10 @@ export default class PageFolderEntry extends Component {
           </Breadcrumb>
           <div>
 
-           {(isEditingFolderEntry) && <FlatButton icon={<i className="fa fa-ban" />}
+           {isEditMode && <FlatButton icon={<i className="fa fa-ban" />}
               label={f('cancel')} primary onTouchTap={this.cancelEdit} />}
 
-           {(! isEditingFolderEntry) && <FlatButton icon={<i className="fa fa-pencil" />}
+           {(! isEditMode) && <FlatButton icon={<i className="fa fa-pencil" />}
               label={f('edit')} primary onTouchTap={this.setEditMode} />}
 
             <FlatButton icon={<i className="fa fa-arrow-left" />}
