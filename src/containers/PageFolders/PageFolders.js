@@ -12,7 +12,7 @@ import IconButton from 'material-ui/IconButton';
 
 import {setAddFolderDialogOpen, setSnackBarParams, setTargetLanguages} from './../../redux/modules/ui';
 import objToArr from './../../helpers/objToArr';
-import {addFolder, listFolders, setFolderPage} from './../../redux/modules/folder';
+import {addFolder, listFolders} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
@@ -26,25 +26,22 @@ const styles = require('./PageFolders.scss');
 
 @connect(({ui, folder}) => ({
   targetLanguages: ui.get('targetLanguages'),
-  page: folder.get('page'),
   perpage: folder.get('perpage'),
   folders: folder.get('folders'),
   folderCount: folder.get('folderCount'),
   isAddFolderDialogOpen: ui.get('isAddFolderDialogOpen')
-}), {listFolders, setAddFolderDialogOpen, addFolder, setFolderPage, setSnackBarParams, setTargetLanguages})
+}), {listFolders, setAddFolderDialogOpen, addFolder, setSnackBarParams, setTargetLanguages})
 @injectPush
 @injectF
-@resolve(({dispatch}, {page, perpage}) => {
-  return dispatch(listFolders({page, perpage}));
+@resolve(({dispatch}, {perpage}) => {
+  return dispatch(listFolders({page: 1, perpage}));
 })
 export default class PageFolders extends Component {
 
   static propTypes = {
     push: PropTypes.func.isRequired,
     f: PropTypes.func.isRequired,
-    page: PropTypes.number.isRequired,
     perpage: PropTypes.number.isRequired,
-    setFolderPage: PropTypes.func.isRequired,
     setTargetLanguages: PropTypes.func.isRequired,
     targetLanguages: PropTypes.array.isRequired,
     addFolder: PropTypes.func.isRequired,
@@ -56,15 +53,17 @@ export default class PageFolders extends Component {
     setSnackBarParams: PropTypes.func.isRequired
   };
 
-  componentWillMount() {
-    this.props.setFolderPage(1);
+  constructor(props) {
+    super(props);
+    this.state = {page: 1};
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {page, perpage, listFolders} = this.props;
-    if ((page !== nextProps.page) || (perpage !== nextProps.perpage)) {
+  componentWillUpdate(nextProps, nextState) {
+    const {page} = this.state;
+    const {perpage, listFolders} = this.props;
+    if ((page !== nextState.page) || (perpage !== nextProps.perpage)) {
       listFolders({
-        page: nextProps.page,
+        page: nextState.page,
         perpage: nextProps.perpage
       });
     }
@@ -79,8 +78,9 @@ export default class PageFolders extends Component {
 
   handleSubmit = async (data) => {
 
+    const {page} = this.state;
     const {f, addFolder, setAddFolderDialogOpen, listFolders,
-      page, perpage, setSnackBarParams} = this.props;
+      perpage, setSnackBarParams} = this.props;
 
     data.contentFields = sortContentFields(data.contentFields);
 
@@ -149,11 +149,12 @@ export default class PageFolders extends Component {
     });
   }
 
-  handlePageButtonTouchTap = (page) => this.props.setFolderPage(page);
+  handlePageButtonTouchTap = (page) => this.setState({page});
 
   render() {
 
-    const {f, page, perpage, folderCount} = this.props;
+    const {page} = this.state;
+    const {f, perpage, folderCount} = this.props;
 
     return (
       <div className={c('page-list', styles.pageFolders)}>
