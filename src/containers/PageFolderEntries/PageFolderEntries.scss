@@ -1,4 +1,10 @@
+@import './../../../assets/styles/variables';
+
 .pageFolderEntries {
+  .content {
+    width: 980px;
+    margin: 0 auto;
+  }
   .entryTable {
     padding-top: 20px;
   }

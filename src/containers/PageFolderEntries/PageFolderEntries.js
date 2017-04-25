@@ -113,20 +113,24 @@ export default class PageFolderEntries extends Component {
 
   renderFolderEntries() {
 
-    const rowStyle = {fontSize: 20};
+    const fontSize = 20;
+    const idColStyle = {fontSize, width: '60px'};
+    const nameColStyle = {fontSize, width: 'initial'};
+    const infoColStyle = {fontSize, width: '60px'};
+    const editColStyle = {fontSize, width: '60px'};
 
     const {f, folderEntries} = this.props;
     const tableRows = folderEntries.map((entry) => {
       return (
         <TableRow key={`table-row-${entry.id}`}>
-          <TableRowColumn style={rowStyle}>{entry.id}</TableRowColumn>
-          <TableRowColumn style={rowStyle}>
+          <TableRowColumn style={idColStyle}>{entry.id}</TableRowColumn>
+          <TableRowColumn style={nameColStyle}>
             <a onTouchTap={this.goToSingleFolderEntryPage(entry.id)}>{entry.sourceEntry}</a>
           </TableRowColumn>
-          <TableRowColumn style={rowStyle}>
+          <TableRowColumn style={infoColStyle}>
             <FlatButton label={f('info')} onClick={this.handleInfoButtonClick(entry.id)} />
           </TableRowColumn>
-          <TableRowColumn style={rowStyle}>
+          <TableRowColumn style={editColStyle}>
             <FlatButton label={f('edit')} onClick={this.handleEditButtonClick(entry.id)} />
           </TableRowColumn>
         </TableRow>
@@ -137,10 +141,10 @@ export default class PageFolderEntries extends Component {
       <Table className={styles.entryTable} multiSelectable onRowSelection={this.handleRowSelection}>
         <TableHeader>
           <TableRow>
-            <TableHeaderColumn style={rowStyle}>ID</TableHeaderColumn>
-            <TableHeaderColumn style={rowStyle}>Name</TableHeaderColumn>
-            <TableHeaderColumn style={rowStyle} />
-            <TableHeaderColumn style={rowStyle} />
+            <TableHeaderColumn style={idColStyle}>ID</TableHeaderColumn>
+            <TableHeaderColumn style={nameColStyle}>Name</TableHeaderColumn>
+            <TableHeaderColumn style={infoColStyle} />
+            <TableHeaderColumn style={editColStyle} />
           </TableRow>
         </TableHeader>
         <TableBody>{tableRows}</TableBody>
@@ -197,9 +201,11 @@ export default class PageFolderEntries extends Component {
               label={f('back')} onTouchTap={this.goToFoldersPage} />
           </div>
         </TopBar>
-        {this.renderFolderEntries()}
-        {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
-          onButtonTouchTap={this.handlePageButtonTouchTap} />}
+        <div className={styles.content}>
+          {this.renderFolderEntries()}
+          {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
+            onButtonTouchTap={this.handlePageButtonTouchTap} />}
+        </div>
       </div>
     );
   }
