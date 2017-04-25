@@ -114,13 +114,9 @@ export default class App extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className={c(styles.app, appLocale)}>
 
-          <div className={styles.appBarWrap}>
-            <div className={styles.appBar}>
-              <AppBar title={f('garchen')} iconElementRight={this.renderIconElementRight()} style={{paddingLeft: 0, paddingRight: 0, boxShadow: 'none'}}
-                titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
-                onLeftIconButtonTouchTap={this.handleHamburgerTouchTap} onTitleTouchTap={this.handleTitleTouchTap} />
-            </div>
-          </div>
+          <AppBar title={f('garchen')} iconElementRight={this.renderIconElementRight()}
+            titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
+            onLeftIconButtonTouchTap={this.handleHamburgerTouchTap} onTitleTouchTap={this.handleTitleTouchTap} />
 
           <div className={styles.appContent}>{children}</div>
 

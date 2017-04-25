@@ -3,15 +3,7 @@
 
 .app {
   .appContent {
-    width: $page-width;
     margin: 0 auto;
     padding: 14px;
-  }
-  .appBarWrap {
-    background-color: $brand-primary;
-    .appBar {
-      width: $page-width;
-      margin: 0 auto;
-    }
   }
 }
