@@ -103,14 +103,12 @@ export default class PageFolderEntries extends Component {
   renderFolderEntries() {
 
     const fontSize = 20;
-    const idColStyle = {fontSize, width: '60px'};
     const nameColStyle = {fontSize, width: 'initial'};
     const {folderEntries, tableKey} = this.props;
 
     const tableRows = folderEntries.map((entry) => {
       return (
         <TableRow key={`table-row-${entry.id}`}>
-          <TableRowColumn style={idColStyle}>{entry.id}</TableRowColumn>
           <TableRowColumn style={nameColStyle}>
             <a onTouchTap={this.goToSingleFolderEntryPage(entry.id)}>{entry.sourceEntry}</a>
           </TableRowColumn>
@@ -125,7 +123,6 @@ export default class PageFolderEntries extends Component {
       <Table key={key} className={styles.entryTable} multiSelectable onRowSelection={this.handleRowSelection}>
         <TableHeader>
           <TableRow>
-            <TableHeaderColumn style={idColStyle}>ID</TableHeaderColumn>
             <TableHeaderColumn style={nameColStyle}>Name</TableHeaderColumn>
           </TableRow>
         </TableHeader>
