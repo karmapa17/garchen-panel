@@ -1,5 +1,6 @@
 module.exports = {
-  'info': 'info',
+  'edit': 'Edit',
+  'done': 'Done',
   'add-a-folder': 'Add a folder',
   'folder-entry-name-taken': 'Entry already existed in this folder.',
   'folder-entry-name-required': 'Entry field is required.',
@@ -44,7 +45,6 @@ module.exports = {
   'folder-has-been-created': 'Folder {folderName} has been created.',
   'update': 'Update',
   'edit-folder': 'Edit Folder',
-  'edit': 'Edit',
   'add-folder': 'Add Folder',
   'en': 'English',
   'zh-TW': 'Traditial Chinese',

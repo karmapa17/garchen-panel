@@ -1,5 +1,6 @@
 module.exports = {
-  'info': '資訊',
+  'edit': '編輯',
+  'done': '完成',
   'add-a-folder': '新增一個資料夾',
   'folder-entry-name-taken': '詞條在這個資料夾已經存在',
   'folder-entry-name-required': '必須填寫詞條',
@@ -44,7 +45,6 @@ module.exports = {
   'folder-has-been-created': '已建立資料夾 {folderName}',
   'update': '更新',
   'edit-folder': '編輯資料夾',
-  'edit': '編輯',
   'add-folder': '新增資料夾',
   'en': '英文',
   'zh-TW': '繁體中文',
