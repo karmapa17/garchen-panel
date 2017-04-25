@@ -16,12 +16,9 @@ const CHECK_FOLDER_ENTRY_EXISTS_FAIL = 'garchen-panel/folderEntry/CHECK_FOLDER_E
 const SET_SELECTED_FOLDER_ENTRY_IDS = 'garchen-panel/folderEntry/SET_SELECTED_FOLDER_ENTRY_IDS';
 const CLEAR_SELECTED_FOLDER_ENTRY_IDS = 'garchen-panel/folderEntry/CLEAR_SELECTED_FOLDER_ENTRY_IDS';
 
-const SET_FODLER_ENTRY_PAGE = 'garchen-panel/folderEntry/SET_FODLER_ENTRY_PAGE';
-
 const FOLDER_ENTRY_PERPAGE = 10;
 
 const initialState = Map({
-  page: 1,
   perpage: FOLDER_ENTRY_PERPAGE,
   folderEntries: [],
   folderEntryCount: 0,
@@ -41,10 +38,6 @@ export default createReducer(initialState, {
       return obj;
     }, {});
     return state.set('selectedFolderEntryMap', map);
-  },
-
-  [SET_FODLER_ENTRY_PAGE]: (state, action) => {
-    return state.set('page', action.page);
   },
 
   [CLEAR_SELECTED_FOLDER_ENTRY_IDS]: (state) => {
@@ -83,12 +76,5 @@ export function checkFolderEntryExists(data) {
   return {
     types: [CHECK_FOLDER_ENTRY_EXISTS, CHECK_FOLDER_ENTRY_EXISTS_SUCCESS, CHECK_FOLDER_ENTRY_EXISTS_FAIL],
     promise: (client) => client.send('check-folder-entry-exists', data)
-  };
-}
-
-export function setFolderEntryPage(page) {
-  return {
-    type: SET_FODLER_ENTRY_PAGE,
-    page
   };
 }
