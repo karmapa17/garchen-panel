@@ -10,7 +10,7 @@ import sortContentFields from './../../helpers/sortContentFields';
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
 import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
 import {getFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
-import {setSnackBarParams, setTargetLanguages} from './../../redux/modules/ui';
+import {setSnackBarParams} from './../../redux/modules/ui';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
@@ -19,10 +19,9 @@ import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 
 const styles = require('./PageEditFolder.scss');
 
-@connect(({ui, folder}) => ({
-  folder: folder.get('folder'),
-  targetLanguages: ui.get('targetLanguages')
-}), {getFolder, updateFolder, setSnackBarParams, deleteFolder, setTargetLanguages})
+@connect(({folder}) => ({
+  folder: folder.get('folder')
+}), {getFolder, updateFolder, setSnackBarParams, deleteFolder})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
@@ -36,17 +35,20 @@ export default class PageEditFolder extends Component {
     params: PropTypes.object.isRequired,
     getFolder: PropTypes.func.isRequired,
     deleteFolder: PropTypes.func.isRequired,
-    targetLanguages: PropTypes.array.isRequired,
-    setTargetLanguages: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,
     updateFolder: PropTypes.func.isRequired
   };
 
+  componentWillMount() {
+    const {folder} = this.props;
+    this.setState({targetLanguages: folder.data.targetLanguages});
+  }
+
   handleTargetLanguagesChange = (rawData) => {
     const data = cloneDeep(rawData);
     delete data.preventDefault;
-    this.props.setTargetLanguages(objToArr(data));
+    this.setState({targetLanguages: objToArr(data)});
   };
 
   handleEditFolderFormSubmit = async (data) => {
@@ -67,14 +69,10 @@ export default class PageEditFolder extends Component {
 
   goToFoldersPage = () => this.props.push('/');
 
-  componentWillMount() {
-    const {folder, setTargetLanguages} = this.props;
-    setTargetLanguages(folder.data.targetLanguages);
-  }
-
   render() {
 
-    const {f, folder, targetLanguages} = this.props;
+    const {targetLanguages} = this.state;
+    const {f, folder} = this.props;
     const {sourceLanguage, contentFields} = folder.data;
     const initialValues = {
       id: folder.id,
