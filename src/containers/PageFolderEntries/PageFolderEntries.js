@@ -8,9 +8,9 @@ import {Link} from 'react-router';
 
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
-import {setSnackBarParams} from './../../redux/modules/main';
+import {setSnackBarParams, updateTableFolderEntryListKey} from './../../redux/modules/ui';
 import {getFolder} from './../../redux/modules/folder';
-import {updateTableKey, listFolderEntries, setSelectedFolderEntryIds,
+import {listFolderEntries, setSelectedFolderEntryIds,
   setFolderEntryPage, clearSelectedFolderEntryIds} from './../../redux/modules/folderEntry';
 
 import {deleteEntries} from './../../redux/modules/entry';
@@ -21,16 +21,16 @@ import Pagination from './../../components/Pagination/Pagination';
 
 const styles = require('./PageFolderEntries.scss');
 
-@connect(({folder, folderEntry}) => ({
+@connect(({ui, folder, folderEntry}) => ({
   page: folderEntry.get('page'),
   perpage: folderEntry.get('perpage'),
   folder: folder.get('folder'),
   folderEntries: folderEntry.get('folderEntries'),
   folderEntryCount: folderEntry.get('folderEntryCount'),
-  tableKey: folderEntry.get('tableKey'),
+  tableKey: ui.get('tableFolderEntryListKey'),
   selectedFolderEntryMap: folderEntry.get('selectedFolderEntryMap')
 }), {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIds, deleteEntries,
-  setFolderEntryPage, updateTableKey, clearSelectedFolderEntryIds})
+  setFolderEntryPage, updateTableFolderEntryListKey, clearSelectedFolderEntryIds})
 @injectPush
 @injectF
 @resolve(({dispatch}, {params, page, perpage}) => {
@@ -54,7 +54,7 @@ export default class PageFolderEntries extends Component {
     folderEntryCount: PropTypes.number.isRequired,
     params: PropTypes.object.isRequired,
     listFolderEntries: PropTypes.func.isRequired,
-    updateTableKey: PropTypes.func.isRequired,
+    updateTableFolderEntryListKey: PropTypes.func.isRequired,
     setSelectedFolderEntryIds: PropTypes.func.isRequired,
     clearSelectedFolderEntryIds: PropTypes.func.isRequired,
     selectedFolderEntryMap: PropTypes.object.isRequired,
@@ -144,7 +144,7 @@ export default class PageFolderEntries extends Component {
   deleteSelectedFolderEntries = async () => {
 
     const {selectedFolderEntryMap, f, deleteEntries, page, perpage, params, listFolderEntries,
-      setSnackBarParams, folderEntryCount, updateTableKey, clearSelectedFolderEntryIds} = this.props;
+      setSnackBarParams, folderEntryCount, updateTableFolderEntryListKey, clearSelectedFolderEntryIds} = this.props;
 
     const ids = Object.keys(selectedFolderEntryMap);
     await deleteEntries({ids});
@@ -154,7 +154,7 @@ export default class PageFolderEntries extends Component {
 
     await listFolderEntries({folderId: params.id, page: nextPage, perpage});
     setSnackBarParams(true, f('folder-entries-has-been-deleted', {count: ids.length}));
-    updateTableKey();
+    updateTableFolderEntryListKey();
   };
 
   renderDeleteButton() {

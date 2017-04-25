@@ -10,7 +10,7 @@ import sortContentFields from './../../helpers/sortContentFields';
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
 import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
 import {getFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
-import {setSnackBarParams, setTargetLanguages} from './../../redux/modules/main';
+import {setSnackBarParams, setTargetLanguages} from './../../redux/modules/ui';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
@@ -19,9 +19,9 @@ import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 
 const styles = require('./PageEditFolder.scss');
 
-@connect(({main, folder}) => ({
+@connect(({ui, folder}) => ({
   folder: folder.get('folder'),
-  targetLanguages: main.get('targetLanguages')
+  targetLanguages: ui.get('targetLanguages')
 }), {getFolder, updateFolder, setSnackBarParams, deleteFolder, setTargetLanguages})
 @injectF
 @injectPush

@@ -8,7 +8,7 @@ import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {getFolder} from './../../redux/modules/folder';
 import {addFolderEntry} from './../../redux/modules/folderEntry';
-import {setSnackBarParams} from './../../redux/modules/main';
+import {setSnackBarParams} from './../../redux/modules/ui';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';

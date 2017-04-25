@@ -10,7 +10,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 
-import {setAddFolderDialogOpen, setSnackBarParams, setTargetLanguages} from './../../redux/modules/main';
+import {setAddFolderDialogOpen, setSnackBarParams, setTargetLanguages} from './../../redux/modules/ui';
 import objToArr from './../../helpers/objToArr';
 import {addFolder, listFolders, setPageParams} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
@@ -24,13 +24,13 @@ import resolve from './../../helpers/resolve';
 
 const styles = require('./PageFolders.scss');
 
-@connect(({main, folder}) => ({
-  targetLanguages: main.get('targetLanguages'),
+@connect(({ui, folder}) => ({
+  targetLanguages: ui.get('targetLanguages'),
   page: folder.get('page'),
   perpage: folder.get('perpage'),
   folders: folder.get('folders'),
   folderCount: folder.get('folderCount'),
-  isAddFolderDialogOpen: main.get('isAddFolderDialogOpen')
+  isAddFolderDialogOpen: ui.get('isAddFolderDialogOpen')
 }), {listFolders, setAddFolderDialogOpen, addFolder, setPageParams, setSnackBarParams, setTargetLanguages})
 @injectPush
 @injectF

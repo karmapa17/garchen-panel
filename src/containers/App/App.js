@@ -14,7 +14,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Snackbar from 'material-ui/Snackbar';
 import c from 'classnames';
 
-import {setIntl, setDrawerOpen, toggleDrawerOpen, setSnackBarParams} from './../../redux/modules/main';
+import {setIntl} from './../../redux/modules/main';
+import {setDrawerOpen, toggleDrawerOpen, setSnackBarParams} from './../../redux/modules/ui';
 import {login, logout} from './../../redux/modules/auth';
 import muiTheme from './../../constants/muiTheme';
 import injectF from './../../helpers/injectF';
@@ -24,13 +25,13 @@ const styles = require('./App.scss');
 
 injectTapEventPlugin();
 
-@connect(({auth, main}) => ({
+@connect(({auth, main, ui}) => ({
   appLocale: main.get('appLocale'),
-  isDrawerOpen: main.get('isDrawerOpen'),
   isLoadingAuth: auth.get('isLoadingAuth'),
-  snackBarMessage: main.get('snackBarMessage'),
-  isSnackBarOpen: main.get('isSnackBarOpen'),
-  auth: auth.get('auth')
+  auth: auth.get('auth'),
+  isDrawerOpen: ui.get('isDrawerOpen'),
+  snackBarMessage: ui.get('snackBarMessage'),
+  isSnackBarOpen: ui.get('isSnackBarOpen')
 }), {setDrawerOpen, toggleDrawerOpen, setIntl, setSnackBarParams, login, logout})
 @injectF
 @injectPush

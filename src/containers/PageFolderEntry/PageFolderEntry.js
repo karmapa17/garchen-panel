@@ -6,7 +6,7 @@ import {Link} from 'react-router';
 
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry} from './../../redux/modules/entry';
-import {setSnackBarParams, setEditFolderEntryStatus} from './../../redux/modules/main';
+import {setSnackBarParams, setEditFolderEntryStatus} from './../../redux/modules/ui';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
@@ -18,10 +18,10 @@ import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
 
 const styles = require('./PageFolderEntry.scss');
 
-@connect(({folder, entry, main}) => ({
+@connect(({folder, entry, ui}) => ({
   folder: folder.get('folder'),
   entry: entry.get('entry'),
-  isEditingFolderEntry: main.get('isEditingFolderEntry')
+  isEditingFolderEntry: ui.get('isEditingFolderEntry')
 }), {setSnackBarParams, setEditFolderEntryStatus, updateEntry})
 @injectF
 @injectPush

@@ -18,8 +18,6 @@ const CLEAR_SELECTED_FOLDER_ENTRY_IDS = 'garchen-panel/folderEntry/CLEAR_SELECTE
 
 const SET_FODLER_ENTRY_PAGE = 'garchen-panel/folderEntry/SET_FODLER_ENTRY_PAGE';
 
-const UPDATE_TABLE_KEY = 'garchen-panel/folderEntries/UPDATE_TABLE_KEY';
-
 const FOLDER_ENTRY_PERPAGE = 10;
 
 const initialState = Map({
@@ -28,7 +26,6 @@ const initialState = Map({
   folderEntries: [],
   folderEntryCount: 0,
   selectedFolderEntryMap: [],
-  tableKey: 0
 });
 
 export default createReducer(initialState, {
@@ -52,18 +49,8 @@ export default createReducer(initialState, {
 
   [CLEAR_SELECTED_FOLDER_ENTRY_IDS]: (state) => {
     return state.set('selectedFolderEntryMap', {});
-  },
-
-  [UPDATE_TABLE_KEY]: (state, action) => {
-    return state.set('tableKey', state.get('tableKey') + 1);
   }
 });
-
-export function updateTableKey() {
-  return {
-    type: UPDATE_TABLE_KEY
-  };
-}
 
 export function setSelectedFolderEntryIds(ids) {
   return {
