@@ -14,8 +14,11 @@ const CHECK_FOLDER_ENTRY_EXISTS_SUCCESS = 'garchen-panel/folderEntry/CHECK_FOLDE
 const CHECK_FOLDER_ENTRY_EXISTS_FAIL = 'garchen-panel/folderEntry/CHECK_FOLDER_ENTRY_EXISTS_ENTRY_FAIL';
 
 const SET_SELECTED_FOLDER_ENTRY_IDS = 'garchen-panel/folderEntry/SET_SELECTED_FOLDER_ENTRY_IDS';
+const CLEAR_SELECTED_FOLDER_ENTRY_IDS = 'garchen-panel/folderEntry/CLEAR_SELECTED_FOLDER_ENTRY_IDS';
 
 const SET_FODLER_ENTRY_PAGE = 'garchen-panel/folderEntry/SET_FODLER_ENTRY_PAGE';
+
+const UPDATE_TABLE_KEY = 'garchen-panel/folderEntries/UPDATE_TABLE_KEY';
 
 const FOLDER_ENTRY_PERPAGE = 10;
 
@@ -24,7 +27,8 @@ const initialState = Map({
   perpage: FOLDER_ENTRY_PERPAGE,
   folderEntries: [],
   folderEntryCount: 0,
-  selectedFolderEntryIndices: []
+  selectedFolderEntryMap: [],
+  tableKey: 0
 });
 
 export default createReducer(initialState, {
@@ -35,18 +39,42 @@ export default createReducer(initialState, {
   },
 
   [SET_SELECTED_FOLDER_ENTRY_IDS]: (state, action) => {
-    return state.set('selectedFolderEntryIds', action.ids);
+    const map = action.ids.reduce((obj, id) => {
+      obj[id] = true;
+      return obj;
+    }, {});
+    return state.set('selectedFolderEntryMap', map);
   },
 
   [SET_FODLER_ENTRY_PAGE]: (state, action) => {
     return state.set('page', action.page);
+  },
+
+  [CLEAR_SELECTED_FOLDER_ENTRY_IDS]: (state) => {
+    return state.set('selectedFolderEntryMap', {});
+  },
+
+  [UPDATE_TABLE_KEY]: (state, action) => {
+    return state.set('tableKey', state.get('tableKey') + 1);
   }
 });
+
+export function updateTableKey() {
+  return {
+    type: UPDATE_TABLE_KEY
+  };
+}
 
 export function setSelectedFolderEntryIds(ids) {
   return {
     type: SET_SELECTED_FOLDER_ENTRY_IDS,
     ids
+  };
+}
+
+export function clearSelectedFolderEntryIds() {
+  return {
+    type: CLEAR_SELECTED_FOLDER_ENTRY_IDS
   };
 }
 
