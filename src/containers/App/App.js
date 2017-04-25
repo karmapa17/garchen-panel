@@ -64,17 +64,19 @@ export default class App extends Component {
     if (auth) {
 
       const {profile} = auth;
+      const iconButtonStyle = {
+        width: 'initial',
+        height: 'initial',
+        border: 0,
+        paddingTop: '12px',
+        paddingBottom: '12px',
+        marginRight: 0,
+        marginTop: 0
+      };
 
       const iconButton = (
-        <IconButton style={{width: '64px', height: '64px', marginRight: 0}} disableTouchRipple>
-          <div>
-            <div className="hidden-mobile">
-              <Avatar src={profile.image.url} />
-            </div>
-            <div>
-              <span className="hidden-mobile">{profile.displayName}</span>
-            </div>
-          </div>
+        <IconButton style={iconButtonStyle} disableTouchRipple>
+          <Avatar src={profile.image.url} size={30} />
         </IconButton>
       );
 
@@ -88,7 +90,7 @@ export default class App extends Component {
         </IconMenu>
       );
     }
-    return <FlatButton style={{marginTop: '14px', color: '#fff'}} onClick={login} label={f('login')} />;
+    return <FlatButton style={{marginTop: '9px', color: '#fff'}} onClick={login} label={f('login')} />;
   }
 
   handleDrawerChange = (open) => this.props.setDrawerOpen(open);
