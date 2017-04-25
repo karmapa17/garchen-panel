@@ -2,13 +2,17 @@
   li {
     display: inline-block;
     span {
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 500;
     }
-    &:after {
-      content: '/'
+    a {
+      display: inline-block;
     }
-    margin-right: 14px;
+    &:after {
+      content: '/';
+      margin-right: 7px;
+      margin-left: 7px;
+    }
   }
   li:last-child {
     &:after {
