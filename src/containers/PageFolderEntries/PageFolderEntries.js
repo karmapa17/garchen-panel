@@ -93,45 +93,19 @@ export default class PageFolderEntries extends Component {
     return () => push(`/folders/${folder.id}/entries/${entryId}`);
   };
 
-  handleInfoButtonClick = (entryId) => {
-    return (event) => {
-      const {folder, push} = this.props;
-      event.preventDefault();
-      push(`/folders/${folder.id}/entries/${entryId}`);
-    };
-  };
-
-  handleEditButtonClick = (entryId) => {
-    return (event) => {
-      // have to use onClick instead of onTouchTap to workaround this
-      // https://github.com/zilverline/react-tap-event-plugin/issues/54
-      event.preventDefault();
-      const {folder, push} = this.props;
-      push(`/folders/${folder.id}/entries/${entryId}/edit`);
-    };
-  };
-
   renderFolderEntries() {
 
     const fontSize = 20;
     const idColStyle = {fontSize, width: '60px'};
     const nameColStyle = {fontSize, width: 'initial'};
-    const infoColStyle = {fontSize, width: '60px'};
-    const editColStyle = {fontSize, width: '60px'};
 
-    const {f, folderEntries} = this.props;
+    const {folderEntries} = this.props;
     const tableRows = folderEntries.map((entry) => {
       return (
         <TableRow key={`table-row-${entry.id}`}>
           <TableRowColumn style={idColStyle}>{entry.id}</TableRowColumn>
           <TableRowColumn style={nameColStyle}>
             <a onTouchTap={this.goToSingleFolderEntryPage(entry.id)}>{entry.sourceEntry}</a>
-          </TableRowColumn>
-          <TableRowColumn style={infoColStyle}>
-            <FlatButton label={f('info')} onClick={this.handleInfoButtonClick(entry.id)} />
-          </TableRowColumn>
-          <TableRowColumn style={editColStyle}>
-            <FlatButton label={f('edit')} onClick={this.handleEditButtonClick(entry.id)} />
           </TableRowColumn>
         </TableRow>
       );
@@ -143,8 +117,6 @@ export default class PageFolderEntries extends Component {
           <TableRow>
             <TableHeaderColumn style={idColStyle}>ID</TableHeaderColumn>
             <TableHeaderColumn style={nameColStyle}>Name</TableHeaderColumn>
-            <TableHeaderColumn style={infoColStyle} />
-            <TableHeaderColumn style={editColStyle} />
           </TableRow>
         </TableHeader>
         <TableBody>{tableRows}</TableBody>
