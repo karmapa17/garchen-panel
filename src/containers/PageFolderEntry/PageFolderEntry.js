@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
+import {Link} from 'react-router';
 
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry} from './../../redux/modules/entry';
@@ -80,8 +81,8 @@ export default class PageFolderEntry extends Component {
       <div className={c('page-info', styles.pageFolderEntry)}>
         <TopBar>
           <Breadcrumb>
-            <FlatButton label={f('folders')} onTouchTap={this.goToFoldersPage} />
-            <FlatButton label={f('folder-entries', {folderName: folder.name})} onTouchTap={this.goBack} />
+            <Link to="/">{f('folders')}</Link>
+            <Link to={`/folders/${folder.id}/entries`}>{f('folder-entries', {folderName: folder.name})}</Link>
             <span>{entry.sourceEntry}</span>
           </Breadcrumb>
           <FlatButton icon={<i className="fa fa-arrow-left" />}
