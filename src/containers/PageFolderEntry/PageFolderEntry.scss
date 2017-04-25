@@ -1,6 +1,14 @@
+@import './../../../assets/styles/variables';
+
 .pageFolderEntry {
 
+  .content {
+    width: $page-width;
+    margin: 0 auto;
+  }
+
   .table {
+    width: 100%;
     line-height: 30px;
     tr {
       border-bottom: 1px solid rgb(224, 224, 224);

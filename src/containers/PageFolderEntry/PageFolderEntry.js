@@ -88,15 +88,17 @@ export default class PageFolderEntry extends Component {
           <FlatButton icon={<i className="fa fa-arrow-left" />}
             label={f('back')} primary onTouchTap={this.goBack} />
         </TopBar>
-        <table className={styles.table}>
-          <tbody>
-            <tr>
-              <th>{f('source-entry-lang', {lang: f(folder.data.sourceLanguage)})}</th>
-              <td>{entry.sourceEntry}</td>
-            </tr>
-            {this.renderContentFields()}
-          </tbody>
-        </table>
+        <div className={styles.content}>
+          <table className={styles.table}>
+            <tbody>
+              <tr>
+                <th>{f('source-entry-lang', {lang: f(folder.data.sourceLanguage)})}</th>
+                <td>{entry.sourceEntry}</td>
+              </tr>
+              {this.renderContentFields()}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
