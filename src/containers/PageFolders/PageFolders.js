@@ -10,7 +10,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 
-import {setAddFolderDialogOpen, setSnackBarParams} from './../../redux/modules/ui';
+import {setSnackBarParams} from './../../redux/modules/ui';
 import objToArr from './../../helpers/objToArr';
 import {addFolder, listFolders} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
@@ -24,12 +24,11 @@ import resolve from './../../helpers/resolve';
 
 const styles = require('./PageFolders.scss');
 
-@connect(({ui, folder}) => ({
+@connect(({folder}) => ({
   perpage: folder.get('perpage'),
   folders: folder.get('folders'),
-  folderCount: folder.get('folderCount'),
-  isAddFolderDialogOpen: ui.get('isAddFolderDialogOpen')
-}), {listFolders, setAddFolderDialogOpen, addFolder, setSnackBarParams})
+  folderCount: folder.get('folderCount')
+}), {listFolders, addFolder, setSnackBarParams})
 @injectPush
 @injectF
 @resolve(({dispatch}, {perpage}) => {
@@ -45,14 +44,16 @@ export default class PageFolders extends Component {
     folders: PropTypes.array.isRequired,
     folderCount: PropTypes.number.isRequired,
     listFolders: PropTypes.func.isRequired,
-    isAddFolderDialogOpen: PropTypes.bool.isRequired,
-    setAddFolderDialogOpen: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
-    this.state = {page: 1, targetLanguages: []};
+    this.state = {
+      page: 1,
+      targetLanguages: [],
+      isAddFolderDialogOpen: false
+    };
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -67,16 +68,18 @@ export default class PageFolders extends Component {
   }
 
   openAddFolderDialog = () => {
-    this.setState({targetLanguages: []});
-    this.props.setAddFolderDialogOpen(true);
+    this.setState({
+      targetLanguages: [],
+      isAddFolderDialogOpen: true
+    });
   };
 
-  handleAddFolderDialogClose = () => this.props.setAddFolderDialogOpen(false);
+  handleAddFolderDialogClose = () => this.setState({isAddFolderDialogOpen: false});
 
   handleSubmit = async (data) => {
 
     const {page} = this.state;
-    const {f, addFolder, setAddFolderDialogOpen, listFolders,
+    const {f, addFolder, listFolders,
       perpage, setSnackBarParams} = this.props;
 
     data.contentFields = sortContentFields(data.contentFields);
@@ -85,10 +88,10 @@ export default class PageFolders extends Component {
     await listFolders({page, perpage});
 
     setSnackBarParams(true, f('folder-has-been-created', {folderName: data.folderName}));
-    setAddFolderDialogOpen(false);
+    this.setState({isAddFolderDialogOpen: false});
   };
 
-  handleCancelButtonTouchTap = () => this.props.setAddFolderDialogOpen(false);
+  handleCancelButtonTouchTap = () => this.setState({isAddFolderDialogOpen: false});
 
   handleTargetLanguagesChange = (rawData) => {
     const data = cloneDeep(rawData);
@@ -98,8 +101,8 @@ export default class PageFolders extends Component {
 
   renderAddFolderDialog() {
 
-    const {targetLanguages} = this.state;
-    const {isAddFolderDialogOpen, f} = this.props;
+    const {targetLanguages, isAddFolderDialogOpen} = this.state;
+    const {f} = this.props;
 
     return (
       <Dialog title={f('add-a-folder')} open={isAddFolderDialogOpen}

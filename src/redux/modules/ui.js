@@ -3,7 +3,6 @@ import {createReducer} from 'redux-immutablejs';
 
 const SET_DRAWER_OPEN = 'garchen-panel/ui/SET_DRAWER_OPEN';
 const TOGGLE_DRAWER_OPEN = 'garchen-panel/ui/TOGGLE_DRAWER_OPEN';
-const SET_ADD_FOLDER_DIALOG_OPEN = 'garchen-panel/ui/SET_ADD_FOLDER_DIALOG_OPEN';
 const SET_SNACK_BAR_PARAMS = 'garchen-panel/ui/SET_SNACK_BAR_PARAMS';
 const UPDATE_TABLE_FOLDER_ENTRY_LIST_KEY = 'garchen-panel/ui/UPDATE_TABLE_FOLDER_ENTRY_LIST_KEY';
 
@@ -13,8 +12,6 @@ const initialState = Map({
 
   snackBarMessage: '',
   isSnackBarOpen: false,
-
-  isAddFolderDialogOpen: false,
 
   tableFolderEntryListKey: 0
 });
@@ -27,10 +24,6 @@ export default createReducer(initialState, {
 
   [TOGGLE_DRAWER_OPEN]: (state) => {
     return state.set('isDrawerOpen', (! state.get('isDrawerOpen')));
-  },
-
-  [SET_ADD_FOLDER_DIALOG_OPEN]: (state, action) => {
-    return state.set('isAddFolderDialogOpen', action.isAddFolderDialogOpen);
   },
 
   [SET_SNACK_BAR_PARAMS]: (state, action) => {
@@ -61,13 +54,6 @@ export function setSnackBarParams(isSnackBarOpen, snackBarMessage = '') {
     type: SET_SNACK_BAR_PARAMS,
     isSnackBarOpen,
     snackBarMessage
-  };
-}
-
-export function setAddFolderDialogOpen(isAddFolderDialogOpen) {
-  return {
-    type: SET_ADD_FOLDER_DIALOG_OPEN,
-    isAddFolderDialogOpen
   };
 }
 
