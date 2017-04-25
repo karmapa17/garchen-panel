@@ -1,9 +1,11 @@
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {brandPrimary} from './appStyle';
+
+const brandPrimary = '#0c353b';
 
 export default getMuiTheme({
   appBar: {
-    color: brandPrimary
+    color: brandPrimary,
+    height: 54
   },
   palette: {
     primary1Color: brandPrimary
