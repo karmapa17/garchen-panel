@@ -3,6 +3,7 @@ import {Field, reduxForm} from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 
+import {range} from 'ramda';
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import injectF from './../../helpers/injectF';
 import asyncValidate from './addFolderEntryFormAsyncValidate';
@@ -28,6 +29,27 @@ export default class AddFolderEntryForm extends Component {
     f: PropTypes.func.isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.state = this.genDefaultState(props.folder.data.contentFields);
+  }
+
+  getExplainationIndex = (lang) => `explaination-${lang}-index`;
+
+  genDefaultState(contentFields) {
+
+    return contentFields.reduce((state, field) => {
+
+      const matchExplaination = field.match(/^explaination-lang-(.+)$/);
+
+      if (matchExplaination) {
+        const lang = matchExplaination[1];
+        state[this.getExplainationIndex(lang)] = 1;
+      }
+      return state;
+    }, {});
+  }
+
   renderCategoryMenuItems() {
     const {f} = this.props;
     return CATEGORY_VALUES.map(({id, value}) => {
@@ -42,7 +64,19 @@ export default class AddFolderEntryForm extends Component {
     });
   }
 
+  handleExplainationChange = (lang, index) => {
+    return (event) => {
+
+      const key = this.getExplainationIndex(lang);
+
+      if (!! event.target.value) {
+        this.setState({[key]: index + 2});
+      }
+    };
+  };
+
   renderContentFields() {
+
     const {folder, f, renderTextField, renderSelectField} = this.props;
     const {contentFields} = folder.data;
 
@@ -84,14 +118,34 @@ export default class AddFolderEntryForm extends Component {
       const matchExplaination = field.match(/^explaination-lang-(.+)$/);
 
       if (matchExplaination) {
-        const lang = matchExplaination[1];
 
-        return (
-          <div key={`explaination-${lang}`}>
-            <Field name={`explaination-${lang}`} type="text" fullWidth
-              component={renderTextField} label={f('explaination-lang', {lang: f(lang)})} multiLine />
-          </div>
-        );
+        const lang = matchExplaination[1];
+        const explainationIndex = this.state[this.getExplainationIndex(lang)];
+
+        const rows = range(0, explainationIndex)
+          .reduce((rows, elem, index) => {
+            rows.push((
+              <div key={`explaination-${lang}-${index}`}>
+                <Field name={`explaination-${lang}[${index}]`} type="text" fullWidth onChange={this.handleExplainationChange(lang, index)}
+                  component={renderTextField} label={f('explaination-lang', {lang: f(lang), num: (index + 1)})} multiLine />
+              </div>
+            ));
+            rows.push((
+              <div key={`source-${lang}-${index}`}>
+                <Field name={`source-${lang}[${index}]`} type="text" fullWidth
+                  component={renderTextField} label={f('explaination-source-lang', {lang: f(lang), num: (index + 1)})} multiLine />
+              </div>
+            ));
+            rows.push((
+              <div key={`note-${lang}-${index}`}>
+                <Field name={`note-${lang}[${index}]`} type="text" fullWidth
+                  component={renderTextField} label={f('explaination-note-lang', {lang: f(lang), num: (index + 1)})} multiLine />
+              </div>
+            ));
+            return rows;
+          }, []);
+
+        return rows;
       }
 
       const matchOriginal = field.match(/^original-lang-(.+)$/);
