@@ -1,4 +1,6 @@
 module.exports = {
+  'explaination-source-lang': '解釋出處 {num} - {lang}',
+  'explaination-note-lang': '解釋註記 {num} - {lang}',
   'edit': '編輯',
   'done': '完成',
   'add-a-folder': '新增一個資料夾',
@@ -64,7 +66,7 @@ module.exports = {
   'source-entry-lang': '主詞條 - {lang}',
   'category': '類別',
   'sect': '宗派',
-  'explaination-lang': '解釋 - {lang}',
+  'explaination-lang': '解釋 {num} - {lang}',
   'original-lang': '原文 - {lang}',
   'source-lang': '出處 - {lang}',
   'source': '出處',

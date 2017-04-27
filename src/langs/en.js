@@ -1,4 +1,6 @@
 module.exports = {
+  'explaination-source-lang': 'Explaination Source {num} - {lang}',
+  'explaination-note-lang': 'Explaination Note {num} - {lang}',
   'edit': 'Edit',
   'done': 'Done',
   'add-a-folder': 'Add a folder',
@@ -64,7 +66,7 @@ module.exports = {
   'source-entry-lang': 'Main Entry - {lang}',
   'category': 'Category',
   'sect': 'Sect',
-  'explaination-lang': 'Explaination - {lang}',
+  'explaination-lang': 'Explaination {num} - {lang}',
   'original-lang': 'Original - {lang}',
   'source-lang': 'Source - {lang}',
   'source': 'Source',
