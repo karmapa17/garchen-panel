@@ -11,6 +11,7 @@ import injectPush from './../../helpers/injectPush';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
+import {each, isArray} from 'lodash';
 
 const styles = require('./PageEditFolderEntry.scss');
 
@@ -58,12 +59,23 @@ export default class PageEditFolderEntry extends Component {
   render() {
 
     const {f, folder, entry} = this.props;
+
     const initialValues = {
       entryId: entry.id,
       folderId: folder.id,
-      sourceEntry: entry.sourceEntry,
-      ...entry.data
+      sourceEntry: entry.sourceEntry
     };
+
+    each(entry.data, (value, prop) => {
+      if (isArray(value)) {
+        each(value, (v, p, index) => {
+          initialValues[`${prop}[${index}]`] = v;
+        });
+      }
+      else {
+        initialValues[prop] = value;
+      }
+    });
 
     return (
       <div className={styles.pageFolderEntry}>
