@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
+import {isArray} from 'lodash';
 
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry} from './../../redux/modules/entry';
@@ -61,6 +62,17 @@ export default class PageFolderEntry extends Component {
     const rows = entryKeysToDataRows(keys, entry.data, f);
 
     return rows.map(({key, value, lang}) => {
+
+      if (isArray(value)) {
+        return value.map((v, index) => {
+          return (
+            <tr key={`${key}-${lang}-${index}`}>
+              <th>{f(`${key}-lang`, {lang: f(lang), num: (index + 1)})}</th>
+              <td>{v}</td>
+            </tr>
+          );
+        });
+      }
 
       if (lang) {
         return (
