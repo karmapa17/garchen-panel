@@ -1,4 +1,5 @@
 module.exports = {
+  'page-num': '頁碼',
   'explaination-category-1': '人物',
   'explaination-category-2': '神尊',
   'explaination-category-3': '寺廟',
