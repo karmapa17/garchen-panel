@@ -132,13 +132,13 @@ export default class AddFolderEntryForm extends Component {
             ));
             rows.push((
               <div key={`explaination-source-${lang}-${index}`}>
-                <Field name={`explainationSource-${lang}[${index}]`} type="text" fullWidth
+                <Field name={`explaination-source-${lang}[${index}]`} type="text" fullWidth
                   component={renderTextField} label={f('explaination-source-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
               </div>
             ));
             rows.push((
               <div key={`explaination-note-${lang}-${index}`}>
-                <Field name={`explainationNote-${lang}[${index}]`} type="text" fullWidth
+                <Field name={`explaination-note-${lang}[${index}]`} type="text" fullWidth
                   component={renderTextField} label={f('explaination-note-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
               </div>
             ));
