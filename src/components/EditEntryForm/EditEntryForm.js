@@ -63,7 +63,7 @@ export default class EditEntryForm extends Component {
         if (matchExplaination) {
           const arr = contentFields[field];
           const lang = matchExplaination[1];
-          state[this.getExplainationIndex(lang)] = arr.length;
+          state[this.getExplainationIndex(lang)] = arr.length + 1;
         }
         return state;
       }, state);
