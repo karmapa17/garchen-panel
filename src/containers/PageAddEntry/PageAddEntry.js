@@ -13,7 +13,7 @@ import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
 
-const styles = require('./PageAddFolderEntry.scss');
+const styles = require('./PageAddEntry.scss');
 
 @connect(({folder}) => ({
   folder: folder.get('folder'),
@@ -23,7 +23,7 @@ const styles = require('./PageAddFolderEntry.scss');
 @resolve(({dispatch, getState}, {params}) => {
   return dispatch(getFolder({id: params.id}));
 })
-export default class PageAddFolderEntry extends Component {
+export default class PageAddEntry extends Component {
 
   static propTypes = {
     f: PropTypes.func.isRequired,
