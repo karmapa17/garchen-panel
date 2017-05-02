@@ -1,4 +1,5 @@
 module.exports = {
+  'explaination-category-num-lang': 'Explaination Category {num} - {lang}',
   'explaination-source-num-lang': 'Explaination Source {num} - {lang}',
   'explaination-note-num-lang': 'Explaination Note {num} - {lang}',
   'edit': 'Edit',
