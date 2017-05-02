@@ -7,7 +7,7 @@ import AddFolderEntryForm from './../../components/AddFolderEntryForm/AddFolderE
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {getFolder} from './../../redux/modules/folder';
-import {addFolderEntry} from './../../redux/modules/folderEntry';
+import {addFolderEntry} from './../../redux/modules/entry';
 import {setSnackBarParams} from './../../redux/modules/ui';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';

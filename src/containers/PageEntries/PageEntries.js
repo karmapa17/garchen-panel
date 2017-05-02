@@ -10,9 +10,9 @@ import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {setSnackBarParams} from './../../redux/modules/ui';
 import {getFolder} from './../../redux/modules/folder';
-import {listFolderEntries, setSelectedFolderEntryIds, clearSelectedFolderEntryIds} from './../../redux/modules/folderEntry';
+import {listFolderEntries, setSelectedFolderEntryIds, clearSelectedFolderEntryIds,
+  deleteEntries} from './../../redux/modules/entry';
 
-import {deleteEntries} from './../../redux/modules/entry';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
@@ -20,12 +20,12 @@ import Pagination from './../../components/Pagination/Pagination';
 
 const styles = require('./PageEntries.scss');
 
-@connect(({folder, folderEntry}) => ({
-  perpage: folderEntry.get('perpage'),
+@connect(({folder, entry}) => ({
+  perpage: entry.get('perpage'),
   folder: folder.get('folder'),
-  folderEntries: folderEntry.get('folderEntries'),
-  folderEntryCount: folderEntry.get('folderEntryCount'),
-  selectedFolderEntryMap: folderEntry.get('selectedFolderEntryMap')
+  folderEntries: entry.get('folderEntries'),
+  folderEntryCount: entry.get('folderEntryCount'),
+  selectedFolderEntryMap: entry.get('selectedFolderEntryMap')
 }), {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIds,
   deleteEntries, clearSelectedFolderEntryIds})
 @injectPush

@@ -1,4 +1,4 @@
-import {checkFolderEntryExists} from './../../redux/modules/folderEntry';
+import {checkFolderEntryExists} from './../../redux/modules/entry';
 
 export default function addFolderEntryFormAsyncValidate(values, dispatch) {
 
