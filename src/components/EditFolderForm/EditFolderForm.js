@@ -9,6 +9,7 @@ import validate from './editFolderFormValidate';
 import injectF from './../../helpers/injectF';
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import MULTI_LANG_FIELDS from './../../constants/multiLangFields';
+import REGULAR_FIELDS from './../../constants/regularFields';
 
 @reduxForm({
   form: 'editFolderForm',
@@ -39,12 +40,6 @@ export default class EditFolderForm extends Component {
   renderContentFields = () => {
 
     const {f, targetLanguages} = this.props;
-
-    const DEFAULT_CONTENT_FILEDS = [
-      {textId: 'category', value: 'category'},
-      {textId: 'sect', value: 'sect'}
-    ];
-
     const fields = [];
 
     MULTI_LANG_FIELDS.forEach((textId) => {
@@ -53,7 +48,7 @@ export default class EditFolderForm extends Component {
       });
     });
 
-    return fields.concat(DEFAULT_CONTENT_FILEDS)
+    return fields.concat(REGULAR_FIELDS)
       .map(({value, textId, params}) => {
         return <MenuItem key={`content-field-${value}`} value={value} primaryText={f(textId, params)} />;
       });

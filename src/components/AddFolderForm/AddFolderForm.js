@@ -9,6 +9,7 @@ import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
 import validate from './addFolderFormValidate';
 import asyncValidate from './addFolderFormAsyncValidate';
 import MULTI_LANG_FIELDS from './../../constants/multiLangFields';
+import REGULAR_FIELDS from './../../constants/regularFields';
 
 const styles = require('./AddFolderForm.scss');
 
@@ -42,11 +43,6 @@ export default class AddFolderForm extends Component {
 
     const {f, targetLanguages} = this.props;
 
-    const DEFAULT_CONTENT_FILEDS = [
-      {textId: 'category', value: 'category'},
-      {textId: 'sect', value: 'sect'}
-    ];
-
     const fields = [];
 
     MULTI_LANG_FIELDS.forEach((textId) => {
@@ -55,7 +51,7 @@ export default class AddFolderForm extends Component {
       });
     });
 
-    return fields.concat(DEFAULT_CONTENT_FILEDS)
+    return fields.concat(REGULAR_FIELDS)
       .map(({value, textId, params}) => {
         return <MenuItem key={`content-field-${value}`} value={value} primaryText={f(textId, params)} />;
       });
