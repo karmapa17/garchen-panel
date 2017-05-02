@@ -1,7 +1,10 @@
 import SECT_VALUES from './../constants/sectValues';
 import CATEGORY_VALUES from './../constants/categoryValues';
+import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 
-const reArr = ['target-entry', 'explaination', 'original', 'source'].map((prop) => {
+const validLangs = DICTIONARY_LANGS.map((row) => row.value);
+
+const reArr = ['target-entry', 'explaination', 'explaination-source', 'explaination-note', 'original'].map((prop) => {
   return {
     prop,
     re: new RegExp(`^${prop}-(.+)$`)
@@ -17,7 +20,7 @@ export default function entryKeysToDataRows(keys, data, f) {
     for (let i = 0; i < reArr.length; i++) {
       const {prop, re} = reArr[i];
       const lang = (re.exec(key) || [])[1];
-      if (lang) {
+      if (validLangs.includes(lang)) {
         return {key: prop, value, lang};
       }
     }
