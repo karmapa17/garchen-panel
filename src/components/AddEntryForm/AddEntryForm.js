@@ -8,6 +8,7 @@ import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import injectF from './../../helpers/injectF';
 import asyncValidate from './addEntryFormAsyncValidate';
 import CATEGORY_VALUES from './../../constants/categoryValues';
+import EXPLAINATION_CATEGORY_VALUES from './../../constants/explainationCategoryValues';
 import SECT_VALUES from './../../constants/sectValues';
 
 const styles = require('./AddEntryForm.scss');
@@ -61,6 +62,13 @@ export default class AddEntryForm extends Component {
     const {f} = this.props;
     return SECT_VALUES.map(({id, value}) => {
       return <MenuItem key={`sect-${id}`} value={value} primaryText={f(id)} />;
+    });
+  }
+
+  renderExplainationCategoryMenuItems() {
+    const {f} = this.props;
+    return EXPLAINATION_CATEGORY_VALUES.map(({id, value}) => {
+      return <MenuItem key={`explaination-category-${id}`} value={value} primaryText={f(id)} />;
     });
   }
 
@@ -140,6 +148,14 @@ export default class AddEntryForm extends Component {
               <div key={`explaination-note-${lang}-${index}`}>
                 <Field name={`explaination-note-${lang}[${index}]`} type="text" fullWidth
                   component={renderTextField} label={f('explaination-note-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
+              </div>
+            ));
+            rows.push((
+              <div key={`explaination-category-${lang}-${index}`}>
+                <Field name={`explaination-category-${lang}[${index}]`} fullWidth
+                  component={renderSelectField} label={f('explaination-category-num-lang', {lang: f(lang), num: (index + 1)})}>
+                  {this.renderExplainationCategoryMenuItems()}
+                </Field>
               </div>
             ));
             return rows;

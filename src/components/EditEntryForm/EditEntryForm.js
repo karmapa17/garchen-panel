@@ -9,6 +9,7 @@ import injectF from './../../helpers/injectF';
 import asyncValidate from './editEntryFormAsyncValidate';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import SECT_VALUES from './../../constants/sectValues';
+import EXPLAINATION_CATEGORY_VALUES from './../../constants/explainationCategoryValues';
 
 const styles = require('./EditEntryForm.scss');
 
@@ -93,6 +94,13 @@ export default class EditEntryForm extends Component {
     };
   };
 
+  renderExplainationCategoryMenuItems() {
+    const {f} = this.props;
+    return EXPLAINATION_CATEGORY_VALUES.map(({id, value}) => {
+      return <MenuItem key={`explaination-category-${id}`} value={value} primaryText={f(id)} />;
+    });
+  }
+
   renderContentFields() {
     const {folder, f, renderTextField, renderSelectField} = this.props;
     const {contentFields} = folder.data;
@@ -157,6 +165,14 @@ export default class EditEntryForm extends Component {
               <div key={`explaination-note-${lang}-${index}`}>
                 <Field name={`explaination-note-${lang}[${index}]`} type="text" fullWidth
                   component={renderTextField} label={f('explaination-note-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
+              </div>
+            ));
+            rows.push((
+              <div key={`explaination-category-${lang}-${index}`}>
+                <Field name={`explaination-category-${lang}[${index}]`} fullWidth
+                  component={renderSelectField} label={f('explaination-category-num-lang', {lang: f(lang), num: (index + 1)})}>
+                  {this.renderExplainationCategoryMenuItems()}
+                </Field>
               </div>
             ));
             return rows;
