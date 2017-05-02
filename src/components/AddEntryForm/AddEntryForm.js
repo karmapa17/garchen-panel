@@ -6,11 +6,11 @@ import MenuItem from 'material-ui/MenuItem';
 import {range} from 'ramda';
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import injectF from './../../helpers/injectF';
-import asyncValidate from './addFolderEntryFormAsyncValidate';
+import asyncValidate from './addEntryFormAsyncValidate';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import SECT_VALUES from './../../constants/sectValues';
 
-const styles = require('./AddFolderEntryForm.scss');
+const styles = require('./AddEntryForm.scss');
 
 @reduxForm({
   form: 'addFolderEntryForm',
@@ -18,7 +18,7 @@ const styles = require('./AddFolderEntryForm.scss');
 })
 @injectF
 @injectMuiReduxFormHelper
-export default class AddFolderEntryForm extends Component {
+export default class AddEntryForm extends Component {
 
   static propTypes = {
     folder: PropTypes.object.isRequired,

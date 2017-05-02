@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 
-import AddFolderEntryForm from './../../components/AddFolderEntryForm/AddFolderEntryForm';
+import AddEntryForm from './../../components/AddEntryForm/AddEntryForm';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {getFolder} from './../../redux/modules/folder';
@@ -66,7 +66,7 @@ export default class PageAddEntry extends Component {
             label={f('back')} primary onTouchTap={this.goBack} />
         </TopBar>
         <div className={styles.content}>
-          <AddFolderEntryForm onSubmit={this.handleSubmit} folder={folder} initialValues={{folderId: folder.id}} />
+          <AddEntryForm onSubmit={this.handleSubmit} folder={folder} initialValues={{folderId: folder.id}} />
         </div>
       </div>
     );
