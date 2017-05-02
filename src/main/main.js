@@ -19,7 +19,7 @@ import checkFolderExists from './controllers/folder/checkFolderExists';
 import getEntry from './controllers/entry/getEntry';
 import deleteEntries from './controllers/entry/deleteEntries';
 import updateEntry from './controllers/entry/updateEntry';
-import menuTemplate from './constants/menuTemplate';
+import getMenuTemplate from './helpers/getMenuTemplate';
 
 import login from './controllers/auth/login';
 
@@ -37,8 +37,6 @@ app.on('ready', handleAppReady);
 
 async function handleAppReady() {
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
-
   const {width, height} = screen.getPrimaryDisplay().workAreaSize;
   mainWindow = new BrowserWindow({width, height});
 
@@ -50,6 +48,8 @@ async function handleAppReady() {
 
   const {db, models} = await initDb();
   const ipc = IpcDecorator.decorate(ipcMain, {db, models});
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(getMenuTemplate({models})));
 
   ipc.on('get-folder', getFolder);
   ipc.on('check-folder-exists', checkFolderExists);
