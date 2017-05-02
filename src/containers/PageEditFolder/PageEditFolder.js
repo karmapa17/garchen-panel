@@ -6,7 +6,7 @@ import {cloneDeep} from 'lodash';
 import {Link} from 'react-router';
 
 import objToArr from './../../helpers/objToArr';
-import sortContentFields from './../../helpers/sortContentFields';
+import sortFolderContentFields from './../../helpers/sortFolderContentFields';
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
 import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
 import {getFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
@@ -54,7 +54,7 @@ export default class PageEditFolder extends Component {
   handleEditFolderFormSubmit = async (data) => {
     const {f, params, updateFolder, push, setSnackBarParams} = this.props;
     data.id = params.id;
-    data.contentFields = sortContentFields(data.contentFields);
+    data.contentFields = sortFolderContentFields(data.contentFields);
     const folder = await updateFolder(data);
     setSnackBarParams(true, f('folder-has-been-updated', {folderName: folder.name}));
     push('/');

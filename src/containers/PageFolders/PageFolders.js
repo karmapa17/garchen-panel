@@ -17,7 +17,7 @@ import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
 
-import sortContentFields from './../../helpers/sortContentFields';
+import sortFolderContentFields from './../../helpers/sortFolderContentFields';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
@@ -82,7 +82,7 @@ export default class PageFolders extends Component {
     const {f, addFolder, listFolders,
       perpage, setSnackBarParams} = this.props;
 
-    data.contentFields = sortContentFields(data.contentFields);
+    data.contentFields = sortFolderContentFields(data.contentFields);
 
     await addFolder(data);
     await listFolders({page, perpage});
