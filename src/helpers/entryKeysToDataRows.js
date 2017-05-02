@@ -18,8 +18,10 @@ export default function entryKeysToDataRows(keys, data, f) {
     const value = data[key];
 
     for (let i = 0; i < reArr.length; i++) {
+
       const {prop, re} = reArr[i];
       const lang = (re.exec(key) || [])[1];
+
       if (validLangs.includes(lang)) {
         return {key: prop, value, lang};
       }
