@@ -1,25 +1,25 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import Avatar from 'material-ui/Avatar';
 import CircularProgress from 'material-ui/CircularProgress';
+import Drawer from 'material-ui/Drawer';
+import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
-import FlatButton from 'material-ui/FlatButton';
-import Avatar from 'material-ui/Avatar';
-import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
-import Drawer from 'material-ui/Drawer';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React, {Component, PropTypes} from 'react';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import Snackbar from 'material-ui/Snackbar';
 import c from 'classnames';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import {connect} from 'react-redux';
 
-import {setIntl} from './../../redux/modules/main';
-import {setDrawerOpen, setSnackBarParams} from './../../redux/modules/ui';
-import {login, logout} from './../../redux/modules/auth';
-import muiTheme from './../../constants/muiTheme';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
+import muiTheme from './../../constants/muiTheme';
+import {login, logout} from './../../redux/modules/auth';
+import {setDrawerOpen, setSnackBarParams} from './../../redux/modules/ui';
+import {setIntl} from './../../redux/modules/main';
 
 const styles = require('./App.scss');
 
@@ -27,31 +27,31 @@ injectTapEventPlugin();
 
 @connect(({auth, main, ui}) => ({
   appLocale: main.get('appLocale'),
-  isLoadingAuth: auth.get('isLoadingAuth'),
   auth: auth.get('auth'),
   isDrawerOpen: ui.get('isDrawerOpen'),
-  snackBarMessage: ui.get('snackBarMessage'),
-  isSnackBarOpen: ui.get('isSnackBarOpen')
+  isLoadingAuth: auth.get('isLoadingAuth'),
+  isSnackBarOpen: ui.get('isSnackBarOpen'),
+  snackBarMessage: ui.get('snackBarMessage')
 }), {setDrawerOpen, setIntl, setSnackBarParams, login, logout})
 @injectF
 @injectPush
 export default class App extends Component {
 
   static propTypes = {
-    f: PropTypes.func.isRequired,
-    push: PropTypes.func.isRequired,
     appLocale: PropTypes.string.isRequired,
+    auth: PropTypes.object,
+    children: PropTypes.object.isRequired,
+    f: PropTypes.func.isRequired,
     isDrawerOpen: PropTypes.bool.isRequired,
     isLoadingAuth: PropTypes.bool.isRequired,
-    snackBarMessage: PropTypes.string.isRequired,
     isSnackBarOpen: PropTypes.bool.isRequired,
-    setSnackBarParams: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
-    auth: PropTypes.object,
+    push: PropTypes.func.isRequired,
     setDrawerOpen: PropTypes.func.isRequired,
     setIntl: PropTypes.func.isRequired,
-    children: PropTypes.object.isRequired
+    setSnackBarParams: PropTypes.func.isRequired,
+    snackBarMessage: PropTypes.string.isRequired
   };
 
   renderIconElementRight() {
