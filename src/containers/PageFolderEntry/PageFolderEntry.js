@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
-import {isArray} from 'lodash';
 
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry} from './../../redux/modules/entry';
@@ -58,20 +57,60 @@ export default class PageFolderEntry extends Component {
   renderContentFields() {
 
     const {entry, f} = this.props;
-    const keys = sortEntryKeys(Object.keys(entry.data));
-    const rows = entryKeysToDataRows(keys, entry.data, f);
+
+    const entryData = entry.data;
+    const keys = sortEntryKeys(Object.keys(entryData));
+    const rows = entryKeysToDataRows(keys, entryData, f);
 
     return rows.map(({key, value, lang}) => {
 
-      if (isArray(value)) {
+      if ('explaination' === key) {
+
+        const sourceArr = entryData[`explaination-source-${lang}`];
+        const noteArr = entryData[`explaination-note-${lang}`];
+
         return value.map((v, index) => {
-          return (
+
+          const nodes = [];
+
+          nodes.push((
             <tr key={`${key}-${lang}-${index}`}>
-              <th>{f(`${key}-lang`, {lang: f(lang), num: (index + 1)})}</th>
+              <th>{f(`${key}-num-lang`, {lang: f(lang), num: (index + 1)})}</th>
               <td>{v}</td>
             </tr>
-          );
+          ));
+
+          const sourceRow = sourceArr[index];
+          const noteRow = noteArr[index];
+
+          if (sourceRow) {
+            nodes.push((
+              <tr key={`explaination-source-${lang}-${index}`}>
+                <th>{f(`explaination-source-num-lang`, {lang: f(lang), num: (index + 1)})}</th>
+                <td>{v}</td>
+              </tr>
+            ));
+          }
+
+          if (noteRow) {
+            nodes.push((
+              <tr key={`explaination-note-${lang}-${index}`}>
+                <th>{f(`explaination-note-num-lang`, {lang: f(lang), num: (index + 1)})}</th>
+                <td>{v}</td>
+              </tr>
+            ));
+          }
+
+          return nodes;
         });
+      }
+
+      if ('explaination-source' === key) {
+        return false;
+      }
+
+      if ('explaination-note' === key) {
+        return false;
       }
 
       if (lang) {
