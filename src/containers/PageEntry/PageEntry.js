@@ -15,6 +15,7 @@ import entryKeysToDataRows from './../../helpers/entryKeysToDataRows';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
+import EXPLAINATION_CATEGORY_VALUES from './../../constants/explainationCategoryValues';
 
 const styles = require('./PageEntry.scss');
 
@@ -61,13 +62,15 @@ export default class PageEntry extends Component {
     const entryData = entry.data;
     const keys = sortEntryKeys(Object.keys(entryData));
     const rows = entryKeysToDataRows(keys, entryData, f);
+    const skipCols = ['explaination-source', 'explaination-note', 'explaination-category'];
 
     return rows.map(({key, value, lang}) => {
 
       if ('explaination' === key) {
 
-        const sourceArr = entryData[`explaination-source-${lang}`];
-        const noteArr = entryData[`explaination-note-${lang}`];
+        const sourceArr = entryData[`explaination-source-${lang}`] || [];
+        const noteArr = entryData[`explaination-note-${lang}`] || [];
+        const categoryArr = entryData[`explaination-category-${lang}`] || [];
 
         return value.map((v, index) => {
 
@@ -80,23 +83,36 @@ export default class PageEntry extends Component {
             </tr>
           ));
 
-          const sourceRow = sourceArr[index];
-          const noteRow = noteArr[index];
+          const sourceValue = sourceArr[index];
 
-          if (sourceRow) {
+          if (sourceValue) {
             nodes.push((
               <tr key={`explaination-source-${lang}-${index}`}>
                 <th>{f(`explaination-source-num-lang`, {lang: f(lang), num: (index + 1)})}</th>
-                <td>{v}</td>
+                <td>{sourceValue}</td>
               </tr>
             ));
           }
 
-          if (noteRow) {
+          const noteValue = noteArr[index];
+
+          if (noteValue) {
             nodes.push((
               <tr key={`explaination-note-${lang}-${index}`}>
                 <th>{f(`explaination-note-num-lang`, {lang: f(lang), num: (index + 1)})}</th>
-                <td>{v}</td>
+                <td>{noteValue}</td>
+              </tr>
+            ));
+          }
+
+          const categoryValue = categoryArr[index];
+
+          if (categoryValue) {
+            const categoryId = EXPLAINATION_CATEGORY_VALUES.find((row) => row.value === categoryValue).id;
+            nodes.push((
+              <tr key={`explaination-category-${lang}-${index}`}>
+                <th>{f(`explaination-category-num-lang`, {lang: f(lang), num: (index + 1)})}</th>
+                <td>{f(categoryId)}</td>
               </tr>
             ));
           }
@@ -105,11 +121,7 @@ export default class PageEntry extends Component {
         });
       }
 
-      if ('explaination-source' === key) {
-        return false;
-      }
-
-      if ('explaination-note' === key) {
+      if (skipCols.includes(key)) {
         return false;
       }
 
