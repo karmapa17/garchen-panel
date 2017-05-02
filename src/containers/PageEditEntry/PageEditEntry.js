@@ -13,7 +13,7 @@ import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
 import {each, isArray} from 'lodash';
 
-const styles = require('./PageEditFolderEntry.scss');
+const styles = require('./PageEditEntry.scss');
 
 @connect(({folder, entry}) => ({
   folder: folder.get('folder'),
@@ -27,7 +27,7 @@ const styles = require('./PageEditFolderEntry.scss');
   promises.push(dispatch(getEntry({id: params.entryId})));
   return Promise.all(promises);
 })
-export default class PageEditFolderEntry extends Component {
+export default class PageEditEntry extends Component {
 
   static propTypes = {
     f: PropTypes.func.isRequired,
