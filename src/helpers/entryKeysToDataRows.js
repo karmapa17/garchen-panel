@@ -4,7 +4,7 @@ import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 
 const validLangs = DICTIONARY_LANGS.map((row) => row.value);
 
-const reArr = ['target-entry', 'explaination', 'explaination-source', 'explaination-note', 'original'].map((prop) => {
+const reArr = ['target-entry', 'explaination', 'explaination-source', 'explaination-note', 'explaination-category', 'original'].map((prop) => {
   return {
     prop,
     re: new RegExp(`^${prop}-(.+)$`)
