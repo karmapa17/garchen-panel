@@ -16,7 +16,7 @@ import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
 
-const styles = require('./PageFolderEntry.scss');
+const styles = require('./PageEntry.scss');
 
 @connect(({folder, entry}) => ({
   folder: folder.get('folder'),
@@ -30,7 +30,7 @@ const styles = require('./PageFolderEntry.scss');
   promises.push(dispatch(getEntry({id: params.entryId})));
   return Promise.all(promises);
 })
-export default class PageFolderEntry extends Component {
+export default class PageEntry extends Component {
 
   static propTypes = {
     f: PropTypes.func.isRequired,
