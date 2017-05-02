@@ -18,7 +18,7 @@ import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
 import Pagination from './../../components/Pagination/Pagination';
 
-const styles = require('./PageFolderEntries.scss');
+const styles = require('./PageEntries.scss');
 
 @connect(({folder, folderEntry}) => ({
   perpage: folderEntry.get('perpage'),
@@ -39,7 +39,7 @@ const styles = require('./PageFolderEntries.scss');
 
   return Promise.all(promises);
 })
-export default class PageFolderEntries extends Component {
+export default class PageEntries extends Component {
 
   static propTypes = {
     push: PropTypes.func.isRequired,

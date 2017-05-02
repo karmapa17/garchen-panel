@@ -7,7 +7,7 @@ import PageFolders from './containers/PageFolders/PageFolders';
 import PageSettings from './containers/PageSettings/PageSettings';
 import PageNotFound from './containers/PageNotFound/PageNotFound';
 import PageEditFolder from './containers/PageEditFolder/PageEditFolder';
-import PageFolderEntries from './containers/PageFolderEntries/PageFolderEntries';
+import PageEntries from './containers/PageEntries/PageEntries';
 import PageAddFolderEntry from './containers/PageAddFolderEntry/PageAddFolderEntry';
 import PageFolderEntry from './containers/PageFolderEntry/PageFolderEntry';
 import PageEditFolderEntry from './containers/PageEditFolderEntry/PageEditFolderEntry';
@@ -19,7 +19,7 @@ export default () => {
 
       <IndexRoute component={PageFolders} />
       <Route path="folders/:id/edit" component={PageEditFolder} />
-      <Route path="folders/:id/entries" component={PageFolderEntries} />
+      <Route path="folders/:id/entries" component={PageEntries} />
       <Route path="folders/:id/entries/add" component={PageAddFolderEntry} />
       <Route path="folders/:folderId/entries/:entryId" component={PageFolderEntry} />
       <Route path="folders/:folderId/entries/:entryId/edit" component={PageEditFolderEntry} />
