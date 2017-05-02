@@ -144,19 +144,19 @@ export default class EditEntryForm extends Component {
             rows.push((
               <div key={`explaination-${lang}-${index}`}>
                 <Field name={`explaination-${lang}[${index}]`} type="text" fullWidth onChange={this.handleExplainationChange(lang, index)}
-                  component={renderTextField} label={f('explaination-lang', {lang: f(lang), num: (index + 1)})} multiLine />
+                  component={renderTextField} label={f('explaination-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
               </div>
             ));
             rows.push((
-              <div key={`source-${lang}-${index}`}>
-                <Field name={`source-${lang}[${index}]`} type="text" fullWidth
-                  component={renderTextField} label={f('explaination-source-lang', {lang: f(lang), num: (index + 1)})} multiLine />
+              <div key={`explaination-source-${lang}-${index}`}>
+                <Field name={`explainationSource-${lang}[${index}]`} type="text" fullWidth
+                  component={renderTextField} label={f('explaination-source-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
               </div>
             ));
             rows.push((
-              <div key={`note-${lang}-${index}`}>
-                <Field name={`note-${lang}[${index}]`} type="text" fullWidth
-                  component={renderTextField} label={f('explaination-note-lang', {lang: f(lang), num: (index + 1)})} multiLine />
+              <div key={`explaination-note-${lang}-${index}`}>
+                <Field name={`explainationNote-${lang}[${index}]`} type="text" fullWidth
+                  component={renderTextField} label={f('explaination-note-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
               </div>
             ));
             return rows;
