@@ -3,15 +3,13 @@ import addFolderByCsv from './../controllers/folder/addFolderByCsv';
 
 export default function getMenuTemplate(args) {
 
-  const {models} = args;
-
   return [
     {
       label: 'App',
       submenu: [
         {
           label: "Import CSV",
-          click: () => addFolderByCsv({models})
+          click: () => addFolderByCsv(args)
         },
         {
           label: "Quit",
