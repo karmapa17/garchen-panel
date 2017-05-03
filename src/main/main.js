@@ -40,6 +40,8 @@ async function handleAppReady() {
   const {width, height} = screen.getPrimaryDisplay().workAreaSize;
   mainWindow = new BrowserWindow({width, height});
 
+  const {webContents} = mainWindow;
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
@@ -49,7 +51,7 @@ async function handleAppReady() {
   const {db, models} = await initDb();
   const ipc = IpcDecorator.decorate(ipcMain, {db, models});
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate(getMenuTemplate({models})));
+  Menu.setApplicationMenu(Menu.buildFromTemplate(getMenuTemplate({models, webContents})));
 
   ipc.on('get-folder', getFolder);
   ipc.on('check-folder-exists', checkFolderExists);
