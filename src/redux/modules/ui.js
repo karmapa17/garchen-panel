@@ -10,7 +10,7 @@ const initialState = Map({
   isDrawerOpen: false,
   snackBarMessage: '',
   isSnackBarOpen: false,
-  isProcessingCsv: true
+  isProcessingCsv: false
 });
 
 export default createReducer(initialState, {
