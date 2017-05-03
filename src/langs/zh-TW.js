@@ -1,4 +1,8 @@
 module.exports = {
+  'import-csv-file': '匯入 CSV 檔案',
+  'completed-csv-line': '已完成 {completedLines} 行',
+  'confirm': '確認',
+  'see-imported-folder': '看看新匯入的資料夾',
   'page-num': '頁碼',
   'explaination-category-1': '人物',
   'explaination-category-2': '神尊',

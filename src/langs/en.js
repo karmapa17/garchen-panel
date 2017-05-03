@@ -1,4 +1,8 @@
 module.exports = {
+  'import-csv-file': 'Import CSV file',
+  'completed-csv-line': 'Completed {completedLine} lines',
+  'confirm': 'Confirm',
+  'see-imported-folder': 'See imported folder',
   'page-num': 'Page Number',
   'explaination-category-num-lang': 'Explaination Category {num} - {lang}',
   'explaination-source-num-lang': 'Explaination Source {num} - {lang}',
