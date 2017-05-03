@@ -14,11 +14,13 @@ import c from 'classnames';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {connect} from 'react-redux';
 
+import PageImportCsv from './../../containers/PageImportCsv/PageImportCsv';
+import ipc from './../../helpers/ipc';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import muiTheme from './../../constants/muiTheme';
 import {login, logout} from './../../redux/modules/auth';
-import {setDrawerOpen, setSnackBarParams} from './../../redux/modules/ui';
+import {setDrawerOpen, setSnackBarParams, setProcessingCsvStatus} from './../../redux/modules/ui';
 import {setIntl} from './../../redux/modules/main';
 
 const styles = require('./App.scss');
@@ -31,8 +33,9 @@ injectTapEventPlugin();
   isDrawerOpen: ui.get('isDrawerOpen'),
   isLoadingAuth: auth.get('isLoadingAuth'),
   isSnackBarOpen: ui.get('isSnackBarOpen'),
+  isProcessingCsv: ui.get('isProcessingCsv'),
   snackBarMessage: ui.get('snackBarMessage')
-}), {setDrawerOpen, setIntl, setSnackBarParams, login, logout})
+}), {setDrawerOpen, setIntl, setSnackBarParams, login, logout, setProcessingCsvStatus})
 @injectF
 @injectPush
 export default class App extends Component {
@@ -51,8 +54,22 @@ export default class App extends Component {
     setDrawerOpen: PropTypes.func.isRequired,
     setIntl: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
-    snackBarMessage: PropTypes.string.isRequired
+    setProcessingCsvStatus: PropTypes.func.isRequired,
+    snackBarMessage: PropTypes.string.isRequired,
+    isProcessingCsv: PropTypes.bool.isRequired
   };
+
+  handleStartProcessingCsv = () => {
+    this.props.setProcessingCsvStatus(true);
+  };
+
+  componentWillMount() {
+    ipc.on('start-processing-csv', this.handleStartProcessingCsv);
+  }
+
+  componentWillUnmount() {
+    ipc.off('start-processing-csv', this.handleStartProcessingCsv);
+  }
 
   renderIconElementRight() {
     const {auth, isLoadingAuth, login, logout, f} = this.props;
@@ -108,7 +125,15 @@ export default class App extends Component {
 
   render() {
 
-    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage, appLocale} = this.props;
+    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage, appLocale, isProcessingCsv} = this.props;
+
+    if (isProcessingCsv) {
+      return (
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <PageImportCsv />
+        </MuiThemeProvider>
+      );
+    }
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
