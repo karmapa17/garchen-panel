@@ -12,14 +12,22 @@ export default function injectF(Target) {
     };
 
     render() {
-      const {intl: {formatMessage}} = this.props;
+      const {intl: {formatMessage, formatHTMLMessage}} = this.props;
+
       const f = (data, params) => {
         if ('string' === typeof data) {
           return formatMessage({id: data}, params);
         }
         return formatMessage(data);
       };
-      return <Target {...this.props} f={f} />;
+
+      const fh = (data, params) => {
+        if ('string' === typeof data) {
+          return formatHTMLMessage({id: data}, params);
+        }
+        return formatHTMLMessage(data);
+      };
+      return <Target {...this.props} f={f} fh={fh} />;
     }
   }
   return InjectedF;
