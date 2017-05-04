@@ -1,2 +1,16 @@
-.app {
+.pageSettings {
+  h2 {
+    margin-bottom: 20px;
+  }
+  .label {
+    font-family: Roboto, sans-serif;
+    color: rgba(0, 0, 0, 0.298039);
+    font-size: 15px;
+  }
+  .field {
+    margin-top: 14px;
+  }
+  .emptyIcon {
+    padding-left: 45px;
+  }
 }
