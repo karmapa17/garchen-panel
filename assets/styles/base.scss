@@ -46,7 +46,7 @@ th, td {
 }
 
 a {
-  color: #05966c;
+  color: $link;
   cursor: pointer;
   text-decoration: none;
   &:hover, &:active, &:focus {
