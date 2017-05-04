@@ -8,6 +8,7 @@ const styles = require('./PageAbout.scss');
 export default class PageAbout extends Component {
 
   render() {
+    const {f} = this.props;
     return (
       <div className={styles.pageAbout}>
         <h2>{f('about')}</h2>
