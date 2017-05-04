@@ -102,7 +102,7 @@ export default class PageImportCsv extends Component {
     return (
       <div className={styles.pageImportCsv}>
         <div className={styles.content}>
-          <h1>{f('import-csv-file')}</h1>
+          <h2>{f('import-csv-file')}</h2>
           <ul>
             <li>{fh('import-csv-rule-1', {supportedLangs, langExpression})}</li>
             <li>{fh('import-csv-rule-2', {langExpression})}</li>
