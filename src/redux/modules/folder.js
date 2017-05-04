@@ -123,11 +123,11 @@ export function checkFolderExists(data) {
   };
 }
 
-export function addFolderByCsv() {
+export function addFolderByCsv(writeDelay) {
   return {
     types: [ADD_FOLDER_BY_CSV, ADD_FOLDER_BY_CSV_SUCCESS, ADD_FOLDER_BY_CSV_FAIL],
     promise: (client) => {
-      return client.send('add-folder-by-csv');
+      return client.send('add-folder-by-csv', {writeDelay});
     }
   };
 }

@@ -9,12 +9,11 @@ import shortid from 'shortid';
 
 import csvProcessor from './../../helpers/csvProcessor';
 
-const WRITE_DELAY = 50;
-
-export default async function addFolderByCsv() {
+export default async function addFolderByCsv(event, data) {
 
   const {Folder, Entry} =  this.params.models;
   const {broadcast, resolve, reject} = this;
+  const {writeDelay} = data;
 
   const options = {
     properties: ['openFile'],
@@ -56,7 +55,7 @@ export default async function addFolderByCsv() {
 
           delete rowData.sourceEntry;
 
-          await sleep(WRITE_DELAY);
+          await sleep(writeDelay);
           currentEntry = await Entry.create({
             folderId: folder.id,
             sourceEntry,
@@ -65,7 +64,7 @@ export default async function addFolderByCsv() {
         }
         else if (currentEntry) {
           const newData = csvProcessor.appendData(data, currentEntry.data, fields);
-          await sleep(WRITE_DELAY);
+          await sleep(writeDelay);
           const rowsAffected = await Entry.update({id: currentEntry.id}, {data: newData});
 
           if (rowsAffected) {

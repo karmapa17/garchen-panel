@@ -23,11 +23,12 @@ const supportedColumns = [
 
 const csvExampleUrl = 'https://goo.gl/YcRMrT';
 
-@connect(({folder}) => ({
+@connect(({folder, main}) => ({
   isProcessingCsv: folder.get('isProcessingCsv'),
   errorMessage: folder.get('errorCsvMessage'),
   errorMessageId: folder.get('errorCsvMessageId'),
-  errorFilename: folder.get('errorCsvFilename')
+  errorFilename: folder.get('errorCsvFilename'),
+  writeDelay: main.get('writeDelay')
 }), {addFolderByCsv})
 @injectIntl
 @injectPush
@@ -42,6 +43,7 @@ export default class PageImportCsv extends Component {
     errorMessage: PropTypes.string,
     errorMessageId: PropTypes.string,
     errorFilename: PropTypes.string,
+    writeDelay: PropTypes.number.isRequired,
     addFolderByCsv: PropTypes.func.isRequired
   };
 
@@ -65,7 +67,8 @@ export default class PageImportCsv extends Component {
   }
 
   handleChooseCsvFileButtonTouchTap = () => {
-    this.props.addFolderByCsv();
+    const {addFolderByCsv, writeDelay} = this.props;
+    addFolderByCsv(writeDelay);
   }
 
   renderChooseCsvFileButton = () => {
