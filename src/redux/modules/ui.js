@@ -4,13 +4,10 @@ import {createReducer} from 'redux-immutablejs';
 const SET_DRAWER_OPEN = 'garchen-panel/ui/SET_DRAWER_OPEN';
 const SET_SNACK_BAR_PARAMS = 'garchen-panel/ui/SET_SNACK_BAR_PARAMS';
 
-const SET_PROCESSING_CSV_STATUS = 'garchen-panel/ui/SET_PROCESSING_CSV_STATUS';
-
 const initialState = Map({
   isDrawerOpen: false,
   snackBarMessage: '',
   isSnackBarOpen: false,
-  isProcessingCsv: false
 });
 
 export default createReducer(initialState, {
@@ -23,18 +20,7 @@ export default createReducer(initialState, {
     return state.set('isSnackBarOpen', action.isSnackBarOpen)
       .set('snackBarMessage', action.snackBarMessage);
   },
-
-  [SET_PROCESSING_CSV_STATUS]: (state, action) => {
-    return state.set('isProcessingCsv', action.isProcessingCsv);
-  }
 });
-
-export function setProcessingCsvStatus(isProcessingCsv) {
-  return {
-    type: SET_PROCESSING_CSV_STATUS,
-    isProcessingCsv
-  };
-}
 
 export function setDrawerOpen(isDrawerOpen) {
   return {
