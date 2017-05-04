@@ -9,7 +9,7 @@ import injectF from './../../helpers/injectF';
 import ipc from './../../helpers/ipc';
 import injectPush from './../../helpers/injectPush';
 import {addFolderByCsv} from './../../redux/modules/folder';
-import {openExternal} from './../../redux/modules/main';
+import ExternalLink from './../ExternalLink/ExternalLink';
 
 const styles = require('./PageImportCsv.scss');
 const dictionaryLangs = DICTIONARY_LANGS.map((row) => row.value);
@@ -28,7 +28,7 @@ const csvExampleUrl = 'https://goo.gl/YcRMrT';
   errorMessage: folder.get('errorCsvMessage'),
   errorMessageId: folder.get('errorCsvMessageId'),
   errorFilename: folder.get('errorCsvFilename')
-}), {addFolderByCsv, openExternal})
+}), {addFolderByCsv})
 @injectIntl
 @injectPush
 @injectF
@@ -42,7 +42,6 @@ export default class PageImportCsv extends Component {
     errorMessage: PropTypes.string,
     errorMessageId: PropTypes.string,
     errorFilename: PropTypes.string,
-    openExternal: PropTypes.func.isRequired,
     addFolderByCsv: PropTypes.func.isRequired
   };
 
@@ -64,10 +63,6 @@ export default class PageImportCsv extends Component {
   componentWillUnmount() {
     ipc.off('csv-processing-status', this.handleCsvProcessingStatus);
   }
-
-  handleExternalLinkButtonTouchTap = () => {
-    this.props.openExternal(csvExampleUrl);
-  };
 
   handleChooseCsvFileButtonTouchTap = () => {
     this.props.addFolderByCsv();
@@ -102,7 +97,7 @@ export default class PageImportCsv extends Component {
     const supportedColumnNames = supportedColumns.map(({textId, expression}) => `${f(textId)} ${expression}`)
       .join(', ');
 
-    const externalLinkButton = <a onTouchTap={this.handleExternalLinkButtonTouchTap}>{csvExampleUrl}</a>;
+    const externalLinkButton = <ExternalLink href={csvExampleUrl}>{csvExampleUrl}</ExternalLink>;
 
     return (
       <div className={styles.pageImportCsv}>
