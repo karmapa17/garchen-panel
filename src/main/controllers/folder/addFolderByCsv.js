@@ -4,14 +4,17 @@ import csv from 'fast-csv';
 import fs from 'fs';
 import {basename} from 'path';
 import log from 'karmapa-log';
+import sleep from 'sleep-promise';
+import shortid from 'shortid';
 
 import csvProcessor from './../../helpers/csvProcessor';
 
-export default async function addFolderByCsv(args) {
+const WRITE_DELAY = 50;
 
-  const {models, webContents} = args;
-  const send = webContents.send.bind(webContents);
-  const {Folder, Entry} = models;
+export default async function addFolderByCsv() {
+
+  const {Folder, Entry} =  this.params.models;
+  const {broadcast, resolve, reject} = this;
 
   const options = {
     properties: ['openFile'],
@@ -38,7 +41,7 @@ export default async function addFolderByCsv(args) {
       if (isEmpty(folder) && csvProcessor.isColumnRow(data)) {
         const columnData = csvProcessor.getColumnData(data);
         folder = await Folder.create({
-          name: filename,
+          name: `${filename} - ${shortid.generate()}`,
           data: columnData
         });
         fields = csvProcessor.getFields(data);
@@ -53,6 +56,7 @@ export default async function addFolderByCsv(args) {
 
           delete rowData.sourceEntry;
 
+          await sleep(WRITE_DELAY);
           currentEntry = await Entry.create({
             folderId: folder.id,
             sourceEntry,
@@ -61,6 +65,7 @@ export default async function addFolderByCsv(args) {
         }
         else if (currentEntry) {
           const newData = csvProcessor.appendData(data, currentEntry.data, fields);
+          await sleep(WRITE_DELAY);
           const rowsAffected = await Entry.update({id: currentEntry.id}, {data: newData});
 
           if (rowsAffected) {
@@ -68,10 +73,8 @@ export default async function addFolderByCsv(args) {
           }
         }
       }
-
-      if (0 === (++completedLines % 300)) {
-        send('csv-processing-status', {completedLines});
-      }
+      ++completedLines;
+      broadcast('csv-processing-status', {completedLines});
     }
 
     csv.fromStream(stream)
@@ -83,29 +86,29 @@ export default async function addFolderByCsv(args) {
       .on('data', () => {})
       .on('error', (err) => {
         log.error(err);
-        send('csv-processing-error', {message: `${err}`});
+        reject({message: `${err}`});
       })
       .on('end', () => {
 
         if (! hasColumnRow) {
-          send('csv-processing-error', {message: 'No column row detected'});
+          reject({messageId: 'no-column-row-detected', filename});
           return;
         }
 
-        send('csv-processing-status', {completedLines});
-        send('csv-processing-end');
+        broadcast('csv-processing-status', {completedLines});
+        broadcast('csv-processing-done', {filename});
+        resolve({message: 'done'});
       });
   }
 
   function handleDialogOpen(paths) {
 
     if (isEmpty(paths)) {
+      reject({message: 'User did not choose csv file'});
       return;
     }
 
     const csvFilePath = first(paths);
-    send('start-processing-csv');
-
-    setTimeout(() => processCsv(csvFilePath), 500);
+    processCsv(csvFilePath);
   }
 }
