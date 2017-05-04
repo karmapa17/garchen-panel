@@ -111,6 +111,7 @@ export default class PageImportCsv extends Component {
             <li>{fh('import-csv-rule-2', {langExpression})}</li>
             <li>{fh('import-csv-rule-3', {supportedColumnNames})}</li>
             <li>{fh('import-csv-rule-4')} {externalLinkButton}</li>
+            <li>{fh('import-csv-rule-5')}</li>
           </ul>
           {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
           {errorMessageId && errorFilename && <div className={styles.errorMessage}>{f(errorMessageId, {errorFilename})}</div>}
