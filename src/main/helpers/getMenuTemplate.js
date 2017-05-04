@@ -1,16 +1,12 @@
 import {app} from 'electron';
 import addFolderByCsv from './../controllers/folder/addFolderByCsv';
 
-export default function getMenuTemplate(args) {
+export default function getMenuTemplate() {
 
   return [
     {
       label: 'App',
       submenu: [
-        {
-          label: "Import CSV",
-          click: () => addFolderByCsv(args)
-        },
         {
           label: "Quit",
           accelerator: "Command+Q",

@@ -51,7 +51,7 @@ async function handleAppReady() {
   const {db, models} = await initDb();
   const ipc = IpcDecorator.decorate(ipcMain, {db, models});
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate(getMenuTemplate({models, webContents})));
+  Menu.setApplicationMenu(Menu.buildFromTemplate(getMenuTemplate()));
 
   ipc.on('get-folder', getFolder);
   ipc.on('check-folder-exists', checkFolderExists);
