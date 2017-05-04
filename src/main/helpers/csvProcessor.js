@@ -22,6 +22,10 @@ const getExplainationNoteLang = (key) => {
   return validLangs.includes(lang) ? lang : null;
 };
 
+const isArrayField = (key) => {
+  return [RE_EXPLAINATION, RE_EXPLAINATION_NOTE].some((re) => re.exec(key));
+};
+
 const validLangs = DICTIONARY_LANGS.map((row) => row.value);
 
 export default class CsvProcessor {
@@ -75,12 +79,46 @@ export default class CsvProcessor {
       const explainationNoteLanguage = getExplainationNoteLang(key);
 
       if (sourceLanguage) {
+        fields[index] = 'sourceEntry';
       }
       else if (explainationLanguage) {
+        fields[index] = `explaination-${explainationLanguage}`;
       }
       else if (explainationNoteLanguage) {
+        fields[index] = `explaination-note-${explainationNoteLanguage}`;
+      }
+      else if ('page-num' === key) {
+        fields[index] = 'page-num';
+      }
+      else {
+        // unknown columns
+        fields[index] = undefined;
       }
       return fields;
     }, []);
+  }
+
+  static getRowDataByFields(data, fields) {
+    return fields.reduce((rowData, field, index) => {
+      if (field) {
+        rowData[field] = isArrayField(field) ? [data[index]] : data[index];
+      }
+      return rowData;
+    }, {});
+  }
+
+  static appendData(newData, oldData, fields) {
+
+    return fields.reduce((oldData, field, index) => {
+
+      if (isArrayField(field)) {
+        const arr = oldData[field];
+        const value = newData[index];
+        if (value) {
+          arr.push(value);
+        }
+      }
+      return oldData;
+    }, oldData);
   }
 }
