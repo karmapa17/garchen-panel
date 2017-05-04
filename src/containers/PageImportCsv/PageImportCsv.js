@@ -9,6 +9,7 @@ import injectF from './../../helpers/injectF';
 import ipc from './../../helpers/ipc';
 import injectPush from './../../helpers/injectPush';
 import {addFolderByCsv} from './../../redux/modules/folder';
+import {openExternal} from './../../redux/modules/main';
 
 const styles = require('./PageImportCsv.scss');
 const dictionaryLangs = DICTIONARY_LANGS.map((row) => row.value);
@@ -27,7 +28,7 @@ const csvExampleUrl = 'https://goo.gl/YcRMrT';
   errorMessage: folder.get('errorCsvMessage'),
   errorMessageId: folder.get('errorCsvMessageId'),
   errorFilename: folder.get('errorCsvFilename')
-}), {addFolderByCsv})
+}), {addFolderByCsv, openExternal})
 @injectIntl
 @injectPush
 @injectF
@@ -41,6 +42,7 @@ export default class PageImportCsv extends Component {
     errorMessage: PropTypes.string,
     errorMessageId: PropTypes.string,
     errorFilename: PropTypes.string,
+    openExternal: PropTypes.func.isRequired,
     addFolderByCsv: PropTypes.func.isRequired
   };
 
@@ -64,13 +66,8 @@ export default class PageImportCsv extends Component {
     ipc.off('csv-processing-status', this.handleCsvProcessingStatus);
   }
 
-  handleDoneButtonTouchTape = () => {
-  };
-
-  handleConfirmButtonTouchTape = () => {
-  };
-
   handleExternalLinkButtonTouchTap = () => {
+    this.props.openExternal(csvExampleUrl);
   };
 
   handleChooseCsvFileButtonTouchTap = () => {

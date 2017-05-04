@@ -5,7 +5,9 @@ import {updateIntl} from 'react-intl-redux';
 import i18n from './../../helpers/i18n';
 
 const SET_APP_LOCALE = 'garchen-panel/main/SET_APP_LOCALE';
-
+const OPEN_EXTERNAL = 'garchen-panel/main/OPEN_EXTERNAL';
+const OPEN_EXTERNAL_SUCCESS = 'garchen-panel/main/OPEN_EXTERNAL_SUCCESS';
+const OPEN_EXTERNAL_FAIL = 'garchen-panel/main/OPEN_EXTERNAL_FAIL';
 
 const initialState = Map({
   appLocale: i18n.getLocale()
@@ -33,5 +35,14 @@ export function setIntl(locale = 'zh-TW') {
       locale,
       messages: i18n.getLocaleData(locale)
     }));
+  };
+}
+
+export function openExternal(url) {
+  return {
+    types: [OPEN_EXTERNAL, OPEN_EXTERNAL_SUCCESS, OPEN_EXTERNAL_FAIL],
+    promise: (client) => {
+      return client.send('open-external', {url});
+    }
   };
 }

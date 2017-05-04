@@ -16,6 +16,7 @@ import addFolder from './controllers/folder/addFolder';
 import deleteFolder from './controllers/folder/deleteFolder';
 import checkFolderExists from './controllers/folder/checkFolderExists';
 import addFolderByCsv from './controllers/folder/addFolderByCsv';
+import openExternal from './controllers/common/openExternal';
 
 import getEntry from './controllers/entry/getEntry';
 import deleteEntries from './controllers/entry/deleteEntries';
@@ -71,4 +72,5 @@ async function handleAppReady() {
   ipc.on('update-entry', updateEntry);
 
   ipc.on('login', login);
+  ipc.on('open-external', openExternal);
 }
