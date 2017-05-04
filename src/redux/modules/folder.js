@@ -25,13 +25,21 @@ const DELETE_FOLDER = 'garchen-panel/folder/DELETE_FOLDER';
 const DELETE_FOLDER_SUCCESS = 'garchen-panel/folder/DELETE_FOLDER_SUCCESS';
 const DELETE_FOLDER_FAIL = 'garchen-panel/folder/DELETE_FOLDER_FAIL';
 
+const ADD_FOLDER_BY_CSV = 'garchen-panel/folder/ADD_FOLDER_BY_CSV';
+const ADD_FOLDER_BY_CSV_SUCCESS = 'garchen-panel/folder/ADD_FOLDER_BY_CSV_SUCCESS';
+const ADD_FOLDER_BY_CSV_FAIL = 'garchen-panel/folder/ADD_FOLDER_BY_CSV_FAIL';
+
 const FOLDER_PERPAGE = 20;
 
 const initialState = Map({
   perpage: FOLDER_PERPAGE,
   folder: null,
   folders: [],
-  folderCount: 0
+  folderCount: 0,
+  isProcessingCsv: false,
+  errorCsvMessage: null,
+  errorCsvMessageId: null,
+  errorCsvFilename: null
 });
 
 export default createReducer(initialState, {
@@ -43,6 +51,22 @@ export default createReducer(initialState, {
   [LIST_FOLDERS_SUCCESS]: (state, action) => {
     return state.set('folders', action.result.data)
       .set('folderCount', action.result.total);
+  },
+
+  [ADD_FOLDER_BY_CSV]: (state) => {
+    return state.set('isProcessingCsv', true);
+  },
+
+  [ADD_FOLDER_BY_CSV_SUCCESS]: (state) => {
+    return state.set('isProcessingCsv', false);
+  },
+
+  [ADD_FOLDER_BY_CSV_FAIL]: (state, action) => {
+    const {messageId, filename, message} = action.error;
+    return state.set('isProcessingCsv', false)
+      .set('errorCsvMessage', message)
+      .set('errorCsvMessageId', messageId)
+      .set('errorCsvFilename', filename);
   }
 });
 
@@ -92,6 +116,15 @@ export function checkFolderExists(data) {
     types: [CHECK_FOLDER_EXISTS, CHECK_FOLDER_EXISTS_SUCCESS, CHECK_FOLDER_EXISTS_FAIL],
     promise: (client) => {
       return client.send('check-folder-exists', data);
+    }
+  };
+}
+
+export function addFolderByCsv() {
+  return {
+    types: [ADD_FOLDER_BY_CSV, ADD_FOLDER_BY_CSV_SUCCESS, ADD_FOLDER_BY_CSV_FAIL],
+    promise: (client) => {
+      return client.send('add-folder-by-csv');
     }
   };
 }
