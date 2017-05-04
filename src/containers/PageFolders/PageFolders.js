@@ -131,8 +131,7 @@ export default class PageFolders extends Component {
 
   renderFolders() {
     const {f, folders} = this.props;
-
-    return folders.map((folder) => {
+    const rows = folders.map((folder) => {
       const {id, name} = folder;
       return (
         <Paper className={styles.folder} key={`paper-${id}`}>
@@ -148,6 +147,7 @@ export default class PageFolders extends Component {
         </Paper>
       );
     });
+    return <div>{rows}</div>;
   }
 
   handlePageButtonTouchTap = (page) => this.setState({page});
