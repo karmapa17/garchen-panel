@@ -54,8 +54,7 @@ export default class PageImportCsv extends Component {
   }
 
   handleCsvProcessingStatus = (event, data) => {
-    const {completedLines} = data;
-    this.setState({completedLines});
+    this.setState({completedLines: data.completedLines});
   };
 
   componentWillMount() {
@@ -96,7 +95,6 @@ export default class PageImportCsv extends Component {
 
   render() {
 
-    const {completedLines} = this.state;
     const {f, fh, errorMessage, errorMessageId, errorFilename} = this.props;
     const supportedLangs = dictionaryLangs.map((lang) => `${f(lang)} ${lang}`)
       .join(', ');
