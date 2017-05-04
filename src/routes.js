@@ -11,6 +11,7 @@ import PageEntry from './containers/PageEntry/PageEntry';
 import PageFolders from './containers/PageFolders/PageFolders';
 import PageNotFound from './containers/PageNotFound/PageNotFound';
 import PageSettings from './containers/PageSettings/PageSettings';
+import PageImportCsv from './containers/PageImportCsv/PageImportCsv';
 
 export default () => {
 
@@ -24,6 +25,8 @@ export default () => {
       <Route path="folders/:id/entries/add" component={PageAddEntry} />
       <Route path="folders/:folderId/entries/:entryId" component={PageEntry} />
       <Route path="folders/:folderId/entries/:entryId/edit" component={PageEditEntry} />
+
+      <Route path="import-csv" component={PageImportCsv} />
 
       <Route path="about" component={PageAbout} />
       <Route path="settings" component={PageSettings} />
