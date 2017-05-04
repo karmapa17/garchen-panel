@@ -14,7 +14,6 @@ import c from 'classnames';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {connect} from 'react-redux';
 
-import PageImportCsv from './../../containers/PageImportCsv/PageImportCsv';
 import ipc from './../../helpers/ipc';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
