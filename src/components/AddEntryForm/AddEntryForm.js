@@ -10,6 +10,7 @@ import asyncValidate from './addEntryFormAsyncValidate';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLAINATION_CATEGORY_VALUES from './../../constants/explainationCategoryValues';
 import SECT_VALUES from './../../constants/sectValues';
+import {SELECTED_MENU_STYLE} from './../../constants/constants';
 
 const styles = require('./AddEntryForm.scss');
 
@@ -106,7 +107,7 @@ export default class AddEntryForm extends Component {
       if ('category' === field) {
         return (
           <div key="category">
-            <Field name="category" component={renderSelectField} label={f('category')} fullWidth>
+            <Field name="category" component={renderSelectField} selectedMenuItemStyle={SELECTED_MENU_STYLE} label={f('category')} fullWidth>
               {this.renderCategoryMenuItems()}
             </Field>
           </div>
@@ -116,7 +117,7 @@ export default class AddEntryForm extends Component {
       if ('sect' === field) {
         return (
           <div key="sect">
-            <Field name="sect" component={renderSelectField} label={f('sect')} fullWidth>
+            <Field name="sect" component={renderSelectField} selectedMenuItemStyle={SELECTED_MENU_STYLE} label={f('sect')} fullWidth>
               {this.renderSectMenuItems()}
             </Field>
           </div>
@@ -160,7 +161,7 @@ export default class AddEntryForm extends Component {
             ));
             rows.push((
               <div key={`explaination-category-${lang}-${index}`}>
-                <Field name={`explaination-category-${lang}[${index}]`} fullWidth
+                <Field name={`explaination-category-${lang}[${index}]`} fullWidth selectedMenuItemStyle={SELECTED_MENU_STYLE}
                   component={renderSelectField} label={f('explaination-category-num-lang', {lang: f(lang), num: (index + 1)})}>
                   {this.renderExplainationCategoryMenuItems()}
                 </Field>

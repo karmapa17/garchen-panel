@@ -10,6 +10,7 @@ import injectF from './../../helpers/injectF';
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import MULTI_LANG_FIELDS from './../../constants/multiLangFields';
 import REGULAR_FIELDS from './../../constants/regularFields';
+import {SELECTED_MENU_STYLE} from './../../constants/constants';
 
 @reduxForm({
   form: 'editFolderForm',
@@ -66,19 +67,22 @@ export default class EditFolderForm extends Component {
         </div>
 
         <div>
-          <Field name="sourceLanguage" component={renderSelectField} label={f('source-language')}>
+          <Field name="sourceLanguage" component={renderSelectField}
+            selectedMenuItemStyle={SELECTED_MENU_STYLE} label={f('source-language')}>
             {this.renderLangMenuItems('source-lang')}
           </Field>
         </div>
 
         <div>
-          <Field name="targetLanguages" component={renderSelectField} onChange={onTargetLanguagesChange} label={f('target-language')} multiple>
+          <Field name="targetLanguages" component={renderSelectField} selectedMenuItemStyle={SELECTED_MENU_STYLE}
+            onChange={onTargetLanguagesChange} label={f('target-language')} multiple>
             {this.renderLangMenuItems('target-lang')}
           </Field>
         </div>
 
         <div>
-          <Field name="contentFields" component={renderSelectField} label={f('content-fields')} multiple fullWidth>
+          <Field name="contentFields" component={renderSelectField}
+            selectedMenuItemStyle={SELECTED_MENU_STYLE} label={f('content-fields')} multiple fullWidth>
             {this.renderContentFields()}
           </Field>
         </div>
