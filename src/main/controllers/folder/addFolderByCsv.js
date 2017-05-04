@@ -104,7 +104,7 @@ export default async function addFolderByCsv() {
   function handleDialogOpen(paths) {
 
     if (isEmpty(paths)) {
-      reject({message: 'User did not choose csv file'});
+      resolve({message: 'User did not choose csv file'});
       return;
     }
 
