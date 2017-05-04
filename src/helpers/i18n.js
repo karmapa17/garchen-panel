@@ -1,11 +1,13 @@
+import Cache from './Cache';
+
 export default class i18n {
 
   static getLocale() {
-    return localStorage.getItem('garchen:locale') || 'en';
+    return Cache.get('garchen:locale') || 'en';
   }
 
   static setLocale(locale) {
-    localStorage.setItem('garchen:locale', locale);
+    Cache.set('garchen:locale', locale);
   }
 
   static getLocaleData(locale) {
