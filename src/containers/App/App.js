@@ -20,7 +20,7 @@ import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import muiTheme from './../../constants/muiTheme';
 import {login, logout} from './../../redux/modules/auth';
-import {setDrawerOpen, setSnackBarParams, setProcessingCsvStatus} from './../../redux/modules/ui';
+import {setDrawerOpen, setSnackBarParams} from './../../redux/modules/ui';
 import {setIntl} from './../../redux/modules/main';
 
 const styles = require('./App.scss');
@@ -33,9 +33,8 @@ injectTapEventPlugin();
   isDrawerOpen: ui.get('isDrawerOpen'),
   isLoadingAuth: auth.get('isLoadingAuth'),
   isSnackBarOpen: ui.get('isSnackBarOpen'),
-  isProcessingCsv: ui.get('isProcessingCsv'),
   snackBarMessage: ui.get('snackBarMessage')
-}), {setDrawerOpen, setIntl, setSnackBarParams, login, logout, setProcessingCsvStatus})
+}), {setDrawerOpen, setIntl, setSnackBarParams, login, logout})
 @injectF
 @injectPush
 export default class App extends Component {
@@ -54,21 +53,20 @@ export default class App extends Component {
     setDrawerOpen: PropTypes.func.isRequired,
     setIntl: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
-    setProcessingCsvStatus: PropTypes.func.isRequired,
     snackBarMessage: PropTypes.string.isRequired,
-    isProcessingCsv: PropTypes.bool.isRequired
   };
 
-  handleStartProcessingCsv = () => {
-    this.props.setProcessingCsvStatus(true);
+  handleCsvProcessingDone = (event, data) => {
+    const {setSnackBarParams, f} = this.props;
+    setSnackBarParams(true, f('csv-imported-done', {filename: data.filename}));
   };
 
-  componentWillMount() {
-    ipc.on('start-processing-csv', this.handleStartProcessingCsv);
+  componentDidMount() {
+    ipc.on('csv-processing-done', this.handleCsvProcessingDone);
   }
 
   componentWillUnmount() {
-    ipc.off('start-processing-csv', this.handleStartProcessingCsv);
+    ipc.off('csv-pocessing-done', this.handleCsvProcessingDone);
   }
 
   renderIconElementRight() {
@@ -125,21 +123,13 @@ export default class App extends Component {
 
   render() {
 
-    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage, appLocale, isProcessingCsv} = this.props;
-
-    if (isProcessingCsv) {
-      return (
-        <MuiThemeProvider muiTheme={muiTheme}>
-          <PageImportCsv />
-        </MuiThemeProvider>
-      );
-    }
+    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage, appLocale} = this.props;
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className={c(styles.app, appLocale)}>
 
-          <AppBar title={f('garchen')} iconElementRight={this.renderIconElementRight()}
+         <AppBar title={f('garchen')} iconElementRight={this.renderIconElementRight()}
             titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
             onLeftIconButtonTouchTap={this.handleHamburgerTouchTap} onTitleTouchTap={this.handleTitleTouchTap} />
 
@@ -148,6 +138,7 @@ export default class App extends Component {
           <Drawer docked={false} open={isDrawerOpen} onRequestChange={this.handleDrawerChange}>
             <MenuItem primaryText={f('folders')} onTouchTap={this.handleMenuItemTouchTap('/')} />
             <MenuItem primaryText={f('about')} onTouchTap={this.handleMenuItemTouchTap('/about')} />
+            <MenuItem primaryText={f('import-csv-file')} onTouchTap={this.handleMenuItemTouchTap('/import-csv')} />
 
             <hr className="divider" />
             <MenuItem primaryText={f('settings')} leftIcon={(<SettingsIcon />)} onTouchTap={this.handleMenuItemTouchTap('/settings')} />
