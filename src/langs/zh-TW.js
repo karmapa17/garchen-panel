@@ -1,4 +1,5 @@
 module.exports = {
+  'write-delay-with-num': '寫入延遲時間 {writeDelay} 毫秒',
   'about': '關於',
   'according': '依',
   'add-a-folder': '新增一個資料夾',
