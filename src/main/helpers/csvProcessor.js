@@ -1,6 +1,6 @@
 import {uniq} from 'lodash';
 
-import sortFolderContentFields from './../../helpers/sortFolderContentFields';
+import sortFolderContentFields from './sortFolderContentFields';
 import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
 
 const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
