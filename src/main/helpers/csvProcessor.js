@@ -1,7 +1,7 @@
 import {uniq} from 'lodash';
 
 import sortFolderContentFields from './sortFolderContentFields';
-import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
+import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 
 const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
 const RE_EXPLAINATION = /^explaination-(.+)$/;

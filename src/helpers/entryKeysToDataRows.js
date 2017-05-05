@@ -1,6 +1,6 @@
 import SECT_VALUES from './../constants/sectValues';
 import CATEGORY_VALUES from './../constants/categoryValues';
-import DICTIONARY_LANGS from './../constants/dictionaryLangs';
+import DICTIONARY_LANGS from './../main/constants/dictionaryLangs';
 
 const validLangs = DICTIONARY_LANGS.map((row) => row.value);
 

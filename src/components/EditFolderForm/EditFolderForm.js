@@ -3,7 +3,7 @@ import {Field, reduxForm} from 'redux-form';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
+import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
 import asyncValidate from './editFolderFormAsyncValidate';
 import validate from './editFolderFormValidate';
 import injectF from './../../helpers/injectF';

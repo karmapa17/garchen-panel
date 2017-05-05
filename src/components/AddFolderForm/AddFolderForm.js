@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 import injectF from './../../helpers/injectF';
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
-import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
+import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
 import validate from './addFolderFormValidate';
 import asyncValidate from './addFolderFormAsyncValidate';
 import MULTI_LANG_FIELDS from './../../constants/multiLangFields';

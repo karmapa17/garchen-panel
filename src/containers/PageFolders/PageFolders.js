@@ -17,7 +17,7 @@ import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
 
-import sortFolderContentFields from './../../helpers/sortFolderContentFields';
+import sortFolderContentFields from './../../main/helpers/sortFolderContentFields';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';

@@ -4,7 +4,7 @@ import {injectIntl} from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import DICTIONARY_LANGS from './../../constants/dictionaryLangs';
+import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
 import injectF from './../../helpers/injectF';
 import ipc from './../../helpers/ipc';
 import injectPush from './../../helpers/injectPush';

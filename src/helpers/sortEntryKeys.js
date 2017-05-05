@@ -1,5 +1,5 @@
 import {sortBy, flatten} from 'lodash';
-import DICTIONARY_LANGS from './../constants/dictionaryLangs';
+import DICTIONARY_LANGS from './../main/constants/dictionaryLangs';
 
 const langKeys = ['target-entry', 'explaination', 'explaination-source', 'explaination-note', 'explaination-category', 'original'];
 const restKeys = ['category', 'sect', 'page-num'];

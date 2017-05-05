@@ -6,7 +6,7 @@ import {cloneDeep} from 'lodash';
 import {Link} from 'react-router';
 
 import objToArr from './../../helpers/objToArr';
-import sortFolderContentFields from './../../helpers/sortFolderContentFields';
+import sortFolderContentFields from './../../main/helpers/sortFolderContentFields';
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
 import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
 import {getFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
