@@ -17,6 +17,7 @@ import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
 import Pagination from './../../components/Pagination/Pagination';
+import LocalSearchBar from './../../components/LocalSearchBar/LocalSearchBar';
 
 const styles = require('./PageEntries.scss');
 
@@ -61,19 +62,22 @@ export default class PageEntries extends Component {
     super(props);
     this.state = {
       page: 1,
-      tableKey: 0
+      tableKey: 0,
+      keyword: ''
     };
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const {page} = this.state;
+    const {page, keyword} = this.state;
     const {perpage, listFolderEntries} = this.props;
-    if ((page !== nextState.page) || (perpage !== nextProps.perpage)) {
+
+    if ((page !== nextState.page) || (perpage !== nextProps.perpage) || (keyword !== nextState.keyword)) {
 
       listFolderEntries({
         folderId: nextProps.folder.id,
         page: nextState.page,
-        perpage: nextProps.perpage
+        perpage: nextProps.perpage,
+        keyword: nextState.keyword.trim()
       });
     }
   }
@@ -168,6 +172,8 @@ export default class PageEntries extends Component {
 
   handlePageButtonTouchTap = (page) => this.setState({page});
 
+  handleLocalSearchBarChange = (keyword) => this.setState({keyword});
+
   render() {
 
     const {page} = this.state;
@@ -189,6 +195,7 @@ export default class PageEntries extends Component {
           </div>
         </TopBar>
         <div className={styles.content}>
+          <LocalSearchBar onChange={this.handleLocalSearchBarChange} />
           {this.renderFolderEntries()}
           {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
             onButtonTouchTap={this.handlePageButtonTouchTap} />}
