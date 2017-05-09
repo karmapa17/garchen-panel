@@ -1,4 +1,5 @@
 module.exports = {
+  'search-source-entry-or-page-num': '搜尋主詞條或頁碼',
   'about': '關於',
   'add-a-folder': '新增一個資料夾',
   'add-entry': '新增詞條',
