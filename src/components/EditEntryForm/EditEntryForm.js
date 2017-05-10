@@ -59,8 +59,9 @@ export default class EditEntryForm extends Component {
       const lang = (field.match(/^explaination-(.+)$/) || [])[1];
       if (targetLanguages.includes(lang)) {
         const arr = fields[field];
-        if ((arr.length + 1) > initialIndex) {
-          return arr.length + 1;
+        const nextIndex = arr.length + 1;
+        if (nextIndex > initialIndex) {
+          return nextIndex;
         }
       }
       return initialIndex;
