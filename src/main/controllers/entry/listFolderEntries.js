@@ -43,10 +43,11 @@ async function searchSourceEntry({db, knex, keyword, folderId, perpage, offset})
 
 export default async function listFolderEntries(event, data) {
 
-  const {page, perpage, folderId, keyword} = data;
+  const {page, perpage, folderId, type} = data;
   const {db, models} = this.params;
   const {Entry} = models;
   const offset = (page - 1) * perpage;
+  const keyword = (data.keyword || '').trim();
 
   if (isEmpty(keyword)) {
     const entries = await Entry.find({folderId}, {skip: offset, limit: perpage, order: 'id'}) || [];
@@ -56,11 +57,9 @@ export default async function listFolderEntries(event, data) {
   }
 
   const knex = db.knex('Entry');
-  const matchedPageNum = (keyword.match(/^page-num:(.+)/) || [])[1] || '';
-  const pageNum = matchedPageNum.trim();
 
-  if (! isEmpty(pageNum)) {
-    const {entries, total} = await searchData({db, knex, field: 'page-num', keyword: pageNum, folderId, perpage, offset});
+  if ('page-num' === type) {
+    const {entries, total} = await searchData({db, knex, field: 'page-num', keyword, folderId, perpage, offset});
     this.resolve({data: entries, total});
     return;
   }
