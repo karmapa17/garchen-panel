@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import {Field, reduxForm} from 'redux-form';
+import {Field, reduxForm, formValueSelector} from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
+import {isEmpty} from 'lodash';
 
 import {range} from 'ramda';
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
@@ -31,25 +32,21 @@ export default class AddEntryForm extends Component {
     f: PropTypes.func.isRequired
   };
 
+  static contextTypes = {
+    store: PropTypes.object.isRequired
+  };
+
   constructor(props) {
     super(props);
-    this.state = this.genDefaultState(props.folder.data.contentFields);
+    this.state = {
+      explainationIndex: 1,
+      explainationLangs: this.getExplainationLangs(props.folder.data.contentFields)
+    };
   }
 
-  getExplainationIndex = (lang) => `explaination-${lang}-index`;
-
-  genDefaultState(contentFields) {
-
-    return contentFields.reduce((state, field) => {
-
-      const matchExplaination = field.match(/^explaination-lang-(.+)$/);
-
-      if (matchExplaination) {
-        const lang = matchExplaination[1];
-        state[this.getExplainationIndex(lang)] = 1;
-      }
-      return state;
-    }, {});
+  getExplainationLangs(contentFields) {
+    return contentFields.map((field) => (field.match(/^explaination-lang-(.+)$/) || [])[1])
+      .filter((lang) => (! isEmpty(lang)));
   }
 
   renderCategoryMenuItems() {
@@ -73,23 +70,51 @@ export default class AddEntryForm extends Component {
     });
   }
 
+  getExplainationLangValues = (currentValue, currentLang, currentIndex) => {
+
+    const {explainationLangs} = this.state;
+    const selector = formValueSelector('addFolderEntryForm');
+    const globalState = this.context.store.getState();
+
+    return explainationLangs.reduce((map, lang) => {
+
+      const arr = (selector(globalState, `explaination-${lang}`) || []).slice();
+
+      if (currentLang === lang) {
+        arr[currentIndex] = currentValue;
+      }
+      map[lang] = arr;
+      return map;
+    }, {});
+  };
+
+  getNextExplainationIndex = (langValues) => {
+    const {explainationLangs, explainationIndex} = this.state;
+    const lastIndexWithValue = range(0, explainationIndex)
+      .reverse()
+      .find((index) => explainationLangs.some((lang) => ! isEmpty(langValues[lang][index])));
+
+    if (undefined === lastIndexWithValue) {
+      return 1;
+    }
+    return lastIndexWithValue + 2;
+  };
+
   handleExplainationChange = (lang, index) => {
     return (event) => {
-
-      const key = this.getExplainationIndex(lang);
-
-      if (!! event.target.value) {
-        this.setState({[key]: index + 2});
-      }
+      const {explainationIndex, explainationLangs} = this.state;
+      const langValues = this.getExplainationLangValues(event.target.value, lang, index);
+      const nextIndex = this.getNextExplainationIndex(langValues);
+      this.setState({explainationIndex: nextIndex});
     };
   };
 
   renderContentFields() {
 
+    const {explainationIndex, explainationLangs} = this.state;
     const {folder, f, renderTextField, renderSelectField} = this.props;
-    const {contentFields} = folder.data;
 
-    return contentFields.map((field) => {
+    let rows = folder.data.contentFields.map((field) => {
 
       const matchTargetLanguage = field.match(/^target-entry-lang-(.+)$/);
 
@@ -132,47 +157,6 @@ export default class AddEntryForm extends Component {
         );
       }
 
-      const matchExplaination = field.match(/^explaination-lang-(.+)$/);
-
-      if (matchExplaination) {
-
-        const lang = matchExplaination[1];
-        const explainationIndex = this.state[this.getExplainationIndex(lang)];
-
-        const rows = range(0, explainationIndex)
-          .reduce((rows, elem, index) => {
-            rows.push((
-              <div key={`explaination-${lang}-${index}`}>
-                <Field name={`explaination-${lang}[${index}]`} type="text" fullWidth onChange={this.handleExplainationChange(lang, index)}
-                  component={renderTextField} label={f('explaination-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
-              </div>
-            ));
-            rows.push((
-              <div key={`explaination-source-${lang}-${index}`}>
-                <Field name={`explaination-source-${lang}[${index}]`} type="text" fullWidth
-                  component={renderTextField} label={f('explaination-source-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
-              </div>
-            ));
-            rows.push((
-              <div key={`explaination-note-${lang}-${index}`}>
-                <Field name={`explaination-note-${lang}[${index}]`} type="text" fullWidth
-                  component={renderTextField} label={f('explaination-note-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
-              </div>
-            ));
-            rows.push((
-              <div key={`explaination-category-${lang}-${index}`}>
-                <Field name={`explaination-category-${lang}[${index}]`} fullWidth selectedMenuItemStyle={SELECTED_MENU_STYLE}
-                  component={renderSelectField} label={f('explaination-category-num-lang', {lang: f(lang), num: (index + 1)})}>
-                  {this.renderExplainationCategoryMenuItems()}
-                </Field>
-              </div>
-            ));
-            return rows;
-          }, []);
-
-        return rows;
-      }
-
       const matchOriginal = field.match(/^original-lang-(.+)$/);
 
       if (matchOriginal) {
@@ -199,6 +183,42 @@ export default class AddEntryForm extends Component {
         );
       }
     });
+
+    if (explainationLangs.length > 0) {
+      const indices = range(0, explainationIndex);
+      rows = rows.concat(indices.map((elem, index) => {
+
+        const explainationLangRows = explainationLangs.map((lang) => {
+          return (
+            <div key={`explaination-${lang}-${index}`}>
+              <Field name={`explaination-${lang}[${index}]`} type="text" fullWidth onChange={this.handleExplainationChange(lang, index)}
+                component={renderTextField} label={f('explaination-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
+            </div>
+          );
+        });
+
+        explainationLangRows.push((
+          <div key={`explaination-extra-info-${index}`}>
+            <div key={`explaination-source-${index}`}>
+              <Field name={`explaination-source[${index}]`} type="text" fullWidth
+                component={renderTextField} label={f('explaination-source-num', {num: (index + 1)})} multiLine />
+            </div>
+            <div key={`explaination-note-${index}`}>
+              <Field name={`explaination-note[${index}]`} type="text" fullWidth
+                component={renderTextField} label={f('explaination-note-num', {num: (index + 1)})} multiLine />
+            </div>
+            <div key={`explaination-category-${index}`}>
+              <Field name={`explaination-category[${index}]`} fullWidth selectedMenuItemStyle={SELECTED_MENU_STYLE}
+                component={renderSelectField} label={f('explaination-category-num', {num: (index + 1)})}>
+                {this.renderExplainationCategoryMenuItems()}
+              </Field>
+            </div>
+          </div>
+        ));
+        return explainationLangRows;
+      }));
+    }
+    return rows;
   }
 
   render() {
