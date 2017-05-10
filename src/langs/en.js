@@ -1,5 +1,5 @@
 module.exports = {
-  'search-source-entry-or-page-num': 'Search source entry or page number',
+  'search-entries': 'Search entries...',
   'about': 'About',
   'add-a-folder': 'Add a folder',
   'add-entry': 'Add Entry',
