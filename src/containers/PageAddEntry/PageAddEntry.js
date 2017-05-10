@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
+import {isArray} from 'lodash';
 
 import AddEntryForm from './../../components/AddEntryForm/AddEntryForm';
 import TopBar from './../../components/TopBar/TopBar';
@@ -12,6 +13,7 @@ import {setSnackBarParams} from './../../redux/modules/ui';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
+import filterLastContinuousUndefinedValues from './../../helpers/filterLastContinuousUndefinedValues';
 
 const styles = require('./PageAddEntry.scss');
 
@@ -34,9 +36,15 @@ export default class PageAddEntry extends Component {
     push: PropTypes.func.isRequired
   };
 
-  handleSubmit = async (data) => {
+  handleSubmit = async (rawData) => {
 
     const {f, folder, addFolderEntry, setSnackBarParams, push} = this.props;
+
+    const data = Object.keys(rawData).reduce((obj, prop) => {
+      const value = rawData[prop];
+      obj[prop] = isArray(value) ? filterLastContinuousUndefinedValues(value) : value;
+      return obj;
+    }, {});
     const folderEntry = await addFolderEntry({folderId: folder.id, data});
 
     setSnackBarParams(true, f('folder-entry-has-been-created', {sourceEntry: folderEntry.sourceEntry}));
