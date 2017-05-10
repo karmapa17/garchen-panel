@@ -14,6 +14,7 @@ import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLAINATION_CATEGORY_VALUES from './../../constants/explainationCategoryValues';
 import SECT_VALUES from './../../constants/sectValues';
 import {SELECTED_MENU_STYLE} from './../../constants/constants';
+import getNextExplainationIndex from './../../helpers/getNextExplainationIndex';
 
 const styles = require('./AddEntryForm.scss');
 
@@ -67,20 +68,9 @@ export default class AddEntryForm extends Component {
     });
   }
 
-  getNextExplainationIndex = (langValues) => {
-    const {explainationLangs, explainationIndex} = this.state;
-    const lastIndexWithValue = range(0, explainationIndex)
-      .reverse()
-      .find((index) => explainationLangs.some((lang) => ! isEmpty(langValues[lang][index])));
-
-    if (undefined === lastIndexWithValue) {
-      return 1;
-    }
-    return lastIndexWithValue + 2;
-  };
-
   handleExplainationChange = (lang, index) => {
     return (event) => {
+      const {explainationLangs, explainationIndex} = this.state;
       const langValues = getExplainationLangValues({
         currentValue: event.target.value,
         currentLang: lang,
@@ -89,7 +79,11 @@ export default class AddEntryForm extends Component {
         formName: 'addFolderEntryForm',
         globalState: this.context.store.getState()
       });
-      const nextIndex = this.getNextExplainationIndex(langValues);
+      const nextIndex = getNextExplainationIndex({
+        langValues,
+        explainationLangs,
+        explainationIndex
+      });
       this.setState({explainationIndex: nextIndex});
     };
   };
