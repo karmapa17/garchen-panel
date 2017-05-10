@@ -20,7 +20,7 @@ import getNextExplainationIndex from './getNextExplainationIndex';
 const styles = require('./AddEntryForm.scss');
 
 @reduxForm({
-  form: 'addFolderEntryForm',
+  form: 'addEntryForm',
   asyncValidate
 })
 @injectF
@@ -77,7 +77,7 @@ export default class AddEntryForm extends Component {
         currentLang: lang,
         currentIdnex: index,
         explainationLangs: this.state.explainationLangs,
-        formName: 'addFolderEntryForm',
+        formName: 'addEntryForm',
         globalState: this.context.store.getState()
       });
       const nextIndex = getNextExplainationIndex({
