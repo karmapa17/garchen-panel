@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
+import {isArray} from 'lodash';
 
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry} from './../../redux/modules/entry';
@@ -16,6 +17,7 @@ import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
 import EXPLAINATION_CATEGORY_VALUES from './../../constants/explainationCategoryValues';
+import filterLastContinuousUndefinedValues from './../../helpers/filterLastContinuousUndefinedValues';
 
 const styles = require('./PageEntry.scss');
 
@@ -148,8 +150,16 @@ export default class PageEntry extends Component {
     push(`/folders/${folder.id}/entries/${entry.id}/edit`);
   };
 
-  handleSubmit = async (data) => {
+  handleSubmit = async (rawData) => {
+
     const {entry, updateEntry, setSnackBarParams, f} = this.props;
+
+    const data = Object.keys(rawData).reduce((obj, prop) => {
+      const value = rawData[prop];
+      obj[prop] = isArray(value) ? filterLastContinuousUndefinedValues(value) : value;
+      return obj;
+    }, {});
+
     await updateEntry({
       id: entry.id,
       data
