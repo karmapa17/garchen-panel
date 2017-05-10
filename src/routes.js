@@ -4,7 +4,6 @@ import {IndexRoute, Route} from 'react-router';
 import App from './containers/App/App';
 import PageAbout from './containers/PageAbout/PageAbout';
 import PageAddEntry from './containers/PageAddEntry/PageAddEntry';
-import PageEditEntry from './containers/PageEditEntry/PageEditEntry';
 import PageEditFolder from './containers/PageEditFolder/PageEditFolder';
 import PageEntries from './containers/PageEntries/PageEntries';
 import PageEntry from './containers/PageEntry/PageEntry';
@@ -24,7 +23,6 @@ export default () => {
       <Route path="folders/:id/entries" component={PageEntries} />
       <Route path="folders/:id/entries/add" component={PageAddEntry} />
       <Route path="folders/:folderId/entries/:entryId" component={PageEntry} />
-      <Route path="folders/:folderId/entries/:entryId/edit" component={PageEditEntry} />
 
       <Route path="import-csv" component={PageImportCsv} />
 
