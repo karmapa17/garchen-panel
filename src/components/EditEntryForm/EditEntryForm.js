@@ -89,7 +89,7 @@ export default class EditEntryForm extends Component {
       const langValues = getExplainationLangValues({
         currentValue: event.target.value,
         currentLang: lang,
-        currentIdnex: index,
+        currentIndex: index,
         explainationLangs: this.state.explainationLangs,
         formName: 'editEntryForm',
         globalState: this.context.store.getState()

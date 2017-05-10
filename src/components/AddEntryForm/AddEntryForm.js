@@ -75,7 +75,7 @@ export default class AddEntryForm extends Component {
       const langValues = getExplainationLangValues({
         currentValue: event.target.value,
         currentLang: lang,
-        currentIdnex: index,
+        currentIndex: index,
         explainationLangs: this.state.explainationLangs,
         formName: 'addEntryForm',
         globalState: this.context.store.getState()
