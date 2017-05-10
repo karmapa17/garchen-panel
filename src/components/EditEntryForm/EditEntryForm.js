@@ -1,9 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import {Field, reduxForm, formValueSelector} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import {range} from 'ramda';
-import {isEmpty} from 'lodash';
 
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import injectF from './../../helpers/injectF';
@@ -60,8 +59,8 @@ export default class EditEntryForm extends Component {
       const lang = (field.match(/^explaination-(.+)$/) || [])[1];
       if (targetLanguages.includes(lang)) {
         const arr = fields[field];
-        if (arr.length > initialIndex) {
-          return arr.length;
+        if ((arr.length + 1) > initialIndex) {
+          return arr.length + 1;
         }
       }
       return initialIndex;
@@ -86,12 +85,21 @@ export default class EditEntryForm extends Component {
 
   handleExplainationChange = (lang, index) => {
     return (event) => {
-
-      const key = this.getExplainationIndex(lang);
-
-      if (!! event.target.value) {
-        this.setState({[key]: index + 2});
-      }
+      const {explainationLangs, explainationIndex} = this.state;
+      const langValues = getExplainationLangValues({
+        currentValue: event.target.value,
+        currentLang: lang,
+        currentIdnex: index,
+        explainationLangs: this.state.explainationLangs,
+        formName: 'editEntryForm',
+        globalState: this.context.store.getState()
+      });
+      const nextIndex = getNextExplainationIndex({
+        langValues,
+        explainationLangs,
+        explainationIndex
+      });
+      this.setState({explainationIndex: nextIndex});
     };
   };
 
