@@ -12,9 +12,11 @@ import CATEGORY_VALUES from './../../constants/categoryValues';
 import SECT_VALUES from './../../constants/sectValues';
 import EXPLAINATION_CATEGORY_VALUES from './../../constants/explainationCategoryValues';
 import {SELECTED_MENU_STYLE} from './../../constants/constants';
-import getNextExplainationIndex from './../../helpers/getNextExplainationIndex';
-import getExplainationLangs from './../../helpers/getExplainationLangs';
-import getExplainationLangValues from './../../helpers/getExplainationLangValues';
+
+// helpers that are shared between AddEntryForm and EditEntryForm
+import getNextExplainationIndex from './../AddEntryForm/getNextExplainationIndex';
+import getExplainationLangs from './../AddEntryForm/getExplainationLangs';
+import getExplainationLangValues from './../AddEntryForm/getExplainationLangValues';
 
 const styles = require('./EditEntryForm.scss');
 

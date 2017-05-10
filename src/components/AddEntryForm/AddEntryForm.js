@@ -6,15 +6,17 @@ import {isEmpty} from 'lodash';
 
 import {range} from 'ramda';
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
-import getExplainationLangs from './../../helpers/getExplainationLangs';
-import getExplainationLangValues from './../../helpers/getExplainationLangValues';
 import injectF from './../../helpers/injectF';
 import asyncValidate from './addEntryFormAsyncValidate';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLAINATION_CATEGORY_VALUES from './../../constants/explainationCategoryValues';
 import SECT_VALUES from './../../constants/sectValues';
 import {SELECTED_MENU_STYLE} from './../../constants/constants';
-import getNextExplainationIndex from './../../helpers/getNextExplainationIndex';
+
+// helpers that are shared between AddEntryForm and EditEntryForm
+import getExplainationLangs from './getExplainationLangs';
+import getExplainationLangValues from './getExplainationLangValues';
+import getNextExplainationIndex from './getNextExplainationIndex';
 
 const styles = require('./AddEntryForm.scss');
 
