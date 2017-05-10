@@ -102,7 +102,6 @@ export default class AddEntryForm extends Component {
 
   handleExplainationChange = (lang, index) => {
     return (event) => {
-      const {explainationIndex, explainationLangs} = this.state;
       const langValues = this.getExplainationLangValues(event.target.value, lang, index);
       const nextIndex = this.getNextExplainationIndex(langValues);
       this.setState({explainationIndex: nextIndex});
