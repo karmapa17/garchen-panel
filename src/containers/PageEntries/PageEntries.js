@@ -20,6 +20,7 @@ import Pagination from './../../components/Pagination/Pagination';
 import LocalSearchBar from './../../components/LocalSearchBar/LocalSearchBar';
 
 const styles = require('./PageEntries.scss');
+const SEARCH_TYPES = ['source-entry', 'page-num'];
 
 @connect(({folder, entry}) => ({
   perpage: entry.get('perpage'),
@@ -63,21 +64,24 @@ export default class PageEntries extends Component {
     this.state = {
       page: 1,
       tableKey: 0,
-      keyword: ''
+      searchKeyword: '',
+      searchType: 'source-entry'
     };
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const {page, keyword} = this.state;
+    const {page, searchKeyword, searchType} = this.state;
     const {perpage, listFolderEntries} = this.props;
 
-    if ((page !== nextState.page) || (perpage !== nextProps.perpage) || (keyword !== nextState.keyword)) {
+    if ((page !== nextState.page) || (perpage !== nextProps.perpage) ||
+        (searchKeyword !== nextState.searchKeyword) || (searchType !== nextState.searchType)) {
 
       listFolderEntries({
         folderId: nextProps.folder.id,
         page: nextState.page,
         perpage: nextProps.perpage,
-        keyword: nextState.keyword.trim()
+        keyword: nextState.searchKeyword.trim(),
+        type: nextState.searchType
       });
     }
   }
@@ -172,11 +176,13 @@ export default class PageEntries extends Component {
 
   handlePageButtonTouchTap = (page) => this.setState({page});
 
-  handleLocalSearchBarChange = (keyword) => this.setState({keyword});
+  handleSearchInputChange = (searchKeyword) => this.setState({searchKeyword});
+
+  handleSearchTypeChange = (event, key, searchType) => this.setState({searchType});
 
   render() {
 
-    const {page} = this.state;
+    const {page, searchType} = this.state;
     const {f, folder, folderEntryCount, perpage} = this.props;
 
     return (
@@ -195,7 +201,8 @@ export default class PageEntries extends Component {
           </div>
         </TopBar>
         <div className={styles.content}>
-          <LocalSearchBar onChange={this.handleLocalSearchBarChange} />
+          <LocalSearchBar onInputChange={this.handleSearchInputChange} searchTypes={SEARCH_TYPES}
+            selectedSearchType={searchType} onSearchTypeChange={this.handleSearchTypeChange} />
           {this.renderFolderEntries()}
           {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
             onButtonTouchTap={this.handlePageButtonTouchTap} />}
