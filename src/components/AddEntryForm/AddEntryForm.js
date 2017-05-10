@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import {Field, reduxForm, formValueSelector} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
-import {isEmpty} from 'lodash';
 
 import {range} from 'ramda';
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
