@@ -6,6 +6,8 @@ import {isEmpty} from 'lodash';
 
 import {range} from 'ramda';
 import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
+import getExplainationLangs from './../../helpers/getExplainationLangs';
+import getExplainationLangValues from './../../helpers/getExplainationLangValues';
 import injectF from './../../helpers/injectF';
 import asyncValidate from './addEntryFormAsyncValidate';
 import CATEGORY_VALUES from './../../constants/categoryValues';
@@ -40,13 +42,8 @@ export default class AddEntryForm extends Component {
     super(props);
     this.state = {
       explainationIndex: 1,
-      explainationLangs: this.getExplainationLangs(props.folder.data.contentFields)
+      explainationLangs: getExplainationLangs(props.folder.data.contentFields)
     };
-  }
-
-  getExplainationLangs(contentFields) {
-    return contentFields.map((field) => (field.match(/^explaination-lang-(.+)$/) || [])[1])
-      .filter((lang) => (! isEmpty(lang)));
   }
 
   renderCategoryMenuItems() {
@@ -70,24 +67,6 @@ export default class AddEntryForm extends Component {
     });
   }
 
-  getExplainationLangValues = (currentValue, currentLang, currentIndex) => {
-
-    const {explainationLangs} = this.state;
-    const selector = formValueSelector('addFolderEntryForm');
-    const globalState = this.context.store.getState();
-
-    return explainationLangs.reduce((map, lang) => {
-
-      const arr = (selector(globalState, `explaination-${lang}`) || []).slice();
-
-      if (currentLang === lang) {
-        arr[currentIndex] = currentValue;
-      }
-      map[lang] = arr;
-      return map;
-    }, {});
-  };
-
   getNextExplainationIndex = (langValues) => {
     const {explainationLangs, explainationIndex} = this.state;
     const lastIndexWithValue = range(0, explainationIndex)
@@ -102,7 +81,14 @@ export default class AddEntryForm extends Component {
 
   handleExplainationChange = (lang, index) => {
     return (event) => {
-      const langValues = this.getExplainationLangValues(event.target.value, lang, index);
+      const langValues = getExplainationLangValues({
+        currentValue: event.target.value,
+        currentLang: lang,
+        currentIdnex: index,
+        explainationLangs: this.state.explainationLangs,
+        formName: 'addFolderEntryForm',
+        globalState: this.context.store.getState()
+      });
       const nextIndex = this.getNextExplainationIndex(langValues);
       this.setState({explainationIndex: nextIndex});
     };
