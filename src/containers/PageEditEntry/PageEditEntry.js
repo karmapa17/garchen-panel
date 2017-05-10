@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
+import {each, isArray} from 'lodash';
 
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry} from './../../redux/modules/entry';
@@ -11,7 +12,7 @@ import injectPush from './../../helpers/injectPush';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
-import {each, isArray} from 'lodash';
+import filterLastContinuousUndefinedValues from './../../helpers/filterLastContinuousUndefinedValues';
 
 const styles = require('./PageEditEntry.scss');
 
@@ -46,8 +47,15 @@ export default class PageEditEntry extends Component {
 
   goToFoldersPage = () => this.props.push('/');
 
-  handleSubmit = async (data) => {
+  handleSubmit = async (rawData) => {
+
     const {entry, updateEntry, setSnackBarParams, f} = this.props;
+    const data = Object.keys(rawData).reduce((obj, prop) => {
+      const value = rawData[prop];
+      obj[prop] = isArray(value) ? filterLastContinuousUndefinedValues(value) : value;
+      return obj;
+    }, {});
+
     await updateEntry({
       id: entry.id,
       data
