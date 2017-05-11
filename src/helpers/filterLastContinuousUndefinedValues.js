@@ -1,15 +1,15 @@
-import {isEmpty} from 'lodash';
+import hasValue from './hasValue';
 
 export default function filterLastContinuousUndefinedValues(arr) {
   const newArr = [];
-  let hasValue = false;
+  let startCollecting = false;
 
   for (let i = arr.length - 1; i >= 0; i--) {
     const value = arr[i];
-    if (! isEmpty(value)) {
-      hasValue = true;
+    if (hasValue(value)) {
+      startCollecting = true;
     }
-    if (hasValue) {
+    if (startCollecting) {
       newArr.unshift(value);
     }
   }
