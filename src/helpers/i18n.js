@@ -6,10 +6,6 @@ export default class i18n {
     return Cache.get('garchen:locale') || 'en';
   }
 
-  static setLocale(locale) {
-    Cache.set('garchen:locale', locale);
-  }
-
   static getLocaleData(locale) {
     if ('bo' === locale) {
       return require(`./../langs/en.js`);
