@@ -1,5 +1,5 @@
 import React from 'react';
-import {sortBy} from 'lodash';
+import {sortBy, get} from 'lodash';
 import {range} from 'ramda';
 
 import SECT_VALUES from './../../constants/sectValues';
@@ -89,7 +89,7 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
           );
         });
 
-        const source = sourceData[index];
+        const source = get(sourceData, index);
 
         if (hasValue(source)) {
           rows.push((
@@ -100,7 +100,7 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
           ));
         }
 
-        const note = noteData[index];
+        const note = get(noteData, index);
 
         if (hasValue(note)) {
           rows.push((
@@ -111,7 +111,7 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
           ));
         }
 
-        const category = categoryData[index];
+        const category = get(categoryData, index);
 
         if (hasValue(category)) {
           const categoryId = EXPLAINATION_CATEGORY_VALUES.find((row) => row.value === category).id;
