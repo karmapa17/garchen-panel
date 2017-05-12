@@ -4,12 +4,15 @@ import {injectIntl} from 'react-intl';
 // a shorthand code of formatMessage
 export default function injectF(Target) {
 
-  @injectIntl
   class InjectedF extends Component {
 
     static propTypes = {
       intl: PropTypes.object.isRequired
     };
+
+    getWrappedInstance() {
+      return this.refs.target;
+    }
 
     render() {
       const {intl: {formatMessage, formatHTMLMessage}} = this.props;
@@ -27,8 +30,8 @@ export default function injectF(Target) {
         }
         return formatHTMLMessage(data);
       };
-      return <Target {...this.props} f={f} fh={fh} />;
+      return <Target ref="target" {...this.props} f={f} fh={fh} />;
     }
   }
-  return InjectedF;
+  return injectIntl(InjectedF, {withRef: true});
 }
