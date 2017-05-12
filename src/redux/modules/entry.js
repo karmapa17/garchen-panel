@@ -32,6 +32,8 @@ const UPDATE_ENTRY_FAIL = 'garchen-panel/entry/UPDATE_ENTRY_FAIL';
 
 const initialState = Map({
   entry: null,
+  nextEntryId: null,
+  prevEntryId: null,
   perpage: FOLDER_ENTRY_PERPAGE,
   folderEntries: [],
   folderEntryCount: 0,
@@ -41,7 +43,10 @@ const initialState = Map({
 export default createReducer(initialState, {
 
   [GET_ENTRY_SUCCESS]: (state, action) => {
-    return state.set('entry', action.result);
+    const {entry, nextEntryId, prevEntryId} = action.result;
+    return state.set('entry', entry)
+      .set('prevEntryId', prevEntryId)
+      .set('nextEntryId', nextEntryId);
   },
 
   [UPDATE_ENTRY_SUCCESS]: (state, action) => {
