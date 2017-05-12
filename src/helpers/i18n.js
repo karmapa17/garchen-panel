@@ -1,6 +1,6 @@
-import Cache from './Cache';
 import {get} from 'lodash';
 
+import Cache from './Cache';
 import LOCAL_STORAGE_KEY from './../constants/localStorageKey';
 
 export default class i18n {
