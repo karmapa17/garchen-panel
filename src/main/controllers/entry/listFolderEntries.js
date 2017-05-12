@@ -1,15 +1,15 @@
 import {isEmpty} from 'lodash';
 
-async function searchData({db, knex, field, keyword, folderId, perpage, offset}) {
+async function searchData({db, field, keyword, folderId, perpage, offset}) {
 
-  const searchQuery = knex.where('data', 'like', `%"${field}":"${keyword}"%`)
+  const searchQuery = db.knex('Entry').where('data', 'like', `%"${field}":"${keyword}"%`)
     .andWhere('folderId', folderId)
     .limit(perpage)
     .offset(offset);
 
   const entries = await db.raw(searchQuery, true);
 
-  const countQuery = knex.count('id')
+  const countQuery = db.knex('Entry').count('id')
     .where('data', 'like', `%"${field}":"${keyword}"%`)
     .andWhere('folderId', folderId)
     .limit(perpage)
@@ -20,16 +20,16 @@ async function searchData({db, knex, field, keyword, folderId, perpage, offset})
   return {entries, total};
 }
 
-async function searchSourceEntry({db, knex, keyword, folderId, perpage, offset}) {
+async function searchSourceEntry({db, keyword, folderId, perpage, offset}) {
 
-  const searchQuery = knex.where('sourceEntry', 'like', `%${keyword}%`)
+  const searchQuery = db.knex('Entry').where('sourceEntry', 'like', `%${keyword}%`)
     .andWhere('folderId', folderId)
     .limit(perpage)
     .offset(offset);
 
   const entries = await db.raw(searchQuery, true);
 
-  const countQuery = knex.count('id')
+  const countQuery = db.knex('Entry').count('id')
     .where('sourceEntry', 'like', `%${keyword}%`)
     .andWhere('folderId', folderId)
     .limit(perpage)
@@ -55,14 +55,12 @@ export default async function listFolderEntries(event, data) {
     return;
   }
 
-  const knex = db.knex('Entry');
-
   if ('page-num' === type) {
-    const {entries, total} = await searchData({db, knex, field: 'page-num', keyword, folderId, perpage, offset});
+    const {entries, total} = await searchData({db, field: 'page-num', keyword, folderId, perpage, offset});
     this.resolve({data: entries, total});
     return;
   }
 
-  const {entries, total} = await searchSourceEntry({db, knex, keyword, folderId, perpage, offset});
+  const {entries, total} = await searchSourceEntry({db, keyword, folderId, perpage, offset});
   this.resolve({data: entries, total});
 }
