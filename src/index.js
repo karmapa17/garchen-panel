@@ -24,6 +24,7 @@ import ipc from './helpers/ipc';
 import getRoutes from './routes';
 import serialize from './helpers/serialize';
 import deserialize from './helpers/deserialize';
+import LOCAL_STORAGE_KEY from './constants/localStorageKey';
 
 addLocaleData([...en, ...bo, ...zh]);
 
@@ -34,7 +35,7 @@ const reducer = compose(mergePersistedState(deserialize))(rootReducer);
 const storage = compose(serialize)(adapter(window.localStorage));
 const enhancer = compose(
   applyMiddleware(...middlewares),
-  persistState(storage, 'garchen-redux-state')
+  persistState(storage, LOCAL_STORAGE_KEY)
 );
 const store = createStore(reducer, {intl: {locale, messages: localeData}}, enhancer);
 const history = syncHistoryWithStore(hashHistory, store);
