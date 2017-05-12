@@ -1,4 +1,5 @@
 module.exports = {
+  'matched-message': '{count} results for entries matching {keyword}',
   'search-entries': 'Search entries...',
   'about': 'About',
   'add-a-folder': 'Add a folder',

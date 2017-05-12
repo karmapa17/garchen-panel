@@ -1,4 +1,5 @@
 module.exports = {
+  'matched-message': '有 {count} 個結果符合關鍵字 {keyword}',
   'search-entries': '搜尋詞條...',
   'about': '關於',
   'add-a-folder': '新增一個資料夾',
