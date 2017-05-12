@@ -192,6 +192,11 @@ export default class PageEntries extends Component {
     return 0;
   }
 
+  handleClearSearchButtonTouchTap = () => {
+    this.setState({searchKeyword: ''});
+    this.refs.localSearchBar.getWrappedInstance().getWrappedInstance().clear();
+  };
+
   render() {
 
     const {page, searchType} = this.state;
