@@ -22,7 +22,7 @@ module.exports = {
   'choose-at-least-one-content-field': 'Please choose at least one content field.',
   'choose-at-least-one-target-language': 'Please choose at least one target language.',
   'choose-csv-file': 'Choose CSV file',
-  'completed-csv-line': 'Completed {completedLine} lines',
+  'completed-csv-line': 'Completed {completedLines} lines',
   'confirm': 'Confirm',
   'content-fields': 'Content Fields',
   'csv-imported-done': '{filename} has been imported',
