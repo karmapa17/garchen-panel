@@ -199,8 +199,9 @@ export default class PageEntries extends Component {
 
   render() {
 
-    const {page, searchType} = this.state;
+    const {page, searchType, searchKeyword} = this.state;
     const {f, folder, folderEntryCount, perpage} = this.props;
+    const matchedCount = this.getMatchedCount();
 
     return (
       <div className={c('page-list', styles.pageFolderEntries)}>
@@ -218,8 +219,10 @@ export default class PageEntries extends Component {
           </div>
         </TopBar>
         <div className={styles.content}>
-          <LocalSearchBar onInputChange={this.handleSearchInputChange} searchTypes={SEARCH_TYPES}
-            selectedSearchType={searchType} onSearchTypeChange={this.handleSearchTypeChange} />
+          <LocalSearchBar ref="localSearchBar" onInputChange={this.handleSearchInputChange} searchTypes={SEARCH_TYPES}
+            searchKeyword={searchKeyword} matchedCount={matchedCount}
+            selectedSearchType={searchType} onSearchTypeChange={this.handleSearchTypeChange}
+            onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} />
           {this.renderFolderEntries()}
           {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
             onButtonTouchTap={this.handlePageButtonTouchTap} />}
