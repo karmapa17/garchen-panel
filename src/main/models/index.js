@@ -22,7 +22,13 @@ export default async function initDb() {
     log.info('DB file already existed, skip creating file.');
   }
 
-  const db = new Trilogy(dbPath, {client: 'sql.js'});
+  const options = {client: 'sql.js'};
+
+  if ('development' === process.env.NODE_ENV) {
+    options.verbose = (sql) => log.info(`sql: ${sql}`);
+  }
+
+  const db = new Trilogy(dbPath, options);
 
   const promises = fs.readdirSync(__dirname)
     .filter((filename) => (0 !== filename.indexOf('.')) && ('index.js' !== filename))
