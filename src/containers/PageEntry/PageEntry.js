@@ -4,6 +4,8 @@ import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 import {isArray} from 'lodash';
+import ActionArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
+import ActionArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry} from './../../redux/modules/entry';
@@ -16,12 +18,15 @@ import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
 import filterLastContinuousUndefinedValues from './../../helpers/filterLastContinuousUndefinedValues';
 import renderContentFields from './renderContentFields';
+import hasValue from './../../helpers/hasValue';
 
 const styles = require('./PageEntry.scss');
 
 @connect(({folder, entry}) => ({
   folder: folder.get('folder'),
-  entry: entry.get('entry')
+  entry: entry.get('entry'),
+  nextEntryId: entry.get('nextEntryId'),
+  prevEntryId: entry.get('prevEntryId')
 }), {setSnackBarParams, updateEntry})
 @injectF
 @injectPush
@@ -37,6 +42,8 @@ export default class PageEntry extends Component {
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     entry: PropTypes.object.isRequired,
+    nextEntryId: PropTypes.number,
+    prevEntryId: PropTypes.number,
     params: PropTypes.object.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     updateEntry: PropTypes.func.isRequired,
@@ -117,10 +124,24 @@ export default class PageEntry extends Component {
 
   cancelEdit = () => this.setState({isEditMode: false});
 
+  renderPrevButton() {
+    const {prevEntryId} = this.props;
+    if (hasValue(prevEntryId)) {
+      return <FlatButton icon={<ActionArrowBack />} />;
+    }
+  }
+
+  renderNextButton() {
+    const {nextEntryId} = this.props;
+    if (hasValue(nextEntryId)) {
+      return <FlatButton icon={<ActionArrowForward />} />;
+    }
+  }
+
   render() {
 
     const {isEditMode} = this.state;
-    const {f, folder, entry} = this.props;
+    const {f, folder, entry, prevEntryId, nextEntryId} = this.props;
 
     return (
       <div className={c('page-info', styles.pageFolderEntry)}>
@@ -143,6 +164,8 @@ export default class PageEntry extends Component {
           </div>
         </TopBar>
         <div className={styles.content}>{this.renderContent()}</div>
+        {this.renderPrevButton()}
+        {this.renderNextButton()}
       </div>
     );
   }
