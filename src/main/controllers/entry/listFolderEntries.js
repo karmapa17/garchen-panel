@@ -29,8 +29,7 @@ async function searchSourceEntry({db, knex, keyword, folderId, perpage, offset})
 
   const entries = await db.raw(searchQuery, true);
 
-  const countQuery = db.knex('Entry')
-    .count('id')
+  const countQuery = knex.count('id')
     .where('sourceEntry', 'like', `%${keyword}%`)
     .andWhere('folderId', folderId)
     .limit(perpage)
