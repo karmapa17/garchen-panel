@@ -1,4 +1,5 @@
 module.exports = {
+  'clear-filter': '清除關鍵字',
   'matched-message': '有 {count} 個結果符合關鍵字 {keyword}',
   'search-entries': '搜尋詞條...',
   'about': '關於',

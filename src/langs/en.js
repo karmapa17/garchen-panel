@@ -1,4 +1,5 @@
 module.exports = {
+  'clear-filter': 'Clear filter',
   'matched-message': '{count} results for entries matching {keyword}',
   'search-entries': 'Search entries...',
   'about': 'About',
