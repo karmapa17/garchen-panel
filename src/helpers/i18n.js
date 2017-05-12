@@ -1,9 +1,10 @@
 import Cache from './Cache';
+import {get} from 'lodash';
 
 export default class i18n {
 
   static getLocale() {
-    return Cache.get('garchen:locale') || 'en';
+    return get(Cache.get('garchen-redux-state'), 'main.appLocale', 'en');
   }
 
   static getLocaleData(locale) {
