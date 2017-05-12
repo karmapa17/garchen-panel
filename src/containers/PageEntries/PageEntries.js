@@ -18,6 +18,7 @@ import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
 import Pagination from './../../components/Pagination/Pagination';
 import LocalSearchBar from './../../components/LocalSearchBar/LocalSearchBar';
+import hasValue from './../../helpers/hasValue';
 
 const styles = require('./PageEntries.scss');
 const SEARCH_TYPES = ['source-entry', 'page-num'];
@@ -179,6 +180,17 @@ export default class PageEntries extends Component {
   handleSearchInputChange = (searchKeyword) => this.setState({searchKeyword});
 
   handleSearchTypeChange = (event, key, searchType) => this.setState({searchType});
+
+  getMatchedCount() {
+
+    const {searchKeyword} = this.state;
+    const {folderEntryCount} = this.props;
+
+    if (hasValue(searchKeyword)) {
+      return folderEntryCount;
+    }
+    return 0;
+  }
 
   render() {
 
