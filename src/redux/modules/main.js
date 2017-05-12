@@ -3,7 +3,6 @@ import {createReducer} from 'redux-immutablejs';
 import {updateIntl} from 'react-intl-redux';
 
 import i18n from './../../helpers/i18n';
-import Cache from './../../helpers/Cache';
 
 const SET_APP_LOCALE = 'garchen-panel/main/SET_APP_LOCALE';
 const OPEN_EXTERNAL = 'garchen-panel/main/OPEN_EXTERNAL';
@@ -13,8 +12,8 @@ const OPEN_EXTERNAL_FAIL = 'garchen-panel/main/OPEN_EXTERNAL_FAIL';
 const SET_WRITE_DELAY = 'garchen-panel/main/SET_WRITE_DELAY';
 
 const initialState = Map({
-  appLocale: i18n.getLocale(),
-  writeDelay: Cache.get('garchen:writeDelay') || 50
+  appLocale: 'en',
+  writeDelay: 50
 });
 
 export default createReducer(initialState, {
@@ -24,9 +23,7 @@ export default createReducer(initialState, {
   },
 
   [SET_WRITE_DELAY]: (state, action) => {
-    const {writeDelay} = action;
-    Cache.set('garchen:writeDelay', writeDelay);
-    return state.set('writeDelay', writeDelay);
+    return state.set('writeDelay', action.writeDelay);
   }
 });
 
@@ -46,7 +43,6 @@ export function setWriteDelay(writeDelay) {
 
 export function setIntl(locale = 'zh-TW') {
   return (dispatch) => {
-    i18n.setLocale(locale);
     dispatch(setAppLocale(locale));
     return dispatch(updateIntl({
       locale,

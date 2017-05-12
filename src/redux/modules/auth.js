@@ -1,8 +1,6 @@
 import Immutable from 'immutable';
 import {createReducer} from 'redux-immutablejs';
 
-import Cache from './../../helpers/Cache';
-
 const LOAD_AUTH = 'garchen-panel/auth/LOAD_AUTH';
 const LOAD_AUTH_SUCCESS = 'garchen-panel/auth/LOAD_AUTH_SUCCESS';
 const LOAD_AUTH_FAIL = 'garchen-panel/auth/LOAD_AUTH_FAIL';
@@ -13,10 +11,8 @@ const LOGIN_FAIL = 'garchen-panel/auth/LOGIN_FAIL';
 
 const LOGOUT_SUCCESS = 'garchen-panel/auth/LOGOUT_SUCCESS';
 
-const CACHE_KEY = 'garchen:auth';
-
 const initialState = Immutable.Map({
-  auth: Cache.get(CACHE_KEY),
+  auth: null,
   isLoadingAuth: false
 });
 
@@ -37,12 +33,10 @@ export default createReducer(initialState, {
   },
 
   [LOGIN_SUCCESS]: (state, action) => {
-    Cache.set(CACHE_KEY, action.result);
     return state.set('auth', action.result);
   },
 
   [LOGOUT_SUCCESS]: (state) => {
-    Cache.set(CACHE_KEY, null);
     return state.set('auth', null);
   }
 });
