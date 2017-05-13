@@ -3,6 +3,12 @@
   "version": "0.0.2",
   "description": "",
   "main": "index.js",
+  "ava": {
+    "babel": "inherit",
+    "require": [
+      "./test/helpers/setupTestEnv.js"
+    ]
+  },
   "dependencies": {
     "animate.css": "3.5.1",
     "babel-plugin-transform-async-to-generator": "6.5.0",
@@ -92,7 +98,7 @@
     "build": "./bin/build.sh",
     "electron": "electron .",
     "dev": "cross-env NODE_ENV=development concurrently --kill-others \"node server.js\" \"nodemon --watch src/main/ --exec electron .\"",
-    "test": "jest"
+    "test": "ava --verbose"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
