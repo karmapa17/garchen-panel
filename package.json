@@ -89,7 +89,7 @@
     "lint": "eslint *.js",
     "build": "./bin/build.sh",
     "electron": "electron .",
-    "dev": "NODE_ENV=development concurrently --kill-others \"node server.js\" \"nodemon --watch src/main/ --exec electron .\"",
+    "dev": "cross-env NODE_ENV=development concurrently --kill-others \"node server.js\" \"nodemon --watch src/main/ --exec electron .\"",
     "test": "jest"
   },
   "jest": {
