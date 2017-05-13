@@ -11,7 +11,6 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 
 import {setSnackBarParams} from './../../redux/modules/ui';
-import objToArr from './../../helpers/objToArr';
 import {addFolder, listFolders} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
@@ -96,7 +95,7 @@ export default class PageFolders extends Component {
   handleTargetLanguagesChange = (rawData) => {
     const data = cloneDeep(rawData);
     delete data.preventDefault;
-    this.setState({targetLanguages: objToArr(data)});
+    this.setState({targetLanguages: Object.values(data)});
   };
 
   renderAddFolderDialog() {

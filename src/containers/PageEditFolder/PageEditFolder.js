@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import {cloneDeep} from 'lodash';
 import {Link} from 'react-router';
 
-import objToArr from './../../helpers/objToArr';
 import sortFolderContentFields from './../../main/helpers/sortFolderContentFields';
 import filterFolderContentFields from './../../helpers/filterFolderContentFields';
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
@@ -49,7 +48,7 @@ export default class PageEditFolder extends Component {
   handleTargetLanguagesChange = (rawData) => {
     const data = cloneDeep(rawData);
     delete data.preventDefault;
-    this.setState({targetLanguages: objToArr(data)});
+    this.setState({targetLanguages: Object.values(data)});
   };
 
   handleEditFolderFormSubmit = async (data) => {
