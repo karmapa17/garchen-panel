@@ -102,7 +102,6 @@ module.exports = {
   'submit': '送出',
   'target-entry-lang': '詞條 - {lang}',
   'target-language': '目標語言',
-  'time': '時',
   'update': '更新',
   'write-delay-with-num': '寫入延遲時間 {writeDelay} 毫秒',
   'zh-CN': '簡體中文',
