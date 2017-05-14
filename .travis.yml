@@ -1,3 +1,13 @@
 language: node_js
 node_js:
  - "6"
+cache:
+  directories:
+    - $HOME/.npm
+    - node_modules
+before_install:
+  - npm install --global npm
+before_script:
+  - npm prune
+after_success:
+  - npm run coveralls
