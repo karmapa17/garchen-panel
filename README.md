@@ -8,3 +8,17 @@
 
 ## Contents
 - [User Story](https://goo.gl/s7u0Sd)
+
+## Usage
+### Installation
+```console
+npm i
+```
+### Developing
+```console
+npm run dev
+```
+### Building production desktop applications (Windows / iOS)
+```console
+npm run build
+```
