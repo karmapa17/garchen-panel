@@ -66,6 +66,7 @@
     "babel-loader": "6.2.3",
     "babel-runtime": "5.8.20",
     "concurrently": "3.4.0",
+    "coveralls": "2.13.1",
     "cross-env": "5.0.0",
     "css-loader": "0.15.4",
     "electron": "1.6.2",
