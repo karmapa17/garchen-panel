@@ -5,3 +5,20 @@
 [![Coverage Status](https://coveralls.io/repos/github/karmapa17/garchen-panel/badge.svg?branch=master)](https://coveralls.io/github/karmapa17/garchen-panel?branch=master)
 
 ![](media/garchen-demo.gif)
+
+## Contents
+- [User Story](https://goo.gl/s7u0Sd)
+
+## Usage
+### Installation
+```console
+npm i
+```
+### Developing
+```console
+npm run dev
+```
+### Building production desktop applications (Windows / iOS)
+```console
+npm run build
+```
