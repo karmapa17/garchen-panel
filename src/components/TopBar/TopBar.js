@@ -5,7 +5,7 @@ const styles = require('./TopBar.scss');
 export default class TopBar extends Component {
 
   static propTypes = {
-    children: PropTypes.array.isRequired
+    children: PropTypes.any.isRequired
   };
 
   render() {
