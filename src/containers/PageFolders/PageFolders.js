@@ -105,7 +105,7 @@ export default class PageFolders extends Component {
 
     return (
       <Dialog title={f('add-a-folder')} open={isAddFolderDialogOpen}
-        bodyStyle={{paddingLeft: '8px', paddingRight: '8px', paddingBottom: '8px'}}
+        bodyStyle={{paddingLeft: '8px', paddingRight: '8px', paddingBottom: '8px'}} autoScrollBodyContent
         onRequestClose={this.handleAddFolderDialogClose}>
         <AddFolderForm ref="addFolderForm" onSubmit={this.handleSubmit} targetLanguages={targetLanguages}
           onTargetLanguagesChange={this.handleTargetLanguagesChange}
