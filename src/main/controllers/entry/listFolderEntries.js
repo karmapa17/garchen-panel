@@ -11,9 +11,7 @@ async function searchData({db, field, keyword, folderId, perpage, offset}) {
 
   const countQuery = db.knex('Entry').count('id')
     .where('data', 'like', `%"${field}":"${keyword}"%`)
-    .andWhere('folderId', folderId)
-    .limit(perpage)
-    .offset(offset);
+    .andWhere('folderId', folderId);
 
   const res = await db.raw(countQuery, true);
   const total = get(res, '[0][\'count("id")\']', 0);
@@ -32,9 +30,7 @@ async function searchSourceEntry({db, keyword, folderId, perpage, offset}) {
 
   const countQuery = db.knex('Entry').count('id')
     .where('sourceEntry', 'like', `%${keyword}%`)
-    .andWhere('folderId', folderId)
-    .limit(perpage)
-    .offset(offset);
+    .andWhere('folderId', folderId);
 
   const res = await db.raw(countQuery, true);
   const total = get(res, '[0][\'count("id")\']', 0);
