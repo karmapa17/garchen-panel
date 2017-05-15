@@ -8,6 +8,7 @@
 
 ## Contents
 - [User Story](https://goo.gl/s7u0Sd)
+- [Usage](#usage)
 
 ## Usage
 ### Installation
