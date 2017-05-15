@@ -23,3 +23,5 @@ npm run dev
 ```console
 npm run build
 ```
+## License
+MIT © [Dharama Treasure](https://dharma-treasure.org)
