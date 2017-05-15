@@ -80,11 +80,6 @@ export default class PageEntry extends Component {
     return renderContentFields({f, data, contentFields, targetLanguages});
   }
 
-  goToEditPage = () => {
-    const {push, folder, entry} = this.props;
-    push(`/folders/${folder.id}/entries/${entry.id}/edit`);
-  };
-
   handleSubmit = async (rawData) => {
 
     const {entry, updateEntry, setSnackBarParams, f} = this.props;
