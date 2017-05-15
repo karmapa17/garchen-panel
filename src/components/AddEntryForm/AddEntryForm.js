@@ -189,7 +189,7 @@ export default class AddEntryForm extends Component {
             </div>
             <div key={`explaination-category-${index}`}>
               <Field name={`explaination-category[${index}]`} fullWidth selectedMenuItemStyle={SELECTED_MENU_STYLE}
-                component={renderSelectField} label={f('explaination-category-num', {num: (index + 1)})}>
+                component={renderSelectField} label={f('explaination-category-num', {num: (index + 1)})} multiple>
                 {this.renderExplainationCategoryMenuItems()}
               </Field>
             </div>

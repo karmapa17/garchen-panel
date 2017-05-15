@@ -114,11 +114,17 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
         const category = get(categoryData, index);
 
         if (hasValue(category)) {
-          const categoryId = EXPLAINATION_CATEGORY_VALUES.find((row) => row.value === category).id;
+
+          const value = category.map((value) => {
+            const categoryId = EXPLAINATION_CATEGORY_VALUES.find((row) => row.value === value).id;
+            return f(categoryId);
+          })
+          .join(' ');
+
           rows.push((
             <tr key={'explaination-category'}>
               <th>{f('explaination-category-num', {num: `${index + 1}`})}</th>
-              <td>{f(categoryId)}</td>
+              <td>{value}</td>
             </tr>
           ));
         }
