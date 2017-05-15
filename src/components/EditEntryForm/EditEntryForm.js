@@ -21,6 +21,7 @@ const styles = require('./EditEntryForm.scss');
 
 @reduxForm({
   form: 'editEntryForm',
+  enableReinitialize: true,
   asyncValidate
 })
 @injectF
