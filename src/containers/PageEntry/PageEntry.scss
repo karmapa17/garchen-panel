@@ -2,6 +2,9 @@
 
 .pageFolderEntry {
 
+  position: relative;
+  height: 100vh;
+
   .content {
     width: $page-width;
     margin: 0 auto;
