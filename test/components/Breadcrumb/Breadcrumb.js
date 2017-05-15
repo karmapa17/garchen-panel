@@ -15,3 +15,16 @@ test('Breadcrumb should render properly', (t) => {
 
   t.is(wrapper.find('ul').children('li').length, 2);
 });
+
+test('Breadcrumb.renderListContent should render single child', (t) => {
+
+  const wrapper = shallow((
+    <Breadcrumb>
+      <a href="#link1">link1</a>
+    </Breadcrumb>
+  ));
+
+  const listContent = wrapper.instance().renderListContent();
+
+  t.is(listContent.key, 'breadcrumb-item');
+});
