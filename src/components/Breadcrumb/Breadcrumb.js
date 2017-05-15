@@ -6,7 +6,10 @@ const styles = require('./Breadcrumb.scss');
 export default class Breadcrumb extends Component {
 
   static propTypes = {
-    children: PropTypes.array.isRequired
+    children: PropTypes.oneOfType([
+      PropTypes.array.isRequired,
+      PropTypes.object.isRequired
+    ])
   };
 
   renderListContent() {
