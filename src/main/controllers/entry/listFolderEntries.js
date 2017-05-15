@@ -1,4 +1,4 @@
-import {isEmpty} from 'lodash';
+import {get, isEmpty} from 'lodash';
 
 async function searchData({db, field, keyword, folderId, perpage, offset}) {
 
@@ -15,7 +15,8 @@ async function searchData({db, field, keyword, folderId, perpage, offset}) {
     .limit(perpage)
     .offset(offset);
 
-  const total = (await db.raw(countQuery, true))[0]['count("id")'];
+  const res = await db.raw(countQuery, true);
+  const total = get(res, '[0][\'count("id")\']', 0);
 
   return {entries, total};
 }
@@ -35,7 +36,8 @@ async function searchSourceEntry({db, keyword, folderId, perpage, offset}) {
     .limit(perpage)
     .offset(offset);
 
-  const total = (await db.raw(countQuery, true))[0]['count("id")'];
+  const res = await db.raw(countQuery, true);
+  const total = get(res, '[0][\'count("id")\']', 0);
 
   return {entries, total};
 }
