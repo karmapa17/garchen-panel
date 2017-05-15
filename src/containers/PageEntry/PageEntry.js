@@ -27,7 +27,7 @@ const styles = require('./PageEntry.scss');
   entry: entry.get('entry'),
   nextEntryId: entry.get('nextEntryId'),
   prevEntryId: entry.get('prevEntryId')
-}), {setSnackBarParams, updateEntry})
+}), {setSnackBarParams, updateEntry, getEntry})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
@@ -46,9 +46,21 @@ export default class PageEntry extends Component {
     prevEntryId: PropTypes.number,
     params: PropTypes.object.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
+    getEntry: PropTypes.func.isRequired,
     updateEntry: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired
   };
+
+  componentWillReceiveProps(nextProps) {
+
+    const {params, getEntry} = this.props;
+    const {entryId} = params;
+    const nextEntryId = nextProps.params.entryId;
+
+    if (entryId !== nextEntryId) {
+      getEntry({id: nextEntryId});
+    }
+  }
 
   constructor(props) {
     super(props);
@@ -124,24 +136,50 @@ export default class PageEntry extends Component {
 
   cancelEdit = () => this.setState({isEditMode: false});
 
+  handlePrevButtonTouchTap = () => {
+    const {push, prevEntryId, folder} = this.props;
+    push(`folders/${folder.id}/entries/${prevEntryId}`);
+  };
+
+  handleNextButtonTouchTap = () => {
+    const {push, nextEntryId, folder} = this.props;
+    push(`folders/${folder.id}/entries/${nextEntryId}`);
+  };
+
   renderPrevButton() {
     const {prevEntryId} = this.props;
     if (hasValue(prevEntryId)) {
-      return <FlatButton icon={<ActionArrowBack />} />;
+      const style = {
+        position: 'fixed',
+        left: '14px',
+        bottom: 0,
+        top: 0,
+        marginTop: 'auto',
+        marginBottom: 'auto'
+      };
+      return <FlatButton icon={<ActionArrowBack />} style={style} onTouchTap={this.handlePrevButtonTouchTap} />;
     }
   }
 
   renderNextButton() {
     const {nextEntryId} = this.props;
     if (hasValue(nextEntryId)) {
-      return <FlatButton icon={<ActionArrowForward />} />;
+      const style = {
+        position: 'fixed',
+        right: '14px',
+        bottom: 0,
+        top: 0,
+        marginTop: 'auto',
+        marginBottom: 'auto'
+      };
+      return <FlatButton icon={<ActionArrowForward />} style={style} onTouchTap={this.handleNextButtonTouchTap} />;
     }
   }
 
   render() {
 
     const {isEditMode} = this.state;
-    const {f, folder, entry, prevEntryId, nextEntryId} = this.props;
+    const {f, folder, entry} = this.props;
 
     return (
       <div className={c('page-info', styles.pageFolderEntry)}>
