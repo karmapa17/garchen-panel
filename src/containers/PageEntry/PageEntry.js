@@ -147,8 +147,11 @@ export default class PageEntry extends Component {
   };
 
   renderPrevButton() {
+
+    const {isEditMode} = this.state;
     const {prevEntryId} = this.props;
-    if (hasValue(prevEntryId)) {
+
+    if (hasValue(prevEntryId) && (! isEditMode)) {
       const style = {
         position: 'fixed',
         left: '14px',
@@ -162,8 +165,11 @@ export default class PageEntry extends Component {
   }
 
   renderNextButton() {
+
+    const {isEditMode} = this.state;
     const {nextEntryId} = this.props;
-    if (hasValue(nextEntryId)) {
+
+    if (hasValue(nextEntryId) && (! isEditMode)) {
       const style = {
         position: 'fixed',
         right: '14px',
