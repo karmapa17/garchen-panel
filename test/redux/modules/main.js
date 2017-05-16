@@ -1,7 +1,15 @@
 import test from 'ava';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
 import {setInterfaceFontSizeScalingFactor, SET_INTERFACE_FONT_SIZE_SCALING_FACTOR,
-  setAppFont, SET_APP_FONT, setAppLocale, SET_APP_LOCALE, setWriteDelay, SET_WRITE_DELAY} from './../../../src/redux/modules/main';
+  setAppFont, SET_APP_FONT, setAppLocale, SET_APP_LOCALE, setWriteDelay,
+  SET_WRITE_DELAY, setIntl} from './../../../src/redux/modules/main';
+
+import zhTwMessages from './../../../src/langs/zh-TW';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 test('should create an action to set interface font size scaling factor', (t) => {
 
@@ -46,4 +54,21 @@ test('should create an action to set write delay', (t) => {
   };
 
   t.deepEqual(setWriteDelay(writeDelay), expectedAction);
+});
+
+test('should create an action to set react intl', (t) => {
+
+  const store = mockStore({});
+  const locale = 'zh-TW';
+  const expectedAction = {
+    type: '@@intl/UPDATE',
+    payload: {
+      locale,
+      messages: zhTwMessages
+    }
+  };
+
+  const resultAction = store.dispatch(setIntl(locale));
+
+  t.deepEqual(resultAction, expectedAction);
 });
