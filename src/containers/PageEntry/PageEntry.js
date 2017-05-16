@@ -4,8 +4,8 @@ import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
 import {isArray} from 'lodash';
-import ActionArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
-import ActionArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import ChevronRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
+import ChevronLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry} from './../../redux/modules/entry';
@@ -154,15 +154,20 @@ export default class PageEntry extends Component {
     const {prevEntryId} = this.props;
 
     if (hasValue(prevEntryId) && (! isEditMode)) {
-      const style = {
+      const iconStyle = {
+        height: '54px',
+        width: '54px'
+      };
+      const buttonStyle = {
         position: 'fixed',
         left: '14px',
         bottom: 0,
         top: 0,
+        height: '300px',
         marginTop: 'auto',
         marginBottom: 'auto'
       };
-      return <FlatButton icon={<ActionArrowBack />} style={style} onTouchTap={this.handlePrevButtonTouchTap} />;
+      return <FlatButton icon={<ChevronLeftIcon style={iconStyle} />} style={buttonStyle} onTouchTap={this.handlePrevButtonTouchTap} disableTouchRipple />;
     }
   }
 
@@ -172,15 +177,20 @@ export default class PageEntry extends Component {
     const {nextEntryId} = this.props;
 
     if (hasValue(nextEntryId) && (! isEditMode)) {
-      const style = {
+      const iconStyle = {
+        height: '54px',
+        width: '54px'
+      };
+      const buttonStyle = {
         position: 'fixed',
         right: '14px',
         bottom: 0,
         top: 0,
+        height: '300px',
         marginTop: 'auto',
         marginBottom: 'auto'
       };
-      return <FlatButton icon={<ActionArrowForward />} style={style} onTouchTap={this.handleNextButtonTouchTap} />;
+      return <FlatButton icon={<ChevronRightIcon style={iconStyle} />} style={buttonStyle} onTouchTap={this.handleNextButtonTouchTap} disableTouchRipple />;
     }
   }
 
@@ -191,6 +201,8 @@ export default class PageEntry extends Component {
 
     return (
       <div className={c('page-info', styles.pageFolderEntry)}>
+        {this.renderPrevButton()}
+        {this.renderNextButton()}
         <TopBar>
           <Breadcrumb>
             <Link to="/">{f('folders')}</Link>
@@ -210,8 +222,6 @@ export default class PageEntry extends Component {
           </div>
         </TopBar>
         <div className={styles.content}>{this.renderContent()}</div>
-        {this.renderPrevButton()}
-        {this.renderNextButton()}
       </div>
     );
   }
