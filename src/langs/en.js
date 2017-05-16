@@ -1,5 +1,10 @@
 module.exports = {
-  'interface-font-size': 'Interface Font Size {interfaceFontSize}',
+  'very-small': 'Very Small',
+  'small': 'Small',
+  'medium': 'Medium',
+  'large': 'Large',
+  'very-large': 'Very Large',
+  'interface-font-size': 'Interface Font Size',
   'about': 'About',
   'add-a-folder': 'Add a folder',
   'add-entry': 'Add Entry',
