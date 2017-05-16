@@ -7,10 +7,13 @@
     color: rgba(0, 0, 0, 0.298039);
     font-size: 15px;
   }
-  .field {
-    margin-top: 14px;
+  .customField {
+    margin-top: 21px;
+    svg {
+      vertical-align: bottom;
+    }
   }
-  .emptyIcon {
-    padding-left: 45px;
+  .field {
+    display: inline-block;
   }
 }
