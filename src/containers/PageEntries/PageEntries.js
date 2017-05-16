@@ -26,6 +26,7 @@ const SEARCH_TYPES = ['source-entry', 'page-num'];
 @connect(({folder, entry}) => ({
   perpage: entry.get('perpage'),
   folder: folder.get('folder'),
+  importingFolderId: folder.get('importingFolderId'),
   folderEntries: entry.get('folderEntries'),
   folderEntryCount: entry.get('folderEntryCount'),
   selectedFolderEntryMap: entry.get('selectedFolderEntryMap')
@@ -57,6 +58,7 @@ export default class PageEntries extends Component {
     clearSelectedFolderEntryIds: PropTypes.func.isRequired,
     selectedFolderEntryMap: PropTypes.object.isRequired,
     deleteEntries: PropTypes.func.isRequired,
+    importingFolderId: PropTypes.number,
     setSnackBarParams: PropTypes.func.isRequired
   };
 
@@ -202,6 +204,11 @@ export default class PageEntries extends Component {
     this.refs.localSearchBar.getWrappedInstance().getWrappedInstance().clear();
   };
 
+  isImporting() {
+    const {folder, importingFolderId} = this.props;
+    return folder.id === importingFolderId;
+  }
+
   render() {
 
     const {page, searchType, searchKeyword} = this.state;
@@ -218,7 +225,7 @@ export default class PageEntries extends Component {
           <div>
             {this.renderDeleteButton()}
             <FlatButton icon={<i className="fa fa-plus" />}
-              label={f('add-entry')} onTouchTap={this.goToAddFolderEntryPage} />
+              label={f('add-entry')} onTouchTap={this.goToAddFolderEntryPage} disabled={this.isImporting()} />
             <FlatButton icon={<i className="fa fa-arrow-left" />}
               label={f('back')} onTouchTap={this.goToFoldersPage} />
           </div>
