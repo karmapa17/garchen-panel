@@ -1,4 +1,5 @@
 module.exports = {
+  'interface-font-size': '介面文字 {interfaceFontSize}',
   'about': '關於',
   'add-a-folder': '新增一個資料夾',
   'add-entry': '新增詞條',
