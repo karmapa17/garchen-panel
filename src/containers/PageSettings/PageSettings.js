@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import LanguageIcon from 'material-ui/svg-icons/action/language';
+import TimerIcon from 'material-ui/svg-icons/image/timer';
 import Slider from 'material-ui/Slider';
 import {connect} from 'react-redux';
 import {injectIntl} from 'react-intl';
@@ -56,9 +57,12 @@ export default class PageSettings extends Component {
             {this.renderLangMenuItems('site-lang')}
           </SelectField>
         </div>
-        <div className={c(styles.field, styles.emptyIcon)}>
-          <span className={styles.label}>{f('write-delay-with-num', {writeDelay: `${writeDelay}`})}</span>
-          <Slider step={1} style={{width: 240}} min={0} max={1000} defaultValue={writeDelay} onChange={this.handleWriteDelaySliderChange} />
+        <div className={styles.customField}>
+          <TimerIcon style={{marginRight: '21px', marginBottom: '12px'}} />
+          <div className={styles.field}>
+            <span className={styles.label}>{f('write-delay-with-num', {writeDelay: `${writeDelay}`})}</span>
+            <Slider sliderStyle={{marginTop: '7px', marginBottom: 0}} step={1} style={{width: 240}} min={0} max={1000} defaultValue={writeDelay} onChange={this.handleWriteDelaySliderChange} />
+          </div>
         </div>
       </div>
     );
