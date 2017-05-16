@@ -28,6 +28,7 @@ injectTapEventPlugin();
 
 @connect(({auth, main, ui}) => ({
   appLocale: main.get('appLocale'),
+  appFont: main.get('appFont'),
   auth: auth.get('auth'),
   isDrawerOpen: ui.get('isDrawerOpen'),
   isLoadingAuth: auth.get('isLoadingAuth'),
@@ -40,6 +41,7 @@ export default class App extends Component {
 
   static propTypes = {
     appLocale: PropTypes.string.isRequired,
+    appFont: PropTypes.string.isRequired,
     auth: PropTypes.object,
     children: PropTypes.object.isRequired,
     f: PropTypes.func.isRequired,
@@ -122,11 +124,11 @@ export default class App extends Component {
 
   render() {
 
-    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage, appLocale} = this.props;
+    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage, appLocale, appFont} = this.props;
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <div className={c(styles.app, appLocale)}>
+        <div className={c(styles.app, appLocale)} style={{fontFamily: appFont}}>
 
          <AppBar title={f('garchen')} iconElementRight={this.renderIconElementRight()}
             titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
