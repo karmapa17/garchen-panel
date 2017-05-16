@@ -1,4 +1,5 @@
 module.exports = {
+  'account': 'Account',
   'very-small': 'Very Small',
   'small': 'Small',
   'medium': 'Medium',

@@ -1,4 +1,5 @@
 module.exports = {
+  'account': '帳號',
   'very-small': '非常小',
   'small': '小',
   'medium': '中',

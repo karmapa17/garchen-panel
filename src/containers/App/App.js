@@ -101,7 +101,7 @@ export default class App extends Component {
           iconButtonElement={iconButton}
           targetOrigin={{horizontal: 'right', vertical: 'top'}}
           anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
-          <MenuItem primaryText="Account" onTouchTap={this.goToAccountPage} />
+          <MenuItem primaryText={f('account')} onTouchTap={this.goToAccountPage} />
           <MenuItem primaryText="Sign out" onTouchTap={logout} />
         </IconMenu>
       );
