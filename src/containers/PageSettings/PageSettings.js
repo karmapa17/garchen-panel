@@ -13,6 +13,7 @@ import APP_LANGS from './../../constants/appLangs';
 import APP_FONTS from './../../constants/appFonts';
 import {setIntl, setAppFont, setWriteDelay, setInterfaceFontSize} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
+import INTERFACE_FONT_SIZE_OPTIONS from './../../constants/interfaceFontSizeOptions';
 
 const styles = require('./PageSettings.scss');
 
@@ -50,6 +51,13 @@ export default class PageSettings extends Component {
     });
   }
 
+  renderInterfaceFontSizeMenuItems() {
+    const {f} = this.props;
+    return INTERFACE_FONT_SIZE_OPTIONS.map(({textId, value}) => {
+      return <MenuItem key={`option-interface-font-size-${textId}`} value={value} primaryText={f(textId)} />;
+    });
+  }
+
   handleLangSelectFieldChange = (event, index, value) => {
     this.props.setIntl(value);
   };
@@ -62,8 +70,8 @@ export default class PageSettings extends Component {
     this.props.setWriteDelay(newValue);
   };
 
-  handleInterfaceFontSizeSliderChange = (event, newValue) => {
-    this.props.setInterfaceFontSize(newValue);
+  handleInterfaceFontSizeSelectFieldChange = (event, index, value) => {
+    this.props.setInterfaceFontSize(value);
   };
 
   render() {
@@ -94,10 +102,10 @@ export default class PageSettings extends Component {
         </div>
         <div className={styles.customField}>
           <FormatSizeIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-          <div className={styles.field}>
-            <span className={styles.label}>{f('interface-font-size', {interfaceFontSize})}</span>
-            <Slider sliderStyle={{marginTop: '7px', marginBottom: 0}} step={1} style={{width: 240}} min={12} max={48} defaultValue={interfaceFontSize} onChange={this.handleInterfaceFontSizeSliderChange} />
-          </div>
+          <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('interface-font-size')}
+            onChange={this.handleInterfaceFontSizeSelectFieldChange} value={interfaceFontSize}>
+            {this.renderInterfaceFontSizeMenuItems()}
+          </SelectField>
         </div>
       </div>
     );
