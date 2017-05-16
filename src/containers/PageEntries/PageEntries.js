@@ -152,6 +152,8 @@ export default class PageEntries extends Component {
 
   goToFoldersPage = () => this.props.push('/');
 
+  updateTableKey = () => this.setState((prevState) => ({tableKey: prevState.tableKey + 1}));
+
   deleteSelectedFolderEntries = async () => {
 
     const {page} = this.state;
@@ -167,7 +169,7 @@ export default class PageEntries extends Component {
     await listFolderEntries({folderId: params.id, page: nextPage, perpage});
     this.setState({page: nextPage});
     setSnackBarParams(true, f('folder-entries-has-been-deleted', {count: ids.length}));
-    this.setState((prevState) => ({tableKey: prevState.tableKey + 1}));
+    this.updateTableKey();
   };
 
   renderDeleteButton() {
