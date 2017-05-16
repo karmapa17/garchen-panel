@@ -4,6 +4,7 @@ module.exports = {
   'add-entry': 'Add Entry',
   'add-folder': 'Add Folder',
   'app-language': 'App Language',
+  'app-font': 'App Font',
   'back': 'Back',
   'bo': 'Tibetan',
   'cancel': 'Cancel',

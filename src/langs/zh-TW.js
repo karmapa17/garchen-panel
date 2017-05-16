@@ -4,6 +4,7 @@ module.exports = {
   'add-entry': '新增詞條',
   'add-folder': '新增資料夾',
   'app-language': '應用程式語言',
+  'app-font': '應用程式字型',
   'back': '上一頁',
   'bo': '藏文',
   'cancel': '取消',
