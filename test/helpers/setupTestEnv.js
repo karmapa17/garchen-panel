@@ -1,4 +1,5 @@
 require('babel-register');
+require('mock-local-storage');
 
 function noop() {
   return null;
