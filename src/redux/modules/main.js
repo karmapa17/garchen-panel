@@ -4,14 +4,13 @@ import {updateIntl} from 'react-intl-redux';
 
 import i18n from './../../helpers/i18n';
 
-const SET_APP_LOCALE = 'garchen-panel/main/SET_APP_LOCALE';
-const OPEN_EXTERNAL = 'garchen-panel/main/OPEN_EXTERNAL';
-const OPEN_EXTERNAL_SUCCESS = 'garchen-panel/main/OPEN_EXTERNAL_SUCCESS';
-const OPEN_EXTERNAL_FAIL = 'garchen-panel/main/OPEN_EXTERNAL_FAIL';
-
-const SET_WRITE_DELAY = 'garchen-panel/main/SET_WRITE_DELAY';
-const SET_APP_FONT = 'garchen-panel/main/SET_APP_FONT';
-const SET_INTERFACE_FONT_SIZE_SCALING_FACTOR = 'garchen/main/SET_INTERFACE_FONT_SIZE_SCALING_FACTOR';
+export const SET_APP_LOCALE = 'garchen-panel/main/SET_APP_LOCALE';
+export const OPEN_EXTERNAL = 'garchen-panel/main/OPEN_EXTERNAL';
+export const OPEN_EXTERNAL_SUCCESS = 'garchen-panel/main/OPEN_EXTERNAL_SUCCESS';
+export const OPEN_EXTERNAL_FAIL = 'garchen-panel/main/OPEN_EXTERNAL_FAIL';
+export const SET_WRITE_DELAY = 'garchen-panel/main/SET_WRITE_DELAY';
+export const SET_APP_FONT = 'garchen-panel/main/SET_APP_FONT';
+export const SET_INTERFACE_FONT_SIZE_SCALING_FACTOR = 'garchen/main/SET_INTERFACE_FONT_SIZE_SCALING_FACTOR';
 
 const initialState = Map({
   appLocale: 'en',
