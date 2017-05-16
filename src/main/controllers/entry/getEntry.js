@@ -6,6 +6,7 @@ async function getNextEntryId({entry, db}) {
     .select('id')
     .where('id', '>', entry.id)
     .andWhere('folderId', entry.folderId)
+    .orderBy('id', 'asc')
     .limit(1);
 
   const res = await db.raw(query, true);
