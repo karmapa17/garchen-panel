@@ -24,3 +24,14 @@ test('should create an action to set app font', (t) => {
 
   t.deepEqual(setAppFont(appFont), expectedAction);
 });
+
+test('should create an action to set app locale', (t) => {
+
+  const appLocale = 'bo';
+  const expectedAction = {
+    type: SET_APP_LOCALE,
+    appLocale
+  };
+
+  t.deepEqual(setAppLocale(appLocale), expectedAction);
+});
