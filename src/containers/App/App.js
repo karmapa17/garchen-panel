@@ -21,6 +21,7 @@ import muiTheme from './../../constants/muiTheme';
 import {login, logout} from './../../redux/modules/auth';
 import {setDrawerOpen, setSnackBarParams} from './../../redux/modules/ui';
 import {setIntl} from './../../redux/modules/main';
+import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./App.scss');
 
@@ -30,6 +31,7 @@ injectTapEventPlugin();
   appLocale: main.get('appLocale'),
   appFont: main.get('appFont'),
   auth: auth.get('auth'),
+  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   isDrawerOpen: ui.get('isDrawerOpen'),
   isLoadingAuth: auth.get('isLoadingAuth'),
   isSnackBarOpen: ui.get('isSnackBarOpen'),
@@ -54,6 +56,7 @@ export default class App extends Component {
     setDrawerOpen: PropTypes.func.isRequired,
     setIntl: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
+    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     snackBarMessage: PropTypes.string.isRequired,
   };
 
@@ -71,7 +74,8 @@ export default class App extends Component {
   }
 
   renderIconElementRight() {
-    const {auth, isLoadingAuth, login, logout, f} = this.props;
+    const {auth, isLoadingAuth, login, logout, f, interfaceFontSizeScalingFactor} = this.props;
+    const fontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
 
     if (isLoadingAuth) {
       return <CircularProgress mode="indeterminate" color="white" style={{marginTop: '16px', marginRight: '12px'}} size={30} />;
@@ -96,17 +100,19 @@ export default class App extends Component {
         </IconButton>
       );
 
+      const menuItemStyle = {fontSize};
+
       return (
         <IconMenu
           iconButtonElement={iconButton}
           targetOrigin={{horizontal: 'right', vertical: 'top'}}
           anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}>
-          <MenuItem primaryText={f('account')} onTouchTap={this.goToAccountPage} />
-          <MenuItem primaryText={f('sign-out')} onTouchTap={logout} />
+          <MenuItem primaryText={f('account')} onTouchTap={this.goToAccountPage} style={menuItemStyle} />
+          <MenuItem primaryText={f('sign-out')} onTouchTap={logout} style={menuItemStyle} />
         </IconMenu>
       );
     }
-    return <FlatButton style={{marginTop: '9px', color: '#fff'}} onClick={login} label={f('login')} />;
+    return <FlatButton style={{marginTop: '9px', color: '#fff'}} labelStyle={{fontSize}} onClick={login} label={f('login')} />;
   }
 
   handleDrawerChange = (open) => this.props.setDrawerOpen(open);
@@ -124,25 +130,29 @@ export default class App extends Component {
 
   render() {
 
-    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage, appLocale, appFont} = this.props;
+    const {children, isDrawerOpen, f, isSnackBarOpen, snackBarMessage, appLocale, appFont, interfaceFontSizeScalingFactor} = this.props;
+    const titleFontSize = getFontSize(interfaceFontSizeScalingFactor, 1.4);
+    const menuItemStyle = {
+      fontSize: getFontSize(interfaceFontSizeScalingFactor, 1)
+    };
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div className={c(styles.app, appLocale)} style={{fontFamily: appFont}}>
 
          <AppBar title={f('garchen')} iconElementRight={this.renderIconElementRight()}
-            titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
+            titleStyle={{fontSize: titleFontSize, cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
             onLeftIconButtonTouchTap={this.handleHamburgerTouchTap} onTitleTouchTap={this.handleTitleTouchTap} />
 
           <div className={styles.appContent}>{children}</div>
 
           <Drawer docked={false} open={isDrawerOpen} onRequestChange={this.handleDrawerChange}>
-            <MenuItem primaryText={f('folders')} onTouchTap={this.handleMenuItemTouchTap('/')} />
-            <MenuItem primaryText={f('about')} onTouchTap={this.handleMenuItemTouchTap('/about')} />
-            <MenuItem primaryText={f('import-csv-file')} onTouchTap={this.handleMenuItemTouchTap('/import-csv')} />
+            <MenuItem primaryText={f('folders')} style={menuItemStyle} onTouchTap={this.handleMenuItemTouchTap('/')} />
+            <MenuItem primaryText={f('about')} style={menuItemStyle} onTouchTap={this.handleMenuItemTouchTap('/about')} />
+            <MenuItem primaryText={f('import-csv-file')} style={menuItemStyle} onTouchTap={this.handleMenuItemTouchTap('/import-csv')} />
 
             <hr className="divider" />
-            <MenuItem primaryText={f('settings')} leftIcon={(<SettingsIcon />)} onTouchTap={this.handleMenuItemTouchTap('/settings')} />
+            <MenuItem primaryText={f('settings')} style={menuItemStyle} leftIcon={(<SettingsIcon />)} onTouchTap={this.handleMenuItemTouchTap('/settings')} />
           </Drawer>
           <Snackbar open={isSnackBarOpen} message={snackBarMessage} autoHideDuration={4000} onRequestClose={this.handleSnackBarRequestClose} />
         </div>
