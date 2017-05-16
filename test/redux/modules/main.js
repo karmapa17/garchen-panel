@@ -13,3 +13,14 @@ test('should create an action to set interface font size scaling factor', (t) =>
 
   t.deepEqual(setInterfaceFontSizeScalingFactor(interfaceFontSizeScalingFactor), expectedAction);
 });
+
+test('should create an action to set app font', (t) => {
+
+  const appFont = 'Tibetan Machine Uni';
+  const expectedAction = {
+    type: SET_APP_FONT,
+    appFont
+  };
+
+  t.deepEqual(setAppFont(appFont), expectedAction);
+});
