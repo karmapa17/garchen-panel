@@ -29,6 +29,8 @@ const ADD_FOLDER_BY_CSV = 'garchen-panel/folder/ADD_FOLDER_BY_CSV';
 const ADD_FOLDER_BY_CSV_SUCCESS = 'garchen-panel/folder/ADD_FOLDER_BY_CSV_SUCCESS';
 const ADD_FOLDER_BY_CSV_FAIL = 'garchen-panel/folder/ADD_FOLDER_BY_CSV_FAIL';
 
+const SET_IMPORTING_FOLDER_ID = 'garchen-panel/folder/SET_IMPORTING_FOLDER_ID';
+
 const FOLDER_PERPAGE = 20;
 
 const initialState = Map({
@@ -39,7 +41,8 @@ const initialState = Map({
   isProcessingCsv: false,
   errorCsvMessage: null,
   errorCsvMessageId: null,
-  errorCsvFilename: null
+  errorCsvFilename: null,
+  importingFolderId: null
 });
 
 export default createReducer(initialState, {
@@ -61,17 +64,31 @@ export default createReducer(initialState, {
   },
 
   [ADD_FOLDER_BY_CSV_SUCCESS]: (state) => {
-    return state.set('isProcessingCsv', false);
+    return state.set('isProcessingCsv', false)
+      .set('importingFolderId', null);
   },
 
   [ADD_FOLDER_BY_CSV_FAIL]: (state, action) => {
     const {messageId, filename, message} = action.error;
     return state.set('isProcessingCsv', false)
+      .set('importingFolderId', null)
       .set('errorCsvMessage', message)
       .set('errorCsvMessageId', messageId)
       .set('errorCsvFilename', filename);
+  },
+
+  [SET_IMPORTING_FOLDER_ID]: (state, action) => {
+    console.log('right here', action);
+    return state.set('importingFolderId', action.folderId);
   }
 });
+
+export function setImportingFolderId(folderId) {
+  return {
+    type: SET_IMPORTING_FOLDER_ID,
+    folderId
+  };
+}
 
 export function getFolder(data) {
   return {
