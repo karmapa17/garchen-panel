@@ -17,7 +17,7 @@ const initialState = Map({
   appLocale: 'en',
   appFont: 'Tibetan Machine Uni',
   writeDelay: 50,
-  interfaceFontSize: 20
+  interfaceFontSize: 1
 });
 
 export default createReducer(initialState, {
