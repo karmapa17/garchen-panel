@@ -179,7 +179,10 @@ export default class PageEntries extends Component {
     }
   }
 
-  handlePageButtonTouchTap = (page) => this.setState({page});
+  handlePageButtonTouchTap = (page) => {
+    this.updateTableKey();
+    this.setState({page});
+  };
 
   handleSearchInputChange = (searchKeyword) => {
     if (this.state.searchKeyword !== searchKeyword) {
