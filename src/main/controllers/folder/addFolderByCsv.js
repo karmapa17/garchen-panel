@@ -43,6 +43,7 @@ export default async function addFolderByCsv(event, data) {
           name: `${filename} - ${shortid.generate()}`,
           data: columnData
         });
+        broadcast('csv-folder-created', {folderId: folder.id});
         fields = csvProcessor.getFields(data);
         hasColumnRow = true;
       }

@@ -8,7 +8,7 @@ import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
 import injectF from './../../helpers/injectF';
 import ipc from './../../helpers/ipc';
 import injectPush from './../../helpers/injectPush';
-import {addFolderByCsv} from './../../redux/modules/folder';
+import {addFolderByCsv, setImportingFolderId} from './../../redux/modules/folder';
 import ExternalLink from './../ExternalLink/ExternalLink';
 
 const styles = require('./PageImportCsv.scss');
@@ -29,7 +29,7 @@ const csvExampleUrl = 'https://goo.gl/YcRMrT';
   errorMessageId: folder.get('errorCsvMessageId'),
   errorFilename: folder.get('errorCsvFilename'),
   writeDelay: main.get('writeDelay')
-}), {addFolderByCsv})
+}), {addFolderByCsv, setImportingFolderId})
 @injectIntl
 @injectPush
 @injectF
@@ -44,6 +44,7 @@ export default class PageImportCsv extends Component {
     errorMessageId: PropTypes.string,
     errorFilename: PropTypes.string,
     writeDelay: PropTypes.number.isRequired,
+    setImportingFolderId: PropTypes.func.isRequired,
     addFolderByCsv: PropTypes.func.isRequired
   };
 
@@ -58,11 +59,17 @@ export default class PageImportCsv extends Component {
     this.setState({completedLines: data.completedLines});
   };
 
+  handleCsvFolderCreated = (event, data) => {
+    this.props.setImportingFolderId(data.folderId);
+  };
+
   componentWillMount() {
+    ipc.on('csv-folder-created', this.handleCsvFolderCreated);
     ipc.on('csv-processing-status', this.handleCsvProcessingStatus);
   }
 
   componentWillUnmount() {
+    ipc.off('csv-folder-created', this.handleCsvFolderCreated);
     ipc.off('csv-processing-status', this.handleCsvProcessingStatus);
   }
 
