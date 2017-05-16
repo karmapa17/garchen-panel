@@ -2,7 +2,9 @@
   font-family: 'Tibetan Machine Uni';
 }
 
-:global(.en, .zh-TW, .zh-CN) {
+:global(.en),
+:global(.zh-TW),
+:global(.zh-CN) {
   font-family: 'helvetica neue';
 }
 
