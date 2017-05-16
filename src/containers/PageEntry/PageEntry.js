@@ -26,7 +26,8 @@ const styles = require('./PageEntry.scss');
   folder: folder.get('folder'),
   entry: entry.get('entry'),
   nextEntryId: entry.get('nextEntryId'),
-  prevEntryId: entry.get('prevEntryId')
+  prevEntryId: entry.get('prevEntryId'),
+  importingFolderId: folder.get('importingFolderId')
 }), {setSnackBarParams, updateEntry, getEntry})
 @injectF
 @injectPush
@@ -48,7 +49,8 @@ export default class PageEntry extends Component {
     setSnackBarParams: PropTypes.func.isRequired,
     getEntry: PropTypes.func.isRequired,
     updateEntry: PropTypes.func.isRequired,
-    push: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired,
+    importingFolderId: PropTypes.number
   };
 
   componentWillReceiveProps(nextProps) {
@@ -96,6 +98,11 @@ export default class PageEntry extends Component {
     });
     setSnackBarParams(true, f('folder-entry-has-been-updated', {sourceEntry: data.sourceEntry}));
     this.setState({isEditMode: false});
+  };
+
+  isImporting = () => {
+    const {folder, importingFolderId} = this.props;
+    return folder.id === importingFolderId;
   };
 
   setEditMode = () => this.setState({isEditMode: true});
@@ -196,7 +203,7 @@ export default class PageEntry extends Component {
               label={f('cancel')} primary onTouchTap={this.cancelEdit} />}
 
            {(! isEditMode) && <FlatButton icon={<i className="fa fa-pencil" />}
-              label={f('edit')} primary onTouchTap={this.setEditMode} />}
+              label={f('edit')} primary disabled={this.isImporting()} onTouchTap={this.setEditMode} />}
 
             <FlatButton icon={<i className="fa fa-arrow-left" />}
               label={f('back')} primary onTouchTap={this.goBack} />
