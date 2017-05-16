@@ -11,7 +11,7 @@ import {injectIntl} from 'react-intl';
 
 import APP_LANGS from './../../constants/appLangs';
 import APP_FONTS from './../../constants/appFonts';
-import {setIntl, setAppFont, setWriteDelay, setInterfaceFontSize} from './../../redux/modules/main';
+import {setIntl, setAppFont, setWriteDelay, setInterfaceFontSizeScalingFactor} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 import INTERFACE_FONT_SIZE_OPTIONS from './../../constants/interfaceFontSizeOptions';
 
@@ -20,9 +20,9 @@ const styles = require('./PageSettings.scss');
 @connect(({main}) => ({
   appLocale: main.get('appLocale'),
   appFont: main.get('appFont'),
-  interfaceFontSize: main.get('interfaceFontSize'),
+  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   writeDelay: main.get('writeDelay')
-}), {setIntl, setWriteDelay, setAppFont, setInterfaceFontSize})
+}), {setIntl, setWriteDelay, setAppFont, setInterfaceFontSizeScalingFactor})
 @injectIntl
 @injectF
 export default class PageSettings extends Component {
@@ -30,10 +30,10 @@ export default class PageSettings extends Component {
   static propTypes = {
     f: PropTypes.func.isRequired,
     appLocale: PropTypes.string.isRequired,
-    interfaceFontSize: PropTypes.number.isRequired,
+    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     appFont: PropTypes.string.isRequired,
     setIntl: PropTypes.func.isRequired,
-    setInterfaceFontSize: PropTypes.func.isRequired,
+    setInterfaceFontSizeScalingFactor: PropTypes.func.isRequired,
     setAppFont: PropTypes.func.isRequired,
     writeDelay: PropTypes.number.isRequired,
     setWriteDelay: PropTypes.func.isRequired
@@ -71,12 +71,12 @@ export default class PageSettings extends Component {
   };
 
   handleInterfaceFontSizeSelectFieldChange = (event, index, value) => {
-    this.props.setInterfaceFontSize(value);
+    this.props.setInterfaceFontSizeScalingFactor(value);
   };
 
   render() {
 
-    const {appLocale, appFont, f, writeDelay, interfaceFontSize} = this.props;
+    const {appLocale, appFont, f, writeDelay, interfaceFontSizeScalingFactor} = this.props;
 
     return (
       <div className={styles.pageSettings}>
@@ -103,7 +103,7 @@ export default class PageSettings extends Component {
         <div className={styles.customField}>
           <FormatSizeIcon style={{marginRight: '21px', marginBottom: '12px'}} />
           <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('interface-font-size')}
-            onChange={this.handleInterfaceFontSizeSelectFieldChange} value={interfaceFontSize}>
+            onChange={this.handleInterfaceFontSizeSelectFieldChange} value={interfaceFontSizeScalingFactor}>
             {this.renderInterfaceFontSizeMenuItems()}
           </SelectField>
         </div>
