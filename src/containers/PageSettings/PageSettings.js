@@ -3,21 +3,23 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import LanguageIcon from 'material-ui/svg-icons/action/language';
 import TimerIcon from 'material-ui/svg-icons/image/timer';
+import TextFormatIcon from 'material-ui/svg-icons/content/text-format';
 import Slider from 'material-ui/Slider';
 import {connect} from 'react-redux';
 import {injectIntl} from 'react-intl';
-import c from 'classnames';
 
 import APP_LANGS from './../../constants/appLangs';
-import {setIntl, setWriteDelay} from './../../redux/modules/main';
+import APP_FONTS from './../../constants/appFonts';
+import {setIntl, setAppFont, setWriteDelay} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 
 const styles = require('./PageSettings.scss');
 
 @connect(({main}) => ({
   appLocale: main.get('appLocale'),
+  appFont: main.get('appFont'),
   writeDelay: main.get('writeDelay')
-}), {setIntl, setWriteDelay})
+}), {setIntl, setWriteDelay, setAppFont})
 @injectIntl
 @injectF
 export default class PageSettings extends Component {
@@ -25,19 +27,31 @@ export default class PageSettings extends Component {
   static propTypes = {
     f: PropTypes.func.isRequired,
     appLocale: PropTypes.string.isRequired,
+    appFont: PropTypes.string.isRequired,
     setIntl: PropTypes.func.isRequired,
+    setAppFont: PropTypes.func.isRequired,
     writeDelay: PropTypes.number.isRequired,
     setWriteDelay: PropTypes.func.isRequired
   };
 
-  renderLangMenuItems(key) {
+  renderLangMenuItems() {
     return APP_LANGS.map(({value, text}) => {
-      return <MenuItem key={`${key}-${value}`} value={value} primaryText={text} />;
+      return <MenuItem key={`option-lang-${value}`} value={value} primaryText={text} />;
+    });
+  }
+
+  renderFontMenuItems() {
+    return APP_FONTS.map(({value, text}) => {
+      return <MenuItem key={`option-font-${value}`} value={value} primaryText={text} />;
     });
   }
 
   handleLangSelectFieldChange = (event, index, value) => {
     this.props.setIntl(value);
+  };
+
+  handleFontSelectFieldChange = (event, index, value) => {
+    this.props.setAppFont(value);
   };
 
   handleWriteDelaySliderChange = (event, newValue) => {
@@ -46,7 +60,7 @@ export default class PageSettings extends Component {
 
   render() {
 
-    const {appLocale, f, writeDelay} = this.props;
+    const {appLocale, appFont, f, writeDelay} = this.props;
 
     return (
       <div className={styles.pageSettings}>
@@ -54,7 +68,13 @@ export default class PageSettings extends Component {
         <div>
           <LanguageIcon style={{marginRight: '21px', marginBottom: '12px'}} />
           <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('app-language')} onChange={this.handleLangSelectFieldChange} value={appLocale}>
-            {this.renderLangMenuItems('site-lang')}
+            {this.renderLangMenuItems()}
+          </SelectField>
+        </div>
+        <div>
+          <TextFormatIcon style={{marginRight: '21px', marginBottom: '12px'}} />
+          <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('app-font')} onChange={this.handleFontSelectFieldChange} value={appFont}>
+            {this.renderFontMenuItems()}
           </SelectField>
         </div>
         <div className={styles.customField}>
