@@ -3,6 +3,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 const brandPrimary = '#0c353b';
 
 export default getMuiTheme({
+  fontFamily: 'inherit',
   appBar: {
     color: brandPrimary,
     height: 54
