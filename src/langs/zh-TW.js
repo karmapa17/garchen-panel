@@ -1,5 +1,6 @@
 module.exports = {
   'account': '帳號',
+  'sign-out': '登出',
   'very-small': '非常小',
   'small': '小',
   'medium': '中',

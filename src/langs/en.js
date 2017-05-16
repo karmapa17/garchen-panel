@@ -1,5 +1,6 @@
 module.exports = {
   'account': 'Account',
+  'sign-out': 'Sign Out',
   'very-small': 'Very Small',
   'small': 'Small',
   'medium': 'Medium',
