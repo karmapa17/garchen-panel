@@ -9,6 +9,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
+import LinearProgress from 'material-ui/LinearProgress';
 
 import {setSnackBarParams} from './../../redux/modules/ui';
 import {addFolder, listFolders} from './../../redux/modules/folder';
@@ -26,6 +27,7 @@ const styles = require('./PageFolders.scss');
 @connect(({folder}) => ({
   perpage: folder.get('perpage'),
   folders: folder.get('folders'),
+  importingFolderId: folder.get('importingFolderId'),
   folderCount: folder.get('folderCount')
 }), {listFolders, addFolder, setSnackBarParams})
 @injectPush
@@ -43,6 +45,7 @@ export default class PageFolders extends Component {
     folders: PropTypes.array.isRequired,
     folderCount: PropTypes.number.isRequired,
     listFolders: PropTypes.func.isRequired,
+    importingFolderId: PropTypes.number,
     setSnackBarParams: PropTypes.func.isRequired
   };
 
@@ -129,11 +132,13 @@ export default class PageFolders extends Component {
   };
 
   renderFolders() {
-    const {f, folders} = this.props;
+    const {f, folders, importingFolderId} = this.props;
     const rows = folders.map((folder) => {
       const {id, name} = folder;
+      const isImporting = (importingFolderId === folder.id);
       return (
         <Paper className={styles.folder} key={`paper-${id}`}>
+          {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
           <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
