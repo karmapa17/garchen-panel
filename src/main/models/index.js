@@ -25,7 +25,7 @@ export default async function initDb() {
   const options = {client: 'sql.js'};
 
   if ('development' === process.env.NODE_ENV) {
-    options.verbose = (sql) => log.info(`sql: ${sql}`);
+    // options.verbose = (sql) => log.info(`sql: ${sql}`);
   }
 
   const db = new Trilogy(dbPath, options);
