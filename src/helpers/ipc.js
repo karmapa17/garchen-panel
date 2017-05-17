@@ -3,8 +3,6 @@ const crypto = window.require('crypto');
 
 export default class ipc {
 
-  static events = [];
-
   static send(name, data = {}) {
     return new Promise((resolve, reject) => {
       const id = crypto.randomBytes(48).toString('hex');
