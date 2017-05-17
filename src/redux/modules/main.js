@@ -66,7 +66,7 @@ export function setWriteDelay(writeDelay) {
   };
 }
 
-export function setIntl(locale = 'zh-TW') {
+export function setIntl(locale = 'en') {
   return (dispatch) => {
     dispatch(setAppLocale(locale));
     return dispatch(updateIntl({
