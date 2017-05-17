@@ -93,3 +93,10 @@ test('main reducer should handle action SET_APP_FONT', (t) => {
   const result = mainReducer(store.getState(), {type: SET_APP_FONT, appFont});
   t.deepEqual(result.toJS(), {appFont});
 });
+
+test('main reducer should handle action SET_INTERFACE_FONT_SIZE_SCALING_FACTOR', (t) => {
+  const interfaceFontSizeScalingFactor = 1.5;
+  const store = mockStore({});
+  const result = mainReducer(store.getState(), {type: SET_INTERFACE_FONT_SIZE_SCALING_FACTOR, interfaceFontSizeScalingFactor});
+  t.deepEqual(result.toJS(), {interfaceFontSizeScalingFactor});
+});
