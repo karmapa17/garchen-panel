@@ -17,7 +17,7 @@ import addFolder from './controllers/folder/addFolder';
 import deleteFolder from './controllers/folder/deleteFolder';
 import checkFolderExists from './controllers/folder/checkFolderExists';
 import addFolderByCsv from './controllers/folder/addFolderByCsv';
-import cancelImporting from './controllers/folder/cancelImporting';
+import cancelImportingCsv from './controllers/folder/cancelImportingCsv';
 import openExternal from './controllers/common/openExternal';
 
 import getEntry from './controllers/entry/getEntry';
@@ -65,7 +65,7 @@ async function handleAppReady() {
   ipc.on('list-folders', listFolders);
   ipc.on('add-folder', addFolder);
   ipc.on('add-folder-by-csv', addFolderByCsv);
-  ipc.on('cancel-importing', cancelImporting);
+  ipc.on('cancel-importing-csv', cancelImportingCsv);
 
   ipc.on('list-folder-entries', listFolderEntries);
   ipc.on('add-folder-entry', addFolderEntry);
