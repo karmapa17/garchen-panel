@@ -29,9 +29,9 @@ const ADD_FOLDER_BY_CSV = 'garchen-panel/folder/ADD_FOLDER_BY_CSV';
 const ADD_FOLDER_BY_CSV_SUCCESS = 'garchen-panel/folder/ADD_FOLDER_BY_CSV_SUCCESS';
 const ADD_FOLDER_BY_CSV_FAIL = 'garchen-panel/folder/ADD_FOLDER_BY_CSV_FAIL';
 
-const CANCEL_IMPORTING = 'garchen-panel/folder/CANCEL_IMPORTING';
-const CANCEL_IMPORTING_SUCCESS = 'garchen-panel/folder/CANCEL_IMPORTING_SUCCESS';
-const CANCEL_IMPORTING_FAIL = 'garchen-panel/folder/CANCEL_IMPORTING_FAIL';
+const CANCEL_IMPORTING_CSV = 'garchen-panel/folder/CANCEL_IMPORTING_CSV';
+const CANCEL_IMPORTING_CSV_SUCCESS = 'garchen-panel/folder/CANCEL_IMPORTING_CSV_SUCCESS';
+const CANCEL_IMPORTING_CSV_FAIL = 'garchen-panel/folder/CANCEL_IMPORTING_CSV_FAIL';
 
 const SET_IMPORTING_FOLDER_ID = 'garchen-panel/folder/SET_IMPORTING_FOLDER_ID';
 
@@ -81,7 +81,7 @@ export default createReducer(initialState, {
       .set('errorCsvFilename', filename);
   },
 
-  [CANCEL_IMPORTING_SUCCESS]: (state) => {
+  [CANCEL_IMPORTING_CSV_SUCCESS]: (state) => {
     return state.set('isProcessingCsv', false)
       .set('importingFolderId', null)
       .set('errorCsvMessage', null)
@@ -153,7 +153,7 @@ export function checkFolderExists(data) {
 
 export function cancelImporting() {
   return {
-    types: [CANCEL_IMPORTING, CANCEL_IMPORTING_SUCCESS, CANCEL_IMPORTING_FAIL],
+    types: [CANCEL_IMPORTING_CSV, CANCEL_IMPORTING_CSV_SUCCESS, CANCEL_IMPORTING_CSV_FAIL],
     promise: (client) => {
       return client.send('cancel-importing');
     }
