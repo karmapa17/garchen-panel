@@ -140,14 +140,14 @@ export default class PageFolders extends Component {
         <Paper className={styles.folder} key={`paper-${id}`}>
           {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
           <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
-          <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
+          {! isImporting && <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
             onChange={this.handleFolderMenuItemTouchTap}
             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-            <MenuItem primaryText={f('edit')} value={{type: 'edit', id}} />
+            <MenuItem primaryText={f('edit')} value={{type: 'edit', id}} />}
             <MenuItem primaryText={f('export')} value={{type: 'export', id}} />
-          </IconMenu>
+          </IconMenu>}
         </Paper>
       );
     });
