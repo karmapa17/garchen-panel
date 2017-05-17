@@ -86,3 +86,10 @@ test('main reducer should handle action SET_WRITE_DELAY', (t) => {
   const result = mainReducer(store.getState(), {type: SET_WRITE_DELAY, writeDelay});
   t.deepEqual(result.toJS(), {writeDelay});
 });
+
+test('main reducer should handle action SET_APP_FONT', (t) => {
+  const appFont = 'Tibetan Machine Uni';
+  const store = mockStore({});
+  const result = mainReducer(store.getState(), {type: SET_APP_FONT, appFont});
+  t.deepEqual(result.toJS(), {appFont});
+});
