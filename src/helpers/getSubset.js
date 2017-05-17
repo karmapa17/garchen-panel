@@ -31,7 +31,7 @@ export default function getSubset(obj, paths) {
         if (i === lastIndex) {
           nested[key] = value;
         }
-        else if (!nested[key]) {
+        else if (! nested[key]) {
           nested[key] = {};
         }
         nested = nested[key];
