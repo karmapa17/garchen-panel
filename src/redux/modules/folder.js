@@ -78,7 +78,6 @@ export default createReducer(initialState, {
   },
 
   [SET_IMPORTING_FOLDER_ID]: (state, action) => {
-    console.log('right here', action);
     return state.set('importingFolderId', action.folderId);
   }
 });
