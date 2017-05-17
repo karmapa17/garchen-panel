@@ -1,6 +1,7 @@
 import {app, screen, BrowserWindow, ipcMain, Menu} from 'electron';
 import path from 'path';
 import Trilogy from 'trilogy';
+import EventEmitter from 'events';
 
 import mkdirp from './helpers/mkdirp';
 import IpcDecorator from './helpers/IpcDecorator';
@@ -16,6 +17,7 @@ import addFolder from './controllers/folder/addFolder';
 import deleteFolder from './controllers/folder/deleteFolder';
 import checkFolderExists from './controllers/folder/checkFolderExists';
 import addFolderByCsv from './controllers/folder/addFolderByCsv';
+import cancelImporting from './controllers/folder/cancelImporting';
 import openExternal from './controllers/common/openExternal';
 
 import getEntry from './controllers/entry/getEntry';
@@ -51,7 +53,8 @@ async function handleAppReady() {
   mainWindow.loadURL('file://' + __dirname + '/../index.html');
 
   const {db, models} = await initDb();
-  const ipc = IpcDecorator.decorate(ipcMain, {db, models});
+  const importEmitter = new EventEmitter();
+  const ipc = IpcDecorator.decorate(ipcMain, {db, models, importEmitter});
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(getMenuTemplate()));
 
@@ -62,6 +65,7 @@ async function handleAppReady() {
   ipc.on('list-folders', listFolders);
   ipc.on('add-folder', addFolder);
   ipc.on('add-folder-by-csv', addFolderByCsv);
+  ipc.on('cancel-importing', cancelImporting);
 
   ipc.on('list-folder-entries', listFolderEntries);
   ipc.on('add-folder-entry', addFolderEntry);
