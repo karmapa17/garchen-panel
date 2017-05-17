@@ -11,7 +11,8 @@ import csvProcessor from './../../helpers/csvProcessor';
 
 export default async function addFolderByCsv(event, data) {
 
-  const {Folder, Entry} =  this.params.models;
+  const {models, importEmitter} = this.params;
+  const {Folder, Entry} = models;
   const {broadcast, resolve, reject} = this;
   const {writeDelay} = data;
 
@@ -26,6 +27,13 @@ export default async function addFolderByCsv(event, data) {
 
   function processCsv(csvFilePath) {
 
+    let cancelImporting = false;
+    importEmitter.removeAllListeners();
+
+    importEmitter.once('cancel-importing', () => {
+      cancelImporting = true;
+    });
+
     const filename = basename(csvFilePath);
     const stream = fs.createReadStream(csvFilePath);
 
@@ -36,6 +44,10 @@ export default async function addFolderByCsv(event, data) {
     let currentEntry = null;
 
     async function handleData(data) {
+
+      if (cancelImporting) {
+        throw new Error('User stopped importing');
+      }
 
       if (isEmpty(folder) && csvProcessor.isColumnRow(data)) {
         const columnData = csvProcessor.getColumnData(data);
