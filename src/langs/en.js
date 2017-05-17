@@ -1,4 +1,5 @@
 module.exports = {
+  'cancel-importing': 'Cancel Importing',
   'account': 'Account',
   'sign-out': 'Sign Out',
   'very-small': 'Very Small',

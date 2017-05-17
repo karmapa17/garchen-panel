@@ -1,4 +1,5 @@
 module.exports = {
+  'cancel-importing': '取消匯入',
   'account': '帳號',
   'sign-out': '登出',
   'very-small': '非常小',
