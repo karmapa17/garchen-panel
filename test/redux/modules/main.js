@@ -79,3 +79,10 @@ test('main reducer should handle action SET_APP_LOCALE', (t) => {
   const result = mainReducer(store.getState(), {type: SET_APP_LOCALE, appLocale});
   t.deepEqual(result.toJS(), {appLocale});
 });
+
+test('main reducer should handle action SET_WRITE_DELAY', (t) => {
+  const writeDelay = 50;
+  const store = mockStore({});
+  const result = mainReducer(store.getState(), {type: SET_WRITE_DELAY, writeDelay});
+  t.deepEqual(result.toJS(), {writeDelay});
+});
