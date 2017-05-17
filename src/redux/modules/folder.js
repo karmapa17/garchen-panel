@@ -29,6 +29,10 @@ const ADD_FOLDER_BY_CSV = 'garchen-panel/folder/ADD_FOLDER_BY_CSV';
 const ADD_FOLDER_BY_CSV_SUCCESS = 'garchen-panel/folder/ADD_FOLDER_BY_CSV_SUCCESS';
 const ADD_FOLDER_BY_CSV_FAIL = 'garchen-panel/folder/ADD_FOLDER_BY_CSV_FAIL';
 
+const CANCEL_IMPORTING = 'garchen-panel/folder/CANCEL_IMPORTING';
+const CANCEL_IMPORTING_SUCCESS = 'garchen-panel/folder/CANCEL_IMPORTING_SUCCESS';
+const CANCEL_IMPORTING_FAIL = 'garchen-panel/folder/CANCEL_IMPORTING_FAIL';
+
 const SET_IMPORTING_FOLDER_ID = 'garchen-panel/folder/SET_IMPORTING_FOLDER_ID';
 
 const FOLDER_PERPAGE = 20;
@@ -75,6 +79,14 @@ export default createReducer(initialState, {
       .set('errorCsvMessage', message)
       .set('errorCsvMessageId', messageId)
       .set('errorCsvFilename', filename);
+  },
+
+  [CANCEL_IMPORTING_SUCCESS]: (state) => {
+    return state.set('isProcessingCsv', false)
+      .set('importingFolderId', null)
+      .set('errorCsvMessage', null)
+      .set('errorCsvMessageId', null)
+      .set('errorCsvFilename', null);
   },
 
   [SET_IMPORTING_FOLDER_ID]: (state, action) => {
@@ -135,6 +147,15 @@ export function checkFolderExists(data) {
     types: [CHECK_FOLDER_EXISTS, CHECK_FOLDER_EXISTS_SUCCESS, CHECK_FOLDER_EXISTS_FAIL],
     promise: (client) => {
       return client.send('check-folder-exists', data);
+    }
+  };
+}
+
+export function cancelImporting() {
+  return {
+    types: [CANCEL_IMPORTING, CANCEL_IMPORTING_SUCCESS, CANCEL_IMPORTING_FAIL],
+    promise: (client) => {
+      return client.send('cancel-importing');
     }
   };
 }
