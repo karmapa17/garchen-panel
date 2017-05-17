@@ -1,9 +1,7 @@
 require('babel-register');
 require('mock-local-storage');
 
-function noop() {
-  return null;
-}
+const noop = () => null;
 
 global.document = require('jsdom').jsdom('<body></body>');
 global.window = document.defaultView;
