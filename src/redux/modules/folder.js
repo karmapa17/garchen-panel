@@ -151,7 +151,7 @@ export function checkFolderExists(data) {
   };
 }
 
-export function cancelImporting() {
+export function cancelImportingCsv() {
   return {
     types: [CANCEL_IMPORTING_CSV, CANCEL_IMPORTING_CSV_SUCCESS, CANCEL_IMPORTING_CSV_FAIL],
     promise: (client) => {

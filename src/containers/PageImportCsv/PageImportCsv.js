@@ -8,7 +8,7 @@ import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
 import injectF from './../../helpers/injectF';
 import ipc from './../../helpers/ipc';
 import injectPush from './../../helpers/injectPush';
-import {addFolderByCsv, setImportingFolderId, cancelImporting} from './../../redux/modules/folder';
+import {addFolderByCsv, setImportingFolderId, cancelImportingCsv} from './../../redux/modules/folder';
 import ExternalLink from './../ExternalLink/ExternalLink';
 
 const styles = require('./PageImportCsv.scss');
@@ -29,7 +29,7 @@ const csvExampleUrl = 'https://goo.gl/YcRMrT';
   errorMessageId: folder.get('errorCsvMessageId'),
   errorFilename: folder.get('errorCsvFilename'),
   writeDelay: main.get('writeDelay')
-}), {addFolderByCsv, setImportingFolderId, cancelImporting})
+}), {addFolderByCsv, setImportingFolderId, cancelImportingCsv})
 @injectIntl
 @injectPush
 @injectF
@@ -45,7 +45,7 @@ export default class PageImportCsv extends Component {
     errorFilename: PropTypes.string,
     writeDelay: PropTypes.number.isRequired,
     setImportingFolderId: PropTypes.func.isRequired,
-    cancelImporting: PropTypes.func.isRequired,
+    cancelImportingCsv: PropTypes.func.isRequired,
     addFolderByCsv: PropTypes.func.isRequired
   };
 
@@ -79,7 +79,7 @@ export default class PageImportCsv extends Component {
     addFolderByCsv(writeDelay);
   }
 
-  handleCancelImportingButtonTouchTap = () => this.props.cancelImporting();
+  handleCancelImportingButtonTouchTap = () => this.props.cancelImportingCsv();
 
   renderChooseCsvFileButton = () => {
 
