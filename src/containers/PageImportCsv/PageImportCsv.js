@@ -8,7 +8,7 @@ import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
 import injectF from './../../helpers/injectF';
 import ipc from './../../helpers/ipc';
 import injectPush from './../../helpers/injectPush';
-import {addFolderByCsv, setImportingFolderId} from './../../redux/modules/folder';
+import {addFolderByCsv, setImportingFolderId, cancelImporting} from './../../redux/modules/folder';
 import ExternalLink from './../ExternalLink/ExternalLink';
 
 const styles = require('./PageImportCsv.scss');
@@ -29,7 +29,7 @@ const csvExampleUrl = 'https://goo.gl/YcRMrT';
   errorMessageId: folder.get('errorCsvMessageId'),
   errorFilename: folder.get('errorCsvFilename'),
   writeDelay: main.get('writeDelay')
-}), {addFolderByCsv, setImportingFolderId})
+}), {addFolderByCsv, setImportingFolderId, cancelImporting})
 @injectIntl
 @injectPush
 @injectF
@@ -45,6 +45,7 @@ export default class PageImportCsv extends Component {
     errorFilename: PropTypes.string,
     writeDelay: PropTypes.number.isRequired,
     setImportingFolderId: PropTypes.func.isRequired,
+    cancelImporting: PropTypes.func.isRequired,
     addFolderByCsv: PropTypes.func.isRequired
   };
 
@@ -78,6 +79,8 @@ export default class PageImportCsv extends Component {
     addFolderByCsv(writeDelay);
   }
 
+  handleCancelImportingButtonTouchTap = () => this.props.cancelImporting();
+
   renderChooseCsvFileButton = () => {
 
     const {completedLines} = this.state;
@@ -87,7 +90,8 @@ export default class PageImportCsv extends Component {
       return (
         <div className={styles.chooseFileBtnWrap}>
           {(completedLines > 0) && <div className={styles.linesCompleted}>{f('completed-csv-line', {completedLines: `${completedLines}`})}</div>}
-          <CircularProgress />
+          <CircularProgress style={{display: 'block', marginLeft: 'auto', marginRight: 'auto', marginBottom: '14px'}} />
+          <RaisedButton label={f('cancel-importing')} primary onTouchTap={this.handleCancelImportingButtonTouchTap} />
         </div>
       );
     }
