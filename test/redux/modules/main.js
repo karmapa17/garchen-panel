@@ -7,6 +7,7 @@ import mainReducer, {setInterfaceFontSizeScalingFactor, SET_INTERFACE_FONT_SIZE_
   SET_WRITE_DELAY, setIntl, openExternal, OPEN_EXTERNAL} from './../../../src/redux/modules/main';
 
 import zhTwMessages from './../../../src/langs/zh-TW';
+import enMessages from './../../../src/langs/en';
 import clientMiddleware from './../../../src/redux/middlewares/clientMiddleware';
 import ipc from './../../../src/helpers/ipc';
 
@@ -71,6 +72,22 @@ test('should create an action to set react intl', (t) => {
   };
 
   const resultAction = store.dispatch(setIntl(locale));
+
+  t.deepEqual(resultAction, expectedAction);
+});
+
+test('should create an action to set react intl if no locale is provided', (t) => {
+
+  const store = mockStore({});
+  const expectedAction = {
+    type: '@@intl/UPDATE',
+    payload: {
+      locale: 'en',
+      messages: enMessages
+    }
+  };
+
+  const resultAction = store.dispatch(setIntl());
 
   t.deepEqual(resultAction, expectedAction);
 });
