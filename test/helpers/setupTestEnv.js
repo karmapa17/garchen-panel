@@ -1,4 +1,5 @@
 require('babel-register');
+require('babel-polyfill');
 require('mock-local-storage');
 
 const noop = () => null;
