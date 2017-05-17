@@ -2,7 +2,7 @@ import test from 'ava';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import {setInterfaceFontSizeScalingFactor, SET_INTERFACE_FONT_SIZE_SCALING_FACTOR,
+import mainReducer, {setInterfaceFontSizeScalingFactor, SET_INTERFACE_FONT_SIZE_SCALING_FACTOR,
   setAppFont, SET_APP_FONT, setAppLocale, SET_APP_LOCALE, setWriteDelay,
   SET_WRITE_DELAY, setIntl} from './../../../src/redux/modules/main';
 
@@ -71,4 +71,11 @@ test('should create an action to set react intl', (t) => {
   const resultAction = store.dispatch(setIntl(locale));
 
   t.deepEqual(resultAction, expectedAction);
+});
+
+test('main reducer should handle action SET_APP_LOCALE', (t) => {
+  const appLocale = 'en';
+  const store = mockStore({});
+  const result = mainReducer(store.getState(), {type: SET_APP_LOCALE, appLocale});
+  t.deepEqual(result.toJS(), {appLocale});
 });
