@@ -10,12 +10,13 @@ global.navigator = window.navigator;
 
 require.extensions['.scss'] = noop;
 
-const {ipcRenderer} = require('electron-ipc-mock')();
+const {ipcRenderer, ipcMain} = require('electron-ipc-mock')();
 
 window.require = (path) => {
   const data = {
     electron: {
-      ipcRenderer
+      ipcRenderer,
+      ipcMain
     },
     crypto: require('crypto')
   };
