@@ -79,7 +79,7 @@ export default class PageImportCsv extends Component {
     addFolderByCsv(writeDelay);
   }
 
-  handleCancelImportingButtonTouchTap = () => this.props.cancelImportingCsv();
+  handleCancelImportingCsvButtonTouchTap = () => this.props.cancelImportingCsv();
 
   renderChooseCsvFileButton = () => {
 
@@ -91,7 +91,7 @@ export default class PageImportCsv extends Component {
         <div className={styles.chooseFileBtnWrap}>
           {(completedLines > 0) && <div className={styles.linesCompleted}>{f('completed-csv-line', {completedLines: `${completedLines}`})}</div>}
           <CircularProgress style={{display: 'block', marginLeft: 'auto', marginRight: 'auto', marginBottom: '14px'}} />
-          <RaisedButton label={f('cancel-importing')} primary onTouchTap={this.handleCancelImportingButtonTouchTap} />
+          <RaisedButton label={f('cancel-importing')} primary onTouchTap={this.handleCancelImportingCsvButtonTouchTap} />
         </div>
       );
     }
