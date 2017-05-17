@@ -4,11 +4,13 @@ import thunk from 'redux-thunk';
 
 import mainReducer, {setInterfaceFontSizeScalingFactor, SET_INTERFACE_FONT_SIZE_SCALING_FACTOR,
   setAppFont, SET_APP_FONT, setAppLocale, SET_APP_LOCALE, setWriteDelay,
-  SET_WRITE_DELAY, setIntl} from './../../../src/redux/modules/main';
+  SET_WRITE_DELAY, setIntl, openExternal, OPEN_EXTERNAL} from './../../../src/redux/modules/main';
 
 import zhTwMessages from './../../../src/langs/zh-TW';
+import clientMiddleware from './../../../src/redux/middlewares/clientMiddleware';
+import ipc from './../../../src/helpers/ipc';
 
-const middlewares = [thunk];
+const middlewares = [thunk, clientMiddleware(ipc)];
 const mockStore = configureMockStore(middlewares);
 
 test('should create an action to set interface font size scaling factor', (t) => {
@@ -71,6 +73,13 @@ test('should create an action to set react intl', (t) => {
   const resultAction = store.dispatch(setIntl(locale));
 
   t.deepEqual(resultAction, expectedAction);
+});
+
+test('should open external url without any errors', (t) => {
+  const store = mockStore({});
+  const url = 'https://www.google.com';
+  store.dispatch(openExternal(url));
+  t.pass();
 });
 
 test('main reducer should handle action SET_APP_LOCALE', (t) => {
