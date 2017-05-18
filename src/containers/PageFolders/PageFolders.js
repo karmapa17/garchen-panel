@@ -136,14 +136,15 @@ export default class PageFolders extends Component {
   };
 
   renderFolders() {
-    const {f, folders, importingFolderId} = this.props;
+    const {f, folders, importingFolderId, interfaceFontSizeScalingFactor} = this.props;
+    const linkFontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
     const rows = folders.map((folder) => {
       const {id, name} = folder;
       const isImporting = (importingFolderId === folder.id);
       return (
         <Paper className={styles.folder} key={`paper-${id}`}>
           {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
-          <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
+          <a style={{fontSize: linkFontSize}} className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           {(! isImporting) && <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
             onChange={this.handleFolderMenuItemTouchTap}
