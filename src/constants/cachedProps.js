@@ -1,4 +1,5 @@
 export default [
+  'auth.auth',
   'main.appLocale',
   'main.appFont',
   'main.interfaceFontSizeScalingFactor',
