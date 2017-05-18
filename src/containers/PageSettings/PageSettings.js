@@ -101,6 +101,10 @@ export default class PageSettings extends Component {
   render() {
 
     const {appLocale, appFont, f, writeDelay, interfaceFontSizeScalingFactor, contentFontSizeScalingFactor} = this.props;
+    const floatingLabelFontSize = '20px';
+    const customLabelFontSize = '15px';
+    const fieldFontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
+    const menuItemFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.8);
     const contentFontSize = getFontSize(contentFontSizeScalingFactor, 1);
 
     return (
@@ -108,33 +112,37 @@ export default class PageSettings extends Component {
         <Heading>{f('settings')}</Heading>
         <div>
           <LanguageIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-          <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('app-language')} onChange={this.handleLangSelectFieldChange} value={appLocale}>
+          <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+            style={{fontSize: fieldFontSize}} floatingLabelText={f('app-language')} onChange={this.handleLangSelectFieldChange} value={appLocale}>
             {this.renderLangMenuItems()}
           </SelectField>
         </div>
         <div className={styles.customField}>
           <TimerIcon style={{marginRight: '21px', marginBottom: '12px'}} />
           <div className={styles.field}>
-            <span className={styles.label}>{f('write-delay-with-num', {writeDelay: `${writeDelay}`})}</span>
+            <span style={{fontSize: customLabelFontSize}} className={styles.label}>{f('write-delay-with-num', {writeDelay: `${writeDelay}`})}</span>
             <Slider sliderStyle={{marginTop: '7px', marginBottom: 0}} step={1} style={{width: 240}} min={0} max={1000} defaultValue={writeDelay} onChange={this.handleWriteDelaySliderChange} />
           </div>
         </div>
         <div>
           <TextFormatIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-          <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('app-font')} onChange={this.handleFontSelectFieldChange} value={appFont}>
+          <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+            style={{fontSize: fieldFontSize}} floatingLabelText={f('app-font')} onChange={this.handleFontSelectFieldChange} value={appFont}>
             {this.renderFontMenuItems()}
           </SelectField>
         </div>
         <div className={styles.customField}>
           <FormatSizeIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-          <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('interface-font-size')}
+          <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+            style={{fontSize: fieldFontSize}} floatingLabelText={f('interface-font-size')}
             onChange={this.handleInterfaceFontSizeSelectFieldChange} value={interfaceFontSizeScalingFactor}>
             {this.renderInterfaceFontSizeMenuItems()}
           </SelectField>
         </div>
         <div className={styles.customField}>
           <FormatSizeIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-          <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('content-font-size')}
+          <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+            style={{fontSize: fieldFontSize}} floatingLabelText={f('content-font-size')}
             onChange={this.handleContentFontSizeSelectFieldChange} value={contentFontSizeScalingFactor}>
             {this.renderContentFontSizeMenuItems()}
           </SelectField>
