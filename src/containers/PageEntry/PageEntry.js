@@ -26,6 +26,7 @@ const styles = require('./PageEntry.scss');
 @connect(({main, folder, entry}) => ({
   folder: folder.get('folder'),
   entry: entry.get('entry'),
+  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   contentFontSizeScalingFactor: main.get('contentFontSizeScalingFactor'),
   nextEntryId: entry.get('nextEntryId'),
   prevEntryId: entry.get('prevEntryId'),
@@ -45,6 +46,7 @@ export default class PageEntry extends Component {
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     entry: PropTypes.object.isRequired,
+    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     contentFontSizeScalingFactor: PropTypes.number.isRequired,
     nextEntryId: PropTypes.number,
     prevEntryId: PropTypes.number,
@@ -202,7 +204,8 @@ export default class PageEntry extends Component {
   render() {
 
     const {isEditMode} = this.state;
-    const {f, folder, entry} = this.props;
+    const {f, folder, entry, interfaceFontSizeScalingFactor} = this.props;
+    const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
 
     return (
       <div className={c('page-info', styles.pageFolderEntry)}>
@@ -216,13 +219,13 @@ export default class PageEntry extends Component {
           </Breadcrumb>
           <div>
 
-           {isEditMode && <FlatButton icon={<i className="fa fa-ban" />}
+           {isEditMode && <FlatButton icon={<i className="fa fa-ban" />} labelStyle={{fontSize: buttonFontSize}}
               label={f('cancel')} primary onTouchTap={this.cancelEdit} />}
 
-           {(! isEditMode) && <FlatButton icon={<i className="fa fa-pencil" />}
+           {(! isEditMode) && <FlatButton icon={<i className="fa fa-pencil" />} labelStyle={{fontSize: buttonFontSize}}
               label={f('edit')} primary disabled={this.isImporting()} onTouchTap={this.setEditMode} />}
 
-            <FlatButton icon={<i className="fa fa-arrow-left" />}
+            <FlatButton icon={<i className="fa fa-arrow-left" />} labelStyle={{fontSize: buttonFontSize}}
               label={f('back')} primary onTouchTap={this.goBack} />
           </div>
         </TopBar>
