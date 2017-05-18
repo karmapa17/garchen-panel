@@ -101,7 +101,7 @@ export default class PageSettings extends Component {
   render() {
 
     const {appLocale, appFont, f, writeDelay, interfaceFontSizeScalingFactor, contentFontSizeScalingFactor} = this.props;
-    const demoFontSize = getFontSize(contentFontSizeScalingFactor, 1);
+    const contentFontSize = getFontSize(contentFontSizeScalingFactor, 1);
 
     return (
       <div className={styles.pageSettings}>
@@ -139,7 +139,7 @@ export default class PageSettings extends Component {
             {this.renderContentFontSizeMenuItems()}
           </SelectField>
         </div>
-        <ul className={styles.demoFontPhraseContainer} style={{fontSize: demoFontSize}}>{this.renderDemoFontPhrasesListItems()}</ul>
+        <ul className={styles.demoFontPhraseContainer} style={{fontSize: contentFontSize}}>{this.renderDemoFontPhrasesListItems()}</ul>
       </div>
     );
   }
