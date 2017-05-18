@@ -19,14 +19,16 @@ import resolve from './../../helpers/resolve';
 import Pagination from './../../components/Pagination/Pagination';
 import LocalSearchBar from './../../components/LocalSearchBar/LocalSearchBar';
 import hasValue from './../../helpers/hasValue';
+import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./PageEntries.scss');
 const SEARCH_TYPES = ['source-entry', 'page-num'];
 
-@connect(({folder, entry}) => ({
+@connect(({main, folder, entry}) => ({
   perpage: entry.get('perpage'),
   folder: folder.get('folder'),
   importingFolderId: folder.get('importingFolderId'),
+  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   folderEntries: entry.get('folderEntries'),
   folderEntryCount: entry.get('folderEntryCount'),
   selectedFolderEntryMap: entry.get('selectedFolderEntryMap')
@@ -51,6 +53,7 @@ export default class PageEntries extends Component {
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     folderEntries: PropTypes.array.isRequired,
+    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     folderEntryCount: PropTypes.number.isRequired,
     params: PropTypes.object.isRequired,
     listFolderEntries: PropTypes.func.isRequired,
@@ -217,8 +220,9 @@ export default class PageEntries extends Component {
   render() {
 
     const {page, searchType, searchKeyword} = this.state;
-    const {f, folder, folderEntryCount, perpage} = this.props;
+    const {f, folder, folderEntryCount, perpage, interfaceFontSizeScalingFactor} = this.props;
     const matchedCount = this.getMatchedCount();
+    const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
 
     return (
       <div className={c('page-list', styles.pageFolderEntries)}>
@@ -229,9 +233,9 @@ export default class PageEntries extends Component {
           </Breadcrumb>
           <div>
             {this.renderDeleteButton()}
-            <FlatButton icon={<i className="fa fa-plus" />}
+            <FlatButton icon={<i className="fa fa-plus" />} labelStyle={{fontSize: buttonFontSize}}
               label={f('add-entry')} onTouchTap={this.goToAddFolderEntryPage} disabled={this.isImporting()} />
-            <FlatButton icon={<i className="fa fa-arrow-left" />}
+            <FlatButton icon={<i className="fa fa-arrow-left" />} labelStyle={{fontSize: buttonFontSize}}
               label={f('back')} onTouchTap={this.goToFoldersPage} />
           </div>
         </TopBar>
