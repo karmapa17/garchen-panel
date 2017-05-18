@@ -11,6 +11,7 @@ import injectPush from './../../helpers/injectPush';
 import {addFolderByCsv, setImportingFolderId, cancelImportingCsv} from './../../redux/modules/folder';
 import Heading from './../Heading/Heading';
 import ExternalLink from './../ExternalLink/ExternalLink';
+import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./PageImportCsv.scss');
 const dictionaryLangs = DICTIONARY_LANGS.map((row) => row.value);
@@ -25,6 +26,8 @@ const supportedColumns = [
 const csvExampleUrl = 'https://goo.gl/YcRMrT';
 
 @connect(({folder, main}) => ({
+  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
+  contentFontSizeScalingFactor: main.get('contentFontSizeScalingFactor'),
   isProcessingCsv: folder.get('isProcessingCsv'),
   errorMessage: folder.get('errorCsvMessage'),
   errorMessageId: folder.get('errorCsvMessageId'),
@@ -45,6 +48,8 @@ export default class PageImportCsv extends Component {
     errorMessageId: PropTypes.string,
     errorFilename: PropTypes.string,
     writeDelay: PropTypes.number.isRequired,
+    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
+    contentFontSizeScalingFactor: PropTypes.number.isRequired,
     setImportingFolderId: PropTypes.func.isRequired,
     cancelImportingCsv: PropTypes.func.isRequired,
     addFolderByCsv: PropTypes.func.isRequired
@@ -85,7 +90,8 @@ export default class PageImportCsv extends Component {
   renderChooseCsvFileButton = () => {
 
     const {completedLines} = this.state;
-    const {f, isProcessingCsv} = this.props;
+    const {f, isProcessingCsv, interfaceFontSizeScalingFactor} = this.props;
+    const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
 
     if (isProcessingCsv) {
       return (
@@ -98,14 +104,14 @@ export default class PageImportCsv extends Component {
     }
     return (
       <div className={styles.chooseFileBtnWrap}>
-        <RaisedButton label={f('choose-csv-file')} primary onTouchTap={this.handleChooseCsvFileButtonTouchTap} />
+        <RaisedButton label={f('choose-csv-file')} labelStyle={{fontSize: buttonFontSize}} primary onTouchTap={this.handleChooseCsvFileButtonTouchTap} />
       </div>
     );
   };
 
   render() {
 
-    const {f, fh, errorMessage, errorMessageId, errorFilename} = this.props;
+    const {f, fh, errorMessage, errorMessageId, errorFilename, contentFontSizeScalingFactor} = this.props;
     const supportedLangs = dictionaryLangs.map((lang) => `${f(lang)} ${lang}`)
       .join(', ');
 
@@ -113,12 +119,13 @@ export default class PageImportCsv extends Component {
       .join(', ');
 
     const externalLinkButton = <ExternalLink href={csvExampleUrl}>{csvExampleUrl}</ExternalLink>;
+    const contentFontSize = getFontSize(contentFontSizeScalingFactor, 1);
 
     return (
       <div className={styles.pageImportCsv}>
         <div className={styles.content}>
           <Heading>{f('import-csv-file')}</Heading>
-          <ul>
+          <ul style={{fontSize: contentFontSize}}>
             <li>{fh('import-csv-rule-1', {supportedLangs, langExpression})}</li>
             <li>{fh('import-csv-rule-2', {langExpression})}</li>
             <li>{fh('import-csv-rule-3', {supportedColumnNames})}</li>

@@ -7,7 +7,7 @@ import {range} from 'ramda';
 import {Link} from 'react-router';
 
 import TopBar from './../../components/TopBar/TopBar';
-import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from './../Breadcrumb/Breadcrumb';
 import {setSnackBarParams} from './../../redux/modules/ui';
 import {getFolder} from './../../redux/modules/folder';
 import {listFolderEntries, setSelectedFolderEntryIds, clearSelectedFolderEntryIds,

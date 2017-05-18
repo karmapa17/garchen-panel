@@ -15,7 +15,7 @@ import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
 import TopBar from './../../components/TopBar/TopBar';
-import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from './../Breadcrumb/Breadcrumb';
 import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./PageEditFolder.scss');
