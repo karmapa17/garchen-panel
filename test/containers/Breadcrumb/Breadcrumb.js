@@ -2,7 +2,7 @@ import test from 'ava';
 import React from 'react';
 import {shallow, mount} from 'enzyme';
 
-import Breadcrumb from './../../../src/components/Breadcrumb/Breadcrumb';
+import Breadcrumb from './../../../src/containers/Breadcrumb/Breadcrumb';
 
 test('Breadcrumb should render properly', (t) => {
 
