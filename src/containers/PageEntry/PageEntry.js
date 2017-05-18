@@ -105,7 +105,7 @@ export default class PageEntry extends Component {
 
   isImporting = () => {
     const {folder, importingFolderId} = this.props;
-    return folder.id === importingFolderId;
+    return (folder.id === importingFolderId);
   };
 
   setEditMode = () => this.setState({isEditMode: true});
