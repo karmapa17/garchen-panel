@@ -11,9 +11,10 @@ import {injectIntl} from 'react-intl';
 
 import APP_LANGS from './../../constants/appLangs';
 import APP_FONTS from './../../constants/appFonts';
-import {setIntl, setAppFont, setWriteDelay, setInterfaceFontSizeScalingFactor} from './../../redux/modules/main';
+import {setIntl, setAppFont, setWriteDelay, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 import INTERFACE_FONT_SIZE_OPTIONS from './../../constants/interfaceFontSizeOptions';
+import CONTENT_FONT_SIZE_OPTIONS from './../../constants/contentFontSizeOptions';
 
 const styles = require('./PageSettings.scss');
 
@@ -21,8 +22,9 @@ const styles = require('./PageSettings.scss');
   appLocale: main.get('appLocale'),
   appFont: main.get('appFont'),
   interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
+  contentFontSizeScalingFactor: main.get('contentFontSizeScalingFactor'),
   writeDelay: main.get('writeDelay')
-}), {setIntl, setWriteDelay, setAppFont, setInterfaceFontSizeScalingFactor})
+}), {setIntl, setWriteDelay, setAppFont, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor})
 @injectIntl
 @injectF
 export default class PageSettings extends Component {
@@ -31,9 +33,11 @@ export default class PageSettings extends Component {
     f: PropTypes.func.isRequired,
     appLocale: PropTypes.string.isRequired,
     interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
+    contentFontSizeScalingFactor: PropTypes.number.isRequired,
     appFont: PropTypes.string.isRequired,
     setIntl: PropTypes.func.isRequired,
     setInterfaceFontSizeScalingFactor: PropTypes.func.isRequired,
+    setContentFontSizeScalingFactor: PropTypes.func.isRequired,
     setAppFont: PropTypes.func.isRequired,
     writeDelay: PropTypes.number.isRequired,
     setWriteDelay: PropTypes.func.isRequired
@@ -58,6 +62,13 @@ export default class PageSettings extends Component {
     });
   }
 
+  renderContentFontSizeMenuItems() {
+    const {f} = this.props;
+    return CONTENT_FONT_SIZE_OPTIONS.map(({textId, value}) => {
+      return <MenuItem key={`option-content-font-size-${textId}`} value={value} primaryText={f(textId)} />;
+    });
+  }
+
   handleLangSelectFieldChange = (event, index, value) => {
     this.props.setIntl(value);
   };
@@ -74,9 +85,13 @@ export default class PageSettings extends Component {
     this.props.setInterfaceFontSizeScalingFactor(value);
   };
 
+  handleContentFontSizeSelectFieldChange = (event, index, value) => {
+    this.props.setContentFontSizeScalingFactor(value);
+  };
+
   render() {
 
-    const {appLocale, appFont, f, writeDelay, interfaceFontSizeScalingFactor} = this.props;
+    const {appLocale, appFont, f, writeDelay, interfaceFontSizeScalingFactor, contentFontSizeScalingFactor} = this.props;
 
     return (
       <div className={styles.pageSettings}>
@@ -105,6 +120,13 @@ export default class PageSettings extends Component {
           <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('interface-font-size')}
             onChange={this.handleInterfaceFontSizeSelectFieldChange} value={interfaceFontSizeScalingFactor}>
             {this.renderInterfaceFontSizeMenuItems()}
+          </SelectField>
+        </div>
+        <div className={styles.customField}>
+          <FormatSizeIcon style={{marginRight: '21px', marginBottom: '12px'}} />
+          <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('content-font-size')}
+            onChange={this.handleContentFontSizeSelectFieldChange} value={contentFontSizeScalingFactor}>
+            {this.renderContentFontSizeMenuItems()}
           </SelectField>
         </div>
       </div>
