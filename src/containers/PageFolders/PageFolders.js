@@ -138,6 +138,7 @@ export default class PageFolders extends Component {
   renderFolders() {
     const {f, folders, importingFolderId, interfaceFontSizeScalingFactor} = this.props;
     const linkFontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
+    const menuItemFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
     const rows = folders.map((folder) => {
       const {id, name} = folder;
       const isImporting = (importingFolderId === folder.id);
@@ -150,8 +151,8 @@ export default class PageFolders extends Component {
             onChange={this.handleFolderMenuItemTouchTap}
             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-            <MenuItem primaryText={f('edit')} value={{type: 'edit', id}} />
-            <MenuItem primaryText={f('export')} value={{type: 'export', id}} />
+            <MenuItem primaryText={f('edit')} value={{type: 'edit', id}} style={{fontSize: menuItemFontSize}} />
+            <MenuItem primaryText={f('export')} value={{type: 'export', id}} style={{fontSize: menuItemFontSize}} />
           </IconMenu>}
         </Paper>
       );
