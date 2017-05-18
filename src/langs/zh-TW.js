@@ -1,4 +1,5 @@
 module.exports = {
+  'content-font-size': '內文字體大小',
   'cancel-importing': '取消匯入',
   'account': '帳號',
   'sign-out': '登出',

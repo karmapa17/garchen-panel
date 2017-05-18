@@ -1,4 +1,5 @@
 module.exports = {
+  'content-font-size': 'Content Font Size',
   'cancel-importing': 'Cancel Importing',
   'account': 'Account',
   'sign-out': 'Sign Out',
