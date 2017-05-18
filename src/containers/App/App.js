@@ -75,7 +75,6 @@ export default class App extends Component {
 
   renderIconElementRight() {
     const {auth, isLoadingAuth, login, logout, f, interfaceFontSizeScalingFactor} = this.props;
-    const fontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
 
     if (isLoadingAuth) {
       return <CircularProgress mode="indeterminate" color="white" style={{marginTop: '16px', marginRight: '12px'}} size={30} />;
@@ -100,7 +99,9 @@ export default class App extends Component {
         </IconButton>
       );
 
-      const menuItemStyle = {fontSize};
+      const menuItemStyle = {
+        fontSize: getFontSize(interfaceFontSizeScalingFactor, 0.9)
+      };
 
       return (
         <IconMenu
@@ -112,6 +113,7 @@ export default class App extends Component {
         </IconMenu>
       );
     }
+    const fontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
     return <FlatButton style={{marginTop: '9px', color: '#fff'}} labelStyle={{fontSize}} onClick={login} label={f('login')} />;
   }
 
