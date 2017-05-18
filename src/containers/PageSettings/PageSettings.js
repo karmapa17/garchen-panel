@@ -14,7 +14,9 @@ import APP_FONTS from './../../constants/appFonts';
 import {setIntl, setAppFont, setWriteDelay, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor} from './../../redux/modules/main';
 import injectF from './../../helpers/injectF';
 import INTERFACE_FONT_SIZE_OPTIONS from './../../constants/interfaceFontSizeOptions';
+import DEMO_FONT_PHRASES from './../../constants/demoFontPhrases';
 import CONTENT_FONT_SIZE_OPTIONS from './../../constants/contentFontSizeOptions';
+import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./PageSettings.scss');
 
@@ -89,9 +91,16 @@ export default class PageSettings extends Component {
     this.props.setContentFontSizeScalingFactor(value);
   };
 
+  renderDemoFontPhrasesListItems() {
+    return DEMO_FONT_PHRASES.map(({lang, value}) => {
+      return <li key={`list-item-demo-font-phrase-${lang}`}>{value}</li>;
+    });
+  }
+
   render() {
 
     const {appLocale, appFont, f, writeDelay, interfaceFontSizeScalingFactor, contentFontSizeScalingFactor} = this.props;
+    const demoFontSize = getFontSize(contentFontSizeScalingFactor, 1);
 
     return (
       <div className={styles.pageSettings}>
@@ -129,6 +138,7 @@ export default class PageSettings extends Component {
             {this.renderContentFontSizeMenuItems()}
           </SelectField>
         </div>
+        <ul className={styles.demoFontPhraseContainer} style={{fontSize: demoFontSize}}>{this.renderDemoFontPhrasesListItems()}</ul>
       </div>
     );
   }
