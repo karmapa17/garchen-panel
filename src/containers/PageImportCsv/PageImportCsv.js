@@ -9,6 +9,7 @@ import injectF from './../../helpers/injectF';
 import ipc from './../../helpers/ipc';
 import injectPush from './../../helpers/injectPush';
 import {addFolderByCsv, setImportingFolderId, cancelImportingCsv} from './../../redux/modules/folder';
+import Heading from './../Heading/Heading';
 import ExternalLink from './../ExternalLink/ExternalLink';
 
 const styles = require('./PageImportCsv.scss');
@@ -116,7 +117,7 @@ export default class PageImportCsv extends Component {
     return (
       <div className={styles.pageImportCsv}>
         <div className={styles.content}>
-          <h2>{f('import-csv-file')}</h2>
+          <Heading>{f('import-csv-file')}</Heading>
           <ul>
             <li>{fh('import-csv-rule-1', {supportedLangs, langExpression})}</li>
             <li>{fh('import-csv-rule-2', {langExpression})}</li>

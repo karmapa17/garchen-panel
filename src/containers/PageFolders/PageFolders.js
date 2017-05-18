@@ -16,6 +16,7 @@ import {addFolder, listFolders} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
+import Heading from './../Heading/Heading';
 
 import sortFolderContentFields from './../../main/helpers/sortFolderContentFields';
 import injectF from './../../helpers/injectF';
@@ -164,7 +165,7 @@ export default class PageFolders extends Component {
     return (
       <div className={c('page-list', styles.pageFolders)}>
         <TopBar>
-          <h2>{f('folders')}</h2>
+          <Heading>{f('folders')}</Heading>
           <FlatButton icon={<i className="fa fa-plus" />}
             label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
         </TopBar>

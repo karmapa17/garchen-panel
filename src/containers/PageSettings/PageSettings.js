@@ -16,6 +16,7 @@ import injectF from './../../helpers/injectF';
 import INTERFACE_FONT_SIZE_OPTIONS from './../../constants/interfaceFontSizeOptions';
 import DEMO_FONT_PHRASES from './../../constants/demoFontPhrases';
 import CONTENT_FONT_SIZE_OPTIONS from './../../constants/contentFontSizeOptions';
+import Heading from './../Heading/Heading';
 import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./PageSettings.scss');
@@ -104,7 +105,7 @@ export default class PageSettings extends Component {
 
     return (
       <div className={styles.pageSettings}>
-        <h2>{f('settings')}</h2>
+        <Heading>{f('settings')}</Heading>
         <div>
           <LanguageIcon style={{marginRight: '21px', marginBottom: '12px'}} />
           <SelectField floatingLabelStyle={{fontSize: '20px'}} floatingLabelText={f('app-language')} onChange={this.handleLangSelectFieldChange} value={appLocale}>

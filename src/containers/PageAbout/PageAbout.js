@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import injectF from './../../helpers/injectF';
+import Heading from './../Heading/Heading';
 
 const styles = require('./PageAbout.scss');
 
@@ -15,7 +16,7 @@ export default class PageAbout extends Component {
     const {f} = this.props;
     return (
       <div className={styles.pageAbout}>
-        <h2>{f('about')}</h2>
+        <Heading>{f('about')}</Heading>
       </div>
     );
   }
