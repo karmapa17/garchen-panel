@@ -16,10 +16,12 @@ import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
+import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./PageEditFolder.scss');
 
-@connect(({folder}) => ({
+@connect(({main, folder}) => ({
+  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   folder: folder.get('folder')
 }), {getFolder, updateFolder, setSnackBarParams, deleteFolder})
 @injectF
@@ -35,6 +37,7 @@ export default class PageEditFolder extends Component {
     params: PropTypes.object.isRequired,
     getFolder: PropTypes.func.isRequired,
     deleteFolder: PropTypes.func.isRequired,
+    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,
     updateFolder: PropTypes.func.isRequired
@@ -76,7 +79,7 @@ export default class PageEditFolder extends Component {
   render() {
 
     const {targetLanguages} = this.state;
-    const {f, folder} = this.props;
+    const {f, folder, interfaceFontSizeScalingFactor} = this.props;
     const {sourceLanguage, contentFields} = folder.data;
     const initialValues = {
       id: folder.id,
@@ -86,6 +89,7 @@ export default class PageEditFolder extends Component {
       contentFields,
       source: folder.source
     };
+    const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 1.1);
 
     return (
       <div className={c('page-edit', styles.pageEditFolder)}>
@@ -94,10 +98,10 @@ export default class PageEditFolder extends Component {
             <Link to="/">{f('folders')}</Link>
             <span>{f('edit-folder')}</span>
           </Breadcrumb>
-          <FlatButton icon={<i className="fa fa-arrow-left" />}
+          <FlatButton icon={<i className="fa fa-arrow-left" />} labelStyle={{fontSize: buttonFontSize}}
             label={f('back')} onTouchTap={this.goToFoldersPage} />
         </TopBar>
-        <EditFolderForm onSubmit={this.handleEditFolderFormSubmit}
+        <EditFolderForm onSubmit={this.handleEditFolderFormSubmit} buttonFontSize={buttonFontSize}
           initialValues={initialValues} onTargetLanguagesChange={this.handleTargetLanguagesChange} targetLanguages={targetLanguages} />
         <DeleteFolderForm className={styles.deleteFolderForm} initialValues={{targetFolderName: folder.name}}
           onSubmit={this.handleDeleteFolderFormSubmit} />
