@@ -17,6 +17,7 @@ import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
 import Heading from './../Heading/Heading';
+import getFontSize from './../../helpers/getFontSize';
 
 import sortFolderContentFields from './../../main/helpers/sortFolderContentFields';
 import injectF from './../../helpers/injectF';
@@ -25,7 +26,8 @@ import resolve from './../../helpers/resolve';
 
 const styles = require('./PageFolders.scss');
 
-@connect(({folder}) => ({
+@connect(({main, folder}) => ({
+  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   perpage: folder.get('perpage'),
   folders: folder.get('folders'),
   importingFolderId: folder.get('importingFolderId'),
@@ -47,6 +49,7 @@ export default class PageFolders extends Component {
     folderCount: PropTypes.number.isRequired,
     listFolders: PropTypes.func.isRequired,
     importingFolderId: PropTypes.number,
+    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
   };
 
@@ -160,13 +163,14 @@ export default class PageFolders extends Component {
   render() {
 
     const {page} = this.state;
-    const {f, perpage, folderCount} = this.props;
+    const {f, perpage, folderCount, interfaceFontSizeScalingFactor} = this.props;
+    const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
 
     return (
       <div className={c('page-list', styles.pageFolders)}>
         <TopBar>
           <Heading>{f('folders')}</Heading>
-          <FlatButton icon={<i className="fa fa-plus" />}
+          <FlatButton icon={<i className="fa fa-plus" />} labelStyle={{fontSize: buttonFontSize}}
             label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
         </TopBar>
         {this.renderFolders()}
