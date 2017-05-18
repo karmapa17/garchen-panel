@@ -64,7 +64,6 @@
     "babel-eslint": "5.0.0",
     "babel-jest": "6.0.1",
     "babel-loader": "6.2.3",
-    "babel-polyfill": "6.5.0",
     "babel-runtime": "5.8.20",
     "concurrently": "3.4.0",
     "coveralls": "2.13.1",
