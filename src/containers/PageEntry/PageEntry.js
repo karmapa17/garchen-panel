@@ -19,12 +19,14 @@ import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
 import filterLastContinuousUndefinedValues from './../../helpers/filterLastContinuousUndefinedValues';
 import renderContentFields from './renderContentFields';
 import hasValue from './../../helpers/hasValue';
+import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./PageEntry.scss');
 
-@connect(({folder, entry}) => ({
+@connect(({main, folder, entry}) => ({
   folder: folder.get('folder'),
   entry: entry.get('entry'),
+  contentFontSizeScalingFactor: main.get('contentFontSizeScalingFactor'),
   nextEntryId: entry.get('nextEntryId'),
   prevEntryId: entry.get('prevEntryId'),
   importingFolderId: folder.get('importingFolderId')
@@ -43,6 +45,7 @@ export default class PageEntry extends Component {
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     entry: PropTypes.object.isRequired,
+    contentFontSizeScalingFactor: PropTypes.number.isRequired,
     nextEntryId: PropTypes.number,
     prevEntryId: PropTypes.number,
     params: PropTypes.object.isRequired,
@@ -110,7 +113,7 @@ export default class PageEntry extends Component {
   renderContent() {
 
     const {isEditMode} = this.state;
-    const {f, folder, entry} = this.props;
+    const {f, folder, entry, contentFontSizeScalingFactor} = this.props;
 
     const initialValues = {
       entryId: entry.id,
@@ -123,8 +126,10 @@ export default class PageEntry extends Component {
       return <EditEntryForm ref="editEntryForm" onSubmit={this.handleSubmit} folder={folder} initialValues={initialValues} />;
     }
 
+    const tableFontSize = getFontSize(contentFontSizeScalingFactor, 1);
+
     return (
-      <table className={styles.table}>
+      <table className={styles.table} style={{fontSize: tableFontSize}}>
         <tbody>
           <tr>
             <th>{f('source-entry-lang', {lang: f(folder.data.sourceLanguage)})}</th>
