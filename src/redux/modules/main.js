@@ -11,12 +11,14 @@ export const OPEN_EXTERNAL_FAIL = 'garchen-panel/main/OPEN_EXTERNAL_FAIL';
 export const SET_WRITE_DELAY = 'garchen-panel/main/SET_WRITE_DELAY';
 export const SET_APP_FONT = 'garchen-panel/main/SET_APP_FONT';
 export const SET_INTERFACE_FONT_SIZE_SCALING_FACTOR = 'garchen/main/SET_INTERFACE_FONT_SIZE_SCALING_FACTOR';
+export const SET_CONTENT_FONT_SIZE_SCALING_FACTOR = 'garchen/main/SET_CONTENT_FONT_SIZE_SCALING_FACTOR';
 
 const initialState = Map({
   appLocale: 'en',
   appFont: 'Tibetan Machine Uni',
   writeDelay: 50,
-  interfaceFontSizeScalingFactor: 1
+  interfaceFontSizeScalingFactor: 1,
+  contentFontSizeScalingFactor: 1
 });
 
 export default createReducer(initialState, {
@@ -36,7 +38,18 @@ export default createReducer(initialState, {
   [SET_INTERFACE_FONT_SIZE_SCALING_FACTOR]: (state, action) => {
     return state.set('interfaceFontSizeScalingFactor', action.interfaceFontSizeScalingFactor);
   },
+
+  [SET_CONTENT_FONT_SIZE_SCALING_FACTOR]: (state, action) => {
+    return state.set('contentFontSizeScalingFactor', action.contentFontSizeScalingFactor);
+  },
 });
+
+export function setContentFontSizeScalingFactor(contentFontSizeScalingFactor) {
+  return {
+    type: SET_CONTENT_FONT_SIZE_SCALING_FACTOR,
+    contentFontSizeScalingFactor
+  };
+}
 
 export function setInterfaceFontSizeScalingFactor(interfaceFontSizeScalingFactor) {
   return {
