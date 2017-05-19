@@ -16,6 +16,10 @@ export class Breadcrumb extends Component {
     interfaceFontSizeScalingFactor: PropTypes.number.isRequired
   };
 
+  static defaultProps = {
+    interfaceFontSizeScalingFactor: 1
+  };
+
   renderListContent() {
 
     const {children} = this.props;
