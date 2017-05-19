@@ -4,7 +4,8 @@ import thunk from 'redux-thunk';
 
 import mainReducer, {setInterfaceFontSizeScalingFactor, SET_INTERFACE_FONT_SIZE_SCALING_FACTOR,
   setAppFont, SET_APP_FONT, setAppLocale, SET_APP_LOCALE, setWriteDelay,
-  SET_WRITE_DELAY, setIntl, openExternal, OPEN_EXTERNAL} from './../../../src/redux/modules/main';
+  SET_WRITE_DELAY, setIntl, openExternal, OPEN_EXTERNAL,
+  setContentFontSizeScalingFactor, SET_CONTENT_FONT_SIZE_SCALING_FACTOR} from './../../../src/redux/modules/main';
 
 import zhTwMessages from './../../../src/langs/zh-TW';
 import enMessages from './../../../src/langs/en';
@@ -57,6 +58,17 @@ test('should create an action to set write delay', (t) => {
   };
 
   t.deepEqual(setWriteDelay(writeDelay), expectedAction);
+});
+
+test('should create an action to set content font size scaling factor', (t) => {
+
+  const contentFontSizeScalingFactor = 1.5;
+  const expectedAction = {
+    type: SET_CONTENT_FONT_SIZE_SCALING_FACTOR,
+    contentFontSizeScalingFactor
+  };
+
+  t.deepEqual(setContentFontSizeScalingFactor(contentFontSizeScalingFactor), expectedAction);
 });
 
 test('should create an action to set react intl', (t) => {
@@ -125,4 +137,11 @@ test('main reducer should handle action SET_INTERFACE_FONT_SIZE_SCALING_FACTOR',
   const store = mockStore({});
   const result = mainReducer(store.getState(), {type: SET_INTERFACE_FONT_SIZE_SCALING_FACTOR, interfaceFontSizeScalingFactor});
   t.deepEqual(result.toJS(), {interfaceFontSizeScalingFactor});
+});
+
+test('main reducer should handle action SET_CONTENT_FONT_SIZE_SCALING_FACTOR', (t) => {
+  const contentFontSizeScalingFactor = 1.5;
+  const store = mockStore({});
+  const result = mainReducer(store.getState(), {type: SET_CONTENT_FONT_SIZE_SCALING_FACTOR, contentFontSizeScalingFactor});
+  t.deepEqual(result.toJS(), {contentFontSizeScalingFactor});
 });
