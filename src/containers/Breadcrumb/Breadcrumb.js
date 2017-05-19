@@ -6,10 +6,7 @@ import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./Breadcrumb.scss');
 
-@connect(({main}) => ({
-  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor')
-}))
-export default class Breadcrumb extends Component {
+export class Breadcrumb extends Component {
 
   static propTypes = {
     children: PropTypes.oneOfType([
@@ -37,3 +34,7 @@ export default class Breadcrumb extends Component {
     return <ul style={{fontSize}} className={styles.breadcrumb}>{this.renderListContent()}</ul>;
   }
 }
+
+export default connect(({main}) => ({
+  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor')
+}))(Breadcrumb);
