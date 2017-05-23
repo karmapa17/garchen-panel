@@ -121,7 +121,7 @@ export default class PageEntries extends Component {
     const fontSize = 20;
     const nameColStyle = {fontSize, width: 'initial'};
     const {tableKey} = this.state;
-    const {folderEntries} = this.props;
+    const {folderEntries, f} = this.props;
 
     const tableRows = folderEntries.map((entry) => {
       return (
@@ -140,7 +140,7 @@ export default class PageEntries extends Component {
       <Table key={key} className={styles.entryTable} multiSelectable onRowSelection={this.handleRowSelection}>
         <TableHeader>
           <TableRow>
-            <TableHeaderColumn style={nameColStyle}>Name</TableHeaderColumn>
+            <TableHeaderColumn style={nameColStyle}>{f('source-entry')}</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody showRowHover deselectOnClickaway={false}>{tableRows}</TableBody>
