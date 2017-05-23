@@ -8,17 +8,17 @@ const RE_EXPLAINATION = /^explaination-(.+)$/;
 const RE_EXPLAINATION_NOTE = /^explaination-note-(.+)$/;
 
 const getSourceLang = (key) => {
-  const lang = (key.match(RE_SOURCE_ENTRY) || [])[1];
+  const [, lang] = key.match(RE_SOURCE_ENTRY) || [];
   return validLangs.includes(lang) ? lang : null;
 };
 
 const getExplainationLang = (key) => {
-  const lang = (key.match(RE_EXPLAINATION) || [])[1];
+  const [, lang] = key.match(RE_EXPLAINATION) || [];
   return validLangs.includes(lang) ? lang : null;
 };
 
 const getExplainationNoteLang = (key) => {
-  const lang = (key.match(RE_EXPLAINATION_NOTE) || [])[1];
+  const [, lang] = key.match(RE_EXPLAINATION_NOTE) || [];
   return validLangs.includes(lang) ? lang : null;
 };
 
