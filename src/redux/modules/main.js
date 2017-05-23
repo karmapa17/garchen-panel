@@ -12,8 +12,12 @@ export const SET_WRITE_DELAY = 'garchen-panel/main/SET_WRITE_DELAY';
 export const SET_APP_FONT = 'garchen-panel/main/SET_APP_FONT';
 export const SET_INTERFACE_FONT_SIZE_SCALING_FACTOR = 'garchen/main/SET_INTERFACE_FONT_SIZE_SCALING_FACTOR';
 export const SET_CONTENT_FONT_SIZE_SCALING_FACTOR = 'garchen/main/SET_CONTENT_FONT_SIZE_SCALING_FACTOR';
+export const GET_APP_VERSION = 'garchen-panel/main/GET_APP_VERSION';
+export const GET_APP_VERSION_SUCCESS = 'garchen-panel/main/GET_APP_VERSION_SUCCESS';
+export const GET_APP_VERSION_FAIL = 'garchen-panel/main/GET_APP_VERSION_FAIL';
 
 const initialState = Map({
+  appVersion: '',
   appLocale: 'en',
   appFont: 'Tibetan Machine Uni',
   writeDelay: 50,
@@ -42,6 +46,10 @@ export default createReducer(initialState, {
   [SET_CONTENT_FONT_SIZE_SCALING_FACTOR]: (state, action) => {
     return state.set('contentFontSizeScalingFactor', action.contentFontSizeScalingFactor);
   },
+
+  [GET_APP_VERSION_SUCCESS]: (state, action) => {
+    return state.set('appVersion', action.result.appVersion);
+  }
 });
 
 export function setContentFontSizeScalingFactor(contentFontSizeScalingFactor) {
@@ -94,6 +102,15 @@ export function openExternal(url) {
     types: [OPEN_EXTERNAL, OPEN_EXTERNAL_SUCCESS, OPEN_EXTERNAL_FAIL],
     promise: (client) => {
       return client.send('open-external', {url});
+    }
+  };
+}
+
+export function getAppVersion() {
+  return {
+    types: [GET_APP_VERSION, GET_APP_VERSION_SUCCESS, GET_APP_VERSION_FAIL],
+    promise: (client) => {
+      return client.send('get-app-version');
     }
   };
 }
