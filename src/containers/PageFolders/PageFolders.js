@@ -156,7 +156,7 @@ export default class PageFolders extends Component {
         </div>
       );
     });
-    return <div>{rows}</div>;
+    return <div className={styles.folderBox}>{rows}</div>;
   }
 
   handlePageButtonTouchTap = (page) => this.setState({page});
