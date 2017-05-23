@@ -1,4 +1,5 @@
 module.exports = {
+  'cross-folder-search': '跨資料夾搜尋',
   'about-version': '關於版本 {appVersion}',
   'content-font-size': '內文字體大小',
   'cancel-importing': '取消匯入',
