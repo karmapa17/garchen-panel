@@ -1,4 +1,5 @@
 module.exports = {
+  'about-version': '關於版本 {appVersion}',
   'content-font-size': '內文字體大小',
   'cancel-importing': '取消匯入',
   'account': '帳號',
@@ -77,7 +78,7 @@ module.exports = {
   'folder-name-required': '必須填寫資料夾名稱',
   'folder-name-taken': '資料夾名稱 {folderName} 已經存在',
   'folders': '資料夾列表',
-  'garchen': '噶千',
+  'garchen': '噶千大詞典編輯平台',
   'home': '首頁',
   'import-csv-file': '匯入 CSV 檔案',
   'import-csv-rule-1': '1. 本版本支援的字典語言代碼有: {supportedLangs}, 以下簡稱 {langExpression}',

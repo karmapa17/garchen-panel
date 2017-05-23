@@ -1,11 +1,15 @@
 .pageFolders {
   .folder {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 10px, rgba(0, 0, 0, 0.4) 0px 3px 10px;
+    }
     vertical-align: top;
     position: relative;
     width: 240px;
     height: 120px;
     display: inline-block;
-    margin: 0 7px 14px;
+    margin: 0 14px 21px;
     padding: 14px;
 
     .folderName {

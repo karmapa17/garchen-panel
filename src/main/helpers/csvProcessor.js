@@ -5,20 +5,15 @@ import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 
 const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
 const RE_EXPLAINATION = /^explaination-(.+)$/;
-const RE_EXPLAINATION_NOTE = /^explaination-note-(.+)$/;
+const RE_EXPLAINATION_NOTE = /^explaination-note$/;
 
 const getSourceLang = (key) => {
-  const lang = (key.match(RE_SOURCE_ENTRY) || [])[1];
+  const [, lang] = key.match(RE_SOURCE_ENTRY) || [];
   return validLangs.includes(lang) ? lang : null;
 };
 
 const getExplainationLang = (key) => {
-  const lang = (key.match(RE_EXPLAINATION) || [])[1];
-  return validLangs.includes(lang) ? lang : null;
-};
-
-const getExplainationNoteLang = (key) => {
-  const lang = (key.match(RE_EXPLAINATION_NOTE) || [])[1];
+  const [, lang] = key.match(RE_EXPLAINATION) || [];
   return validLangs.includes(lang) ? lang : null;
 };
 
@@ -54,12 +49,6 @@ export default class CsvProcessor {
         columnData.contentFields.push(`explaination-lang-${explainationLanguage}`);
       }
 
-      const explainationNoteLanguage = getExplainationNoteLang(key);
-
-      if (explainationNoteLanguage) {
-        columnData.targetLanguages.push(explainationNoteLanguage);
-      }
-
       return columnData;
 
     }, {sourceLanguage: '', targetLanguages: [], contentFields: []});
@@ -76,7 +65,6 @@ export default class CsvProcessor {
 
       const sourceLanguage = getSourceLang(key);
       const explainationLanguage = getExplainationLang(key);
-      const explainationNoteLanguage = getExplainationNoteLang(key);
 
       if (sourceLanguage) {
         fields[index] = 'sourceEntry';
@@ -84,8 +72,8 @@ export default class CsvProcessor {
       else if (explainationLanguage) {
         fields[index] = `explaination-${explainationLanguage}`;
       }
-      else if (explainationNoteLanguage) {
-        fields[index] = `explaination-note-${explainationNoteLanguage}`;
+      else if ('explaination-note' === key) {
+        fields[index] = 'explaination-note';
       }
       else if ('page-num' === key) {
         fields[index] = 'page-num';

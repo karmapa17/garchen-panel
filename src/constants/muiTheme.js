@@ -4,6 +4,9 @@ const brandPrimary = '#0c353b';
 
 export default getMuiTheme({
   fontFamily: 'inherit',
+  textField: {
+    floatingLabelColor: '#4a4a4a'
+  },
   appBar: {
     color: brandPrimary,
     height: 54

@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {range} from 'ramda';
 import {Link} from 'react-router';
+import {get} from 'lodash';
 
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../Breadcrumb/Breadcrumb';
@@ -119,16 +120,17 @@ export default class PageEntries extends Component {
   renderFolderEntries() {
 
     const fontSize = 20;
-    const nameColStyle = {fontSize, width: 'initial'};
+    const colStyle = {fontSize, width: 'initial'};
     const {tableKey} = this.state;
-    const {folderEntries} = this.props;
+    const {folderEntries, f} = this.props;
 
     const tableRows = folderEntries.map((entry) => {
       return (
         <TableRow key={`table-row-${entry.id}`}>
-          <TableRowColumn style={nameColStyle}>
+          <TableRowColumn style={colStyle}>
             <a onTouchTap={this.goToSingleFolderEntryPage(entry.id)}>{entry.sourceEntry}</a>
           </TableRowColumn>
+          <TableRowColumn style={colStyle}>{get(entry, 'data.page-num', '')}</TableRowColumn>
         </TableRow>
       );
     });
@@ -140,7 +142,8 @@ export default class PageEntries extends Component {
       <Table key={key} className={styles.entryTable} multiSelectable onRowSelection={this.handleRowSelection}>
         <TableHeader>
           <TableRow>
-            <TableHeaderColumn style={nameColStyle}>Name</TableHeaderColumn>
+            <TableHeaderColumn style={colStyle}>{f('source-entry')}</TableHeaderColumn>
+            <TableHeaderColumn style={colStyle}>{f('page-num')}</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody showRowHover deselectOnClickaway={false}>{tableRows}</TableBody>

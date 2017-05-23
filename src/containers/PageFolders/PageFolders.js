@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import c from 'classnames';
 import {cloneDeep} from 'lodash';
-import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import IconMenu from 'material-ui/IconMenu';
@@ -143,7 +142,7 @@ export default class PageFolders extends Component {
       const {id, name} = folder;
       const isImporting = (importingFolderId === folder.id);
       return (
-        <Paper className={styles.folder} key={`paper-${id}`}>
+        <div className={styles.folder} key={`paper-${id}`}>
           {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
           <a style={{fontSize: linkFontSize}} className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           {(! isImporting) && <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
@@ -154,7 +153,7 @@ export default class PageFolders extends Component {
             <MenuItem primaryText={f('edit')} value={{type: 'edit', id}} style={{fontSize: menuItemFontSize}} />
             <MenuItem primaryText={f('export')} value={{type: 'export', id}} style={{fontSize: menuItemFontSize}} />
           </IconMenu>}
-        </Paper>
+        </div>
       );
     });
     return <div>{rows}</div>;

@@ -1,10 +1,14 @@
 .pageSettings {
+  .content {
+    margin: 0 auto;
+    width: 680px;
+  }
   h2 {
     margin-bottom: 20px;
   }
   .label {
-    font-family: Roboto, sans-serif;
-    color: rgba(0, 0, 0, 0.298039);
+    font-family: inherit;
+    color: #4a4a4a;
   }
   .customField {
     margin-top: 21px;

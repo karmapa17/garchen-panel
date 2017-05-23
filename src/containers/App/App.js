@@ -20,7 +20,7 @@ import injectPush from './../../helpers/injectPush';
 import muiTheme from './../../constants/muiTheme';
 import {login, logout} from './../../redux/modules/auth';
 import {setDrawerOpen, setSnackBarParams} from './../../redux/modules/ui';
-import {setIntl} from './../../redux/modules/main';
+import {setIntl, getAppVersion} from './../../redux/modules/main';
 import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./App.scss');
@@ -36,7 +36,7 @@ injectTapEventPlugin();
   isLoadingAuth: auth.get('isLoadingAuth'),
   isSnackBarOpen: ui.get('isSnackBarOpen'),
   snackBarMessage: ui.get('snackBarMessage')
-}), {setDrawerOpen, setIntl, setSnackBarParams, login, logout})
+}), {setDrawerOpen, setIntl, setSnackBarParams, login, logout, getAppVersion})
 @injectF
 @injectPush
 export default class App extends Component {
@@ -54,6 +54,7 @@ export default class App extends Component {
     logout: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,
     setDrawerOpen: PropTypes.func.isRequired,
+    getAppVersion: PropTypes.func.isRequired,
     setIntl: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
@@ -64,6 +65,10 @@ export default class App extends Component {
     const {setSnackBarParams, f} = this.props;
     setSnackBarParams(true, f('csv-imported-done', {filename: data.filename}));
   };
+
+  componentWillMount() {
+    this.props.getAppVersion();
+  }
 
   componentDidMount() {
     ipc.on('csv-processing-done', this.handleCsvProcessingDone);
