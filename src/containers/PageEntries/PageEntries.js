@@ -21,9 +21,9 @@ import Pagination from './../../components/Pagination/Pagination';
 import SearchBar from './../../components/SearchBar/SearchBar';
 import hasValue from './../../helpers/hasValue';
 import getFontSize from './../../helpers/getFontSize';
+import SEARCH_TYPES from './../../constants/searchTypes';
 
 const styles = require('./PageEntries.scss');
-const SEARCH_TYPES = ['source-entry', 'page-num'];
 
 @connect(({main, folder, entry}) => ({
   perpage: entry.get('perpage'),
