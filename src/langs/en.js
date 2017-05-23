@@ -77,7 +77,7 @@ module.exports = {
   'folder-name-required': 'Field folder name is required.',
   'folder-name-taken': 'Folder name {folderName} exists',
   'folders': 'Folders',
-  'garchen': 'Garchen',
+  'garchen': 'Garchen Dictionary Editor',
   'home': 'Home',
   'import-csv-file': 'Import CSV file',
   'import-csv-rule-1': '1. Supported language codes are {supportedLangs} in this version, also known as {langExpression}',
