@@ -9,10 +9,10 @@ import FlatButton from 'material-ui/FlatButton';
 import injectF from './../../helpers/injectF';
 import hasValue from './../../helpers/hasValue';
 
-const styles = require('./LocalSearchBar.scss');
+const styles = require('./SearchBar.scss');
 
 @injectF
-export default class LocalSearchBar extends Component {
+export default class SearchBar extends Component {
 
   static propTypes = {
     f: PropTypes.func.isRequired,

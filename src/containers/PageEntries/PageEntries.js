@@ -18,7 +18,7 @@ import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
 import Pagination from './../../components/Pagination/Pagination';
-import LocalSearchBar from './../../components/LocalSearchBar/LocalSearchBar';
+import SearchBar from './../../components/SearchBar/SearchBar';
 import hasValue from './../../helpers/hasValue';
 import getFontSize from './../../helpers/getFontSize';
 
@@ -212,7 +212,7 @@ export default class PageEntries extends Component {
 
   handleClearSearchButtonTouchTap = () => {
     this.setState({searchKeyword: ''});
-    this.refs.localSearchBar.getWrappedInstance().getWrappedInstance().clear();
+    this.refs.searchBar.getWrappedInstance().getWrappedInstance().clear();
   };
 
   isImporting() {
@@ -243,7 +243,7 @@ export default class PageEntries extends Component {
           </div>
         </TopBar>
         <div className={styles.content}>
-          <LocalSearchBar ref="localSearchBar" onInputChange={this.handleSearchInputChange} searchTypes={SEARCH_TYPES}
+          <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange} searchTypes={SEARCH_TYPES}
             searchKeyword={searchKeyword} matchedCount={matchedCount}
             selectedSearchType={searchType} onSearchTypeChange={this.handleSearchTypeChange}
             onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} />
