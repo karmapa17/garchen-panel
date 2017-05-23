@@ -19,7 +19,7 @@ const langExpression = '{lang}';
 const supportedColumns = [
   {textId: 'source-entry', expression: 'source-entry-{lang}'},
   {textId: 'explaination', expression: 'explaination-{lang}'},
-  {textId: 'explaination-note', expression: 'explaination-note-{lang}'},
+  {textId: 'explaination-note', expression: 'explaination-note'},
   {textId: 'page-num', expression: 'page-num'},
 ];
 
