@@ -7,6 +7,7 @@ import mkdirp from './helpers/mkdirp';
 import IpcDecorator from './helpers/IpcDecorator';
 import APP_DATA_PATH from './constants/appDataPath';
 
+import getAppVersion from './controllers/app/getAppVersion';
 import getFolder from './controllers/folder/getFolder';
 import updateFolder from './controllers/folder/updateFolder';
 import listFolders from './controllers/folder/listFolders';
@@ -77,4 +78,5 @@ async function handleAppReady() {
 
   ipc.on('login', login);
   ipc.on('open-external', openExternal);
+  ipc.on('get-app-version', getAppVersion);
 }
