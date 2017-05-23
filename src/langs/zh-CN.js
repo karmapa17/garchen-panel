@@ -66,7 +66,7 @@ module.exports = {
   'folder-name-required': '必须填写资料夹名称',
   'folder-name-taken': '资料夹名称 {folderName} 已经存在',
   'folders': '资料夹列表',
-  'garchen': '噶千',
+  'garchen': '噶千大词典编辑平台',
   'home': '首页',
   'import-csv-file': '汇入 CSV 档案',
   'import-csv-rule-1': '1. 本版本支援的字典语言代码有: {supportedLangs}, 以下简称 {langExpression}',
