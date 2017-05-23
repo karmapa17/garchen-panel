@@ -1,4 +1,5 @@
 module.exports = {
+  'about-version': 'About Version {appVersion}',
   'content-font-size': 'Content Font Size',
   'cancel-importing': 'Cancel Importing',
   'account': 'Account',

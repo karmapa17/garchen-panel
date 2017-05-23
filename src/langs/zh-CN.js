@@ -1,4 +1,5 @@
 module.exports = {
+  'about-version': '关于版本 {appVersion}',
   'content-font-size': '内文字体大小',
   'cancel-importing': '取消汇入',
   'account': '帐号',
