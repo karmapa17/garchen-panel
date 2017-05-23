@@ -161,6 +161,8 @@ export default class PageFolders extends Component {
 
   handlePageButtonTouchTap = (page) => this.setState({page});
 
+  goToPageCrossFolderSearch = () => this.props.push('/folders/_search');
+
   render() {
 
     const {page} = this.state;
@@ -171,8 +173,12 @@ export default class PageFolders extends Component {
       <div className={c('page-list', styles.pageFolders)}>
         <TopBar>
           <Heading>{f('folders')}</Heading>
-          <FlatButton icon={<i className="fa fa-plus" />} labelStyle={{fontSize: buttonFontSize}}
-            label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
+          <div>
+            <FlatButton icon={<i className="fa fa-search" />} labelStyle={{fontSize: buttonFontSize}}
+              label={f('cross-folder-search')} primary onTouchTap={this.goToPageCrossFolderSearch} />
+            <FlatButton icon={<i className="fa fa-plus" />} labelStyle={{fontSize: buttonFontSize}}
+              label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
+          </div>
         </TopBar>
         {this.renderFolders()}
         {(folderCount > perpage) && <Pagination current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />}
