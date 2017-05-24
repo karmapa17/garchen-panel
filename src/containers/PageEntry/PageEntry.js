@@ -6,6 +6,7 @@ import {Link} from 'react-router';
 import {isArray} from 'lodash';
 import ChevronRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import ChevronLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
+import {hashHistory} from 'react-router';
 
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry} from './../../redux/modules/entry';
@@ -73,11 +74,6 @@ export default class PageEntry extends Component {
     super(props);
     this.state = {isEditMode: false};
   }
-
-  goBack = () => {
-    const {folder, push} = this.props;
-    push(`/folders/${folder.id}/entries`);
-  };
 
   goToFoldersPage = () => this.props.push('/');
 
@@ -226,7 +222,7 @@ export default class PageEntry extends Component {
               label={f('edit')} primary disabled={this.isImporting()} onTouchTap={this.setEditMode} />}
 
             <FlatButton icon={<i className="fa fa-arrow-left" />} labelStyle={{fontSize: buttonFontSize}}
-              label={f('back')} primary onTouchTap={this.goBack} />
+              label={f('back')} primary onTouchTap={hashHistory.goBack} />
           </div>
         </TopBar>
         <div className={styles.content}>{this.renderContent()}</div>

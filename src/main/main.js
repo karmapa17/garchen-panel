@@ -25,6 +25,7 @@ import getEntry from './controllers/entry/getEntry';
 import deleteEntries from './controllers/entry/deleteEntries';
 import updateEntry from './controllers/entry/updateEntry';
 import getMenuTemplate from './helpers/getMenuTemplate';
+import crossFolderSearch from './controllers/entry/crossFolderSearch';
 
 import login from './controllers/auth/login';
 
@@ -71,6 +72,7 @@ async function handleAppReady() {
   ipc.on('list-folder-entries', listFolderEntries);
   ipc.on('add-folder-entry', addFolderEntry);
   ipc.on('check-folder-entry-exists', checkFolderEntryExists);
+  ipc.on('cross-folder-search', crossFolderSearch);
 
   ipc.on('get-entry', getEntry);
   ipc.on('delete-entries', deleteEntries);
