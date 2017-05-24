@@ -14,9 +14,11 @@ import APP_LANGS from './../../constants/appLangs';
 import APP_FONTS from './../../constants/appFonts';
 import {setIntl, setAppFont, setWriteDelay, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor} from './../../redux/modules/main';
 import {setDisplayFolderPerPage} from './../../redux/modules/folder';
+import {setDisplayEntryPerPage} from './../../redux/modules/entry';
 import injectF from './../../helpers/injectF';
 import INTERFACE_FONT_SIZE_OPTIONS from './../../constants/interfaceFontSizeOptions';
 import DISPLAY_FOLDER_PERPAGE_OPTIONS from './../../constants/displayFolderPerPageOptions';
+import DISPLAY_ENTRY_PERPAGE_OPTIONS from './../../constants/displayEntryPerPageOptions';
 import DEMO_FONT_PHRASES from './../../constants/demoFontPhrases';
 import CONTENT_FONT_SIZE_OPTIONS from './../../constants/contentFontSizeOptions';
 import Heading from './../Heading/Heading';
@@ -24,7 +26,8 @@ import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./PageSettings.scss');
 
-@connect(({main, folder}) => ({
+@connect(({main, folder, entry}) => ({
+  displayEntryPerPage: entry.get('perpage'),
   displayFolderPerPage: folder.get('perpage'),
   appLocale: main.get('appLocale'),
   appFont: main.get('appFont'),
@@ -32,7 +35,7 @@ const styles = require('./PageSettings.scss');
   contentFontSizeScalingFactor: main.get('contentFontSizeScalingFactor'),
   writeDelay: main.get('writeDelay')
 }), {setIntl, setWriteDelay, setAppFont, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor,
-  setDisplayFolderPerPage})
+  setDisplayFolderPerPage, setDisplayEntryPerPage})
 @injectIntl
 @injectF
 export default class PageSettings extends Component {
@@ -48,7 +51,9 @@ export default class PageSettings extends Component {
     setContentFontSizeScalingFactor: PropTypes.func.isRequired,
     setAppFont: PropTypes.func.isRequired,
     setDisplayFolderPerPage: PropTypes.func.isRequired,
+    setDisplayEntryPerPage: PropTypes.func.isRequired,
     displayFolderPerPage: PropTypes.number.isRequired,
+    displayEntryPerPage: PropTypes.number.isRequired,
     writeDelay: PropTypes.number.isRequired,
     setWriteDelay: PropTypes.func.isRequired
   };
@@ -103,6 +108,10 @@ export default class PageSettings extends Component {
     this.props.setDisplayFolderPerPage(value);
   };
 
+  handleDisplayEntryPerPageSelectFieldChange = (event, index, value) => {
+    this.props.setDisplayEntryPerPage(value);
+  };
+
   renderDemoFontPhrasesListItems() {
     return DEMO_FONT_PHRASES.map(({lang, value}) => {
       return <li key={`list-item-demo-font-phrase-${lang}`}>{value}</li>;
@@ -115,9 +124,16 @@ export default class PageSettings extends Component {
     });
   }
 
+  renderDisplayEntryPerPageMenuItems() {
+    return DISPLAY_ENTRY_PERPAGE_OPTIONS.map((value) => {
+      return <MenuItem key={`option-display-entry-perpage-${value}`} value={value} primaryText={value} />;
+    });
+  }
+
   render() {
 
-    const {appLocale, appFont, f, writeDelay, interfaceFontSizeScalingFactor, contentFontSizeScalingFactor, displayFolderPerPage} = this.props;
+    const {appLocale, appFont, f, writeDelay, interfaceFontSizeScalingFactor, contentFontSizeScalingFactor,
+      displayFolderPerPage, displayEntryPerPage} = this.props;
     const floatingLabelFontSize = '20px';
     const customLabelFontSize = '15px';
     const fieldFontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
@@ -155,6 +171,14 @@ export default class PageSettings extends Component {
               style={{fontSize: fieldFontSize}} floatingLabelText={f('display-folder-perpage', {perpage: displayFolderPerPage})}
               onChange={this.handleDisplayFolderPerPageSelectFieldChange} value={displayFolderPerPage}>
               {this.renderDisplayFolderPerPageMenuItems()}
+            </SelectField>
+          </div>
+          <div className={styles.customField}>
+            <FormatListNumberIcon style={{marginRight: '21px', marginBottom: '12px'}} />
+            <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+              style={{fontSize: fieldFontSize}} floatingLabelText={f('display-entry-perpage', {perpage: displayEntryPerPage})}
+              onChange={this.handleDisplayEntryPerPageSelectFieldChange} value={displayEntryPerPage}>
+              {this.renderDisplayEntryPerPageMenuItems()}
             </SelectField>
           </div>
           <div className={styles.customField}>
