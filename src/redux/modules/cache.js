@@ -27,7 +27,7 @@ export default createReducer(initialState, {
 
   [SET_CACHE_PAGE_CROSS_FOLDER_SEARCH]: (state, action) => {
     return state.set('cachePageCrossFolderSearch', action.data);
-  },
+  }
 });
 
 export function setCachePageEntries(folderId, data) {
