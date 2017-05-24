@@ -6,6 +6,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {range} from 'ramda';
 import {Link} from 'react-router';
 import {get} from 'lodash';
+import {hashHistory} from 'react-router';
 
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../Breadcrumb/Breadcrumb';
@@ -18,12 +19,12 @@ import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
 import Pagination from './../../components/Pagination/Pagination';
-import LocalSearchBar from './../../components/LocalSearchBar/LocalSearchBar';
+import SearchBar from './../../components/SearchBar/SearchBar';
 import hasValue from './../../helpers/hasValue';
 import getFontSize from './../../helpers/getFontSize';
+import SEARCH_TYPES from './../../constants/searchTypes';
 
 const styles = require('./PageEntries.scss');
-const SEARCH_TYPES = ['source-entry', 'page-num'];
 
 @connect(({main, folder, entry}) => ({
   perpage: entry.get('perpage'),
@@ -156,8 +157,6 @@ export default class PageEntries extends Component {
     push(`/folders/${folder.id}/entries/add`);
   };
 
-  goToFoldersPage = () => this.props.push('/');
-
   updateTableKey = () => this.setState((prevState) => ({tableKey: prevState.tableKey + 1}));
 
   deleteSelectedFolderEntries = async () => {
@@ -212,7 +211,7 @@ export default class PageEntries extends Component {
 
   handleClearSearchButtonTouchTap = () => {
     this.setState({searchKeyword: ''});
-    this.refs.localSearchBar.getWrappedInstance().getWrappedInstance().clear();
+    this.refs.searchBar.getWrappedInstance().getWrappedInstance().clear();
   };
 
   isImporting() {
@@ -239,11 +238,11 @@ export default class PageEntries extends Component {
             <FlatButton icon={<i className="fa fa-plus" />} labelStyle={{fontSize: buttonFontSize}}
               label={f('add-entry')} onTouchTap={this.goToAddFolderEntryPage} disabled={this.isImporting()} />
             <FlatButton icon={<i className="fa fa-arrow-left" />} labelStyle={{fontSize: buttonFontSize}}
-              label={f('back')} onTouchTap={this.goToFoldersPage} />
+              label={f('back')} onTouchTap={hashHistory.goBack} />
           </div>
         </TopBar>
         <div className={styles.content}>
-          <LocalSearchBar ref="localSearchBar" onInputChange={this.handleSearchInputChange} searchTypes={SEARCH_TYPES}
+          <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange} searchTypes={SEARCH_TYPES}
             searchKeyword={searchKeyword} matchedCount={matchedCount}
             selectedSearchType={searchType} onSearchTypeChange={this.handleSearchTypeChange}
             onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} />

@@ -8,6 +8,7 @@ import main from './main';
 import folder from './folder';
 import entry from './entry';
 import ui from './ui';
+import crossFolderSearch from './crossFolderSearch';
 
 export default combineReducers({
   auth,
@@ -15,6 +16,7 @@ export default combineReducers({
   entry,
   form: formReducer,
   folder,
+  crossFolderSearch,
   intl: intlReducer,
   main,
   routing: routerReducer

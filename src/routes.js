@@ -11,6 +11,7 @@ import PageFolders from './containers/PageFolders/PageFolders';
 import PageNotFound from './containers/PageNotFound/PageNotFound';
 import PageSettings from './containers/PageSettings/PageSettings';
 import PageImportCsv from './containers/PageImportCsv/PageImportCsv';
+import PageCrossFolderSearch from './containers/PageCrossFolderSearch/PageCrossFolderSearch';
 
 export default () => {
 
@@ -24,6 +25,7 @@ export default () => {
       <Route path="folders/:id/entries/add" component={PageAddEntry} />
       <Route path="folders/:folderId/entries/:entryId" component={PageEntry} />
 
+      <Route path="cross-folder-search" component={PageCrossFolderSearch} />
       <Route path="import-csv" component={PageImportCsv} />
 
       <Route path="about" component={PageAbout} />
