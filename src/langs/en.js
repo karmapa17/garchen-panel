@@ -1,4 +1,5 @@
 module.exports = {
+  'display-entry-perpage': 'Display {perpage} entries per page',
   'display-folder-perpage': 'Display {perpage} folders per page',
   'cross-folder-search': 'Cross Folder Search',
   'about-version': 'About Version {appVersion}',
