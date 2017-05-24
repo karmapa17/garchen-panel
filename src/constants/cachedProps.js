@@ -4,5 +4,6 @@ export default [
   'main.appFont',
   'main.interfaceFontSizeScalingFactor',
   'main.contentFontSizeScalingFactor',
-  'main.writeDelay'
+  'main.writeDelay',
+  'folder.perpage'
 ];
