@@ -8,17 +8,26 @@ import injectPush from './../../helpers/injectPush';
 import Heading from './../Heading/Heading';
 import TopBar from './../../components/TopBar/TopBar';
 import SearchBar from './../../components/SearchBar/SearchBar';
+import {search} from './../../redux/modules/crossFolderSearch';
+import Pagination from './../../components/Pagination/Pagination';
 
 const styles = require('./PageCrossFolderSearch.scss');
 
-@connect(({}) => ({
-}))
+@connect(({crossFolderSearch}) => ({
+  total: crossFolderSearch.get('total'),
+  perpage: crossFolderSearch.get('perpage'),
+  folders: crossFolderSearch.get('folders')
+}), {search})
 @injectPush
 @injectF
 export default class PageCrossFolderSearch extends Component {
 
   static propTypes = {
+    total: PropTypes.number.isRequired,
     push: PropTypes.func.isRequired,
+    perpage: PropTypes.number.isRequired,
+    search: PropTypes.func.isRequired,
+    folders: PropTypes.array.isRequired,
     f: PropTypes.func.isRequired
   };
 
@@ -30,6 +39,23 @@ export default class PageCrossFolderSearch extends Component {
     };
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    const {page, searchKeyword} = this.state;
+    const {perpage, search} = this.props;
+
+    const shouldSearch = (page !== nextState.page) || (perpage !== nextProps.perpage) ||
+      (searchKeyword !== nextState.searchKeyword);
+
+    if (shouldSearch) {
+
+      search({
+        page: nextState.page,
+        perpage: nextProps.perpage,
+        keyword: nextState.searchKeyword.trim()
+      });
+    }
+  }
+
   goToFoldersPage = () => this.props.push('/');
 
   handleClearSearchButtonTouchTap = () => {
@@ -37,10 +63,52 @@ export default class PageCrossFolderSearch extends Component {
     this.refs.searchBar.getWrappedInstance().getWrappedInstance().clear();
   };
 
+  handleSearchInputChange = (searchKeyword) => {
+    if (this.state.searchKeyword !== searchKeyword) {
+      this.setState({page: 1});
+    }
+    this.setState({searchKeyword});
+  };
+
+  handleFolderAnchorTouchTap = (folderId) => {
+    return () => this.props.push(`/folders/${folderId}/entries`);
+  };
+
+  handleEntryAnchorTouchTap = (entry) => {
+    return () => this.props.push(`/folders/${entry.folderId}/entries/${entry.id}`);
+  };
+
+  renderEntries(entries) {
+    const rows = entries.map((entry) => {
+      return (
+        <li key={`entry-row-${entry.id}`}>
+          <a className={styles.entryName} onTouchTap={this.handleEntryAnchorTouchTap(entry)}>{entry.sourceEntry}</a>
+        </li>
+      );
+    });
+    return <ul className={styles.entryBox}>{rows}</ul>;
+  }
+
+  renderFolders() {
+    const rows = this.props.folders.map(({id, name, entries}) => {
+      return (
+        <div key={`folder-row-${id}`} className={styles.folder}>
+          <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
+          {this.renderEntries(entries)}
+        </div>
+      );
+    });
+    return <div className={styles.folderBox}>{rows}</div>;
+  }
+
+  handlePageButtonTouchTap = (page) => {
+    this.setState({page});
+  };
+
   render() {
-    const {searchKeyword} = this.state;
-    const {f} = this.props;
-    const matchedCount = 0;
+    const {searchKeyword, page} = this.state;
+    const {f, total, perpage} = this.props;
+
     return (
       <div className={styles.pageCrossFolderSearch}>
         <TopBar>
@@ -48,8 +116,11 @@ export default class PageCrossFolderSearch extends Component {
           <FlatButton icon={<CloseIcon />} onTouchTap={this.goToFoldersPage} />
         </TopBar>
         <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange}
-          searchKeyword={searchKeyword} matchedCount={matchedCount}
+          searchKeyword={searchKeyword} matchedCount={total} autoFocus
           onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} />
+        {this.renderFolders()}
+        {(total > perpage) && <Pagination current={page} total={Math.ceil(total / perpage)}
+          onButtonTouchTap={this.handlePageButtonTouchTap} />}
       </div>
     );
   }
