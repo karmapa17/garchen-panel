@@ -30,6 +30,8 @@ const UPDATE_ENTRY = 'garchen-panel/entry/UPDATE_ENTRY';
 const UPDATE_ENTRY_SUCCESS = 'garchen-panel/entry/UPDATE_ENTRY_SUCCESS';
 const UPDATE_ENTRY_FAIL = 'garchen-panel/entry/UPDATE_ENTRY_FAIL';
 
+const SET_DISPLAY_ENTRY_PERPAGE = 'garchen-panel/entry/SET_DISPLAY_ENTRY_PERPAGE';
+
 const initialState = Map({
   entry: null,
   nextEntryId: null,
@@ -68,8 +70,19 @@ export default createReducer(initialState, {
 
   [CLEAR_SELECTED_FOLDER_ENTRY_IDS]: (state) => {
     return state.set('selectedFolderEntryMap', {});
+  },
+
+  [SET_DISPLAY_ENTRY_PERPAGE]: (state, action) => {
+    return state.set('perpage', action.perpage);
   }
 });
+
+export function setDisplayEntryPerPage(perpage) {
+  return {
+    type: SET_DISPLAY_ENTRY_PERPAGE,
+    perpage
+  };
+}
 
 export function deleteEntries(data) {
   return {
