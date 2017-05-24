@@ -19,13 +19,13 @@ export default () => {
     <Route path="/" component={App}>
 
       <IndexRoute component={PageFolders} />
-      <Route path="folders/_search" component={PageCrossFolderSearch} />
       <Route path="folders/:id/edit" component={PageEditFolder} />
 
       <Route path="folders/:id/entries" component={PageEntries} />
       <Route path="folders/:id/entries/add" component={PageAddEntry} />
       <Route path="folders/:folderId/entries/:entryId" component={PageEntry} />
 
+      <Route path="cross-folder-search" component={PageCrossFolderSearch} />
       <Route path="import-csv" component={PageImportCsv} />
 
       <Route path="about" component={PageAbout} />

@@ -161,7 +161,7 @@ export default class PageFolders extends Component {
 
   handlePageButtonTouchTap = (page) => this.setState({page});
 
-  goToPageCrossFolderSearch = () => this.props.push('/folders/_search');
+  goToPageCrossFolderSearch = () => this.props.push('cross-folder-search');
 
   render() {
 
