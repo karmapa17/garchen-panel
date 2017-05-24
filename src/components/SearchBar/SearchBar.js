@@ -17,6 +17,7 @@ export default class SearchBar extends Component {
   static propTypes = {
     f: PropTypes.func.isRequired,
     selectedSearchType: PropTypes.string,
+    autoFocus: PropTypes.bool,
     searchTypes: PropTypes.array,
     onInputChange: PropTypes.func.isRequired,
     onClearFilterButtonTouchTap: PropTypes.func.isRequired,
@@ -78,10 +79,11 @@ export default class SearchBar extends Component {
 
   render() {
     const {searchKeyword} = this.state;
-    const {f} = this.props;
+    const {f, autoFocus} = this.props;
     return (
       <div className={styles.localSearchBar}>
-        <TextField className={styles.searchInput} hintText={f('search-entries')} onChange={this.handleInputChange} value={searchKeyword} />
+        <TextField className={styles.searchInput} hintText={f('search-entries')}
+          onChange={this.handleInputChange} value={searchKeyword} autoFocus={autoFocus} />
         {this.renderSearchTypes()}
         {this.renderMatchedMessage()}
       </div>
