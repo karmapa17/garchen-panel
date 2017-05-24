@@ -82,7 +82,7 @@ export default class PageCrossFolderSearch extends Component {
     const rows = entries.map((entry) => {
       return (
         <li key={`entry-row-${entry.id}`}>
-          <a className={styles.entryName} onTouchTap={this.handleEntryAnchorTouchTap(entry)}>{entry.sourceEntry}</a>
+          <a onTouchTap={this.handleEntryAnchorTouchTap(entry)}>{entry.sourceEntry}</a>
         </li>
       );
     });
@@ -93,7 +93,7 @@ export default class PageCrossFolderSearch extends Component {
     const rows = this.props.folders.map(({id, name, entries}) => {
       return (
         <div key={`folder-row-${id}`} className={styles.folder}>
-          <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
+          <a onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           {this.renderEntries(entries)}
         </div>
       );
