@@ -9,15 +9,17 @@ import Heading from './../Heading/Heading';
 import TopBar from './../../components/TopBar/TopBar';
 import SearchBar from './../../components/SearchBar/SearchBar';
 import {search} from './../../redux/modules/crossFolderSearch';
+import {setCachePageCrossFolderSearch} from './../../redux/modules/cache';
 import Pagination from './../../components/Pagination/Pagination';
 
 const styles = require('./PageCrossFolderSearch.scss');
 
-@connect(({crossFolderSearch}) => ({
+@connect(({crossFolderSearch, cache}) => ({
+  cache: cache.get('cachePageCrossFolderSearch'),
   total: crossFolderSearch.get('total'),
   perpage: crossFolderSearch.get('perpage'),
   folders: crossFolderSearch.get('folders')
-}), {search})
+}), {search, setCachePageCrossFolderSearch})
 @injectPush
 @injectF
 export default class PageCrossFolderSearch extends Component {
@@ -26,32 +28,43 @@ export default class PageCrossFolderSearch extends Component {
     total: PropTypes.number.isRequired,
     push: PropTypes.func.isRequired,
     perpage: PropTypes.number.isRequired,
+    cache: PropTypes.object.isRequired,
     search: PropTypes.func.isRequired,
+    setCachePageCrossFolderSearch: PropTypes.func.isRequired,
     folders: PropTypes.array.isRequired,
     f: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = Object.assign({
       searchKeyword: '',
       page: 1
-    };
+    }, props.cache);
   }
 
   componentWillUpdate(nextProps, nextState) {
     const {page, searchKeyword} = this.state;
-    const {perpage, search} = this.props;
+    const {perpage, search, setCachePageCrossFolderSearch} = this.props;
 
-    const shouldSearch = (page !== nextState.page) || (perpage !== nextProps.perpage) ||
-      (searchKeyword !== nextState.searchKeyword);
+    const nextPage = nextState.page;
+    const nextPerpage = nextProps.perpage;
+    const nextSearchKeyword = nextState.searchKeyword;
+
+    const shouldSearch = (page !== nextPage) || (perpage !== nextPerpage) ||
+      (searchKeyword !== nextSearchKeyword);
 
     if (shouldSearch) {
 
+      setCachePageCrossFolderSearch({
+        page: nextPage,
+        searchKeyword: nextSearchKeyword
+      });
+
       search({
-        page: nextState.page,
-        perpage: nextProps.perpage,
-        keyword: nextState.searchKeyword.trim()
+        page: nextPage,
+        perpage: nextPerpage,
+        searchKeyword: nextSearchKeyword.trim()
       });
     }
   }
