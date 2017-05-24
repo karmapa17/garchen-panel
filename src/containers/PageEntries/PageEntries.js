@@ -54,7 +54,6 @@ const styles = require('./PageEntries.scss');
     page,
     perpage
   }, cacheData);
-  console.log('searchParams', searchParams);
   promises.push(dispatch(listFolderEntries(searchParams)));
 
   return Promise.all(promises);
@@ -90,7 +89,6 @@ export default class PageEntries extends Component {
       searchKeyword: '',
       searchType: 'source-entry'
     }, cacheData);
-    console.log('init state', this.state);
   }
 
   componentWillUpdate(nextProps, nextState) {
