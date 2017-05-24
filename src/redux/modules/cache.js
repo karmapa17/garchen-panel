@@ -38,7 +38,7 @@ export function setCachePageEntries(folderId, data) {
   };
 }
 
-export function deleteCachePageEntriesData(folderId) {
+export function deleteCachePageEntries(folderId) {
   return {
     type: DELETE_CACHE_PAGE_ENTRIES,
     folderId
