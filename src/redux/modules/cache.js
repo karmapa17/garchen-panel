@@ -1,7 +1,7 @@
 import {Map} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
 
-const SET_CACHE_PAGE_ENTRIES_DATA = 'garchen-panel/cache/SET_CACHE_PAGE_ENTRIES_DATA';
+const SET_CACHE_PAGE_ENTRIES = 'garchen-panel/cache/SET_CACHE_PAGE_ENTRIES';
 const DELETE_CACHE_PAGE_ENTRIES_DATA = 'garchen-panel/cache/DELETE_PAGE_ENTRIES_DATA';
 
 const SET_CACHE_PAGE_CROSS_FOLDER_SEARCH = 'garchen-panel/cache/SET_CACHE_PAGE_CROSS_FOLDER_SEARCH';
@@ -13,7 +13,7 @@ const initialState = Map({
 
 export default createReducer(initialState, {
 
-  [SET_CACHE_PAGE_ENTRIES_DATA]: (state, action) => {
+  [SET_CACHE_PAGE_ENTRIES]: (state, action) => {
     const cacheDataSet = state.get('cachePageEntriesDataSet');
     cacheDataSet[action.folderId] = action.data;
     return state.set('cachePageEntriesDataSet', cacheDataSet);
@@ -32,7 +32,7 @@ export default createReducer(initialState, {
 
 export function setCachePageEntriesData(folderId, data) {
   return {
-    type: SET_CACHE_PAGE_ENTRIES_DATA,
+    type: SET_CACHE_PAGE_ENTRIES,
     folderId,
     data
   };
