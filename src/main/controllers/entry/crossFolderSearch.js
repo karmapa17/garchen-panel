@@ -1,9 +1,9 @@
 import {get, isEmpty, isArray} from 'lodash';
 
-async function searchSourceEntry({db, keyword, perpage, offset}) {
+async function searchSourceEntry({db, searchKeyword, perpage, offset}) {
 
   const searchQuery = db.knex('Entry')
-    .where('sourceEntry', 'like', `%${keyword}%`)
+    .where('sourceEntry', 'like', `%${searchKeyword}%`)
     .orderBy('folderId', 'asc')
     .limit(perpage)
     .offset(offset);
@@ -11,7 +11,7 @@ async function searchSourceEntry({db, keyword, perpage, offset}) {
   const entries = await db.raw(searchQuery, true);
 
   const countQuery = db.knex('Entry').count('id')
-    .where('sourceEntry', 'like', `%${keyword}%`);
+    .where('sourceEntry', 'like', `%${searchKeyword}%`);
 
   const res = await db.raw(countQuery, true);
   const total = get(res, '[0][\'count("id")\']', 0);
@@ -33,13 +33,13 @@ export default async function crossFolderSearch(event, data) {
   const {db, models} = this.params;
   const {Entry} = models;
   const offset = (page - 1) * perpage;
-  const keyword = (data.keyword || '').trim();
+  const searchKeyword = (data.searchKeyword || '').trim();
 
-  if (isEmpty(keyword)) {
+  if (isEmpty(searchKeyword)) {
     this.resolve({folders: [], total: 0});
     return;
   }
-  const {entries, total} = await searchSourceEntry({db, keyword, perpage, offset});
+  const {entries, total} = await searchSourceEntry({db, searchKeyword, perpage, offset});
 
   const folderIds = entries.reduce((ids, entry) => {
     if (! ids.includes(entry.folderId)) {

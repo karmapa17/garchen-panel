@@ -10,6 +10,7 @@ import filterFolderContentFields from './../../helpers/filterFolderContentFields
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
 import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
 import {getFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
+import {deleteCachePageEntries} from './../../redux/modules/cache';
 import {setSnackBarParams} from './../../redux/modules/ui';
 import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
@@ -23,7 +24,7 @@ const styles = require('./PageEditFolder.scss');
 @connect(({main, folder}) => ({
   interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   folder: folder.get('folder')
-}), {getFolder, updateFolder, setSnackBarParams, deleteFolder})
+}), {getFolder, updateFolder, setSnackBarParams, deleteFolder, deleteCachePageEntries})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
@@ -39,6 +40,7 @@ export default class PageEditFolder extends Component {
     deleteFolder: PropTypes.func.isRequired,
     interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
+    deleteCachePageEntries: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,
     updateFolder: PropTypes.func.isRequired
   };
@@ -68,8 +70,9 @@ export default class PageEditFolder extends Component {
   };
 
   handleDeleteFolderFormSubmit = async () => {
-    const {f, deleteFolder, folder, push, setSnackBarParams} = this.props;
+    const {f, deleteFolder, folder, push, setSnackBarParams, deleteCachePageEntries} = this.props;
     await deleteFolder({id: folder.id});
+    deleteCachePageEntries(folder.id);
     setSnackBarParams(true, f('folder-has-been-deleted', {folderName: folder.name}));
     push('/');
   };

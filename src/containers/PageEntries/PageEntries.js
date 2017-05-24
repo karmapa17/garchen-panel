@@ -14,6 +14,7 @@ import {setSnackBarParams} from './../../redux/modules/ui';
 import {getFolder} from './../../redux/modules/folder';
 import {listFolderEntries, setSelectedFolderEntryIds, clearSelectedFolderEntryIds,
   deleteEntries} from './../../redux/modules/entry';
+import {setCachePageEntries} from './../../redux/modules/cache';
 
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
@@ -26,7 +27,8 @@ import SEARCH_TYPES from './../../constants/searchTypes';
 
 const styles = require('./PageEntries.scss');
 
-@connect(({main, folder, entry}) => ({
+@connect(({main, folder, entry, cache}) => ({
+  cache: get(cache.get('cachePageEntriesDataSet'), folder.id, {}),
   perpage: entry.get('perpage'),
   folder: folder.get('folder'),
   importingFolderId: folder.get('importingFolderId'),
@@ -34,22 +36,31 @@ const styles = require('./PageEntries.scss');
   folderEntries: entry.get('folderEntries'),
   folderEntryCount: entry.get('folderEntryCount'),
   selectedFolderEntryMap: entry.get('selectedFolderEntryMap')
-}), {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIds,
+}), {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIds, setCachePageEntries,
   deleteEntries, clearSelectedFolderEntryIds})
 @injectPush
 @injectF
-@resolve(({dispatch}, {params, page, perpage}) => {
+@resolve(({dispatch}, {params, page, perpage, cache}) => {
 
   const promises = [];
   promises.push(dispatch(getFolder({id: params.id})));
-  promises.push(dispatch(listFolderEntries({folderId: params.id, page, perpage})));
   promises.push(dispatch(setSelectedFolderEntryIds([])));
+
+  const folderId = params.id;
+
+  const searchParams = Object.assign({
+    folderId,
+    page,
+    perpage
+  }, cache);
+  promises.push(dispatch(listFolderEntries(searchParams)));
 
   return Promise.all(promises);
 })
 export default class PageEntries extends Component {
 
   static propTypes = {
+    cache: PropTypes.object.isRequired,
     push: PropTypes.func.isRequired,
     perpage: PropTypes.number.isRequired,
     f: PropTypes.func.isRequired,
@@ -59,6 +70,7 @@ export default class PageEntries extends Component {
     folderEntryCount: PropTypes.number.isRequired,
     params: PropTypes.object.isRequired,
     listFolderEntries: PropTypes.func.isRequired,
+    setCachePageEntries: PropTypes.func.isRequired,
     setSelectedFolderEntryIds: PropTypes.func.isRequired,
     clearSelectedFolderEntryIds: PropTypes.func.isRequired,
     selectedFolderEntryMap: PropTypes.object.isRequired,
@@ -69,27 +81,38 @@ export default class PageEntries extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = Object.assign({
       page: 1,
       tableKey: 0,
       searchKeyword: '',
       searchType: 'source-entry'
-    };
+    }, props.cache);
   }
 
   componentWillUpdate(nextProps, nextState) {
     const {page, searchKeyword, searchType} = this.state;
-    const {perpage, listFolderEntries} = this.props;
+    const {perpage, listFolderEntries, setCachePageEntries} = this.props;
+    const nextPage = nextState.page;
+    const nextPerpage = nextProps.perpage;
+    const nextSearchKeyword = nextState.searchKeyword;
+    const nextSearchType = nextState.searchType;
+    const folderId = nextProps.folder.id;
 
-    if ((page !== nextState.page) || (perpage !== nextProps.perpage) ||
-        (searchKeyword !== nextState.searchKeyword) || (searchType !== nextState.searchType)) {
+    if ((page !== nextPage) || (perpage !== nextPerpage) ||
+        (searchKeyword !== nextSearchKeyword) || (searchType !== nextSearchType)) {
+
+      setCachePageEntries(folderId, {
+        page: nextPage,
+        searchKeyword: nextSearchKeyword,
+        searchType: nextSearchType
+      });
 
       listFolderEntries({
-        folderId: nextProps.folder.id,
-        page: nextState.page,
-        perpage: nextProps.perpage,
-        keyword: nextState.searchKeyword.trim(),
-        type: nextState.searchType
+        folderId,
+        page: nextPage,
+        perpage: nextPerpage,
+        searchKeyword: nextSearchKeyword.trim(),
+        searchType: nextSearchType
       });
     }
   }

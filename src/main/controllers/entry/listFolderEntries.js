@@ -1,8 +1,8 @@
 import {get, isEmpty} from 'lodash';
 
-async function searchData({db, field, keyword, folderId, perpage, offset}) {
+async function searchData({db, field, searchKeyword, folderId, perpage, offset}) {
 
-  const searchQuery = db.knex('Entry').where('data', 'like', `%"${field}":"${keyword}"%`)
+  const searchQuery = db.knex('Entry').where('data', 'like', `%"${field}":"${searchKeyword}"%`)
     .andWhere('folderId', folderId)
     .limit(perpage)
     .offset(offset);
@@ -10,7 +10,7 @@ async function searchData({db, field, keyword, folderId, perpage, offset}) {
   const entries = await db.raw(searchQuery, true);
 
   const countQuery = db.knex('Entry').count('id')
-    .where('data', 'like', `%"${field}":"${keyword}"%`)
+    .where('data', 'like', `%"${field}":"${searchKeyword}"%`)
     .andWhere('folderId', folderId);
 
   const res = await db.raw(countQuery, true);
@@ -19,9 +19,9 @@ async function searchData({db, field, keyword, folderId, perpage, offset}) {
   return {entries, total};
 }
 
-async function searchSourceEntry({db, keyword, folderId, perpage, offset}) {
+async function searchSourceEntry({db, searchKeyword, folderId, perpage, offset}) {
 
-  const searchQuery = db.knex('Entry').where('sourceEntry', 'like', `%${keyword}%`)
+  const searchQuery = db.knex('Entry').where('sourceEntry', 'like', `%${searchKeyword}%`)
     .andWhere('folderId', folderId)
     .limit(perpage)
     .offset(offset);
@@ -29,7 +29,7 @@ async function searchSourceEntry({db, keyword, folderId, perpage, offset}) {
   const entries = await db.raw(searchQuery, true);
 
   const countQuery = db.knex('Entry').count('id')
-    .where('sourceEntry', 'like', `%${keyword}%`)
+    .where('sourceEntry', 'like', `%${searchKeyword}%`)
     .andWhere('folderId', folderId);
 
   const res = await db.raw(countQuery, true);
@@ -40,25 +40,25 @@ async function searchSourceEntry({db, keyword, folderId, perpage, offset}) {
 
 export default async function listFolderEntries(event, data) {
 
-  const {page, perpage, folderId, type} = data;
+  const {page, perpage, folderId, searchType} = data;
   const {db, models} = this.params;
   const {Entry} = models;
   const offset = (page - 1) * perpage;
-  const keyword = (data.keyword || '').trim();
+  const searchKeyword = (data.searchKeyword || '').trim();
 
-  if (isEmpty(keyword)) {
+  if (isEmpty(searchKeyword)) {
     const entries = await Entry.find({folderId}, {skip: offset, limit: perpage, order: 'id'}) || [];
     const total = await Entry.count({folderId});
     this.resolve({data: entries, total});
     return;
   }
 
-  if ('page-num' === type) {
-    const {entries, total} = await searchData({db, field: 'page-num', keyword, folderId, perpage, offset});
+  if ('page-num' === searchType) {
+    const {entries, total} = await searchData({db, field: 'page-num', searchKeyword, folderId, perpage, offset});
     this.resolve({data: entries, total});
     return;
   }
 
-  const {entries, total} = await searchSourceEntry({db, keyword, folderId, perpage, offset});
+  const {entries, total} = await searchSourceEntry({db, searchKeyword, folderId, perpage, offset});
   this.resolve({data: entries, total});
 }
