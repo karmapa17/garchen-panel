@@ -5,5 +5,6 @@ export default [
   'main.interfaceFontSizeScalingFactor',
   'main.contentFontSizeScalingFactor',
   'main.writeDelay',
-  'folder.perpage'
+  'folder.perpage',
+  'entry.perpage'
 ];
