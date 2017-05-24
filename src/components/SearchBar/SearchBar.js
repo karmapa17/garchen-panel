@@ -29,7 +29,7 @@ export default class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchKeyword: ''
+      searchKeyword: props.searchKeyword
     };
   }
 
