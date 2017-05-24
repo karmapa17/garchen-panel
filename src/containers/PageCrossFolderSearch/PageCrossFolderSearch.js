@@ -51,7 +51,7 @@ export default class PageCrossFolderSearch extends Component {
       search({
         page: nextState.page,
         perpage: nextProps.perpage,
-        keyword: nextState.searchKeyword.trim()
+        searchKeyword: nextState.searchKeyword.trim()
       });
     }
   }
