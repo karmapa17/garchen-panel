@@ -28,7 +28,7 @@ import SEARCH_TYPES from './../../constants/searchTypes';
 const styles = require('./PageEntries.scss');
 
 @connect(({main, folder, entry, cache}) => ({
-  cacheDataSet: cache.get('cachePageEntriesDataSet'),
+  cache: get(cache.get('cachePageEntriesDataSet'), folder.id, {}),
   perpage: entry.get('perpage'),
   folder: folder.get('folder'),
   importingFolderId: folder.get('importingFolderId'),
@@ -40,20 +40,19 @@ const styles = require('./PageEntries.scss');
   deleteEntries, clearSelectedFolderEntryIds})
 @injectPush
 @injectF
-@resolve(({dispatch}, {params, page, perpage, cacheDataSet}) => {
+@resolve(({dispatch}, {params, page, perpage, cache}) => {
 
   const promises = [];
   promises.push(dispatch(getFolder({id: params.id})));
   promises.push(dispatch(setSelectedFolderEntryIds([])));
 
   const folderId = params.id;
-  const cacheData = cacheDataSet[folderId] || {};
 
   const searchParams = Object.assign({
     folderId,
     page,
     perpage
-  }, cacheData);
+  }, cache);
   promises.push(dispatch(listFolderEntries(searchParams)));
 
   return Promise.all(promises);
@@ -61,7 +60,7 @@ const styles = require('./PageEntries.scss');
 export default class PageEntries extends Component {
 
   static propTypes = {
-    cacheDataSet: PropTypes.object.isRequired,
+    cache: PropTypes.object.isRequired,
     push: PropTypes.func.isRequired,
     perpage: PropTypes.number.isRequired,
     f: PropTypes.func.isRequired,
@@ -82,13 +81,12 @@ export default class PageEntries extends Component {
 
   constructor(props) {
     super(props);
-    const cacheData = props.cacheDataSet[props.folder.id] || {};
     this.state = Object.assign({
       page: 1,
       tableKey: 0,
       searchKeyword: '',
       searchType: 'source-entry'
-    }, cacheData);
+    }, props.cache);
   }
 
   componentWillUpdate(nextProps, nextState) {
