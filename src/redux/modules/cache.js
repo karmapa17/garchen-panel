@@ -23,7 +23,7 @@ export default createReducer(initialState, {
   }
 });
 
-export function setPageEntriesParams(folderId, data) {
+export function setPageEntriesData(folderId, data) {
   return {
     type: SET_PAGE_ENTRIES_DATA,
     folderId,
