@@ -1,4 +1,5 @@
 module.exports = {
+  'display-folder-perpage': '一頁顯示 {perpage} 個資料夾',
   'cross-folder-search': '跨資料夾搜尋',
   'about-version': '關於版本 {appVersion}',
   'content-font-size': '內文字體大小',
