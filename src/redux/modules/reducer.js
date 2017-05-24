@@ -9,9 +9,11 @@ import folder from './folder';
 import entry from './entry';
 import ui from './ui';
 import crossFolderSearch from './crossFolderSearch';
+import cache from './cache';
 
 export default combineReducers({
   auth,
+  cache,
   ui,
   entry,
   form: formReducer,
