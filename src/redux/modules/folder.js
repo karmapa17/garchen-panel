@@ -35,6 +35,8 @@ const CANCEL_IMPORTING_CSV_FAIL = 'garchen-panel/folder/CANCEL_IMPORTING_CSV_FAI
 
 const SET_IMPORTING_FOLDER_ID = 'garchen-panel/folder/SET_IMPORTING_FOLDER_ID';
 
+const SET_DISPLAY_FOLDER_PERPAGE = 'garchen-panel/folder/SET_DISPLAY_FOLDER_PERPAGE';
+
 const FOLDER_PERPAGE = 20;
 
 const initialState = Map({
@@ -91,6 +93,10 @@ export default createReducer(initialState, {
 
   [SET_IMPORTING_FOLDER_ID]: (state, action) => {
     return state.set('importingFolderId', action.folderId);
+  },
+
+  [SET_DISPLAY_FOLDER_PERPAGE]: (state, action) => {
+    return state.set('perpage', action.perpage);
   }
 });
 
@@ -166,5 +172,12 @@ export function addFolderByCsv(writeDelay) {
     promise: (client) => {
       return client.send('add-folder-by-csv', {writeDelay});
     }
+  };
+}
+
+export function setDisplayFolderPerPage(perpage) {
+  return {
+    type: SET_DISPLAY_FOLDER_PERPAGE,
+    perpage
   };
 }
