@@ -1,4 +1,6 @@
 module.exports = {
+  'display-folder-perpage': '一页显示 {perpage} 个资料夹',
+  'cross-folder-search': '跨资料夹搜寻',
   'about-version': '关于版本 {appVersion}',
   'content-font-size': '内文字体大小',
   'cancel-importing': '取消汇入',
