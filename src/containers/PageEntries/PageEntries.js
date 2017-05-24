@@ -14,7 +14,7 @@ import {setSnackBarParams} from './../../redux/modules/ui';
 import {getFolder} from './../../redux/modules/folder';
 import {listFolderEntries, setSelectedFolderEntryIds, clearSelectedFolderEntryIds,
   deleteEntries} from './../../redux/modules/entry';
-import {setPageEntriesData} from './../../redux/modules/cache';
+import {setCachePageEntriesData} from './../../redux/modules/cache';
 
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
@@ -36,7 +36,7 @@ const styles = require('./PageEntries.scss');
   folderEntries: entry.get('folderEntries'),
   folderEntryCount: entry.get('folderEntryCount'),
   selectedFolderEntryMap: entry.get('selectedFolderEntryMap')
-}), {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIds, setPageEntriesData,
+}), {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIds, setCachePageEntriesData,
   deleteEntries, clearSelectedFolderEntryIds})
 @injectPush
 @injectF
@@ -72,7 +72,7 @@ export default class PageEntries extends Component {
     folderEntryCount: PropTypes.number.isRequired,
     params: PropTypes.object.isRequired,
     listFolderEntries: PropTypes.func.isRequired,
-    setPageEntriesData: PropTypes.func.isRequired,
+    setCachePageEntriesData: PropTypes.func.isRequired,
     setSelectedFolderEntryIds: PropTypes.func.isRequired,
     clearSelectedFolderEntryIds: PropTypes.func.isRequired,
     selectedFolderEntryMap: PropTypes.object.isRequired,
@@ -95,7 +95,7 @@ export default class PageEntries extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     const {page, searchKeyword, searchType} = this.state;
-    const {perpage, listFolderEntries, setPageEntriesData} = this.props;
+    const {perpage, listFolderEntries, setCachePageEntriesData} = this.props;
     const nextPage = nextState.page;
     const nextPerpage = nextProps.perpage;
     const nextSearchKeyword = nextState.searchKeyword;
@@ -105,7 +105,7 @@ export default class PageEntries extends Component {
     if ((page !== nextPage) || (perpage !== nextPerpage) ||
         (searchKeyword !== nextSearchKeyword) || (searchType !== nextSearchType)) {
 
-      setPageEntriesData(folderId, {
+      setCachePageEntriesData(folderId, {
         page: nextPage,
         searchKeyword: nextSearchKeyword,
         searchType: nextSearchType

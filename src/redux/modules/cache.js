@@ -23,7 +23,7 @@ export default createReducer(initialState, {
   }
 });
 
-export function setPageEntriesData(folderId, data) {
+export function setCachePageEntriesData(folderId, data) {
   return {
     type: SET_CACHE_PAGE_ENTRIES_DATA,
     folderId,
