@@ -37,6 +37,10 @@ const SET_IMPORTING_FOLDER_ID = 'garchen-panel/folder/SET_IMPORTING_FOLDER_ID';
 
 const SET_DISPLAY_FOLDER_PERPAGE = 'garchen-panel/folder/SET_DISPLAY_FOLDER_PERPAGE';
 
+const EXPORT_FOLDER_TO_CSV = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV';
+const EXPORT_FOLDER_TO_CSV_SUCCESS = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV_SUCCESS';
+const EXPORT_FOLDER_TO_CSV_FAIL = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV_FAIL';
+
 const FOLDER_PERPAGE = 20;
 
 const initialState = Map({
