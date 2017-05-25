@@ -49,6 +49,10 @@ export default class CsvProcessor {
         columnData.contentFields.push(`explaination-lang-${explainationLanguage}`);
       }
 
+      if ('page-num' === key) {
+        columnData.contentFields.push('page-num');
+      }
+
       return columnData;
 
     }, {sourceLanguage: '', targetLanguages: [], contentFields: []});
