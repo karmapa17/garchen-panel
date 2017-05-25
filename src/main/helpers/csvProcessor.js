@@ -79,6 +79,9 @@ export default class CsvProcessor {
       else if ('explaination-note' === key) {
         fields[index] = 'explaination-note';
       }
+      else if ('explaination-source' === key) {
+        fields[index] = 'explaination-source';
+      }
       else if ('page-num' === key) {
         fields[index] = 'page-num';
       }
