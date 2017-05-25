@@ -11,7 +11,7 @@ import IconButton from 'material-ui/IconButton';
 import LinearProgress from 'material-ui/LinearProgress';
 
 import {setSnackBarParams} from './../../redux/modules/ui';
-import {addFolder, listFolders} from './../../redux/modules/folder';
+import {addFolder, listFolders, exportFolderToCsv} from './../../redux/modules/folder';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
@@ -31,7 +31,7 @@ const styles = require('./PageFolders.scss');
   folders: folder.get('folders'),
   importingFolderId: folder.get('importingFolderId'),
   folderCount: folder.get('folderCount')
-}), {listFolders, addFolder, setSnackBarParams})
+}), {listFolders, addFolder, setSnackBarParams, exportFolderToCsv})
 @injectPush
 @injectF
 @resolve(({dispatch}, {perpage}) => {
@@ -41,6 +41,7 @@ export default class PageFolders extends Component {
 
   static propTypes = {
     push: PropTypes.func.isRequired,
+    exportFolderToCsv: PropTypes.func.isRequired,
     f: PropTypes.func.isRequired,
     perpage: PropTypes.number.isRequired,
     addFolder: PropTypes.func.isRequired,
@@ -130,6 +131,7 @@ export default class PageFolders extends Component {
       case 'edit':
         return this.props.push(`/folders/${folderId}/edit`);
       case 'export':
+        return this.props.exportFolderToCsv(folderId);
       default:
     }
   };
