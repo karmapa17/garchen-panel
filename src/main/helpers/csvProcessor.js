@@ -1,4 +1,4 @@
-import {uniq} from 'lodash';
+import {uniq, isEmpty} from 'lodash';
 
 import sortFolderContentFields from './sortFolderContentFields';
 import DICTIONARY_LANGS from './../constants/dictionaryLangs';
@@ -49,6 +49,10 @@ export default class CsvProcessor {
         columnData.contentFields.push(`explaination-lang-${explainationLanguage}`);
       }
 
+      if ('page-num' === key) {
+        columnData.contentFields.push('page-num');
+      }
+
       return columnData;
 
     }, {sourceLanguage: '', targetLanguages: [], contentFields: []});
@@ -74,6 +78,9 @@ export default class CsvProcessor {
       }
       else if ('explaination-note' === key) {
         fields[index] = 'explaination-note';
+      }
+      else if ('explaination-source' === key) {
+        fields[index] = 'explaination-source';
       }
       else if ('page-num' === key) {
         fields[index] = 'page-num';
@@ -108,5 +115,60 @@ export default class CsvProcessor {
       }
       return oldData;
     }, oldData);
+  }
+
+  // for csv export
+  static getCsvRowsByEntry({folder, entry}) {
+
+    const {sourceLanguage, contentFields} = folder.data;
+
+    const defaultData = {
+      [`source-entry-${sourceLanguage}`]: entry.sourceEntry
+    };
+
+    let hasHandledExplainationNote = false;
+    let hasHandledExplainationSource = false;
+
+    return contentFields.reduce((rows, field) => {
+
+      if ('page-num' === field) {
+        rows[0]['page-num'] = entry.data['page-num'];
+      }
+
+      const [, explainationLang] = field.match(/^explaination-lang-(.+)$/) || [];
+
+      if (explainationLang) {
+        (entry.data[`explaination-${explainationLang}`] || []).forEach((explaination, index) => {
+          if (isEmpty(rows[index])) {
+            rows[index] = {};
+          }
+          rows[index][`explaination-${explainationLang}`] = explaination;
+        });
+
+        if (! hasHandledExplainationNote) {
+          const notes = entry.data['explaination-note'] || [];
+          notes.forEach((note, index) => {
+            if (isEmpty(rows[index])) {
+              rows[index] = {};
+            }
+            rows[index]['explaination-note'] = note;
+          });
+          hasHandledExplainationNote = true;
+        }
+
+        if (! hasHandledExplainationSource) {
+          const sources = entry.data['explaination-source'] || [];
+          sources.forEach((source, index) => {
+            if (isEmpty(rows[index])) {
+              rows[index] = {};
+            }
+            rows[index]['explaination-source'] = source;
+          });
+          hasHandledExplainationSource = true;
+        }
+      }
+
+      return rows;
+    }, [defaultData])
   }
 }
