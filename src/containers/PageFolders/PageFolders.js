@@ -125,10 +125,10 @@ export default class PageFolders extends Component {
   };
 
   handleFolderMenuItemTouchTap = (event, value) => {
-    const {type, id} = value;
+    const {type, folderId} = value;
     switch (type) {
       case 'edit':
-        return this.props.push(`/folders/${id}/edit`);
+        return this.props.push(`/folders/${folderId}/edit`);
       case 'export':
       default:
     }
@@ -150,8 +150,8 @@ export default class PageFolders extends Component {
             onChange={this.handleFolderMenuItemTouchTap}
             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-            <MenuItem primaryText={f('edit')} value={{type: 'edit', id}} style={{fontSize: menuItemFontSize}} />
-            <MenuItem primaryText={f('export')} value={{type: 'export', id}} style={{fontSize: menuItemFontSize}} />
+            <MenuItem primaryText={f('edit')} value={{type: 'edit', folderId: id}} style={{fontSize: menuItemFontSize}} />
+            <MenuItem primaryText={f('export')} value={{type: 'export', folderId: id}} style={{fontSize: menuItemFontSize}} />
           </IconMenu>}
         </div>
       );
