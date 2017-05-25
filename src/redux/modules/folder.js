@@ -192,5 +192,5 @@ export function exportFolderToCsv(folderId) {
     promise: (client) => {
       return client.send('export-folder-to-csv', {folderId});
     }
-  }
+  };
 }
