@@ -185,3 +185,12 @@ export function setDisplayFolderPerPage(perpage) {
     perpage
   };
 }
+
+export function exportFolderToCsv(folderId) {
+  return {
+    types: [EXPORT_FOLDER_TO_CSV, EXPORT_FOLDER_TO_CSV_SUCCESS, EXPORT_FOLDER_TO_CSV_FAIL],
+    promise: (client) => {
+      return client.send('export-folder-to-csv', {folderId});
+    }
+  }
+}
