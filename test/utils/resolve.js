@@ -38,7 +38,7 @@ test('resolve should render loading indicator when promise is pending', async (t
   t.is(wrapper.find('div[mode]').length, 1);
 });
 
-test.cb('resolve should render component when promise is resolved', (t) => {
+test.cb('resolve should render have state.isResolved as true when promise is resolved', (t) => {
 
   const store = mockStore({});
   const func = () => new Promise((resolve) => resolve('done'));
