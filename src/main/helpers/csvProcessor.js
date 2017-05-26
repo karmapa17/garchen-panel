@@ -4,6 +4,7 @@ import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 
 const FIELD_PAGE_NUM = 'page-num';
 const FIELD_EXPLAINATION_NOTE = 'explaination-note';
+const FIELD_EXPLAINATION_SOURCE = 'explaination-source';
 
 const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
 const RE_EXPLAINATION = /^explaination-(.+)$/;
@@ -82,8 +83,8 @@ export default class CsvProcessor {
       else if (FIELD_EXPLAINATION_NOTE === key) {
         fields[index] = FIELD_EXPLAINATION_NOTE;
       }
-      else if ('explaination-source' === key) {
-        fields[index] = 'explaination-source';
+      else if (FIELD_EXPLAINATION_SOURCE === key) {
+        fields[index] = FIELD_EXPLAINATION_SOURCE;
       }
       else if ('explaination-category' === key) {
         fields[index] = 'explaination-category';
@@ -177,12 +178,12 @@ export default class CsvProcessor {
         }
 
         if (! hasHandledExplainationSource) {
-          const sources = entry.data['explaination-source'] || [];
+          const sources = entry.data[FIELD_EXPLAINATION_SOURCE] || [];
           sources.forEach((source, index) => {
             if (isEmpty(rows[index])) {
               rows[index] = {};
             }
-            rows[index]['explaination-source'] = source;
+            rows[index][FIELD_EXPLAINATION_SOURCE] = source;
           });
           hasHandledExplainationSource = true;
         }
