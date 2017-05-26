@@ -5,6 +5,7 @@ import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 const FIELD_PAGE_NUM = 'page-num';
 const FIELD_EXPLAINATION_NOTE = 'explaination-note';
 const FIELD_EXPLAINATION_SOURCE = 'explaination-source';
+const FIELD_EXPLAINATION_CATEGORY = 'explaination-category';
 
 const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
 const RE_EXPLAINATION = /^explaination-(.+)$/;
@@ -86,8 +87,8 @@ export default class CsvProcessor {
       else if (FIELD_EXPLAINATION_SOURCE === key) {
         fields[index] = FIELD_EXPLAINATION_SOURCE;
       }
-      else if ('explaination-category' === key) {
-        fields[index] = 'explaination-category';
+      else if (FIELD_EXPLAINATION_CATEGORY === key) {
+        fields[index] = FIELD_EXPLAINATION_CATEGORY;
       }
       else if (FIELD_PAGE_NUM === key) {
         fields[index] = FIELD_PAGE_NUM;
@@ -104,7 +105,7 @@ export default class CsvProcessor {
     return fields.reduce((rowData, field, index) => {
       if (field) {
 
-        if ('explaination-category' === field) {
+        if (FIELD_EXPLAINATION_CATEGORY === field) {
           const value = data[index];
           rowData[field] = value ? [value.split(',').map(Number)] : [[]];
         }
@@ -127,7 +128,7 @@ export default class CsvProcessor {
         const arr = oldData[field];
         const value = newData[index];
 
-        if (value && ('explaination-category' === field)) {
+        if (value && (FIELD_EXPLAINATION_CATEGORY === field)) {
           arr.push(value.split(',').map(Number));
         }
         else if (value) {
@@ -189,12 +190,12 @@ export default class CsvProcessor {
         }
 
         if (! hasHandledExplainationCategory) {
-          const categories = entry.data['explaination-category'] || [];
+          const categories = entry.data[FIELD_EXPLAINATION_CATEGORY] || [];
           categories.forEach((category, index) => {
             if (isEmpty(rows[index])) {
               rows[index] = {};
             }
-            rows[index]['explaination-category'] = category;
+            rows[index][FIELD_EXPLAINATION_CATEGORY] = category;
           });
           hasHandledExplainationCategory = true;
         }
