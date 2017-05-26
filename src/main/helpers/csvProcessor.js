@@ -3,6 +3,7 @@ import sortFolderContentFields from './sortFolderContentFields';
 import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 
 const FIELD_PAGE_NUM = 'page-num';
+const FIELD_EXPLAINATION_NOTE = 'explaination-note';
 
 const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
 const RE_EXPLAINATION = /^explaination-(.+)$/;
@@ -78,8 +79,8 @@ export default class CsvProcessor {
       else if (explainationLanguage) {
         fields[index] = `explaination-${explainationLanguage}`;
       }
-      else if ('explaination-note' === key) {
-        fields[index] = 'explaination-note';
+      else if (FIELD_EXPLAINATION_NOTE === key) {
+        fields[index] = FIELD_EXPLAINATION_NOTE;
       }
       else if ('explaination-source' === key) {
         fields[index] = 'explaination-source';
@@ -165,12 +166,12 @@ export default class CsvProcessor {
         });
 
         if (! hasHandledExplainationNote) {
-          const notes = entry.data['explaination-note'] || [];
+          const notes = entry.data[FIELD_EXPLAINATION_NOTE] || [];
           notes.forEach((note, index) => {
             if (isEmpty(rows[index])) {
               rows[index] = {};
             }
-            rows[index]['explaination-note'] = note;
+            rows[index][FIELD_EXPLAINATION_NOTE] = note;
           });
           hasHandledExplainationNote = true;
         }
