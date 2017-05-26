@@ -6,6 +6,7 @@ import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
 const RE_EXPLAINATION = /^explaination-(.+)$/;
 const RE_EXPLAINATION_NOTE = /^explaination-note$/;
+const RE_EXPLAINATION_CATEGORY = /^explaination-category$/;
 
 const getSourceLang = (key) => {
   const [, lang] = key.match(RE_SOURCE_ENTRY) || [];
@@ -18,7 +19,7 @@ const getExplainationLang = (key) => {
 };
 
 const isArrayField = (key) => {
-  return [RE_EXPLAINATION, RE_EXPLAINATION_NOTE].some((re) => re.exec(key));
+  return [RE_EXPLAINATION, RE_EXPLAINATION_NOTE, RE_EXPLAINATION_CATEGORY].some((re) => re.exec(key));
 };
 
 const validLangs = DICTIONARY_LANGS.map((row) => row.value);
