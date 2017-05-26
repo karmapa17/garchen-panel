@@ -74,7 +74,7 @@ test('should create an action to set content font size scaling factor', (t) => {
   t.deepEqual(setContentFontSizeScalingFactor(contentFontSizeScalingFactor), expectedAction);
 });
 
-test('should create an action to get app version', async (t) => {
+test('should get app version without any errors', async (t) => {
 
   const appVersion = '0.0.1';
   const store = mockStore({});
@@ -135,10 +135,11 @@ test('should open external url without any errors', (t) => {
   t.pass();
 });
 
-test('should get app version without any errors', (t) => {
+test('main reducer should handle action GET_APP_VERSION_SUCCESS', (t) => {
+  const appVersion = '0.0.1';
   const store = mockStore({});
-  store.dispatch(getAppVersion());
-  t.pass();
+  const result = mainReducer(store.getState(), {type: GET_APP_VERSION_SUCCESS, result: {appVersion}});
+  t.deepEqual(result.toJS(), {appVersion});
 });
 
 test('main reducer should handle action SET_APP_LOCALE', (t) => {
