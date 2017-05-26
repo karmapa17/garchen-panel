@@ -40,3 +40,11 @@ test('ui reducer should handle action SET_DRAWER_OPEN', (t) => {
   const result = uiReducer(store.getState(), {type: SET_DRAWER_OPEN, isDrawerOpen});
   t.deepEqual(result.toJS(), {isDrawerOpen});
 });
+
+test('ui reducer should handle action SET_SNACK_BAR_PARAMS', (t) => {
+  const isSnackBarOpen = true;
+  const snackBarMessage = 'hello world';
+  const store = mockStore({});
+  const result = uiReducer(store.getState(), {type: SET_SNACK_BAR_PARAMS, isSnackBarOpen, snackBarMessage});
+  t.deepEqual(result.toJS(), {isSnackBarOpen, snackBarMessage});
+});
