@@ -34,7 +34,7 @@ test('should create an action to set snack bar params', (t) => {
   t.deepEqual(setSnackBarParams(isSnackBarOpen, snackBarMessage), expectedAction);
 });
 
-test('ui reducer should handle action SET_SNACK_BAR_PARAMS', (t) => {
+test('ui reducer should handle action SET_DRAWER_OPEN', (t) => {
   const isDrawerOpen = true;
   const store = mockStore({});
   const result = uiReducer(store.getState(), {type: SET_DRAWER_OPEN, isDrawerOpen});
