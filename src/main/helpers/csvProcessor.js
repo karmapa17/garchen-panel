@@ -83,6 +83,9 @@ export default class CsvProcessor {
       else if ('explaination-source' === key) {
         fields[index] = 'explaination-source';
       }
+      else if ('explaination-category' === key) {
+        fields[index] = 'explaination-category';
+      }
       else if ('page-num' === key) {
         fields[index] = 'page-num';
       }
@@ -97,7 +100,17 @@ export default class CsvProcessor {
   static getRowDataByFields(data, fields) {
     return fields.reduce((rowData, field, index) => {
       if (field) {
-        rowData[field] = isArrayField(field) ? [data[index]] : data[index];
+
+        if ('explaination-category' === field) {
+          const value = data[index];
+          rowData[field] = value ? [value.split(',').map(Number)] : [[]];
+        }
+        else if (isArrayField(field)) {
+          rowData[field] = [data[index]]
+        }
+        else {
+          rowData[field] = data[index];
+        }
       }
       return rowData;
     }, {});
@@ -110,7 +123,11 @@ export default class CsvProcessor {
       if (isArrayField(field)) {
         const arr = oldData[field];
         const value = newData[index];
-        if (value) {
+
+        if (value && ('explaination-category' === field)) {
+          arr.push(value.split(',').map(Number));
+        }
+        else if (value) {
           arr.push(value);
         }
       }
