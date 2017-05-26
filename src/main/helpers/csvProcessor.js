@@ -3,27 +3,27 @@ import sortFolderContentFields from './sortFolderContentFields';
 import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 
 const FIELD_PAGE_NUM = 'page-num';
-const FIELD_EXPLAINATION_NOTE = 'explaination-note';
-const FIELD_EXPLAINATION_SOURCE = 'explaination-source';
-const FIELD_EXPLAINATION_CATEGORY = 'explaination-category';
+const FIELD_EXPLANATION_NOTE = 'explanation-note';
+const FIELD_EXPLANATION_SOURCE = 'explanation-source';
+const FIELD_EXPLANATION_CATEGORY = 'explanation-category';
 
 const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
-const RE_EXPLAINATION = /^explaination-(.+)$/;
-const RE_EXPLAINATION_NOTE = /^explaination-note$/;
-const RE_EXPLAINATION_CATEGORY = /^explaination-category$/;
+const RE_EXPLANATION = /^explanation-(.+)$/;
+const RE_EXPLANATION_NOTE = /^explanation-note$/;
+const RE_EXPLANATION_CATEGORY = /^explanation-category$/;
 
 const getSourceLang = (key) => {
   const [, lang] = key.match(RE_SOURCE_ENTRY) || [];
   return validLangs.includes(lang) ? lang : null;
 };
 
-const getExplainationLang = (key) => {
-  const [, lang] = key.match(RE_EXPLAINATION) || [];
+const getExplanationLang = (key) => {
+  const [, lang] = key.match(RE_EXPLANATION) || [];
   return validLangs.includes(lang) ? lang : null;
 };
 
 const isArrayField = (key) => {
-  return [RE_EXPLAINATION, RE_EXPLAINATION_NOTE, RE_EXPLAINATION_CATEGORY].some((re) => re.exec(key));
+  return [RE_EXPLANATION, RE_EXPLANATION_NOTE, RE_EXPLANATION_CATEGORY].some((re) => re.exec(key));
 };
 
 const validLangs = DICTIONARY_LANGS.map((row) => row.value);
@@ -47,11 +47,11 @@ export default class CsvProcessor {
         columnData.sourceLanguage = sourceLanguage;
       }
 
-      const explainationLanguage = getExplainationLang(key);
+      const explanationLanguage = getExplanationLang(key);
 
-      if (explainationLanguage) {
-        columnData.targetLanguages.push(explainationLanguage);
-        columnData.contentFields.push(`explaination-lang-${explainationLanguage}`);
+      if (explanationLanguage) {
+        columnData.targetLanguages.push(explanationLanguage);
+        columnData.contentFields.push(`explanation-lang-${explanationLanguage}`);
       }
 
       if (FIELD_PAGE_NUM === key) {
@@ -73,22 +73,22 @@ export default class CsvProcessor {
     return data.reduce((fields, key, index) => {
 
       const sourceLanguage = getSourceLang(key);
-      const explainationLanguage = getExplainationLang(key);
+      const explanationLanguage = getExplanationLang(key);
 
       if (sourceLanguage) {
         fields[index] = 'sourceEntry';
       }
-      else if (explainationLanguage) {
-        fields[index] = `explaination-${explainationLanguage}`;
+      else if (explanationLanguage) {
+        fields[index] = `explanation-${explanationLanguage}`;
       }
-      else if (FIELD_EXPLAINATION_NOTE === key) {
-        fields[index] = FIELD_EXPLAINATION_NOTE;
+      else if (FIELD_EXPLANATION_NOTE === key) {
+        fields[index] = FIELD_EXPLANATION_NOTE;
       }
-      else if (FIELD_EXPLAINATION_SOURCE === key) {
-        fields[index] = FIELD_EXPLAINATION_SOURCE;
+      else if (FIELD_EXPLANATION_SOURCE === key) {
+        fields[index] = FIELD_EXPLANATION_SOURCE;
       }
-      else if (FIELD_EXPLAINATION_CATEGORY === key) {
-        fields[index] = FIELD_EXPLAINATION_CATEGORY;
+      else if (FIELD_EXPLANATION_CATEGORY === key) {
+        fields[index] = FIELD_EXPLANATION_CATEGORY;
       }
       else if (FIELD_PAGE_NUM === key) {
         fields[index] = FIELD_PAGE_NUM;
@@ -105,7 +105,7 @@ export default class CsvProcessor {
     return fields.reduce((rowData, field, index) => {
       if (field) {
 
-        if (FIELD_EXPLAINATION_CATEGORY === field) {
+        if (FIELD_EXPLANATION_CATEGORY === field) {
           const value = data[index];
           rowData[field] = value ? [value.split(',').map(Number)] : [[]];
         }
@@ -128,7 +128,7 @@ export default class CsvProcessor {
         const arr = oldData[field];
         const value = newData[index];
 
-        if (value && (FIELD_EXPLAINATION_CATEGORY === field)) {
+        if (value && (FIELD_EXPLANATION_CATEGORY === field)) {
           arr.push(value.split(',').map(Number));
         }
         else if (value) {
@@ -147,9 +147,9 @@ export default class CsvProcessor {
       [`source-entry-${sourceLanguage}`]: entry.sourceEntry
     };
 
-    let hasHandledExplainationNote = false;
-    let hasHandledExplainationSource = false;
-    let hasHandledExplainationCategory = false;
+    let hasHandledExplanationNote = false;
+    let hasHandledExplanationSource = false;
+    let hasHandledExplanationCategory = false;
 
     return contentFields.reduce((rows, field) => {
 
@@ -157,47 +157,47 @@ export default class CsvProcessor {
         rows[0][FIELD_PAGE_NUM] = entry.data[FIELD_PAGE_NUM];
       }
 
-      const [, explainationLang] = field.match(/^explaination-lang-(.+)$/) || [];
+      const [, explanationLang] = field.match(/^explanation-lang-(.+)$/) || [];
 
-      if (explainationLang) {
-        (entry.data[`explaination-${explainationLang}`] || []).forEach((explaination, index) => {
+      if (explanationLang) {
+        (entry.data[`explanation-${explanationLang}`] || []).forEach((explanation, index) => {
           if (isEmpty(rows[index])) {
             rows[index] = {};
           }
-          rows[index][`explaination-${explainationLang}`] = explaination;
+          rows[index][`explanation-${explanationLang}`] = explanation;
         });
 
-        if (! hasHandledExplainationNote) {
-          const notes = entry.data[FIELD_EXPLAINATION_NOTE] || [];
+        if (! hasHandledExplanationNote) {
+          const notes = entry.data[FIELD_EXPLANATION_NOTE] || [];
           notes.forEach((note, index) => {
             if (isEmpty(rows[index])) {
               rows[index] = {};
             }
-            rows[index][FIELD_EXPLAINATION_NOTE] = note;
+            rows[index][FIELD_EXPLANATION_NOTE] = note;
           });
-          hasHandledExplainationNote = true;
+          hasHandledExplanationNote = true;
         }
 
-        if (! hasHandledExplainationSource) {
-          const sources = entry.data[FIELD_EXPLAINATION_SOURCE] || [];
+        if (! hasHandledExplanationSource) {
+          const sources = entry.data[FIELD_EXPLANATION_SOURCE] || [];
           sources.forEach((source, index) => {
             if (isEmpty(rows[index])) {
               rows[index] = {};
             }
-            rows[index][FIELD_EXPLAINATION_SOURCE] = source;
+            rows[index][FIELD_EXPLANATION_SOURCE] = source;
           });
-          hasHandledExplainationSource = true;
+          hasHandledExplanationSource = true;
         }
 
-        if (! hasHandledExplainationCategory) {
-          const categories = entry.data[FIELD_EXPLAINATION_CATEGORY] || [];
+        if (! hasHandledExplanationCategory) {
+          const categories = entry.data[FIELD_EXPLANATION_CATEGORY] || [];
           categories.forEach((category, index) => {
             if (isEmpty(rows[index])) {
               rows[index] = {};
             }
-            rows[index][FIELD_EXPLAINATION_CATEGORY] = category;
+            rows[index][FIELD_EXPLANATION_CATEGORY] = category;
           });
-          hasHandledExplainationCategory = true;
+          hasHandledExplanationCategory = true;
         }
       }
 
