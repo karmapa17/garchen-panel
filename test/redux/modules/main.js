@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import mainReducer, {setInterfaceFontSizeScalingFactor, SET_INTERFACE_FONT_SIZE_SCALING_FACTOR,
   setAppFont, SET_APP_FONT, setAppLocale, SET_APP_LOCALE, setWriteDelay,
   SET_WRITE_DELAY, setIntl, openExternal, OPEN_EXTERNAL,
-  setContentFontSizeScalingFactor, SET_CONTENT_FONT_SIZE_SCALING_FACTOR} from './../../../src/redux/modules/main';
+  setContentFontSizeScalingFactor, SET_CONTENT_FONT_SIZE_SCALING_FACTOR, getAppVersion, GET_APP_VERSION_SUCCESS} from './../../../src/redux/modules/main';
 
 import zhTwMessages from './../../../src/langs/zh-TW';
 import enMessages from './../../../src/langs/en';
@@ -14,6 +14,9 @@ import ipc from './../../../src/helpers/ipc';
 
 const middlewares = [thunk, clientMiddleware(ipc)];
 const mockStore = configureMockStore(middlewares);
+
+const electron = window.require('electron');
+const {ipcMain} = electron;
 
 test('should create an action to set interface font size scaling factor', (t) => {
 
@@ -71,6 +74,27 @@ test('should create an action to set content font size scaling factor', (t) => {
   t.deepEqual(setContentFontSizeScalingFactor(contentFontSizeScalingFactor), expectedAction);
 });
 
+test('should create an action to get app version', async (t) => {
+
+  const appVersion = '0.0.1';
+  const store = mockStore({});
+  const expectedAction = {
+    type: GET_APP_VERSION_SUCCESS
+  };
+
+  const eventName = 'get-app-version';
+
+  ipcMain.once(eventName, (event, args) => {
+    const id = args._id;
+    delete args._id;
+    args.appVersion = appVersion;
+    event.sender.send(`${eventName}::${id}`, args);
+  });
+
+  const result = await store.dispatch(getAppVersion())
+  t.is(result.appVersion, appVersion);
+});
+
 test('should create an action to set react intl', (t) => {
 
   const store = mockStore({});
@@ -108,6 +132,12 @@ test('should open external url without any errors', (t) => {
   const store = mockStore({});
   const url = 'https://www.google.com';
   store.dispatch(openExternal(url));
+  t.pass();
+});
+
+test('should get app version without any errors', (t) => {
+  const store = mockStore({});
+  store.dispatch(getAppVersion());
   t.pass();
 });
 
