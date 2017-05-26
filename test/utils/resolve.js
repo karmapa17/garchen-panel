@@ -37,3 +37,35 @@ test('resolve should render loading indicator when promise is pending', async (t
 
   t.is(wrapper.find('div[mode]').length, 1);
 });
+
+test.cb('resolve should render component when promise is resolved', (t) => {
+
+  const store = mockStore({});
+  const func = () => new Promise((resolve) => resolve('done'));
+
+  @resolve(func)
+  class MyComponent extends Component {
+
+    render() {
+      return (
+        <div>works</div>
+      );
+    }
+  }
+
+  const wrapper = mount(<MyComponent />, {
+    context: {
+      store,
+      muiTheme
+    },
+    childContextTypes: {
+      store: React.PropTypes.object.isRequired,
+      muiTheme: React.PropTypes.object.isRequired,
+    },
+  });
+
+  setImmediate(() => {
+    t.is(wrapper.state().isResolved, true);
+    t.end();
+  });
+});
