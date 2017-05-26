@@ -139,7 +139,6 @@ export default class CsvProcessor {
   static getCsvRowsByEntry({folder, entry}) {
 
     const {sourceLanguage, contentFields} = folder.data;
-
     const defaultData = {
       [`source-entry-${sourceLanguage}`]: entry.sourceEntry
     };
