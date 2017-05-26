@@ -13,9 +13,9 @@ import SECT_VALUES from './../../constants/sectValues';
 import {SELECTED_MENU_STYLE} from './../../constants/constants';
 
 // helpers that are shared between AddEntryForm and EditEntryForm
-import getExplainationLangs from './getExplainationLangs';
-import getExplainationLangValues from './getExplainationLangValues';
-import getNextExplainationIndex from './getNextExplainationIndex';
+import getExplanationLangs from './getExplanationLangs';
+import getExplanationLangValues from './getExplanationLangValues';
+import getNextExplanationIndex from './getNextExplanationIndex';
 
 const styles = require('./AddEntryForm.scss');
 
@@ -44,7 +44,7 @@ export default class AddEntryForm extends Component {
     super(props);
     this.state = {
       explanationIndex: 1,
-      explanationLangs: getExplainationLangs(props.folder.data.contentFields)
+      explanationLangs: getExplanationLangs(props.folder.data.contentFields)
     };
   }
 
@@ -62,17 +62,17 @@ export default class AddEntryForm extends Component {
     });
   }
 
-  renderExplainationCategoryMenuItems() {
+  renderExplanationCategoryMenuItems() {
     const {f} = this.props;
     return EXPLAINATION_CATEGORY_VALUES.map(({id, value}) => {
       return <MenuItem key={`explanation-category-${id}`} value={value} primaryText={f(id)} />;
     });
   }
 
-  handleExplainationChange = (lang, index) => {
+  handleExplanationChange = (lang, index) => {
     return (event) => {
       const {explanationLangs, explanationIndex} = this.state;
-      const langValues = getExplainationLangValues({
+      const langValues = getExplanationLangValues({
         currentValue: event.target.value,
         currentLang: lang,
         currentIndex: index,
@@ -80,7 +80,7 @@ export default class AddEntryForm extends Component {
         formName: 'addEntryForm',
         globalState: this.context.store.getState()
       });
-      const nextIndex = getNextExplainationIndex({
+      const nextIndex = getNextExplanationIndex({
         langValues,
         explanationLangs,
         explanationIndex
@@ -171,7 +171,7 @@ export default class AddEntryForm extends Component {
         const explanationLangRows = explanationLangs.map((lang) => {
           return (
             <div key={`explanation-${lang}-${index}`}>
-              <Field name={`explanation-${lang}[${index}]`} type="text" fullWidth onChange={this.handleExplainationChange(lang, index)}
+              <Field name={`explanation-${lang}[${index}]`} type="text" fullWidth onChange={this.handleExplanationChange(lang, index)}
                 component={renderTextField} label={f('explanation-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
             </div>
           );
@@ -190,7 +190,7 @@ export default class AddEntryForm extends Component {
             <div key={`explanation-category-${index}`}>
               <Field name={`explanation-category[${index}]`} fullWidth selectedMenuItemStyle={SELECTED_MENU_STYLE}
                 component={renderSelectField} label={f('explanation-category-num', {num: (index + 1)})} multiple>
-                {this.renderExplainationCategoryMenuItems()}
+                {this.renderExplanationCategoryMenuItems()}
               </Field>
             </div>
           </div>

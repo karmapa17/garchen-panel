@@ -1,6 +1,6 @@
 import {formValueSelector} from 'redux-form';
 
-export default function getExplainationLangValues(args) {
+export default function getExplanationLangValues(args) {
 
   const {currentValue, currentLang, currentIndex, explanationLangs, formName, globalState} = args;
   const selector = formValueSelector(formName);

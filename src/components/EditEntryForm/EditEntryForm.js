@@ -13,9 +13,9 @@ import EXPLAINATION_CATEGORY_VALUES from './../../constants/explanationCategoryV
 import {SELECTED_MENU_STYLE} from './../../constants/constants';
 
 // helpers that are shared between AddEntryForm and EditEntryForm
-import getNextExplainationIndex from './../AddEntryForm/getNextExplainationIndex';
-import getExplainationLangs from './../AddEntryForm/getExplainationLangs';
-import getExplainationLangValues from './../AddEntryForm/getExplainationLangValues';
+import getNextExplanationIndex from './../AddEntryForm/getNextExplanationIndex';
+import getExplanationLangs from './../AddEntryForm/getExplanationLangs';
+import getExplanationLangValues from './../AddEntryForm/getExplanationLangValues';
 
 const styles = require('./EditEntryForm.scss');
 
@@ -46,15 +46,15 @@ export default class EditEntryForm extends Component {
 
     const {folder, initialValues} = props;
     const {contentFields, targetLanguages} = folder.data;
-    const explanationLangs = getExplainationLangs(contentFields);
+    const explanationLangs = getExplanationLangs(contentFields);
 
     this.state = {
-      explanationIndex: this.getInitialExplainationIndex(initialValues, targetLanguages),
+      explanationIndex: this.getInitialExplanationIndex(initialValues, targetLanguages),
       explanationLangs
     };
   }
 
-  getInitialExplainationIndex(fields, targetLanguages) {
+  getInitialExplanationIndex(fields, targetLanguages) {
     return Object.keys(fields).reduce((initialIndex, field) => {
       const lang = (field.match(/^explanation-(.+)$/) || [])[1];
       if (targetLanguages.includes(lang)) {
@@ -68,7 +68,7 @@ export default class EditEntryForm extends Component {
     }, 0);
   }
 
-  getExplainationIndex = (lang) => `explanation-${lang}-index`;
+  getExplanationIndex = (lang) => `explanation-${lang}-index`;
 
   renderCategoryMenuItems() {
     const {f} = this.props;
@@ -84,10 +84,10 @@ export default class EditEntryForm extends Component {
     });
   }
 
-  handleExplainationChange = (lang, index) => {
+  handleExplanationChange = (lang, index) => {
     return (event) => {
       const {explanationLangs, explanationIndex} = this.state;
-      const langValues = getExplainationLangValues({
+      const langValues = getExplanationLangValues({
         currentValue: event.target.value,
         currentLang: lang,
         currentIndex: index,
@@ -95,7 +95,7 @@ export default class EditEntryForm extends Component {
         formName: 'editEntryForm',
         globalState: this.context.store.getState()
       });
-      const nextIndex = getNextExplainationIndex({
+      const nextIndex = getNextExplanationIndex({
         langValues,
         explanationLangs,
         explanationIndex
@@ -104,7 +104,7 @@ export default class EditEntryForm extends Component {
     };
   };
 
-  renderExplainationCategoryMenuItems() {
+  renderExplanationCategoryMenuItems() {
     const {f} = this.props;
     return EXPLAINATION_CATEGORY_VALUES.map(({id, value}) => {
       return <MenuItem key={`explanation-category-${id}`} value={value} primaryText={f(id)} />;
@@ -196,7 +196,7 @@ export default class EditEntryForm extends Component {
         const explanationLangRows = explanationLangs.map((lang) => {
           return (
             <div key={`explanation-${lang}-${index}`}>
-              <Field name={`explanation-${lang}[${index}]`} type="text" fullWidth onChange={this.handleExplainationChange(lang, index)}
+              <Field name={`explanation-${lang}[${index}]`} type="text" fullWidth onChange={this.handleExplanationChange(lang, index)}
                 component={renderTextField} label={f('explanation-num-lang', {lang: f(lang), num: (index + 1)})} multiLine />
             </div>
           );
@@ -215,7 +215,7 @@ export default class EditEntryForm extends Component {
             <div key={`explanation-category-${index}`}>
               <Field name={`explanation-category[${index}]`} fullWidth selectedMenuItemStyle={SELECTED_MENU_STYLE}
                 component={renderSelectField} label={f('explanation-category-num', {num: (index + 1)})} multiple>
-                {this.renderExplainationCategoryMenuItems()}
+                {this.renderExplanationCategoryMenuItems()}
               </Field>
             </div>
           </div>

@@ -18,7 +18,7 @@ function hasTagetEntry({contentFields, targetLanguages}) {
   });
 }
 
-function hasExplaination({contentFields, targetLanguages}) {
+function hasExplanation({contentFields, targetLanguages}) {
   return contentFields.some((field) => {
     const lang = (field.match(/^explanation-lang-(.+)$/) || [])[1];
     return targetLanguages.includes(lang);
@@ -55,12 +55,12 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
     );
   }
 
-  if (hasExplaination({contentFields, targetLanguages})) {
+  if (hasExplanation({contentFields, targetLanguages})) {
 
-    const getExplainationKey = (lang) => `explanation-${lang}`;
+    const getExplanationKey = (lang) => `explanation-${lang}`;
 
     const highestIndex = targetLanguages.reduce((index, lang) => {
-      const key = getExplainationKey(lang);
+      const key = getExplanationKey(lang);
       const arr = data[key] || [];
       const length = arr.length;
       return (length > index) ? length : index;
@@ -74,7 +74,7 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
       .map((index) => {
 
         const rows = targetLanguages.map((lang) => {
-          const key = getExplainationKey(lang);
+          const key = getExplanationKey(lang);
           const arr = data[key] || [];
           const value = arr[index];
           return {lang, value};

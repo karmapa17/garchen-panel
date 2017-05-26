@@ -17,7 +17,7 @@ const getSourceLang = (key) => {
   return validLangs.includes(lang) ? lang : null;
 };
 
-const getExplainationLang = (key) => {
+const getExplanationLang = (key) => {
   const [, lang] = key.match(RE_EXPLAINATION) || [];
   return validLangs.includes(lang) ? lang : null;
 };
@@ -47,7 +47,7 @@ export default class CsvProcessor {
         columnData.sourceLanguage = sourceLanguage;
       }
 
-      const explanationLanguage = getExplainationLang(key);
+      const explanationLanguage = getExplanationLang(key);
 
       if (explanationLanguage) {
         columnData.targetLanguages.push(explanationLanguage);
@@ -73,7 +73,7 @@ export default class CsvProcessor {
     return data.reduce((fields, key, index) => {
 
       const sourceLanguage = getSourceLang(key);
-      const explanationLanguage = getExplainationLang(key);
+      const explanationLanguage = getExplanationLang(key);
 
       if (sourceLanguage) {
         fields[index] = 'sourceEntry';
@@ -147,9 +147,9 @@ export default class CsvProcessor {
       [`source-entry-${sourceLanguage}`]: entry.sourceEntry
     };
 
-    let hasHandledExplainationNote = false;
-    let hasHandledExplainationSource = false;
-    let hasHandledExplainationCategory = false;
+    let hasHandledExplanationNote = false;
+    let hasHandledExplanationSource = false;
+    let hasHandledExplanationCategory = false;
 
     return contentFields.reduce((rows, field) => {
 
@@ -167,7 +167,7 @@ export default class CsvProcessor {
           rows[index][`explanation-${explanationLang}`] = explanation;
         });
 
-        if (! hasHandledExplainationNote) {
+        if (! hasHandledExplanationNote) {
           const notes = entry.data[FIELD_EXPLAINATION_NOTE] || [];
           notes.forEach((note, index) => {
             if (isEmpty(rows[index])) {
@@ -175,10 +175,10 @@ export default class CsvProcessor {
             }
             rows[index][FIELD_EXPLAINATION_NOTE] = note;
           });
-          hasHandledExplainationNote = true;
+          hasHandledExplanationNote = true;
         }
 
-        if (! hasHandledExplainationSource) {
+        if (! hasHandledExplanationSource) {
           const sources = entry.data[FIELD_EXPLAINATION_SOURCE] || [];
           sources.forEach((source, index) => {
             if (isEmpty(rows[index])) {
@@ -186,10 +186,10 @@ export default class CsvProcessor {
             }
             rows[index][FIELD_EXPLAINATION_SOURCE] = source;
           });
-          hasHandledExplainationSource = true;
+          hasHandledExplanationSource = true;
         }
 
-        if (! hasHandledExplainationCategory) {
+        if (! hasHandledExplanationCategory) {
           const categories = entry.data[FIELD_EXPLAINATION_CATEGORY] || [];
           categories.forEach((category, index) => {
             if (isEmpty(rows[index])) {
@@ -197,7 +197,7 @@ export default class CsvProcessor {
             }
             rows[index][FIELD_EXPLAINATION_CATEGORY] = category;
           });
-          hasHandledExplainationCategory = true;
+          hasHandledExplanationCategory = true;
         }
       }
 
