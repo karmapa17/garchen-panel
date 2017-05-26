@@ -69,3 +69,35 @@ test.cb('resolve should render have state.isResolved as true when promise is res
     t.end();
   });
 });
+
+test.cb('resolve should render have state.isResolved as false when promise is rejected', (t) => {
+
+  const store = mockStore({});
+  const func = () => new Promise((resolve, reject) => reject('dead'));
+
+  @resolve(func)
+  class MyComponent extends Component {
+
+    render() {
+      return (
+        <div>works</div>
+      );
+    }
+  }
+
+  const wrapper = mount(<MyComponent />, {
+    context: {
+      store,
+      muiTheme
+    },
+    childContextTypes: {
+      store: React.PropTypes.object.isRequired,
+      muiTheme: React.PropTypes.object.isRequired,
+    },
+  });
+
+  setImmediate(() => {
+    t.is(wrapper.state().isResolved, false);
+    t.end();
+  });
+});
