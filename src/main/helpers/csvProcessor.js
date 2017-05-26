@@ -2,6 +2,8 @@ import {uniq, isEmpty} from 'lodash';
 import sortFolderContentFields from './sortFolderContentFields';
 import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 
+const FIELD_PAGE_NUM = 'page-num';
+
 const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
 const RE_EXPLAINATION = /^explaination-(.+)$/;
 const RE_EXPLAINATION_NOTE = /^explaination-note$/;
@@ -49,8 +51,8 @@ export default class CsvProcessor {
         columnData.contentFields.push(`explaination-lang-${explainationLanguage}`);
       }
 
-      if ('page-num' === key) {
-        columnData.contentFields.push('page-num');
+      if (FIELD_PAGE_NUM === key) {
+        columnData.contentFields.push(FIELD_PAGE_NUM);
       }
 
       return columnData;
@@ -85,8 +87,8 @@ export default class CsvProcessor {
       else if ('explaination-category' === key) {
         fields[index] = 'explaination-category';
       }
-      else if ('page-num' === key) {
-        fields[index] = 'page-num';
+      else if (FIELD_PAGE_NUM === key) {
+        fields[index] = FIELD_PAGE_NUM;
       }
       else {
         // unknown columns
@@ -148,8 +150,8 @@ export default class CsvProcessor {
 
     return contentFields.reduce((rows, field) => {
 
-      if ('page-num' === field) {
-        rows[0]['page-num'] = entry.data['page-num'];
+      if (FIELD_PAGE_NUM === field) {
+        rows[0][FIELD_PAGE_NUM] = entry.data[FIELD_PAGE_NUM];
       }
 
       const [, explainationLang] = field.match(/^explaination-lang-(.+)$/) || [];
