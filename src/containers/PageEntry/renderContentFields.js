@@ -4,7 +4,7 @@ import {range} from 'ramda';
 
 import SECT_VALUES from './../../constants/sectValues';
 import CATEGORY_VALUES from './../../constants/categoryValues';
-import EXPLAINATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
+import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
 import hasValue from './../../helpers/hasValue';
 
 const fieldsInOrder = ['page-num', 'target-entry', 'explanation', 'category', 'sect'];
@@ -116,7 +116,7 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
         if (hasValue(category)) {
 
           const value = category.map((value) => {
-            const categoryId = EXPLAINATION_CATEGORY_VALUES.find((row) => row.value === value).id;
+            const categoryId = EXPLANATION_CATEGORY_VALUES.find((row) => row.value === value).id;
             return f(categoryId);
           })
           .join(' ');

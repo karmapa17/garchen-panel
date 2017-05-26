@@ -8,7 +8,7 @@ import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
 import injectF from './../../helpers/injectF';
 import asyncValidate from './addEntryFormAsyncValidate';
 import CATEGORY_VALUES from './../../constants/categoryValues';
-import EXPLAINATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
+import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
 import SECT_VALUES from './../../constants/sectValues';
 import {SELECTED_MENU_STYLE} from './../../constants/constants';
 
@@ -64,7 +64,7 @@ export default class AddEntryForm extends Component {
 
   renderExplanationCategoryMenuItems() {
     const {f} = this.props;
-    return EXPLAINATION_CATEGORY_VALUES.map(({id, value}) => {
+    return EXPLANATION_CATEGORY_VALUES.map(({id, value}) => {
       return <MenuItem key={`explanation-category-${id}`} value={value} primaryText={f(id)} />;
     });
   }
