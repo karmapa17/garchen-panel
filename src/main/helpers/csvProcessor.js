@@ -145,6 +145,7 @@ export default class CsvProcessor {
 
     let hasHandledExplainationNote = false;
     let hasHandledExplainationSource = false;
+    let hasHandledExplainationCategory = false;
 
     return contentFields.reduce((rows, field) => {
 
@@ -182,6 +183,17 @@ export default class CsvProcessor {
             rows[index]['explaination-source'] = source;
           });
           hasHandledExplainationSource = true;
+        }
+
+        if (! hasHandledExplainationCategory) {
+          const categories = entry.data['explaination-category'] || [];
+          categories.forEach((category, index) => {
+            if (isEmpty(rows[index])) {
+              rows[index] = {};
+            }
+            rows[index]['explaination-category'] = category;
+          });
+          hasHandledExplainationCategory = true;
         }
       }
 
