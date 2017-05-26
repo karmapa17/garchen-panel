@@ -3,14 +3,14 @@ import sortFolderContentFields from './sortFolderContentFields';
 import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 
 const FIELD_PAGE_NUM = 'page-num';
-const FIELD_EXPLAINATION_NOTE = 'explaination-note';
-const FIELD_EXPLAINATION_SOURCE = 'explaination-source';
-const FIELD_EXPLAINATION_CATEGORY = 'explaination-category';
+const FIELD_EXPLAINATION_NOTE = 'explanation-note';
+const FIELD_EXPLAINATION_SOURCE = 'explanation-source';
+const FIELD_EXPLAINATION_CATEGORY = 'explanation-category';
 
 const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
-const RE_EXPLAINATION = /^explaination-(.+)$/;
-const RE_EXPLAINATION_NOTE = /^explaination-note$/;
-const RE_EXPLAINATION_CATEGORY = /^explaination-category$/;
+const RE_EXPLAINATION = /^explanation-(.+)$/;
+const RE_EXPLAINATION_NOTE = /^explanation-note$/;
+const RE_EXPLAINATION_CATEGORY = /^explanation-category$/;
 
 const getSourceLang = (key) => {
   const [, lang] = key.match(RE_SOURCE_ENTRY) || [];
@@ -47,11 +47,11 @@ export default class CsvProcessor {
         columnData.sourceLanguage = sourceLanguage;
       }
 
-      const explainationLanguage = getExplainationLang(key);
+      const explanationLanguage = getExplainationLang(key);
 
-      if (explainationLanguage) {
-        columnData.targetLanguages.push(explainationLanguage);
-        columnData.contentFields.push(`explaination-lang-${explainationLanguage}`);
+      if (explanationLanguage) {
+        columnData.targetLanguages.push(explanationLanguage);
+        columnData.contentFields.push(`explanation-lang-${explanationLanguage}`);
       }
 
       if (FIELD_PAGE_NUM === key) {
@@ -73,13 +73,13 @@ export default class CsvProcessor {
     return data.reduce((fields, key, index) => {
 
       const sourceLanguage = getSourceLang(key);
-      const explainationLanguage = getExplainationLang(key);
+      const explanationLanguage = getExplainationLang(key);
 
       if (sourceLanguage) {
         fields[index] = 'sourceEntry';
       }
-      else if (explainationLanguage) {
-        fields[index] = `explaination-${explainationLanguage}`;
+      else if (explanationLanguage) {
+        fields[index] = `explanation-${explanationLanguage}`;
       }
       else if (FIELD_EXPLAINATION_NOTE === key) {
         fields[index] = FIELD_EXPLAINATION_NOTE;
@@ -157,14 +157,14 @@ export default class CsvProcessor {
         rows[0][FIELD_PAGE_NUM] = entry.data[FIELD_PAGE_NUM];
       }
 
-      const [, explainationLang] = field.match(/^explaination-lang-(.+)$/) || [];
+      const [, explanationLang] = field.match(/^explanation-lang-(.+)$/) || [];
 
-      if (explainationLang) {
-        (entry.data[`explaination-${explainationLang}`] || []).forEach((explaination, index) => {
+      if (explanationLang) {
+        (entry.data[`explanation-${explanationLang}`] || []).forEach((explanation, index) => {
           if (isEmpty(rows[index])) {
             rows[index] = {};
           }
-          rows[index][`explaination-${explainationLang}`] = explaination;
+          rows[index][`explanation-${explanationLang}`] = explanation;
         });
 
         if (! hasHandledExplainationNote) {

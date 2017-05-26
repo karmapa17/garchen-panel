@@ -1,5 +1,5 @@
 export default [
   'target-entry-lang',
-  'explaination-lang',
+  'explanation-lang',
   'original-lang'
 ];

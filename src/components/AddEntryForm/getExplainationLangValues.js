@@ -2,12 +2,12 @@ import {formValueSelector} from 'redux-form';
 
 export default function getExplainationLangValues(args) {
 
-  const {currentValue, currentLang, currentIndex, explainationLangs, formName, globalState} = args;
+  const {currentValue, currentLang, currentIndex, explanationLangs, formName, globalState} = args;
   const selector = formValueSelector(formName);
 
-  return explainationLangs.reduce((map, lang) => {
+  return explanationLangs.reduce((map, lang) => {
 
-    const arr = (selector(globalState, `explaination-${lang}`) || []).slice();
+    const arr = (selector(globalState, `explanation-${lang}`) || []).slice();
 
     if (currentLang === lang) {
       arr[currentIndex] = currentValue;

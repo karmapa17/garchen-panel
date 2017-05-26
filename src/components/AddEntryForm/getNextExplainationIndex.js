@@ -1,10 +1,10 @@
 import {isEmpty} from 'lodash';
 import {range} from 'ramda';
 
-export default function getNextExplainationIndex({langValues, explainationLangs, explainationIndex}) {
-  const lastIndexWithValue = range(0, explainationIndex)
+export default function getNextExplainationIndex({langValues, explanationLangs, explanationIndex}) {
+  const lastIndexWithValue = range(0, explanationIndex)
     .reverse()
-    .find((index) => explainationLangs.some((lang) => ! isEmpty(langValues[lang][index])));
+    .find((index) => explanationLangs.some((lang) => ! isEmpty(langValues[lang][index])));
 
   if (undefined === lastIndexWithValue) {
     return 1;
