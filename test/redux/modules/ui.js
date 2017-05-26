@@ -2,7 +2,7 @@ import test from 'ava';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import uiReducer, {SET_DRAWER_OPEN, setDrawerOpen} from './../../../src/redux/modules/ui';
+import uiReducer, {SET_DRAWER_OPEN, setDrawerOpen, SET_SNACK_BAR_PARAMS, setSnackBarParams} from './../../../src/redux/modules/ui';
 
 import clientMiddleware from './../../../src/redux/middlewares/clientMiddleware';
 import ipc from './../../../src/helpers/ipc';
@@ -31,5 +31,5 @@ test('should create an action to set snack bar params', (t) => {
     snackBarMessage
   };
 
-  t.deepEqual(setSnackBarParams(isDrawerOpen, snackBarMessage), expectedAction);
+  t.deepEqual(setSnackBarParams(isSnackBarOpen, snackBarMessage), expectedAction);
 });
