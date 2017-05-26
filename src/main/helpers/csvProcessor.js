@@ -1,5 +1,4 @@
 import {uniq, isEmpty} from 'lodash';
-
 import sortFolderContentFields from './sortFolderContentFields';
 import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 
