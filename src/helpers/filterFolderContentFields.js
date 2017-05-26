@@ -1,4 +1,4 @@
-const regexps = [/^target-entry-lang-(.+)$/, /^explaination-lang-(.+)$/, /^original-lang-(.+)$/];
+const regexps = [/^target-entry-lang-(.+)$/, /^explanation-lang-(.+)$/, /^original-lang-(.+)$/];
 
 function matchLang(field) {
   for (let i = 0; i < regexps.length; i++) {

@@ -4,10 +4,10 @@ import {range} from 'ramda';
 
 import SECT_VALUES from './../../constants/sectValues';
 import CATEGORY_VALUES from './../../constants/categoryValues';
-import EXPLAINATION_CATEGORY_VALUES from './../../constants/explainationCategoryValues';
+import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
 import hasValue from './../../helpers/hasValue';
 
-const fieldsInOrder = ['page-num', 'target-entry', 'explaination', 'category', 'sect'];
+const fieldsInOrder = ['page-num', 'target-entry', 'explanation', 'category', 'sect'];
 
 const hasData = (prop, data) => (prop in data) && hasValue(data[prop]);
 
@@ -18,9 +18,9 @@ function hasTagetEntry({contentFields, targetLanguages}) {
   });
 }
 
-function hasExplaination({contentFields, targetLanguages}) {
+function hasExplanation({contentFields, targetLanguages}) {
   return contentFields.some((field) => {
-    const lang = (field.match(/^explaination-lang-(.+)$/) || [])[1];
+    const lang = (field.match(/^explanation-lang-(.+)$/) || [])[1];
     return targetLanguages.includes(lang);
   });
 }
@@ -55,26 +55,26 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
     );
   }
 
-  if (hasExplaination({contentFields, targetLanguages})) {
+  if (hasExplanation({contentFields, targetLanguages})) {
 
-    const getExplainationKey = (lang) => `explaination-${lang}`;
+    const getExplanationKey = (lang) => `explanation-${lang}`;
 
     const highestIndex = targetLanguages.reduce((index, lang) => {
-      const key = getExplainationKey(lang);
+      const key = getExplanationKey(lang);
       const arr = data[key] || [];
       const length = arr.length;
       return (length > index) ? length : index;
     }, 0);
 
-    const sourceData = data['explaination-source'];
-    const noteData = data['explaination-note'];
-    const categoryData = data['explaination-category'];
+    const sourceData = data['explanation-source'];
+    const noteData = data['explanation-note'];
+    const categoryData = data['explanation-category'];
 
-    fieldData.explaination = range(0, highestIndex)
+    fieldData.explanation = range(0, highestIndex)
       .map((index) => {
 
         const rows = targetLanguages.map((lang) => {
-          const key = getExplainationKey(lang);
+          const key = getExplanationKey(lang);
           const arr = data[key] || [];
           const value = arr[index];
           return {lang, value};
@@ -82,8 +82,8 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
         .filter(({value}) => hasValue(value))
         .map(({lang, value}) => {
           return (
-            <tr key={`explaination-${lang}`}>
-              <th>{f('explaination-num-lang', {num: `${index + 1}`, lang: f(lang)})}</th>
+            <tr key={`explanation-${lang}`}>
+              <th>{f('explanation-num-lang', {num: `${index + 1}`, lang: f(lang)})}</th>
               <td>{value}</td>
             </tr>
           );
@@ -93,8 +93,8 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
 
         if (hasValue(source)) {
           rows.push((
-            <tr key={'explaination-source'}>
-              <th>{f('explaination-source-num', {num: `${index + 1}`})}</th>
+            <tr key={'explanation-source'}>
+              <th>{f('explanation-source-num', {num: `${index + 1}`})}</th>
               <td>{source}</td>
             </tr>
           ));
@@ -104,8 +104,8 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
 
         if (hasValue(note)) {
           rows.push((
-            <tr key={'explaination-note'}>
-              <th>{f('explaination-note-num', {num: `${index + 1}`})}</th>
+            <tr key={'explanation-note'}>
+              <th>{f('explanation-note-num', {num: `${index + 1}`})}</th>
               <td>{note}</td>
             </tr>
           ));
@@ -116,14 +116,14 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
         if (hasValue(category)) {
 
           const value = category.map((value) => {
-            const categoryId = EXPLAINATION_CATEGORY_VALUES.find((row) => row.value === value).id;
+            const categoryId = EXPLANATION_CATEGORY_VALUES.find((row) => row.value === value).id;
             return f(categoryId);
           })
           .join(' ');
 
           rows.push((
-            <tr key={'explaination-category'}>
-              <th>{f('explaination-category-num', {num: `${index + 1}`})}</th>
+            <tr key={'explanation-category'}>
+              <th>{f('explanation-category-num', {num: `${index + 1}`})}</th>
               <td>{value}</td>
             </tr>
           ));
