@@ -1,8 +1,8 @@
 import {Map} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
 
-const SET_DRAWER_OPEN = 'garchen-panel/ui/SET_DRAWER_OPEN';
-const SET_SNACK_BAR_PARAMS = 'garchen-panel/ui/SET_SNACK_BAR_PARAMS';
+export const SET_DRAWER_OPEN = 'garchen-panel/ui/SET_DRAWER_OPEN';
+export const SET_SNACK_BAR_PARAMS = 'garchen-panel/ui/SET_SNACK_BAR_PARAMS';
 
 const initialState = Map({
   isDrawerOpen: false,
