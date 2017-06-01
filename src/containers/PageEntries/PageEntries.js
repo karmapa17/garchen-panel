@@ -27,16 +27,20 @@ import SEARCH_TYPES from './../../constants/searchTypes';
 
 const styles = require('./PageEntries.scss');
 
-@connect(({main, folder, entry, cache}) => ({
-  cache: get(cache.get('cachePageEntriesDataSet'), folder.id, {}),
-  perpage: entry.get('perpage'),
-  folder: folder.get('folder'),
-  importingFolderId: folder.get('importingFolderId'),
-  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
-  folderEntries: entry.get('folderEntries'),
-  folderEntryCount: entry.get('folderEntryCount'),
-  selectedFolderEntryMap: entry.get('selectedFolderEntryMap')
-}), {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIds, setCachePageEntries,
+@connect(({main, folder, entry, cache}) => {
+  const folderRow = folder.get('folder');
+  const folderId = get(folderRow, 'id', '');
+  return {
+    cache: get(cache.get('cachePageEntriesDataSet'), folderId, {}),
+    perpage: entry.get('perpage'),
+    folder: folderRow,
+    importingFolderId: folder.get('importingFolderId'),
+    interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
+    folderEntries: entry.get('folderEntries'),
+    folderEntryCount: entry.get('folderEntryCount'),
+    selectedFolderEntryMap: entry.get('selectedFolderEntryMap')
+  };
+}, {listFolderEntries, setSnackBarParams, setSelectedFolderEntryIds, setCachePageEntries,
   deleteEntries, clearSelectedFolderEntryIds})
 @injectPush
 @injectF
