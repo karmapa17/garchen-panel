@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import c from 'classnames';
-import {cloneDeep} from 'lodash';
+import {isEmpty, cloneDeep} from 'lodash';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import IconMenu from 'material-ui/IconMenu';
@@ -36,8 +36,15 @@ const styles = require('./PageFolders.scss');
 }), {listFolders, addFolder, setSnackBarParams, exportFolderToCsv, setCachePageFolders})
 @injectPush
 @injectF
-@resolve(({dispatch}, {perpage}) => {
-  return dispatch(listFolders({page: 1, perpage}));
+@resolve(({dispatch}, {perpage, cache}) => {
+  const params = Object.assign({page: 1, perpage}, cache);
+  return dispatch(listFolders(params))
+    .then((res) => {
+      if (isEmpty(res.data) && (params.page > 1)) {
+        return dispatch(listFolders({page: params.page - 1, perpage}));
+      }
+      return res;
+    });
 })
 export default class PageFolders extends Component {
 
