@@ -3,7 +3,6 @@ import {createReducer} from 'redux-immutablejs';
 
 const SET_CACHE_PAGE_ENTRIES = 'garchen-panel/cache/SET_CACHE_PAGE_ENTRIES';
 const DELETE_CACHE_PAGE_ENTRIES = 'garchen-panel/cache/DELETE_CACHE_PAGE_ENTRIES';
-
 const SET_CACHE_PAGE_CROSS_FOLDER_SEARCH = 'garchen-panel/cache/SET_CACHE_PAGE_CROSS_FOLDER_SEARCH';
 const CLEAR_CACHE_PAGE_ENTRIES = 'garchn-panel/cache/CLEAR_CACHE_PAGE_ENTRIES';
 
