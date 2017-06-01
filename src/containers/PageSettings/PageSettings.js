@@ -15,6 +15,7 @@ import APP_FONTS from './../../constants/appFonts';
 import {setIntl, setAppFont, setWriteDelay, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor} from './../../redux/modules/main';
 import {setDisplayFolderPerPage} from './../../redux/modules/folder';
 import {setDisplayEntryPerPage} from './../../redux/modules/entry';
+import {clearCachePageEntries} from './../../redux/modules/cache';
 import injectF from './../../helpers/injectF';
 import INTERFACE_FONT_SIZE_OPTIONS from './../../constants/interfaceFontSizeOptions';
 import DISPLAY_FOLDER_PERPAGE_OPTIONS from './../../constants/displayFolderPerPageOptions';
@@ -35,7 +36,7 @@ const styles = require('./PageSettings.scss');
   contentFontSizeScalingFactor: main.get('contentFontSizeScalingFactor'),
   writeDelay: main.get('writeDelay')
 }), {setIntl, setWriteDelay, setAppFont, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor,
-  setDisplayFolderPerPage, setDisplayEntryPerPage})
+  setDisplayFolderPerPage, setDisplayEntryPerPage, clearCachePageEntries})
 @injectIntl
 @injectF
 export default class PageSettings extends Component {
@@ -52,6 +53,7 @@ export default class PageSettings extends Component {
     setAppFont: PropTypes.func.isRequired,
     setDisplayFolderPerPage: PropTypes.func.isRequired,
     setDisplayEntryPerPage: PropTypes.func.isRequired,
+    clearCachePageEntries: PropTypes.func.isRequired,
     displayFolderPerPage: PropTypes.number.isRequired,
     displayEntryPerPage: PropTypes.number.isRequired,
     writeDelay: PropTypes.number.isRequired,
@@ -109,7 +111,9 @@ export default class PageSettings extends Component {
   };
 
   handleDisplayEntryPerPageSelectFieldChange = (event, index, value) => {
-    this.props.setDisplayEntryPerPage(value);
+    const {setDisplayEntryPerPage, clearCachePageEntries} = this.props;
+    setDisplayEntryPerPage(value);
+    clearCachePageEntries();
   };
 
   renderDemoFontPhrasesListItems() {
