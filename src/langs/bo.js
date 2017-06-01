@@ -2,6 +2,7 @@ module.exports = {
   'content-font-size': 'ཡི་གེ་ཆེ་ཆུང་།',
   'cancel-importing': 'སུབས་ཤིག །',
   'account': 'དྲྭ་ཐོ།',
+  'about-version': 'གསར་ཐོན་གྱི་སྐོར། {appVersion}',
   'sign-out': 'ཕྱིར་འཐེན།',
   'very-small': 'དཔེ་ཆུང་ཆུང་།',
   'small': 'ཆུང་ཆུང་།',
