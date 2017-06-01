@@ -12,6 +12,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 
 import {setSnackBarParams} from './../../redux/modules/ui';
 import {addFolder, listFolders, exportFolderToCsv} from './../../redux/modules/folder';
+import {setCachePageFolders} from './../../redux/modules/cache';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
@@ -25,13 +26,14 @@ import resolve from './../../helpers/resolve';
 
 const styles = require('./PageFolders.scss');
 
-@connect(({main, folder}) => ({
+@connect(({main, folder, cache}) => ({
+  cache: cache.get('cachePageFolders'),
   interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   perpage: folder.get('perpage'),
   folders: folder.get('folders'),
   importingFolderId: folder.get('importingFolderId'),
   folderCount: folder.get('folderCount')
-}), {listFolders, addFolder, setSnackBarParams, exportFolderToCsv})
+}), {listFolders, addFolder, setSnackBarParams, exportFolderToCsv, setCachePageFolders})
 @injectPush
 @injectF
 @resolve(({dispatch}, {perpage}) => {
@@ -40,6 +42,7 @@ const styles = require('./PageFolders.scss');
 export default class PageFolders extends Component {
 
   static propTypes = {
+    cache: PropTypes.object.isRequired,
     push: PropTypes.func.isRequired,
     exportFolderToCsv: PropTypes.func.isRequired,
     f: PropTypes.func.isRequired,
@@ -48,6 +51,7 @@ export default class PageFolders extends Component {
     folders: PropTypes.array.isRequired,
     folderCount: PropTypes.number.isRequired,
     listFolders: PropTypes.func.isRequired,
+    setCachePageFolders: PropTypes.func.isRequired,
     importingFolderId: PropTypes.number,
     interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
@@ -55,19 +59,22 @@ export default class PageFolders extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = Object.assign({
       page: 1,
       targetLanguages: [],
       isAddFolderDialogOpen: false
-    };
+    }, props.cache);
   }
 
   componentWillUpdate(nextProps, nextState) {
     const {page} = this.state;
-    const {perpage, listFolders} = this.props;
-    if ((page !== nextState.page) || (perpage !== nextProps.perpage)) {
+    const {perpage, listFolders, setCachePageFolders} = this.props;
+    const nextPage = nextState.page;
+
+    if ((page !== nextPage) || (perpage !== nextProps.perpage)) {
+      setCachePageFolders({page: nextPage});
       listFolders({
-        page: nextState.page,
+        page: nextPage,
         perpage: nextProps.perpage
       });
     }
