@@ -5,10 +5,12 @@ const SET_CACHE_PAGE_ENTRIES = 'garchen-panel/cache/SET_CACHE_PAGE_ENTRIES';
 const DELETE_CACHE_PAGE_ENTRIES = 'garchen-panel/cache/DELETE_CACHE_PAGE_ENTRIES';
 const SET_CACHE_PAGE_CROSS_FOLDER_SEARCH = 'garchen-panel/cache/SET_CACHE_PAGE_CROSS_FOLDER_SEARCH';
 const CLEAR_CACHE_PAGE_ENTRIES = 'garchn-panel/cache/CLEAR_CACHE_PAGE_ENTRIES';
+const SET_CACHE_PAGE_FOLDERS = 'garchen-panel/cache/SET_CACHE_PAGE_FOLDERS';
 
 const initialState = Map({
   cachePageEntriesDataSet: {},
-  cachePageCrossFolderSearch: {}
+  cachePageCrossFolderSearch: {},
+  cachePageFolders: {}
 });
 
 export default createReducer(initialState, {
@@ -31,6 +33,10 @@ export default createReducer(initialState, {
 
   [SET_CACHE_PAGE_CROSS_FOLDER_SEARCH]: (state, action) => {
     return state.set('cachePageCrossFolderSearch', action.data);
+  },
+
+  [SET_CACHE_PAGE_FOLDERS]: (state, action) => {
+    return state.set('cachePageFolders', action.data);
   }
 });
 
@@ -58,6 +64,13 @@ export function clearCachePageEntries() {
 export function setCachePageCrossFolderSearch(data) {
   return {
     type: SET_CACHE_PAGE_CROSS_FOLDER_SEARCH,
+    data
+  };
+}
+
+export function setCachePageFolders(data) {
+  return {
+    type: SET_CACHE_PAGE_FOLDERS,
     data
   };
 }
