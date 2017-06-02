@@ -62,3 +62,15 @@ test('should create an action to clear cache page entries', (t) => {
   };
   t.deepEqual(clearCachePageEntries(), expectedAction);
 });
+
+test('cache reducer should handle action CLEAR_CACHE_PAGE_ENTRIES', (t) => {
+
+  const action = {
+    type: CLEAR_CACHE_PAGE_ENTRIES
+  };
+  const state = new Map({
+    cachePageEntriesDataSet: {1: {hasSomethingInside: true}}
+  });
+  const result = cacheReducer(state, action);
+  t.deepEqual(result.toJS().cachePageEntriesDataSet, {});
+});
