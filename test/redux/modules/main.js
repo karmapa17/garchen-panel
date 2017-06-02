@@ -5,7 +5,8 @@ import thunk from 'redux-thunk';
 import mainReducer, {setInterfaceFontSizeScalingFactor, SET_INTERFACE_FONT_SIZE_SCALING_FACTOR,
   setAppFont, SET_APP_FONT, setAppLocale, SET_APP_LOCALE, setWriteDelay,
   SET_WRITE_DELAY, setIntl, openExternal, OPEN_EXTERNAL,
-  setContentFontSizeScalingFactor, SET_CONTENT_FONT_SIZE_SCALING_FACTOR, getAppVersion, GET_APP_VERSION_SUCCESS} from './../../../src/redux/modules/main';
+  setContentFontSizeScalingFactor, SET_CONTENT_FONT_SIZE_SCALING_FACTOR, getAppVersion,
+  GET_APP_VERSION_SUCCESS} from './../../../src/redux/modules/main';
 
 import zhTwMessages from './../../../src/langs/zh-TW';
 import enMessages from './../../../src/langs/en';
