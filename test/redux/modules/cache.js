@@ -33,3 +33,13 @@ test('cache reducer should handle action SET_CACHE_PAGE_ENTRIES', (t) => {
   const result = cacheReducer(store.getState(), {type: SET_CACHE_PAGE_ENTRIES, folderId, data});
   t.deepEqual(result.toJS().cachePageEntriesDataSet, {[folderId]: data});
 });
+
+test('should create an action to delete cache page entries', (t) => {
+
+  const folderId = 1;
+  const expectedAction = {
+    type: DELETE_CACHE_PAGE_ENTRIES,
+    folderId
+  };
+  t.deepEqual(deleteCachePageEntries(folderId), expectedAction);
+});
