@@ -1,14 +1,12 @@
 import test from 'ava';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-
 import uiReducer, {SET_DRAWER_OPEN, setDrawerOpen, SET_SNACK_BAR_PARAMS, setSnackBarParams} from './../../../src/redux/modules/ui';
+import mockStore from './../../helpers/mockStore';
 
-import clientMiddleware from './../../../src/redux/middlewares/clientMiddleware';
-import ipc from './../../../src/helpers/ipc';
+let store;
 
-const middlewares = [thunk, clientMiddleware(ipc)];
-const mockStore = configureMockStore(middlewares);
+test.beforeEach((t) => {
+  store = mockStore({});
+});
 
 test('should create an action to set drawer open', (t) => {
 
