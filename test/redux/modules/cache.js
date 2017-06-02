@@ -1,6 +1,7 @@
 import test from 'ava';
 import {Map} from 'immutable';
-import cacheReducer, {SET_CACHE_PAGE_ENTRIES, setCachePageEntries} from './../../../src/redux/modules/cache';
+import cacheReducer, {SET_CACHE_PAGE_ENTRIES, setCachePageEntries, DELETE_CACHE_PAGE_ENTRIES,
+  deleteCachePageEntries} from './../../../src/redux/modules/cache';
 import mockStore from './../../helpers/mockStore';
 
 let store;
