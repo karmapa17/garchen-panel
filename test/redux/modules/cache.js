@@ -75,3 +75,13 @@ test('cache reducer should handle action CLEAR_CACHE_PAGE_ENTRIES', (t) => {
   const result = cacheReducer(state, action);
   t.deepEqual(result.toJS().cachePageEntriesDataSet, {});
 });
+
+test('should create an action to set cache page cross folder search', (t) => {
+
+  const data = {hello: 'world'};
+  const expectedAction = {
+    type: SET_CACHE_PAGE_CROSS_FOLDER_SEARCH,
+    data
+  };
+  t.deepEqual(setCachePageCrossFolderSearch(data), expectedAction);
+});
