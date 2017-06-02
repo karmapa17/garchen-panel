@@ -3,7 +3,7 @@ import {Map} from 'immutable';
 import cacheReducer, {SET_CACHE_PAGE_ENTRIES, setCachePageEntries, DELETE_CACHE_PAGE_ENTRIES,
   deleteCachePageEntries, CLEAR_CACHE_PAGE_ENTRIES, clearCachePageEntries,
   SET_CACHE_PAGE_CROSS_FOLDER_SEARCH, setCachePageCrossFolderSearch,
-  SET_CACHE_PAGE_FOLDERS, setCachePageFolders} from './../../../src/redux/modules/cache';
+  SET_CACHE_PAGE_FOLDERS, setCachePageFolders, CLEAR_CACHE_PAGE_FOLDERS} from './../../../src/redux/modules/cache';
 
 test('cache reducer should handle action SET_CACHE_PAGE_ENTRIES', (t) => {
   const folderId = 1;
@@ -72,6 +72,18 @@ test('cache reducer should handle action SET_CACHE_PAGE_FOLDERS', (t) => {
   });
   const result = cacheReducer(state, action);
   t.deepEqual(result.toJS().cachePageFolders, data);
+});
+
+test('cache reducer should handle action CLEAR_CACHE_PAGE_FOLDERS', (t) => {
+
+  const action = {
+    type: CLEAR_CACHE_PAGE_FOLDERS
+  };
+  const state = new Map({
+    cachePageFolders: {hello: 'world'}
+  });
+  const result = cacheReducer(state, action);
+  t.deepEqual(result.toJS().cachePageFolders, {});
 });
 
 test('should create an action to set cache page entries', (t) => {
