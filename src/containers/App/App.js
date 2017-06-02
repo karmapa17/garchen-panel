@@ -13,6 +13,7 @@ import Snackbar from 'material-ui/Snackbar';
 import c from 'classnames';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
 
 import ipc from './../../helpers/ipc';
 import injectF from './../../helpers/injectF';
@@ -27,7 +28,7 @@ const styles = require('./App.scss');
 
 injectTapEventPlugin();
 
-@connect(({auth, main, ui}) => ({
+const connectFunc = connect(({auth, main, ui}) => ({
   appLocale: main.get('appLocale'),
   appFont: main.get('appFont'),
   auth: auth.get('auth'),
@@ -36,10 +37,9 @@ injectTapEventPlugin();
   isLoadingAuth: auth.get('isLoadingAuth'),
   isSnackBarOpen: ui.get('isSnackBarOpen'),
   snackBarMessage: ui.get('snackBarMessage')
-}), {setDrawerOpen, setIntl, setSnackBarParams, login, logout, getAppVersion})
-@injectF
-@injectPush
-export default class App extends Component {
+}), {setDrawerOpen, setIntl, setSnackBarParams, login, logout, getAppVersion});
+
+export class App extends Component {
 
   static propTypes = {
     appLocale: PropTypes.string.isRequired,
@@ -167,3 +167,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default compose(injectPush, injectF, connectFunc)(App);
