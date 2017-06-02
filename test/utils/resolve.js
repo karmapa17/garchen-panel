@@ -2,16 +2,19 @@ import test from 'ava';
 import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {mount} from 'enzyme';
-import configureMockStore from 'redux-mock-store';
-
 import {Provider} from 'react-redux';
+import mockStore from './../helpers/mockStore';
 import resolve from './../../src/helpers/resolve';
 import muiTheme from './../../src/constants/muiTheme';
-const mockStore = configureMockStore([]);
+
+let store;
+
+test.beforeEach((t) => {
+  store = mockStore({});
+});
 
 test('resolve should render loading indicator when promise is pending', async (t) => {
 
-  const store = mockStore({});
   const func = () => new Promise(() => {});
 
   @resolve(func)
@@ -40,7 +43,6 @@ test('resolve should render loading indicator when promise is pending', async (t
 
 test.cb('resolve should render have state.isResolved as true when promise is resolved', (t) => {
 
-  const store = mockStore({});
   const func = () => new Promise((resolve) => resolve('done'));
 
   @resolve(func)
@@ -72,7 +74,6 @@ test.cb('resolve should render have state.isResolved as true when promise is res
 
 test.cb('resolve should render have state.isResolved as false when promise is rejected', (t) => {
 
-  const store = mockStore({});
   const func = () => new Promise((resolve, reject) => reject('dead'));
 
   @resolve(func)

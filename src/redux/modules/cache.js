@@ -1,12 +1,12 @@
 import {Map} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
 
-const SET_CACHE_PAGE_ENTRIES = 'garchen-panel/cache/SET_CACHE_PAGE_ENTRIES';
-const DELETE_CACHE_PAGE_ENTRIES = 'garchen-panel/cache/DELETE_CACHE_PAGE_ENTRIES';
-const SET_CACHE_PAGE_CROSS_FOLDER_SEARCH = 'garchen-panel/cache/SET_CACHE_PAGE_CROSS_FOLDER_SEARCH';
-const CLEAR_CACHE_PAGE_ENTRIES = 'garchn-panel/cache/CLEAR_CACHE_PAGE_ENTRIES';
-const SET_CACHE_PAGE_FOLDERS = 'garchen-panel/cache/SET_CACHE_PAGE_FOLDERS';
-const CLEAR_CACHE_PAGE_FOLDERS = 'garchen-panel/cache/CLEAR_CACHE_PAGE_FOLDERS';
+export const SET_CACHE_PAGE_ENTRIES = 'garchen-panel/cache/SET_CACHE_PAGE_ENTRIES';
+export const DELETE_CACHE_PAGE_ENTRIES = 'garchen-panel/cache/DELETE_CACHE_PAGE_ENTRIES';
+export const SET_CACHE_PAGE_CROSS_FOLDER_SEARCH = 'garchen-panel/cache/SET_CACHE_PAGE_CROSS_FOLDER_SEARCH';
+export const CLEAR_CACHE_PAGE_ENTRIES = 'garchn-panel/cache/CLEAR_CACHE_PAGE_ENTRIES';
+export const SET_CACHE_PAGE_FOLDERS = 'garchen-panel/cache/SET_CACHE_PAGE_FOLDERS';
+export const CLEAR_CACHE_PAGE_FOLDERS = 'garchen-panel/cache/CLEAR_CACHE_PAGE_FOLDERS';
 
 const initialState = Map({
   cachePageEntriesDataSet: {},

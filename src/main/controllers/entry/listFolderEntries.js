@@ -1,4 +1,5 @@
 import {get, isEmpty} from 'lodash';
+import parseJsonFields from './../../helpers/parseJsonFields';
 
 async function searchData({db, field, searchKeyword, folderId, perpage, offset}) {
 
@@ -7,7 +8,8 @@ async function searchData({db, field, searchKeyword, folderId, perpage, offset})
     .limit(perpage)
     .offset(offset);
 
-  const entries = await db.raw(searchQuery, true);
+  const rows = await db.raw(searchQuery, true);
+  const entries = parseJsonFields('data', rows);
 
   const countQuery = db.knex('Entry').count('id')
     .where('data', 'like', `%"${field}":"${searchKeyword}"%`)
@@ -26,7 +28,8 @@ async function searchSourceEntry({db, searchKeyword, folderId, perpage, offset})
     .limit(perpage)
     .offset(offset);
 
-  const entries = await db.raw(searchQuery, true);
+  const rows = await db.raw(searchQuery, true);
+  const entries = parseJsonFields('data', rows);
 
   const countQuery = db.knex('Entry').count('id')
     .where('sourceEntry', 'like', `%${searchKeyword}%`)
