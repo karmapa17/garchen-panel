@@ -110,3 +110,17 @@ test('should create an action to set cache page folders', (t) => {
   };
   t.deepEqual(setCachePageFolders(data), expectedAction);
 });
+
+test('cache reducer should handle action SET_CACHE_PAGE_FOLDERS', (t) => {
+
+  const data = {hello: 'world'};
+  const action = {
+    type: SET_CACHE_PAGE_FOLDERS,
+    data
+  };
+  const state = new Map({
+    cachePageFolders: {}
+  });
+  const result = cacheReducer(state, action);
+  t.deepEqual(result.toJS().cachePageFolders, data);
+});
