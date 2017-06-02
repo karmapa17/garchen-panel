@@ -1,7 +1,7 @@
 import test from 'ava';
 import {Map} from 'immutable';
 import cacheReducer, {SET_CACHE_PAGE_ENTRIES, setCachePageEntries, DELETE_CACHE_PAGE_ENTRIES,
-  deleteCachePageEntries} from './../../../src/redux/modules/cache';
+  deleteCachePageEntries, CLEAR_CACHE_PAGE_ENTRIES, clearCachePageEntries} from './../../../src/redux/modules/cache';
 
 test('should create an action to set cache page entries', (t) => {
 
@@ -53,4 +53,12 @@ test('cache reducer should handle action DELETE_CACHE_PAGE_ENTRIES', (t) => {
   });
   const result = cacheReducer(state, action);
   t.deepEqual(result.toJS().cachePageEntriesDataSet, {});
+});
+
+test('should create an action to clear cache page entries', (t) => {
+
+  const expectedAction = {
+    type: CLEAR_CACHE_PAGE_ENTRIES
+  };
+  t.deepEqual(clearCachePageEntries(), expectedAction);
 });
