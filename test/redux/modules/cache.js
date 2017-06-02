@@ -2,7 +2,8 @@ import test from 'ava';
 import {Map} from 'immutable';
 import cacheReducer, {SET_CACHE_PAGE_ENTRIES, setCachePageEntries, DELETE_CACHE_PAGE_ENTRIES,
   deleteCachePageEntries, CLEAR_CACHE_PAGE_ENTRIES, clearCachePageEntries,
-  SET_CACHE_PAGE_CROSS_FOLDER_SEARCH, setCachePageCrossFolderSearch} from './../../../src/redux/modules/cache';
+  SET_CACHE_PAGE_CROSS_FOLDER_SEARCH, setCachePageCrossFolderSearch,
+  SET_CACHE_PAGE_FOLDERS, setCachePageFolders} from './../../../src/redux/modules/cache';
 
 test('should create an action to set cache page entries', (t) => {
 
