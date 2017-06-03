@@ -48,7 +48,6 @@ test('App should render language class name properly', (t) => {
 
 test('App should handle menu item touch tap', (t) => {
 
-  props.appLocale = 'en';
   props.isDrawerOpen = true;
   props.setDrawerOpen = sinon.spy();
 
