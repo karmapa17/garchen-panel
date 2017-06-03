@@ -71,12 +71,18 @@ export default class PageImportCsv extends Component {
     this.props.setImportingFolderId(data.folderId);
   };
 
+  handleCsvProcessingStart = () => {
+    this.props.setIsProcessingCsv(true);
+  };
+
   componentWillMount() {
+    ipc.on('csv-processing-start', this.handleCsvProcessingStart);
     ipc.on('csv-folder-created', this.handleCsvFolderCreated);
     ipc.on('csv-processing-status', this.handleCsvProcessingStatus);
   }
 
   componentWillUnmount() {
+    ipc.off('csv-processing-start', this.handleCsvProcessingStart);
     ipc.off('csv-folder-created', this.handleCsvFolderCreated);
     ipc.off('csv-processing-status', this.handleCsvProcessingStatus);
   }
