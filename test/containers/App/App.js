@@ -3,7 +3,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import AppConatiner, {App} from './../../../src/containers/App/App';
 
-test('App should render properly', (t) => {
+test('App should render language class name properly', (t) => {
 
   const props = {
     appLocale: 'bo',
