@@ -1,15 +1,13 @@
 import test from 'ava';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import {shallow, mount} from 'enzyme';
 import sinon from 'sinon';
-import TestUtils from 'react-dom/lib/ReactTestUtils';
 import MenuItem from 'material-ui/MenuItem';
 import AppConatiner, {App} from './../../../src/containers/App/App';
 import mockStore from './../../helpers/mockStore';
 import muiTheme from './../../../src/constants/muiTheme';
-
+import touchTap from './../../helpers/touchTap';
 
 let store;
 let props;
@@ -70,8 +68,7 @@ test('App should handle menu item touch tap', (t) => {
   ), options);
 
   const menuItem = wrapper.find(MenuItem).find('span').first();
-  const node = ReactDOM.findDOMNode(menuItem.node);
-  TestUtils.Simulate.touchTap(node);
+  touchTap(menuItem);
 
   t.true(props.setDrawerOpen.calledOnce);
 });
