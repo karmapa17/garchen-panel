@@ -119,7 +119,7 @@ export default async function addFolderByCsv(event, data) {
       resolve({message: 'User did not choose csv file'});
       return;
     }
-
+    broadcast('csv-processing-start');
     const csvFilePath = first(paths);
     processCsv(csvFilePath);
   }
