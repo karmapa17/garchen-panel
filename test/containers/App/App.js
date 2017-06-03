@@ -13,6 +13,7 @@ import muiTheme from './../../../src/constants/muiTheme';
 
 let store;
 let props;
+let options;
 
 test.beforeEach((t) => {
   store = mockStore({});
@@ -32,6 +33,17 @@ test.beforeEach((t) => {
     setSnackBarParams: () => {},
     interfaceFontSizeScalingFactor: 1,
     snackBarMessage: ''
+  };
+
+  options = {
+    context: {
+      store,
+      muiTheme
+    },
+    childContextTypes: {
+      store: PropTypes.object.isRequired,
+      muiTheme: PropTypes.object.isRequired
+    },
   };
 });
 
@@ -55,16 +67,7 @@ test('App should handle menu item touch tap', (t) => {
     <App {...props}>
       <div>Hello World</div>
     </App>
-  ), {
-    context: {
-      store,
-      muiTheme
-    },
-    childContextTypes: {
-      store: PropTypes.object.isRequired,
-      muiTheme: PropTypes.object.isRequired
-    },
-  });
+  ), options);
 
   const menuItem = wrapper.find(MenuItem).find('span').first();
   const node = ReactDOM.findDOMNode(menuItem.node);
