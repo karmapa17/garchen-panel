@@ -67,8 +67,7 @@ export default createReducer(initialState, {
   },
 
   [ADD_FOLDER_BY_CSV]: (state) => {
-    return state.set('isProcessingCsv', true)
-      .set('errorCsvMessage', null)
+    return state.set('errorCsvMessage', null)
       .set('errorCsvMessageId', null)
       .set('errorCsvFilename', null);
   },
