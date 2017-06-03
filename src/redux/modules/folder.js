@@ -41,6 +41,8 @@ const EXPORT_FOLDER_TO_CSV = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV';
 const EXPORT_FOLDER_TO_CSV_SUCCESS = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV_SUCCESS';
 const EXPORT_FOLDER_TO_CSV_FAIL = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV_FAIL';
 
+const SET_IS_PROCESSING_CSV = 'garchen-panel/folder/SET_IS_PROCESSING_CSV';
+
 const FOLDER_PERPAGE = 20;
 
 const initialState = Map({
@@ -100,8 +102,19 @@ export default createReducer(initialState, {
 
   [SET_DISPLAY_FOLDER_PERPAGE]: (state, action) => {
     return state.set('perpage', action.perpage);
+  },
+
+  [SET_IS_PROCESSING_CSV]: (state, action) => {
+    return state.set('isProcessingCsv', action.isProcessingCsv);
   }
 });
+
+export function setIsProcessingCsv(isProcessingCsv) {
+  return {
+    type: SET_IS_PROCESSING_CSV,
+    isProcessingCsv
+  };
+}
 
 export function setImportingFolderId(folderId) {
   return {
