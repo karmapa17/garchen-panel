@@ -213,6 +213,18 @@ export default class PageFolders extends Component {
     // TODO
   };
 
+  renderDeleteButton() {
+    const {f, interfaceFontSizeScalingFactor} = this.props;
+    const {selectedFolderIdData} = this.state;
+    if (Object.keys(selectedFolderIdData).length > 0) {
+      const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
+      return (
+        <FlatButton label={f('delete')} labelStyle={{fontSize: buttonFontSize}}
+          icon={<i className="fa fa-trash" />} onTouchTap={this.deleteSelectedFolders} />
+      );
+    }
+  }
+
   render() {
 
     const {page} = this.state;
@@ -224,6 +236,7 @@ export default class PageFolders extends Component {
         <TopBar>
           <Heading>{f('folders')}</Heading>
           <div>
+            {this.renderDeleteButton()}
             <FlatButton icon={<i className="fa fa-search" />} labelStyle={{fontSize: buttonFontSize}}
               label={f('cross-folder-search')} primary onTouchTap={this.goToPageCrossFolderSearch} />
             <FlatButton icon={<i className="fa fa-plus" />} labelStyle={{fontSize: buttonFontSize}}
