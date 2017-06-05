@@ -23,6 +23,7 @@ import cancelImportingCsv from './controllers/folder/cancelImportingCsv';
 import exportFolderToCsv from './controllers/folder/exportFolderToCsv';
 import clearRecycleBin from './controllers/folder/clearRecycleBin';
 import openExternal from './controllers/common/openExternal';
+import restoreFolders from './controllers/folder/restoreFolders';
 
 import getEntry from './controllers/entry/getEntry';
 import deleteEntries from './controllers/entry/deleteEntries';
@@ -74,6 +75,7 @@ async function handleAppReady() {
   ipc.on('cancel-importing-csv', cancelImportingCsv);
   ipc.on('export-folder-to-csv', exportFolderToCsv);
   ipc.on('clear-recycle-bin', clearRecycleBin);
+  ipc.on('restore-folders', restoreFolders);
 
   ipc.on('list-folder-entries', listFolderEntries);
   ipc.on('add-folder-entry', addFolderEntry);
