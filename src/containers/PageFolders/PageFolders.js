@@ -209,7 +209,7 @@ export default class PageFolders extends Component {
   goToPageCrossFolderSearch = () => this.props.push('cross-folder-search');
 
   deleteSelectedFolders = async () => {
-    const {markDeletedAtToFolders, listFolders, perpage, folderCount} = this.props;
+    const {f, markDeletedAtToFolders, listFolders, perpage, folderCount, setSnackBarParams} = this.props;
     const {page, selectedFolderIdData} = this.state;
     const folderIds = Object.keys(selectedFolderIdData).map(Number);
     await markDeletedAtToFolders(folderIds);
@@ -218,6 +218,7 @@ export default class PageFolders extends Component {
     const totalPages = Math.ceil((folderCount - folderIds.length) / perpage);
     const nextPage = (page > totalPages) ? totalPages : page;
     listFolders({page: nextPage, perpage});
+    setSnackBarParams(true, f('folders-have-been-deleted'));
   };
 
   renderDeleteButton() {
