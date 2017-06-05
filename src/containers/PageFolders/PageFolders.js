@@ -11,7 +11,7 @@ import IconButton from 'material-ui/IconButton';
 import LinearProgress from 'material-ui/LinearProgress';
 
 import {setSnackBarParams} from './../../redux/modules/ui';
-import {addFolder, listFolders, exportFolderToCsv} from './../../redux/modules/folder';
+import {addFolder, listFolders, exportFolderToCsv, markDeletedAtToFolders} from './../../redux/modules/folder';
 import {setCachePageFolders} from './../../redux/modules/cache';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
@@ -33,7 +33,7 @@ const styles = require('./PageFolders.scss');
   folders: folder.get('folders'),
   importingFolderId: folder.get('importingFolderId'),
   folderCount: folder.get('folderCount')
-}), {listFolders, addFolder, setSnackBarParams, exportFolderToCsv, setCachePageFolders})
+}), {listFolders, addFolder, setSnackBarParams, exportFolderToCsv, setCachePageFolders, markDeletedAtToFolders})
 @injectPush
 @injectF
 @resolve(({dispatch}, {perpage, cache}) => {
@@ -55,6 +55,7 @@ export default class PageFolders extends Component {
     f: PropTypes.func.isRequired,
     perpage: PropTypes.number.isRequired,
     addFolder: PropTypes.func.isRequired,
+    markDeletedAtToFolders: PropTypes.func.isRequired,
     folders: PropTypes.array.isRequired,
     folderCount: PropTypes.number.isRequired,
     listFolders: PropTypes.func.isRequired,
@@ -207,10 +208,16 @@ export default class PageFolders extends Component {
 
   goToPageCrossFolderSearch = () => this.props.push('cross-folder-search');
 
-  deleteSelectedFolders = () => {
-    const {selectedFolderIdData} = this.state;
+  deleteSelectedFolders = async () => {
+    const {markDeletedAtToFolders, listFolders, perpage, folderCount} = this.props;
+    const {page, selectedFolderIdData} = this.state;
     const folderIds = Object.keys(selectedFolderIdData).map(Number);
-    // TODO
+    await markDeletedAtToFolders(folderIds);
+    this.setState({selectedFolderIdData: {}});
+
+    const totalPages = Math.ceil((folderCount - folderIds.length) / perpage);
+    const nextPage = (page > totalPages) ? totalPages : page;
+    listFolders({page: nextPage, perpage});
   };
 
   renderDeleteButton() {
