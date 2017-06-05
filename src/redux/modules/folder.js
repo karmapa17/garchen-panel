@@ -55,6 +55,11 @@ const MARK_DELETED_AT_TO_FOLDERS_FAIL = 'garchen-panel/folder/MARK_DELETED_AT_TO
 const CLEAR_RECYCLE_BIN = 'garchen-panel/folder/CLEAR_RECYCLE_BIN';
 const CLEAR_RECYCLE_BIN_SUCCESS = 'garchen-panel/folder/CLEAR_RECYCLE_BIN_SUCCESS';
 const CLEAR_RECYCLE_BIN_FAIL = 'garchen-panel/folder/CLEAR_RECYCLE_BIN_FAIL';
+
+const RESTORE_FOLDERS = 'garchen-panel/folder/RESTORE_FOLDERS';
+const RESTORE_FOLDERS_SUCCESS = 'garchen-panel/folder/RESTORE_FOLDERS_SUCCESS';
+const RESTORE_FOLDERS_FAIL = 'garchen-panel/folder/RESTORE_FOLDERS_FAIL';
+
 const FOLDER_PERPAGE = 20;
 
 const initialState = Map({
@@ -213,6 +218,15 @@ export function deleteFolders(folderIds) {
     types: [DELETE_FOLDERS, DELETE_FOLDERS_SUCCESS, DELETE_FOLDERS_FAIL],
     promise: (client) => {
       return client.send('delete-folders', {folderIds});
+    }
+  };
+}
+
+export function restoreFolders(folderIds) {
+  return {
+    types: [RESTORE_FOLDERS, RESTORE_FOLDERS_SUCCESS, RESTORE_FOLDERS_FAIL],
+    promise: (client) => {
+      return client.send('restore-folders', {folderIds});
     }
   };
 }
