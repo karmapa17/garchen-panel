@@ -21,10 +21,6 @@ const CHECK_FOLDER_EXISTS = 'garchen-panel/folder/CHECK_FOLDER_EXISTS';
 const CHECK_FOLDER_EXISTS_SUCCESS = 'garchen-panel/folder/CHECK_FOLDER_EXISTS_SUCCESS';
 const CHECK_FOLDER_EXISTS_FAIL = 'garchen-panel/folder/CHECK_FOLDER_EXISTS_FAIL';
 
-const DELETE_FOLDER = 'garchen-panel/folder/DELETE_FOLDER';
-const DELETE_FOLDER_SUCCESS = 'garchen-panel/folder/DELETE_FOLDER_SUCCESS';
-const DELETE_FOLDER_FAIL = 'garchen-panel/folder/DELETE_FOLDER_FAIL';
-
 const ADD_FOLDER_BY_CSV = 'garchen-panel/folder/ADD_FOLDER_BY_CSV';
 const ADD_FOLDER_BY_CSV_SUCCESS = 'garchen-panel/folder/ADD_FOLDER_BY_CSV_SUCCESS';
 const ADD_FOLDER_BY_CSV_FAIL = 'garchen-panel/folder/ADD_FOLDER_BY_CSV_FAIL';
@@ -167,15 +163,6 @@ export function updateFolder(data) {
     types: [UPDATE_FOLDER, UPDATE_FOLDER_SUCCESS, UPDATE_FOLDER_FAIL],
     promise: (client) => {
       return client.send('update-folder', data);
-    }
-  };
-}
-
-export function deleteFolder(data) {
-  return {
-    types: [DELETE_FOLDER, DELETE_FOLDER_SUCCESS, DELETE_FOLDER_FAIL],
-    promise: (client) => {
-      return client.send('delete-folder', data);
     }
   };
 }
