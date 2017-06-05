@@ -42,6 +42,7 @@ const EXPORT_FOLDER_TO_CSV_SUCCESS = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV_
 const EXPORT_FOLDER_TO_CSV_FAIL = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV_FAIL';
 
 const SET_IS_PROCESSING_CSV = 'garchen-panel/folder/SET_IS_PROCESSING_CSV';
+const SET_IS_OPENING_DIALOG = 'garchen-panel/folder/SET_IS_OPENING_DIALOG';
 
 const FOLDER_PERPAGE = 20;
 
@@ -51,6 +52,7 @@ const initialState = Map({
   folders: [],
   folderCount: 0,
   isProcessingCsv: false,
+  isOpeningDialog: false,
   errorCsvMessage: null,
   errorCsvMessageId: null,
   errorCsvFilename: null,
@@ -70,18 +72,21 @@ export default createReducer(initialState, {
 
   [ADD_FOLDER_BY_CSV]: (state) => {
     return state.set('errorCsvMessage', null)
+      .set('isOpeningDialog', true)
       .set('errorCsvMessageId', null)
       .set('errorCsvFilename', null);
   },
 
   [ADD_FOLDER_BY_CSV_SUCCESS]: (state) => {
     return state.set('isProcessingCsv', false)
+      .set('isOpeningDialog', false)
       .set('importingFolderId', null);
   },
 
   [ADD_FOLDER_BY_CSV_FAIL]: (state, action) => {
     const {messageId, filename, message} = action.error;
     return state.set('isProcessingCsv', false)
+      .set('isOpeningDialog', false)
       .set('importingFolderId', null)
       .set('errorCsvMessage', message)
       .set('errorCsvMessageId', messageId)
@@ -106,8 +111,19 @@ export default createReducer(initialState, {
 
   [SET_IS_PROCESSING_CSV]: (state, action) => {
     return state.set('isProcessingCsv', action.isProcessingCsv);
+  },
+
+  [SET_IS_OPENING_DIALOG]: (state, action) => {
+    return state.set('isOpeningDialog', action.isOpeningDialog);
   }
 });
+
+export function setIsOpeningDialog(isOpeningDialog) {
+  return {
+    type: SET_IS_OPENING_DIALOG,
+    isOpeningDialog
+  };
+}
 
 export function setIsProcessingCsv(isProcessingCsv) {
   return {
