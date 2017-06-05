@@ -5,6 +5,10 @@ const LIST_FOLDERS = 'garchen-panel/folder/LIST_FOLDERS';
 const LIST_FOLDERS_SUCCESS = 'garchen-panel/folder/LIST_FOLDERS_SUCCESS';
 const LIST_FOLDERS_FAIL = 'garchen-panel/folder/LIST_FOLDERS_FAIL';
 
+const LIST_DELETED_FOLDERS = 'garchen-panel/folder/LIST_DELETED_FOLDERS';
+const LIST_DELETED_FOLDERS_SUCCESS = 'garchen-panel/folder/LIST_DELETED_FOLDERS_SUCCESS';
+const LIST_DELETED_FOLDERS_FAIL = 'garchen-panel/folder/LIST_DELETED_FOLDERS_FAIL';
+
 const ADD_FOLDER = 'garchen-panel/folder/ADD_FOLDER';
 const ADD_FOLDER_SUCCESS = 'garchen-panel/folder/ADD_FOLDER_SUCCESS';
 const ADD_FOLDER_FAIL = 'garchen-panel/folder/ADD_FOLDER_FAIL';
@@ -60,7 +64,11 @@ const initialState = Map({
   errorCsvMessage: null,
   errorCsvMessageId: null,
   errorCsvFilename: null,
-  importingFolderId: null
+  importingFolderId: null,
+
+  deletedFolders: [],
+  deletedFolderCount: 0,
+  deletedFoldersPerPage: DELETE_FOLDER_PERPAGE
 });
 
 export default createReducer(initialState, {
@@ -72,6 +80,11 @@ export default createReducer(initialState, {
   [LIST_FOLDERS_SUCCESS]: (state, action) => {
     return state.set('folders', action.result.data)
       .set('folderCount', action.result.total);
+  },
+
+  [LIST_DELETED_FOLDERS_SUCCESS]: (state, action) => {
+    return state.set('deletedFolders', action.result.data)
+      .set('deletedFolderCount', action.result.total);
   },
 
   [ADD_FOLDER_BY_CSV]: (state) => {
@@ -153,6 +166,14 @@ export function getFolder(data) {
 export function listFolders(data) {
   return {
     types: [LIST_FOLDERS, LIST_FOLDERS_SUCCESS, LIST_FOLDERS_FAIL],
+    promise: (client) => client.send('list-folders', data)
+  };
+}
+
+export function listDeletedFolders(data) {
+  data.isDeleted = true;
+  return {
+    types: [LIST_DELETED_FOLDERS, LIST_DELETED_FOLDERS_SUCCESS, LIST_DELETED_FOLDERS_FAIL],
     promise: (client) => client.send('list-folders', data)
   };
 }
