@@ -16,6 +16,7 @@ import addFolderEntry from './controllers/entry/addFolderEntry';
 import checkFolderEntryExists from './controllers/entry/checkFolderEntryExists';
 import addFolder from './controllers/folder/addFolder';
 import markDeletedAtToFolders from './controllers/folder/markDeletedAtToFolders';
+import deleteFolders from './controllers/folder/deleteFolders';
 import checkFolderExists from './controllers/folder/checkFolderExists';
 import addFolderByCsv from './controllers/folder/addFolderByCsv';
 import cancelImportingCsv from './controllers/folder/cancelImportingCsv';
@@ -65,6 +66,7 @@ async function handleAppReady() {
   ipc.on('check-folder-exists', checkFolderExists);
   ipc.on('update-folder', updateFolder);
   ipc.on('mark-deleted-at-to-folders', markDeletedAtToFolders);
+  ipc.on('delete-folders', deleteFolders);
   ipc.on('list-folders', listFolders);
   ipc.on('add-folder', addFolder);
   ipc.on('add-folder-by-csv', addFolderByCsv);
