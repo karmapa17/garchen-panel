@@ -44,6 +44,10 @@ const EXPORT_FOLDER_TO_CSV_FAIL = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV_FAI
 const SET_IS_PROCESSING_CSV = 'garchen-panel/folder/SET_IS_PROCESSING_CSV';
 const SET_IS_OPENING_DIALOG = 'garchen-panel/folder/SET_IS_OPENING_DIALOG';
 
+const MARK_DELETED_AT_TO_FOLDERS = 'garchen-panel/folder/MARK_DELETED_AT_TO_FOLDERS';
+const MARK_DELETED_AT_TO_FOLDERS_SUCCESS = 'garchen-panel/folder/MARK_DELETED_AT_TO_FOLDERS_SUCCESS';
+const MARK_DELETED_AT_TO_FOLDERS_FAIL = 'garchen-panel/folder/MARK_DELETED_AT_TO_FOLDERS_FAIL';
+
 const FOLDER_PERPAGE = 20;
 
 const initialState = Map({
@@ -167,6 +171,15 @@ export function updateFolder(data) {
     types: [UPDATE_FOLDER, UPDATE_FOLDER_SUCCESS, UPDATE_FOLDER_FAIL],
     promise: (client) => {
       return client.send('update-folder', data);
+    }
+  };
+}
+
+export function markDeletedAtToFolders(folderIds) {
+  return {
+    types: [MARK_DELETED_AT_TO_FOLDERS, MARK_DELETED_AT_TO_FOLDERS_SUCCESS, MARK_DELETED_AT_TO_FOLDERS_FAIL],
+    promise: (client) => {
+      return client.send('mark-deleted-at-to-folders', {folderIds});
     }
   };
 }
