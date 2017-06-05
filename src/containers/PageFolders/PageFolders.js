@@ -207,6 +207,12 @@ export default class PageFolders extends Component {
 
   goToPageCrossFolderSearch = () => this.props.push('cross-folder-search');
 
+  deleteSelectedFolders = () => {
+    const {selectedFolderIdData} = this.state;
+    const folderIds = Object.keys(selectedFolderIdData).map(Number);
+    // TODO
+  };
+
   render() {
 
     const {page} = this.state;
