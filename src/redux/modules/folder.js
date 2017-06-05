@@ -62,6 +62,8 @@ const RESTORE_FOLDERS_FAIL = 'garchen-panel/folder/RESTORE_FOLDERS_FAIL';
 
 const FOLDER_PERPAGE = 20;
 
+const DELETE_FOLDER_PERPAGE = 20;
+
 const initialState = Map({
   perpage: FOLDER_PERPAGE,
   folder: null,
