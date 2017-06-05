@@ -52,6 +52,9 @@ const MARK_DELETED_AT_TO_FOLDERS = 'garchen-panel/folder/MARK_DELETED_AT_TO_FOLD
 const MARK_DELETED_AT_TO_FOLDERS_SUCCESS = 'garchen-panel/folder/MARK_DELETED_AT_TO_FOLDERS_SUCCESS';
 const MARK_DELETED_AT_TO_FOLDERS_FAIL = 'garchen-panel/folder/MARK_DELETED_AT_TO_FOLDERS_FAIL';
 
+const CLEAR_RECYCLE_BIN = 'garchen-panel/folder/CLEAR_RECYCLE_BIN';
+const CLEAR_RECYCLE_BIN_SUCCESS = 'garchen-panel/folder/CLEAR_RECYCLE_BIN_SUCCESS';
+const CLEAR_RECYCLE_BIN_FAIL = 'garchen-panel/folder/CLEAR_RECYCLE_BIN_FAIL';
 const FOLDER_PERPAGE = 20;
 
 const initialState = Map({
@@ -253,6 +256,15 @@ export function exportFolderToCsv(folderId) {
     types: [EXPORT_FOLDER_TO_CSV, EXPORT_FOLDER_TO_CSV_SUCCESS, EXPORT_FOLDER_TO_CSV_FAIL],
     promise: (client) => {
       return client.send('export-folder-to-csv', {folderId});
+    }
+  };
+}
+
+export function clearRecycleBin() {
+  return {
+    types: [CLEAR_RECYCLE_BIN, CLEAR_RECYCLE_BIN_SUCCESS, CLEAR_RECYCLE_BIN_FAIL],
+    promise: (client) => {
+      return client.send('clear-recycle-bin');
     }
   };
 }
