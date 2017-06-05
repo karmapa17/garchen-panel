@@ -8,7 +8,8 @@ import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
 import injectF from './../../helpers/injectF';
 import ipc from './../../helpers/ipc';
 import injectPush from './../../helpers/injectPush';
-import {addFolderByCsv, setImportingFolderId, cancelImportingCsv, setIsProcessingCsv} from './../../redux/modules/folder';
+import {addFolderByCsv, setImportingFolderId, cancelImportingCsv, setIsProcessingCsv,
+  setIsOpeningDialog} from './../../redux/modules/folder';
 import Heading from './../Heading/Heading';
 import ExternalLink from './../ExternalLink/ExternalLink';
 import getFontSize from './../../helpers/getFontSize';
@@ -29,11 +30,12 @@ const csvExampleUrl = 'https://goo.gl/YcRMrT';
   interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   contentFontSizeScalingFactor: main.get('contentFontSizeScalingFactor'),
   isProcessingCsv: folder.get('isProcessingCsv'),
+  isOpeningDialog: folder.get('isOpeningDialog'),
   errorMessage: folder.get('errorCsvMessage'),
   errorMessageId: folder.get('errorCsvMessageId'),
   errorFilename: folder.get('errorCsvFilename'),
   writeDelay: main.get('writeDelay')
-}), {addFolderByCsv, setImportingFolderId, cancelImportingCsv, setIsProcessingCsv})
+}), {addFolderByCsv, setImportingFolderId, cancelImportingCsv, setIsProcessingCsv, setIsOpeningDialog})
 @injectIntl
 @injectPush
 @injectF
@@ -50,8 +52,10 @@ export default class PageImportCsv extends Component {
     writeDelay: PropTypes.number.isRequired,
     setIsProcessingCsv: PropTypes.func.isRequired,
     interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
+    isOpeningDialog: PropTypes.bool.isRequired,
     contentFontSizeScalingFactor: PropTypes.number.isRequired,
     setImportingFolderId: PropTypes.func.isRequired,
+    setIsOpeningDialog: PropTypes.func.isRequired,
     cancelImportingCsv: PropTypes.func.isRequired,
     addFolderByCsv: PropTypes.func.isRequired
   };
@@ -72,7 +76,9 @@ export default class PageImportCsv extends Component {
   };
 
   handleCsvProcessingStart = () => {
-    this.props.setIsProcessingCsv(true);
+    const {setIsProcessingCsv, setIsOpeningDialog} = this.props;
+    setIsProcessingCsv(true);
+    setIsOpeningDialog(false);
   };
 
   componentWillMount() {
@@ -97,7 +103,7 @@ export default class PageImportCsv extends Component {
   renderChooseCsvFileButton = () => {
 
     const {completedLines} = this.state;
-    const {f, isProcessingCsv, interfaceFontSizeScalingFactor} = this.props;
+    const {f, isProcessingCsv, isOpeningDialog, interfaceFontSizeScalingFactor} = this.props;
     const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
 
     if (isProcessingCsv) {
@@ -111,7 +117,8 @@ export default class PageImportCsv extends Component {
     }
     return (
       <div className={styles.chooseFileBtnWrap}>
-        <RaisedButton label={f('choose-csv-file')} labelStyle={{fontSize: buttonFontSize}} primary onTouchTap={this.handleChooseCsvFileButtonTouchTap} />
+        <RaisedButton label={f('choose-csv-file')} labelStyle={{fontSize: buttonFontSize}}
+          primary onTouchTap={this.handleChooseCsvFileButtonTouchTap} disabled={isOpeningDialog} />
       </div>
     );
   };
