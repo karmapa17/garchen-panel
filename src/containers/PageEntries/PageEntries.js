@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import c from 'classnames';
 import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {range} from 'ramda';
 import {Link} from 'react-router';
@@ -89,7 +90,8 @@ export default class PageEntries extends Component {
       page: 1,
       tableKey: 0,
       searchKeyword: '',
-      searchType: 'source-entry'
+      searchType: 'source-entry',
+      isConfirmEntryDeletionOpen: false
     }, props.cache);
   }
 
@@ -202,12 +204,17 @@ export default class PageEntries extends Component {
     this.setState({page: nextPage});
     setSnackBarParams(true, f('folder-entries-has-been-deleted', {count: ids.length}));
     this.updateTableKey();
+    this.closeConfirmEntryDeletionDialog();
   };
 
   renderDeleteButton() {
-    const {selectedFolderEntryMap, f} = this.props;
+    const {selectedFolderEntryMap, f, interfaceFontSizeScalingFactor} = this.props;
     if (Object.keys(selectedFolderEntryMap).length > 0) {
-      return <FlatButton label={f('delete')} icon={<i className="fa fa-trash" />} onTouchTap={this.deleteSelectedFolderEntries} />;
+      const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
+      return (
+        <FlatButton label={f('delete')} labelStyle={{fontSize: buttonFontSize}}
+          icon={<i className="fa fa-trash" />} onTouchTap={this.openConfirmEntryDeletionDialog} />
+      );
     }
   }
 
@@ -246,6 +253,32 @@ export default class PageEntries extends Component {
     return folder.id === importingFolderId;
   }
 
+  openConfirmEntryDeletionDialog = () => this.setState({isConfirmEntryDeletionOpen: true});
+
+  closeConfirmEntryDeletionDialog = () => this.setState({isConfirmEntryDeletionOpen: false});
+
+  renderConfirmEntryDeletionDialog() {
+    const {isConfirmEntryDeletionOpen} = this.state;
+    const {f, interfaceFontSizeScalingFactor} = this.props;
+    const dialogContentFontSize = getFontSize(interfaceFontSizeScalingFactor, 1.2);
+    const dialogContentLineHeight = getFontSize(interfaceFontSizeScalingFactor, 1.2);
+    const pStyle = {
+      fontSize: dialogContentFontSize,
+      lineHeight: dialogContentLineHeight
+    };
+    const actions = [
+      <FlatButton label={f('cancel')} primary onTouchTap={this.closeConfirmEntryDeletionDialog} />,
+      <FlatButton label={f('delete')} primary keyboardFocused onTouchTap={this.deleteSelectedFolderEntries} />
+    ];
+    return (
+      <Dialog title={f('title-confirm-delete-dialog')} actions={actions}
+        modal={false} open={isConfirmEntryDeletionOpen} onRequestClose={this.closeConfirmEntryDeletionDialog}>
+        <p style={pStyle}>{f('content-confirm-delete-dialog1')}</p>
+        <p style={pStyle}>{f('content-confirm-delete-dialog2')}</p>
+      </Dialog>
+    );
+  }
+
   render() {
 
     const {page, searchType, searchKeyword} = this.state;
@@ -277,6 +310,7 @@ export default class PageEntries extends Component {
           {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
             onButtonTouchTap={this.handlePageButtonTouchTap} />}
         </div>
+        {this.renderConfirmEntryDeletionDialog()}
       </div>
     );
   }
