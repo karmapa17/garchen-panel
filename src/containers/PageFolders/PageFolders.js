@@ -69,7 +69,8 @@ export default class PageFolders extends Component {
     this.state = Object.assign({
       page: 1,
       targetLanguages: [],
-      isAddFolderDialogOpen: false
+      isAddFolderDialogOpen: false,
+      selectedFolderIdData: {}
     }, props.cache);
   }
 
@@ -148,6 +149,20 @@ export default class PageFolders extends Component {
         return this.props.exportFolderToCsv(folderId);
       default:
     }
+  };
+
+  handleFolderSelect = (folderId) => {
+    return () => {
+      const {selectedFolderIdData} = this.state;
+
+      if (folderId in selectedFolderIdData) {
+        delete selectedFolderIdData[folderId];
+      }
+      else {
+        selectedFolderIdData[folderId] = true;
+      }
+      this.setState({selectedFolderIdData});
+    };
   };
 
   renderFolders() {
