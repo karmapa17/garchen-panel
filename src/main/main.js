@@ -21,6 +21,7 @@ import checkFolderExists from './controllers/folder/checkFolderExists';
 import addFolderByCsv from './controllers/folder/addFolderByCsv';
 import cancelImportingCsv from './controllers/folder/cancelImportingCsv';
 import exportFolderToCsv from './controllers/folder/exportFolderToCsv';
+import clearRecycleBin from './controllers/folder/clearRecycleBin';
 import openExternal from './controllers/common/openExternal';
 
 import getEntry from './controllers/entry/getEntry';
@@ -72,6 +73,7 @@ async function handleAppReady() {
   ipc.on('add-folder-by-csv', addFolderByCsv);
   ipc.on('cancel-importing-csv', cancelImportingCsv);
   ipc.on('export-folder-to-csv', exportFolderToCsv);
+  ipc.on('clear-recycle-bin', clearRecycleBin);
 
   ipc.on('list-folder-entries', listFolderEntries);
   ipc.on('add-folder-entry', addFolderEntry);
