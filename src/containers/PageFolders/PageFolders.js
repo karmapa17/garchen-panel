@@ -195,7 +195,15 @@ export default class PageFolders extends Component {
     return <div className={styles.folderBox}>{rows}</div>;
   }
 
-  handlePageButtonTouchTap = (page) => this.setState({page});
+  handlePageButtonTouchTap = (newPage) => {
+    const {page} = this.state;
+    if (page !== newPage) {
+      this.setState({
+        page: newPage,
+        selectedFolderIdData: {}
+      });
+    }
+  };
 
   goToPageCrossFolderSearch = () => this.props.push('cross-folder-search');
 
