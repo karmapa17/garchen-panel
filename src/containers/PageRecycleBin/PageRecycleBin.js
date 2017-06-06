@@ -217,7 +217,7 @@ export class PageRecycleBin extends Component {
           <div>
             {this.renderRecoverButton()}
             <FlatButton label={f('empty-recycle-bin')} labelStyle={{fontSize: this.getButtonFontSize()}}
-              icon={<i className="fa fa-trash" />} onTouchTap={this.openConfirmClearRecycleBinDialog} />
+              icon={<i className="fa fa-trash" />} onTouchTap={this.openConfirmClearRecycleBinDialog} disabled={0 === folderCount} />
           </div>
         </TopBar>
         <div className={styles.content}>
