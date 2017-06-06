@@ -1,7 +1,7 @@
 export default async function markDeletedAtToFolders(event, data) {
 
   const {folderIds} = data;
-  const {db, models} = this.params;
+  const {db} = this.params;
 
   const deletedAt = Math.round(+new Date() / 1000);
 
