@@ -162,6 +162,10 @@ export default class PageFolders extends Component {
       if ('DIV' !== event.target.tagName) {
         return;
       }
+      // don't select importing folder
+      if (this.isImportingFolder(folderId)) {
+        return;
+      }
       const {selectedFolderIdData} = this.state;
 
       if (folderId in selectedFolderIdData) {
