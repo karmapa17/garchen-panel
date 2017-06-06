@@ -227,4 +227,4 @@ export class PageRecycleBin extends Component {
   }
 }
 
-export default compose(resolveFunc, injectPush, injectF, connectFunc)(PageRecycleBin);
+export default compose(connectFunc, injectPush, injectF, resolveFunc)(PageRecycleBin);
