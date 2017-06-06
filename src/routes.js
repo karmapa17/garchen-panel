@@ -12,6 +12,7 @@ import PageNotFound from './containers/PageNotFound/PageNotFound';
 import PageSettings from './containers/PageSettings/PageSettings';
 import PageImportCsv from './containers/PageImportCsv/PageImportCsv';
 import PageCrossFolderSearch from './containers/PageCrossFolderSearch/PageCrossFolderSearch';
+import PageRecycleBin from './containers/PageRecycleBin/PageRecycleBin';
 
 export default () => {
 
@@ -27,6 +28,7 @@ export default () => {
 
       <Route path="cross-folder-search" component={PageCrossFolderSearch} />
       <Route path="import-csv" component={PageImportCsv} />
+      <Route path="recycle-bin" component={PageRecycleBin} />
 
       <Route path="about" component={PageAbout} />
       <Route path="settings" component={PageSettings} />

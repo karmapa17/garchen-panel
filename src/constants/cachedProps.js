@@ -6,5 +6,6 @@ export default [
   'main.contentFontSizeScalingFactor',
   'main.writeDelay',
   'folder.perpage',
+  'folder.deletedFolderPerPage',
   'entry.perpage'
 ];

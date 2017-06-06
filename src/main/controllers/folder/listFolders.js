@@ -1,10 +1,10 @@
 export default async function listFolders(event, data) {
 
-  const {page, perpage} = data;
+  const {page, perpage, isDeleted} = data;
   const {Folder} =  this.params.models;
-
-  const folders = await Folder.find({}, {skip: (page - 1) * perpage, limit: perpage});
-  const total = await Folder.count();
+  const where = isDeleted ? ['deletedAt', '>', 0] : {deletedAt: 0};
+  const folders = await Folder.find(null, where, {skip: (page - 1) * perpage, limit: perpage});
+  const total = await Folder.count(where);
 
   this.resolve({data: folders, total});
 }

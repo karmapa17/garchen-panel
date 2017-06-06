@@ -8,8 +8,7 @@ import {Link} from 'react-router';
 import sortFolderContentFields from './../../main/helpers/sortFolderContentFields';
 import filterFolderContentFields from './../../helpers/filterFolderContentFields';
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
-import DeleteFolderForm from './../../components/DeleteFolderForm/DeleteFolderForm';
-import {getFolder, updateFolder, deleteFolder} from './../../redux/modules/folder';
+import {getFolder, updateFolder} from './../../redux/modules/folder';
 import {deleteCachePageEntries} from './../../redux/modules/cache';
 import {setSnackBarParams} from './../../redux/modules/ui';
 import injectF from './../../helpers/injectF';
@@ -24,7 +23,7 @@ const styles = require('./PageEditFolder.scss');
 @connect(({main, folder}) => ({
   interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   folder: folder.get('folder')
-}), {getFolder, updateFolder, setSnackBarParams, deleteFolder, deleteCachePageEntries})
+}), {getFolder, updateFolder, setSnackBarParams, deleteCachePageEntries})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
@@ -37,7 +36,6 @@ export default class PageEditFolder extends Component {
     folder: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
     getFolder: PropTypes.func.isRequired,
-    deleteFolder: PropTypes.func.isRequired,
     interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     deleteCachePageEntries: PropTypes.func.isRequired,
@@ -66,14 +64,6 @@ export default class PageEditFolder extends Component {
 
     const folder = await updateFolder(data);
     setSnackBarParams(true, f('folder-has-been-updated', {folderName: folder.name}));
-    push('/');
-  };
-
-  handleDeleteFolderFormSubmit = async () => {
-    const {f, deleteFolder, folder, push, setSnackBarParams, deleteCachePageEntries} = this.props;
-    await deleteFolder({id: folder.id});
-    deleteCachePageEntries(folder.id);
-    setSnackBarParams(true, f('folder-has-been-deleted', {folderName: folder.name}));
     push('/');
   };
 
@@ -106,8 +96,6 @@ export default class PageEditFolder extends Component {
         </TopBar>
         <EditFolderForm onSubmit={this.handleEditFolderFormSubmit} buttonFontSize={buttonFontSize}
           initialValues={initialValues} onTargetLanguagesChange={this.handleTargetLanguagesChange} targetLanguages={targetLanguages} />
-        <DeleteFolderForm className={styles.deleteFolderForm} initialValues={{targetFolderName: folder.name}}
-          onSubmit={this.handleDeleteFolderFormSubmit} />
       </div>
     );
   }

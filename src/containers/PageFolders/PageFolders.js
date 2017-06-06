@@ -11,7 +11,7 @@ import IconButton from 'material-ui/IconButton';
 import LinearProgress from 'material-ui/LinearProgress';
 
 import {setSnackBarParams} from './../../redux/modules/ui';
-import {addFolder, listFolders, exportFolderToCsv} from './../../redux/modules/folder';
+import {addFolder, listFolders, exportFolderToCsv, markDeletedAtToFolders} from './../../redux/modules/folder';
 import {setCachePageFolders} from './../../redux/modules/cache';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
@@ -33,7 +33,7 @@ const styles = require('./PageFolders.scss');
   folders: folder.get('folders'),
   importingFolderId: folder.get('importingFolderId'),
   folderCount: folder.get('folderCount')
-}), {listFolders, addFolder, setSnackBarParams, exportFolderToCsv, setCachePageFolders})
+}), {listFolders, addFolder, setSnackBarParams, exportFolderToCsv, setCachePageFolders, markDeletedAtToFolders})
 @injectPush
 @injectF
 @resolve(({dispatch}, {perpage, cache}) => {
@@ -55,6 +55,7 @@ export default class PageFolders extends Component {
     f: PropTypes.func.isRequired,
     perpage: PropTypes.number.isRequired,
     addFolder: PropTypes.func.isRequired,
+    markDeletedAtToFolders: PropTypes.func.isRequired,
     folders: PropTypes.array.isRequired,
     folderCount: PropTypes.number.isRequired,
     listFolders: PropTypes.func.isRequired,
@@ -69,7 +70,8 @@ export default class PageFolders extends Component {
     this.state = Object.assign({
       page: 1,
       targetLanguages: [],
-      isAddFolderDialogOpen: false
+      isAddFolderDialogOpen: false,
+      selectedFolderIdData: {}
     }, props.cache);
   }
 
@@ -150,15 +152,38 @@ export default class PageFolders extends Component {
     }
   };
 
+  handleFolderSelect = (folderId) => {
+    return (event) => {
+      // only work for folder DIV, anchor and the "more" dropdown menu should be ignored
+      if ('DIV' !== event.target.tagName) {
+        return;
+      }
+      const {selectedFolderIdData} = this.state;
+
+      if (folderId in selectedFolderIdData) {
+        delete selectedFolderIdData[folderId];
+      }
+      else {
+        selectedFolderIdData[folderId] = true;
+      }
+      this.setState({selectedFolderIdData});
+    };
+  };
+
   renderFolders() {
+    const {selectedFolderIdData} = this.state;
     const {f, folders, importingFolderId, interfaceFontSizeScalingFactor} = this.props;
     const linkFontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
     const menuItemFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
     const rows = folders.map((folder) => {
       const {id, name} = folder;
       const isImporting = (importingFolderId === folder.id);
+      const className = c({
+        [styles.folder]: true,
+        [styles.selected]: id in selectedFolderIdData
+      });
       return (
-        <div className={styles.folder} key={`paper-${id}`}>
+        <div className={className} key={`paper-${id}`} onTouchTap={this.handleFolderSelect(id)}>
           {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
           <a style={{fontSize: linkFontSize}} className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           {(! isImporting) && <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
@@ -175,9 +200,42 @@ export default class PageFolders extends Component {
     return <div className={styles.folderBox}>{rows}</div>;
   }
 
-  handlePageButtonTouchTap = (page) => this.setState({page});
+  handlePageButtonTouchTap = (newPage) => {
+    const {page} = this.state;
+    if (page !== newPage) {
+      this.setState({
+        page: newPage,
+        selectedFolderIdData: {}
+      });
+    }
+  };
 
   goToPageCrossFolderSearch = () => this.props.push('cross-folder-search');
+
+  deleteSelectedFolders = async () => {
+    const {f, markDeletedAtToFolders, listFolders, perpage, folderCount, setSnackBarParams} = this.props;
+    const {page, selectedFolderIdData} = this.state;
+    const folderIds = Object.keys(selectedFolderIdData).map(Number);
+    await markDeletedAtToFolders(folderIds);
+    this.setState({selectedFolderIdData: {}});
+
+    const totalPages = Math.ceil((folderCount - folderIds.length) / perpage);
+    const nextPage = (page > totalPages) ? totalPages : page;
+    listFolders({page: nextPage, perpage});
+    setSnackBarParams(true, f('folders-have-been-deleted'));
+  };
+
+  renderDeleteButton() {
+    const {f, interfaceFontSizeScalingFactor} = this.props;
+    const {selectedFolderIdData} = this.state;
+    if (Object.keys(selectedFolderIdData).length > 0) {
+      const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
+      return (
+        <FlatButton label={f('delete')} labelStyle={{fontSize: buttonFontSize}}
+          icon={<i className="fa fa-trash" />} onTouchTap={this.deleteSelectedFolders} />
+      );
+    }
+  }
 
   render() {
 
@@ -190,6 +248,7 @@ export default class PageFolders extends Component {
         <TopBar>
           <Heading>{f('folders')}</Heading>
           <div>
+            {this.renderDeleteButton()}
             <FlatButton icon={<i className="fa fa-search" />} labelStyle={{fontSize: buttonFontSize}}
               label={f('cross-folder-search')} primary onTouchTap={this.goToPageCrossFolderSearch} />
             <FlatButton icon={<i className="fa fa-plus" />} labelStyle={{fontSize: buttonFontSize}}

@@ -15,12 +15,15 @@ import listFolderEntries from './controllers/entry/listFolderEntries';
 import addFolderEntry from './controllers/entry/addFolderEntry';
 import checkFolderEntryExists from './controllers/entry/checkFolderEntryExists';
 import addFolder from './controllers/folder/addFolder';
-import deleteFolder from './controllers/folder/deleteFolder';
+import markDeletedAtToFolders from './controllers/folder/markDeletedAtToFolders';
+import deleteFolders from './controllers/folder/deleteFolders';
 import checkFolderExists from './controllers/folder/checkFolderExists';
 import addFolderByCsv from './controllers/folder/addFolderByCsv';
 import cancelImportingCsv from './controllers/folder/cancelImportingCsv';
 import exportFolderToCsv from './controllers/folder/exportFolderToCsv';
+import clearRecycleBin from './controllers/folder/clearRecycleBin';
 import openExternal from './controllers/common/openExternal';
+import restoreFolders from './controllers/folder/restoreFolders';
 
 import getEntry from './controllers/entry/getEntry';
 import deleteEntries from './controllers/entry/deleteEntries';
@@ -64,12 +67,15 @@ async function handleAppReady() {
   ipc.on('get-folder', getFolder);
   ipc.on('check-folder-exists', checkFolderExists);
   ipc.on('update-folder', updateFolder);
-  ipc.on('delete-folder', deleteFolder);
+  ipc.on('mark-deleted-at-to-folders', markDeletedAtToFolders);
+  ipc.on('delete-folders', deleteFolders);
   ipc.on('list-folders', listFolders);
   ipc.on('add-folder', addFolder);
   ipc.on('add-folder-by-csv', addFolderByCsv);
   ipc.on('cancel-importing-csv', cancelImportingCsv);
   ipc.on('export-folder-to-csv', exportFolderToCsv);
+  ipc.on('clear-recycle-bin', clearRecycleBin);
+  ipc.on('restore-folders', restoreFolders);
 
   ipc.on('list-folder-entries', listFolderEntries);
   ipc.on('add-folder-entry', addFolderEntry);
