@@ -1,5 +1,3 @@
-import log from 'karmapa-log';
-
 export default async function deleteFolder(event, data) {
 
   const {folderIds} = data;
