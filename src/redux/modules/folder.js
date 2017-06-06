@@ -78,7 +78,7 @@ const initialState = Map({
 
   deletedFolders: [],
   deletedFolderCount: 0,
-  deletedFoldersPerPage: DELETED_FOLDER_PERPAGE
+  deletedFolderPerPage: DELETED_FOLDER_PERPAGE
 });
 
 export default createReducer(initialState, {

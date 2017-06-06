@@ -21,7 +21,7 @@ const styles = require('./PageRecycleBin.scss');
 
 const connectFunc = connect(({main, folder}) => ({
   interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
-  perpage: folder.get('deletedFoldersPerPage'),
+  perpage: folder.get('deletedFolderPerPage'),
   folders: folder.get('deletedFolders'),
   folderCount: folder.get('deletedFolderCount')
 }), {listDeletedFolders, setSnackBarParams, clearRecycleBin, restoreFolders});
