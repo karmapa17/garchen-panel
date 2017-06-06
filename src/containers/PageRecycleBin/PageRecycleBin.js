@@ -1,21 +1,19 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import c from 'classnames';
-import {range, isEmpty} from 'lodash';
 import FlatButton from 'material-ui/FlatButton';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import React, {Component, PropTypes} from 'react';
+import c from 'classnames';
 import moment from 'moment';
-
-import {setSnackBarParams} from './../../redux/modules/ui';
-import {listDeletedFolders, clearRecycleBin, restoreFolders} from './../../redux/modules/folder';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import {connect} from 'react-redux';
+import {range, isEmpty} from 'lodash';
+import Heading from './../Heading/Heading';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
-import Heading from './../Heading/Heading';
 import getFontSize from './../../helpers/getFontSize';
-
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
+import {listDeletedFolders, clearRecycleBin, restoreFolders} from './../../redux/modules/folder';
+import {setSnackBarParams} from './../../redux/modules/ui';
 
 const styles = require('./PageRecycleBin.scss');
 
