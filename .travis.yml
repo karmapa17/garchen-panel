@@ -1,13 +1,16 @@
 language: node_js
 node_js:
- - "7"
+- '7'
 cache:
   directories:
-    - $HOME/.npm
-    - node_modules
+  - $HOME/.npm
+  - node_modules
 before_install:
-  - npm install --global npm
+- npm install --global npm
 before_script:
-  - npm prune
+- npm prune
 after_success:
-  - npm run coveralls
+- npm run coveralls
+notifications:
+  slack:
+    secure: iNhB84o51LDKOsXcJMXd1G2p2m08oYqkMDAozSvRPFBjPdwL0BUiYot9Sgj/zrPvou/QHD54IPyKT7P+4zWASgrkoiwulO4Dhslpkoyc8Hu9kEy70HP4Ivk44zlItgb8iw0vCzUqQjP3aPnVBOO1CzzvlC2pTjI2lF8Ak5Dg+vAeDM7ZL3N+UHvFhCx7eer3jkdRDxX7VlQxSdTM6h44ppxaKVam4Uf+sS1ubRpdHG0yOSpCFKtvdSvBl6PLwsDRzUI2ALsQNx0Ef6PhotHaJMqcLO6FW+2iJMFLC+JPCi/qT6Oc5+M9MyADmUbi5T76osqsCWDVwYIoOFLrlkQwCgFoqArVCqafY3QURxh9Cbu35gy0bsT6jPXBZPu8wY1Tbw7xrUEFxeFO3Rek0IEfCgfSjUgd78j8WfitKktL8Qisn1kOfSPlrmcB7dFPxcOlMhZ6TG73jOFQ5JDTOLf0AI/vKLgKW2M95kmuERcD2wkqPqQqOehDd0hE2G/ctK5thKjCn+pD/ZOxiY9brNcevjgekaePoggFoKlc3KYh/NzR3Y2kjWGb+Ue5C8Ll4swm7ydq0OnCzsm4ooMUn0jy8lntOROScA2+3yHdf41qHuBHaqblIXE/lrRCaY/eZlSWMNNBum9844Ey2MtYMmx1GbSB6pAS6rlMTXYldPF+kNE=
