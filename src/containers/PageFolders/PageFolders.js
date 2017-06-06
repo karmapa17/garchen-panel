@@ -153,7 +153,11 @@ export default class PageFolders extends Component {
   };
 
   handleFolderSelect = (folderId) => {
-    return () => {
+    return (event) => {
+      // only work for folder DIV, anchor and the "more" dropdown menu should be ignored
+      if ('DIV' !== event.target.tagName) {
+        return;
+      }
       const {selectedFolderIdData} = this.state;
 
       if (folderId in selectedFolderIdData) {
