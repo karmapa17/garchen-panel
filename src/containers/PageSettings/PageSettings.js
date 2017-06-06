@@ -13,13 +13,14 @@ import {injectIntl} from 'react-intl';
 import APP_LANGS from './../../constants/appLangs';
 import APP_FONTS from './../../constants/appFonts';
 import {setIntl, setAppFont, setWriteDelay, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor} from './../../redux/modules/main';
-import {setDisplayFolderPerPage} from './../../redux/modules/folder';
+import {setDisplayFolderPerPage, setDisplayDeletedFolderPerPage} from './../../redux/modules/folder';
 import {setDisplayEntryPerPage} from './../../redux/modules/entry';
 import {clearCachePageEntries, clearCachePageFolders} from './../../redux/modules/cache';
 import injectF from './../../helpers/injectF';
 import INTERFACE_FONT_SIZE_OPTIONS from './../../constants/interfaceFontSizeOptions';
 import DISPLAY_FOLDER_PERPAGE_OPTIONS from './../../constants/displayFolderPerPageOptions';
 import DISPLAY_ENTRY_PERPAGE_OPTIONS from './../../constants/displayEntryPerPageOptions';
+import DISPLAY_DELETED_FOLDER_PERPAGE_OPTIONS from './../../constants/displayDeletedFolderPerPageOptions';
 import DEMO_FONT_PHRASES from './../../constants/demoFontPhrases';
 import CONTENT_FONT_SIZE_OPTIONS from './../../constants/contentFontSizeOptions';
 import Heading from './../Heading/Heading';
@@ -30,13 +31,14 @@ const styles = require('./PageSettings.scss');
 @connect(({main, folder, entry}) => ({
   displayEntryPerPage: entry.get('perpage'),
   displayFolderPerPage: folder.get('perpage'),
+  displayDeletedFolderPerPage: folder.get('deletedFolderPerPage'),
   appLocale: main.get('appLocale'),
   appFont: main.get('appFont'),
   interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   contentFontSizeScalingFactor: main.get('contentFontSizeScalingFactor'),
   writeDelay: main.get('writeDelay')
 }), {setIntl, setWriteDelay, setAppFont, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor,
-  setDisplayFolderPerPage, setDisplayEntryPerPage, clearCachePageEntries, clearCachePageFolders})
+  setDisplayFolderPerPage, setDisplayEntryPerPage, clearCachePageEntries, clearCachePageFolders, setDisplayDeletedFolderPerPage})
 @injectIntl
 @injectF
 export default class PageSettings extends Component {
@@ -53,9 +55,11 @@ export default class PageSettings extends Component {
     setAppFont: PropTypes.func.isRequired,
     setDisplayFolderPerPage: PropTypes.func.isRequired,
     setDisplayEntryPerPage: PropTypes.func.isRequired,
+    setDisplayDeletedFolderPerPage: PropTypes.func.isRequired,
     clearCachePageEntries: PropTypes.func.isRequired,
     clearCachePageFolders: PropTypes.func.isRequired,
     displayFolderPerPage: PropTypes.number.isRequired,
+    displayDeletedFolderPerPage: PropTypes.number.isRequired,
     displayEntryPerPage: PropTypes.number.isRequired,
     writeDelay: PropTypes.number.isRequired,
     setWriteDelay: PropTypes.func.isRequired
@@ -113,6 +117,10 @@ export default class PageSettings extends Component {
     clearCachePageFolders();
   };
 
+  handleDisplayDeletedFolderPerPageSelectFieldChange = (event, index, value) => {
+    this.props.setDisplayDeletedFolderPerPage(value);
+  };
+
   handleDisplayEntryPerPageSelectFieldChange = (event, index, value) => {
     const {setDisplayEntryPerPage, clearCachePageEntries} = this.props;
     setDisplayEntryPerPage(value);
@@ -131,6 +139,12 @@ export default class PageSettings extends Component {
     });
   }
 
+  renderDisplayDeletedFolderPerPageMenuItems() {
+    return DISPLAY_DELETED_FOLDER_PERPAGE_OPTIONS.map((value) => {
+      return <MenuItem key={`option-display-deleted-folder-perpage-${value}`} value={value} primaryText={value} />;
+    });
+  }
+
   renderDisplayEntryPerPageMenuItems() {
     return DISPLAY_ENTRY_PERPAGE_OPTIONS.map((value) => {
       return <MenuItem key={`option-display-entry-perpage-${value}`} value={value} primaryText={value} />;
@@ -140,12 +154,13 @@ export default class PageSettings extends Component {
   render() {
 
     const {appLocale, appFont, f, writeDelay, interfaceFontSizeScalingFactor, contentFontSizeScalingFactor,
-      displayFolderPerPage, displayEntryPerPage} = this.props;
+      displayFolderPerPage, displayDeletedFolderPerPage, displayEntryPerPage} = this.props;
     const floatingLabelFontSize = '20px';
     const customLabelFontSize = '15px';
     const fieldFontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
     const menuItemFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.8);
     const contentFontSize = getFontSize(contentFontSizeScalingFactor, 1);
+    const floatingLabelStyle = {fontSize: floatingLabelFontSize, whiteSpace: 'nowrap'};
 
     return (
       <div className={styles.pageSettings}>
@@ -153,7 +168,7 @@ export default class PageSettings extends Component {
         <div className={styles.content}>
           <div>
             <LanguageIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-            <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+            <SelectField floatingLabelStyle={floatingLabelStyle} menuItemStyle={{fontSize: menuItemFontSize}}
               style={{fontSize: fieldFontSize}} floatingLabelText={f('app-language')} onChange={this.handleLangSelectFieldChange} value={appLocale}>
               {this.renderLangMenuItems()}
             </SelectField>
@@ -167,14 +182,14 @@ export default class PageSettings extends Component {
           </div>
           <div>
             <TextFormatIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-            <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+            <SelectField floatingLabelStyle={floatingLabelStyle} menuItemStyle={{fontSize: menuItemFontSize}}
               style={{fontSize: fieldFontSize}} floatingLabelText={f('app-font')} onChange={this.handleFontSelectFieldChange} value={appFont}>
               {this.renderFontMenuItems()}
             </SelectField>
           </div>
           <div className={styles.customField}>
             <FormatListNumberIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-            <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+            <SelectField floatingLabelStyle={floatingLabelStyle} menuItemStyle={{fontSize: menuItemFontSize}}
               style={{fontSize: fieldFontSize}} floatingLabelText={f('display-folder-perpage', {perpage: displayFolderPerPage})}
               onChange={this.handleDisplayFolderPerPageSelectFieldChange} value={displayFolderPerPage}>
               {this.renderDisplayFolderPerPageMenuItems()}
@@ -182,7 +197,15 @@ export default class PageSettings extends Component {
           </div>
           <div className={styles.customField}>
             <FormatListNumberIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-            <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+            <SelectField floatingLabelStyle={floatingLabelStyle} menuItemStyle={{fontSize: menuItemFontSize}}
+              style={{fontSize: fieldFontSize}} floatingLabelText={f('display-deleted-folder-perpage', {perpage: displayDeletedFolderPerPage})}
+              onChange={this.handleDisplayDeletedFolderPerPageSelectFieldChange} value={displayDeletedFolderPerPage}>
+              {this.renderDisplayDeletedFolderPerPageMenuItems()}
+            </SelectField>
+          </div>
+          <div className={styles.customField}>
+            <FormatListNumberIcon style={{marginRight: '21px', marginBottom: '12px'}} />
+            <SelectField floatingLabelStyle={floatingLabelStyle} menuItemStyle={{fontSize: menuItemFontSize}}
               style={{fontSize: fieldFontSize}} floatingLabelText={f('display-entry-perpage', {perpage: displayEntryPerPage})}
               onChange={this.handleDisplayEntryPerPageSelectFieldChange} value={displayEntryPerPage}>
               {this.renderDisplayEntryPerPageMenuItems()}
@@ -190,7 +213,7 @@ export default class PageSettings extends Component {
           </div>
           <div className={styles.customField}>
             <FormatSizeIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-            <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+            <SelectField floatingLabelStyle={floatingLabelStyle} menuItemStyle={{fontSize: menuItemFontSize}}
               style={{fontSize: fieldFontSize}} floatingLabelText={f('interface-font-size')}
               onChange={this.handleInterfaceFontSizeSelectFieldChange} value={interfaceFontSizeScalingFactor}>
               {this.renderInterfaceFontSizeMenuItems()}
@@ -198,7 +221,7 @@ export default class PageSettings extends Component {
           </div>
           <div className={styles.customField}>
             <FormatSizeIcon style={{marginRight: '21px', marginBottom: '12px'}} />
-            <SelectField floatingLabelStyle={{fontSize: floatingLabelFontSize}} menuItemStyle={{fontSize: menuItemFontSize}}
+            <SelectField floatingLabelStyle={floatingLabelStyle} menuItemStyle={{fontSize: menuItemFontSize}}
               style={{fontSize: fieldFontSize}} floatingLabelText={f('content-font-size')}
               onChange={this.handleContentFontSizeSelectFieldChange} value={contentFontSizeScalingFactor}>
               {this.renderContentFontSizeMenuItems()}

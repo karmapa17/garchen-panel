@@ -157,6 +157,7 @@ export class App extends Component {
             <MenuItem primaryText={f('folders')} style={menuItemStyle} onTouchTap={this.handleMenuItemTouchTap('/')} />
             <MenuItem primaryText={f('about')} style={menuItemStyle} onTouchTap={this.handleMenuItemTouchTap('/about')} />
             <MenuItem primaryText={f('import-csv-file')} style={menuItemStyle} onTouchTap={this.handleMenuItemTouchTap('/import-csv')} />
+            <MenuItem primaryText={f('recycle-bin')} style={menuItemStyle} onTouchTap={this.handleMenuItemTouchTap('/recycle-bin')} />
 
             <hr className="divider" />
             <MenuItem primaryText={f('settings')} style={menuItemStyle} leftIcon={(<SettingsIcon />)} onTouchTap={this.handleMenuItemTouchTap('/settings')} />

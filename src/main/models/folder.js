@@ -4,6 +4,7 @@ module.exports = {
     id: {type: 'increments', primary: true},
     name: {type: String, unique: true, nullable: false},
     source: {type: String, defaultTo: ''},
-    data: {type: 'json', defaultTo: '{}'}
+    data: {type: 'json', defaultTo: '{}'},
+    deletedAt: {type: Number, defaultTo: 0}
   }
 };

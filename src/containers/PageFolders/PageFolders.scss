@@ -1,11 +1,19 @@
+@import './../../../assets/styles/variables';
+
 .pageFolders {
   .folderBox {
     margin-top: 14px;
   }
   .folder {
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.16);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
     &:hover {
       box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 10px, rgba(0, 0, 0, 0.4) 0px 3px 10px;
+    }
+    &.selected {
+      border: 1px solid $link;
+      box-shadow: none;
     }
     vertical-align: top;
     position: relative;
