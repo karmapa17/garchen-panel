@@ -7,5 +7,5 @@ export default async function clearRecycleBin(event) {
   await db.raw(db.knex('Folder').whereIn('id', folderIds).del());
   await db.raw(db.knex('Entry').whereIn('folderId', folderIds).del());
 
-  this.resolve({message: `Folders has been deleted`});
+  this.resolve({message: `Folders have been deleted`});
 }
