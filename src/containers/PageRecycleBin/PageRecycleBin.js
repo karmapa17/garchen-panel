@@ -101,6 +101,8 @@ export class PageRecycleBin extends Component {
     this.setSelectedFolderIds(folderIds);
   };
 
+  updateTableKey = () => this.setState((prevState) => ({tableKey: prevState.tableKey + 1}));
+
   renderFolders() {
     const fontSize = 20;
     const colStyle = {fontSize, width: 'initial'};
@@ -135,6 +137,7 @@ export class PageRecycleBin extends Component {
   handlePageButtonTouchTap = (newPage) => {
     const {page} = this.state;
     if (page !== newPage) {
+      this.updateTableKey();
       this.setState({
         page: newPage,
         selectedFolderIdData: {}
@@ -173,6 +176,7 @@ export class PageRecycleBin extends Component {
     this.props.clearRecycleBin();
     listDeletedFolders({page: 1, perpage});
     this.setState({page: 1});
+    this.updateTableKey();
     this.closeConfirmClearRecycleBinDialog();
   };
 
