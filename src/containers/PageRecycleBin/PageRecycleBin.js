@@ -138,10 +138,8 @@ export class PageRecycleBin extends Component {
     const {page} = this.state;
     if (page !== newPage) {
       this.updateTableKey();
-      this.setState({
-        page: newPage,
-        selectedFolderIdData: {}
-      });
+      this.setSelectedFolderIds([]);
+      this.setState({page: newPage});
     }
   };
 
@@ -178,6 +176,7 @@ export class PageRecycleBin extends Component {
     this.setState({page: 1});
     this.updateTableKey();
     this.closeConfirmClearRecycleBinDialog();
+    this.setSelectedFolderIds([]);
   };
 
   openConfirmClearRecycleBinDialog = () => this.setState({isConfirmClearRecycleBinDialogOpen: true});
