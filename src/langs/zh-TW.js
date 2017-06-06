@@ -1,4 +1,5 @@
 module.exports = {
+  'delete-selected-folders': '刪除所選的資料夾',
   'about': '關於',
   'about-version': '關於版本 {appVersion}',
   'account': '帳號',
