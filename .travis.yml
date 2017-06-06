@@ -6,7 +6,7 @@ cache:
   - $HOME/.npm
   - node_modules
 before_install:
-- npm install --global npm
+- npm install --global npm@4.6.1
 before_script:
 - npm prune
 after_success:
