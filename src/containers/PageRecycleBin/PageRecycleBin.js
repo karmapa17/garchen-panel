@@ -155,6 +155,7 @@ export class PageRecycleBin extends Component {
     const totalPages = Math.ceil((folderCount - selectedFolderIds.length) / perpage);
     const nextPage = (page > totalPages) ? totalPages : page;
     await listDeletedFolders({page: nextPage, perpage});
+    this.updateTableKey();
     setSnackBarParams(true, f('folders-have-been-restored'));
   };
 
