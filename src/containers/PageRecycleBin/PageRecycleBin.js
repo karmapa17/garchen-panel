@@ -1,3 +1,4 @@
+import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import React, {Component, PropTypes} from 'react';
 import c from 'classnames';
@@ -58,7 +59,8 @@ export class PageRecycleBin extends Component {
       targetLanguages: [],
       isAddFolderDialogOpen: false,
       tableKey: 0,
-      selectedFolderIds: []
+      selectedFolderIds: [],
+      isConfirmClearRecycleBinDialogOpen: false
     };
   }
 
@@ -171,7 +173,34 @@ export class PageRecycleBin extends Component {
     this.props.clearRecycleBin();
     listDeletedFolders({page: 1, perpage});
     this.setState({page: 1});
+    this.closeConfirmClearRecycleBinDialog();
   };
+
+  openConfirmClearRecycleBinDialog = () => this.setState({isConfirmClearRecycleBinDialogOpen: true});
+
+  closeConfirmClearRecycleBinDialog = () => this.setState({isConfirmClearRecycleBinDialogOpen: false});
+
+  renderConfirmClearRecycleBinDialog() {
+    const {isConfirmClearRecycleBinDialogOpen} = this.state;
+    const {f, interfaceFontSizeScalingFactor} = this.props;
+    const dialogContentFontSize = getFontSize(interfaceFontSizeScalingFactor, 1.2);
+    const dialogContentLineHeight = getFontSize(interfaceFontSizeScalingFactor, 1.2);
+    const pStyle = {
+      fontSize: dialogContentFontSize,
+      lineHeight: dialogContentLineHeight
+    };
+    const actions = [
+      <FlatButton label={f('cancel')} primary onTouchTap={this.closeConfirmClearRecycleBinDialog} />,
+      <FlatButton label={f('clear-recycle-bin')} primary keyboardFocused onTouchTap={this.clearRecycleBin} />
+    ];
+    return (
+      <Dialog title={f('title-confirm-clear-recycle-bin-dialog')} actions={actions}
+        modal={false} open={isConfirmClearRecycleBinDialogOpen} onRequestClose={this.closeConfirmClearRecycleBinDialog}>
+        <p style={pStyle}>{f('content-confirm-recycle-bin-dialog1')}</p>
+        <p style={pStyle}>{f('content-confirm-recycle-bin-dialog2')}</p>
+      </Dialog>
+    );
+  }
 
   render() {
 
@@ -185,13 +214,14 @@ export class PageRecycleBin extends Component {
           <div>
             {this.renderRecoverButton()}
             <FlatButton label={f('empty-recycle-bin')} labelStyle={{fontSize: this.getButtonFontSize()}}
-              icon={<i className="fa fa-trash" />} onTouchTap={this.clearRecycleBin} />
+              icon={<i className="fa fa-trash" />} onTouchTap={this.openConfirmClearRecycleBinDialog} />
           </div>
         </TopBar>
         <div className={styles.content}>
           {this.renderFolders()}
           {(folderCount > perpage) && <Pagination current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />}
         </div>
+        {this.renderConfirmClearRecycleBinDialog()}
       </div>
     );
   }
