@@ -11,5 +11,5 @@ export default async function markDeletedAtToFolders(event, data) {
 
   await db.raw(query);
 
-  this.resolve({message: `Folders has been marked deletedAt successfully`});
+  this.resolve({message: `deletedAt has been marked successfully`});
 }
