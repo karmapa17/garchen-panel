@@ -40,6 +40,7 @@ const CANCEL_IMPORTING_CSV_FAIL = 'garchen-panel/folder/CANCEL_IMPORTING_CSV_FAI
 const SET_IMPORTING_FOLDER_ID = 'garchen-panel/folder/SET_IMPORTING_FOLDER_ID';
 
 const SET_DISPLAY_FOLDER_PERPAGE = 'garchen-panel/folder/SET_DISPLAY_FOLDER_PERPAGE';
+const SET_DISPLAY_DELETED_FOLDER_PERPAGE = 'garchen-panel/folder/SET_DISPLAY_DELETED_FOLDER_PERPAGE';
 
 const EXPORT_FOLDER_TO_CSV = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV';
 const EXPORT_FOLDER_TO_CSV_SUCCESS = 'garchen-panel/folder/EXPORT_FOLDER_TO_CSV_SUCCESS';
@@ -134,6 +135,10 @@ export default createReducer(initialState, {
 
   [SET_DISPLAY_FOLDER_PERPAGE]: (state, action) => {
     return state.set('perpage', action.perpage);
+  },
+
+  [SET_DISPLAY_DELETED_FOLDER_PERPAGE]: (state, action) => {
+    return state.set('deletedFolderPerPage', action.perpage);
   },
 
   [SET_IS_PROCESSING_CSV]: (state, action) => {
@@ -263,6 +268,14 @@ export function addFolderByCsv(writeDelay) {
 export function setDisplayFolderPerPage(perpage) {
   return {
     type: SET_DISPLAY_FOLDER_PERPAGE,
+    perpage
+  };
+}
+
+export function setDisplayDeletedFolderPerPage(perpage) {
+  console.log('called');
+  return {
+    type: SET_DISPLAY_DELETED_FOLDER_PERPAGE,
     perpage
   };
 }
