@@ -38,6 +38,7 @@ module.exports = {
   'delete': '删除',
   'delete-folder-instruction': '输入 {folderName} 删除这个资料夹, 被删除的资料将没办法复原',
   'deleted-at': '删除时间',
+  'display-deleted-folder-perpage': '一页显示 {perpage} 个资料夹 (资源回收桶)',
   'display-entry-perpage': '一页显示 {perpage} 个词条',
   'display-folder-perpage': '一页显示 {perpage} 个资料夹',
   'done': '完成',

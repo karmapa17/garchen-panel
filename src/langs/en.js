@@ -38,6 +38,7 @@ module.exports = {
   'delete': 'delete',
   'delete-folder-instruction': 'Input {folderName} to delete this folder, once you delete a repository, there is no going back. Please be certain.',
   'deleted-at': 'Deleted At',
+  'display-deleted-folder-perpage': 'Display {perpage} folders per page (Recycle Bin)',
   'display-entry-perpage': 'Display {perpage} entries per page',
   'display-folder-perpage': 'Display {perpage} folders per page',
   'done': 'Done',

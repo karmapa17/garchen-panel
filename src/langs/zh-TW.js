@@ -38,6 +38,7 @@ module.exports = {
   'delete': '刪除',
   'delete-folder-instruction': '輸入 {folderName} 刪除這個資料夾, 被刪除的資料將沒辦法復原',
   'deleted-at': '刪除時間',
+  'display-deleted-folder-perpage': '一頁顯示 {perpage} 個資料夾 (資源回收桶)',
   'display-entry-perpage': '一頁顯示 {perpage} 個詞條',
   'display-folder-perpage': '一頁顯示 {perpage} 個資料夾',
   'done': '完成',
