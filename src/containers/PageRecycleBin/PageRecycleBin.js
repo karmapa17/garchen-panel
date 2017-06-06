@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import c from 'classnames';
 import moment from 'moment';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {range, isEmpty} from 'lodash';
 import Heading from './../Heading/Heading';
@@ -17,15 +18,14 @@ import {setSnackBarParams} from './../../redux/modules/ui';
 
 const styles = require('./PageRecycleBin.scss');
 
-@connect(({main, folder}) => ({
+const connectFunc = connect(({main, folder}) => ({
   interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   perpage: folder.get('deletedFoldersPerPage'),
   folders: folder.get('deletedFolders'),
   folderCount: folder.get('deletedFolderCount')
-}), {listDeletedFolders, setSnackBarParams, clearRecycleBin, restoreFolders})
-@injectPush
-@injectF
-@resolve(({dispatch}, {perpage}) => {
+}), {listDeletedFolders, setSnackBarParams, clearRecycleBin, restoreFolders});
+
+const resolveFunc = resolve(({dispatch}, {perpage}) => {
   const params = Object.assign({page: 1, perpage});
   return dispatch(listDeletedFolders(params))
     .then((res) => {
@@ -34,8 +34,9 @@ const styles = require('./PageRecycleBin.scss');
       }
       return res;
     });
-})
-export default class PageRecycleBin extends Component {
+});
+
+export class PageRecycleBin extends Component {
 
   static propTypes = {
     push: PropTypes.func.isRequired,
@@ -195,3 +196,5 @@ export default class PageRecycleBin extends Component {
     );
   }
 }
+
+export default compose(resolveFunc, injectPush, injectF, connectFunc)(PageRecycleBin);
