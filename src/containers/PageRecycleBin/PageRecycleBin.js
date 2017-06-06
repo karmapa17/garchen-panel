@@ -189,8 +189,10 @@ export default class PageRecycleBin extends Component {
               icon={<i className="fa fa-trash" />} onTouchTap={this.clearRecycleBin} />
           </div>
         </TopBar>
-        {this.renderFolders()}
-        {(folderCount > perpage) && <Pagination current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />}
+        <div className={styles.content}>
+          {this.renderFolders()}
+          {(folderCount > perpage) && <Pagination current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />}
+        </div>
       </div>
     );
   }
