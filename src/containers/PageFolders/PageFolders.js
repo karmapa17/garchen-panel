@@ -152,6 +152,10 @@ export default class PageFolders extends Component {
     }
   };
 
+  isImportingFolder(folderId) {
+    return (folderId === this.props.importingFolderId);
+  }
+
   handleFolderSelect = (folderId) => {
     return (event) => {
       // only work for folder DIV, anchor and the "more" dropdown menu should be ignored
@@ -172,12 +176,12 @@ export default class PageFolders extends Component {
 
   renderFolders() {
     const {selectedFolderIdData} = this.state;
-    const {f, folders, importingFolderId, interfaceFontSizeScalingFactor} = this.props;
+    const {f, folders, interfaceFontSizeScalingFactor} = this.props;
     const linkFontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
     const menuItemFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
     const rows = folders.map((folder) => {
       const {id, name} = folder;
-      const isImporting = (importingFolderId === folder.id);
+      const isImporting = this.isImportingFolder(folder.id);
       const className = c({
         [styles.folder]: true,
         [styles.selected]: id in selectedFolderIdData
