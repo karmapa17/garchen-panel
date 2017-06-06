@@ -4,5 +4,5 @@ export default async function restoreFolders(event, data) {
   const {db} = this.params;
   await db.raw(db.knex('Folder').whereIn('id', folderIds).update({deletedAt: 0}));
 
-  this.resolve({message: `Folders has been restored successfully`});
+  this.resolve({message: `Folders have been restored successfully`});
 }
