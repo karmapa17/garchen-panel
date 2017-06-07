@@ -33,6 +33,7 @@
     "moment": "2.18.1",
     "node-fetch": "1.6.3",
     "node-sass": "4.5.2",
+    "qs": "6.4.0",
     "ramda": "0.23.0",
     "react": "15.4.2",
     "react-dom": "15.4.2",
@@ -122,5 +123,6 @@
   "license": "MIT",
   "engines": {
     "node": "5.8.0"
-  }
+  },
+  "false": {}
 }
