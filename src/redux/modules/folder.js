@@ -273,7 +273,6 @@ export function setDisplayFolderPerPage(perpage) {
 }
 
 export function setDisplayDeletedFolderPerPage(perpage) {
-  console.log('called');
   return {
     type: SET_DISPLAY_DELETED_FOLDER_PERPAGE,
     perpage
