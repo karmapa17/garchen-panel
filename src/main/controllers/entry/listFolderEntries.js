@@ -43,14 +43,20 @@ async function searchSourceEntry({db, searchKeyword, folderId, perpage, offset})
 
 export default async function listFolderEntries(event, data) {
 
-  const {page, perpage, folderId, searchType} = data;
+  const {page, perpage, folderId, searchType, pageNumSortMethod} = data;
   const {db, models} = this.params;
   const {Entry} = models;
   const offset = (page - 1) * perpage;
   const searchKeyword = (data.searchKeyword || '').trim();
 
+  let order = ['id', 'asc'];
+
+  if (pageNumSortMethod) {
+    order = ['pageNum', pageNumSortMethod];
+  }
+
   if (isEmpty(searchKeyword)) {
-    const entries = await Entry.find({folderId}, {skip: offset, limit: perpage, order: 'id'}) || [];
+    const entries = await Entry.find({folderId}, {skip: offset, limit: perpage, order}) || [];
     const total = await Entry.count({folderId});
     this.resolve({data: entries, total});
     return;
