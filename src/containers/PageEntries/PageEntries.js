@@ -28,6 +28,13 @@ import SEARCH_TYPES from './../../constants/searchTypes';
 
 const styles = require('./PageEntries.scss');
 
+const SORT_METHODS = ['', 'asc', 'desc'];
+const SORT_CLASSNAME_MAP = {
+  ['']: 'fa fa-sort',
+  asc: 'fa fa-sort-asc',
+  desc: 'fa fa-sort-desc'
+};
+
 @connect(({main, folder, entry, cache}) => {
   const folderRow = folder.get('folder');
   const folderId = get(folderRow, 'id', '');
@@ -56,7 +63,8 @@ const styles = require('./PageEntries.scss');
   const searchParams = Object.assign({
     folderId,
     page,
-    perpage
+    perpage,
+    pageNumSortMethod: ''
   }, cache);
   promises.push(dispatch(listFolderEntries(searchParams)));
 
@@ -86,26 +94,29 @@ export default class PageEntries extends Component {
 
   constructor(props) {
     super(props);
+    const [pageNumSortMethod] = SORT_METHODS;
     this.state = Object.assign({
       page: 1,
       tableKey: 0,
       searchKeyword: '',
       searchType: 'source-entry',
+      pageNumSortMethod,
       isConfirmEntryDeletionOpen: false
     }, props.cache);
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const {page, searchKeyword, searchType} = this.state;
+    const {page, searchKeyword, searchType, pageNumSortMethod} = this.state;
     const {perpage, listFolderEntries, setCachePageEntries} = this.props;
     const nextPage = nextState.page;
     const nextPerpage = nextProps.perpage;
     const nextSearchKeyword = nextState.searchKeyword;
     const nextSearchType = nextState.searchType;
     const folderId = nextProps.folder.id;
+    const nextPageNumSortMethod = nextState.pageNumSortMethod;
 
     if ((page !== nextPage) || (perpage !== nextPerpage) ||
-        (searchKeyword !== nextSearchKeyword) || (searchType !== nextSearchType)) {
+        (searchKeyword !== nextSearchKeyword) || (searchType !== nextSearchType) || (pageNumSortMethod !== nextPageNumSortMethod)) {
 
       setCachePageEntries(folderId, {
         page: nextPage,
@@ -118,7 +129,8 @@ export default class PageEntries extends Component {
         page: nextPage,
         perpage: nextPerpage,
         searchKeyword: nextSearchKeyword.trim(),
-        searchType: nextSearchType
+        searchType: nextSearchType,
+        pageNumSortMethod: nextPageNumSortMethod
       });
     }
   }
@@ -147,11 +159,18 @@ export default class PageEntries extends Component {
     return () => push(`/folders/${folder.id}/entries/${entryId}`);
   };
 
+  changePageNumberSortMethod = () => {
+    const {pageNumSortMethod} = this.state;
+    const index = SORT_METHODS.indexOf(pageNumSortMethod);
+    const nextIndex = (index + 1) % 3;
+    this.setState({pageNumSortMethod: SORT_METHODS[nextIndex]});
+  };
+
   renderFolderEntries() {
 
     const fontSize = 20;
     const colStyle = {fontSize, width: 'initial'};
-    const {tableKey} = this.state;
+    const {tableKey, pageNumSortMethod} = this.state;
     const {folderEntries, f} = this.props;
 
     const tableRows = folderEntries.map((entry) => {
@@ -160,7 +179,7 @@ export default class PageEntries extends Component {
           <TableRowColumn style={colStyle}>
             <a onTouchTap={this.goToSingleFolderEntryPage(entry.id)}>{entry.sourceEntry}</a>
           </TableRowColumn>
-          <TableRowColumn style={colStyle}>{get(entry, 'data.page-num', '')}</TableRowColumn>
+          <TableRowColumn style={colStyle}>{get(entry, 'pageNum', '')}</TableRowColumn>
         </TableRow>
       );
     });
@@ -173,7 +192,12 @@ export default class PageEntries extends Component {
         <TableHeader>
           <TableRow>
             <TableHeaderColumn style={colStyle}>{f('source-entry')}</TableHeaderColumn>
-            <TableHeaderColumn style={colStyle}>{f('page-num')}</TableHeaderColumn>
+            <TableHeaderColumn style={colStyle}>
+              <span>{f('page-num')}</span>
+              <button className={styles.btnSort} onClick={this.changePageNumberSortMethod}>
+                <i className={SORT_CLASSNAME_MAP[pageNumSortMethod]} />
+              </button>
+            </TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody showRowHover deselectOnClickaway={false}>{tableRows}</TableBody>
@@ -190,7 +214,7 @@ export default class PageEntries extends Component {
 
   deleteSelectedFolderEntries = async () => {
 
-    const {page} = this.state;
+    const {page, pageNumSortMethod} = this.state;
     const {selectedFolderEntryMap, f, deleteEntries, perpage, params, listFolderEntries,
       setSnackBarParams, folderEntryCount, clearSelectedFolderEntryIds} = this.props;
 
@@ -200,7 +224,7 @@ export default class PageEntries extends Component {
     const totalPages = Math.ceil((folderEntryCount - ids.length) / perpage);
     const nextPage = (page > totalPages) ? totalPages : page;
 
-    await listFolderEntries({folderId: params.id, page: nextPage, perpage});
+    await listFolderEntries({folderId: params.id, page: nextPage, perpage, pageNumSortMethod});
     this.setState({page: nextPage});
     setSnackBarParams(true, f('folder-entries-has-been-deleted', {count: ids.length}));
     this.updateTableKey();
