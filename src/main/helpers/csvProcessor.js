@@ -154,7 +154,7 @@ export default class CsvProcessor {
     return contentFields.reduce((rows, field) => {
 
       if (FIELD_PAGE_NUM === field) {
-        rows[0][FIELD_PAGE_NUM] = entry.data[FIELD_PAGE_NUM];
+        rows[0][FIELD_PAGE_NUM] = entry.pageNum;
       }
 
       const [, explanationLang] = field.match(/^explanation-lang-(.+)$/) || [];
