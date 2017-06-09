@@ -7,7 +7,7 @@ import log from 'karmapa-log';
 import sleep from 'sleep-promise';
 import shortid from 'shortid';
 
-import csvProcessor from './../../helpers/csvProcessor';
+import csvProcessor, {FIELD_PAGE_NUM} from './../../helpers/csvProcessor';
 
 export default async function addFolderByCsv(event, data) {
 
@@ -63,15 +63,18 @@ export default async function addFolderByCsv(event, data) {
 
         const rowData = csvProcessor.getRowDataByFields(data, fields);
         const {sourceEntry} = rowData;
+        const pageNum = rowData[FIELD_PAGE_NUM];
 
         if (sourceEntry) {
 
           delete rowData.sourceEntry;
+          delete rowData[FIELD_PAGE_NUM];
 
           await sleep(writeDelay);
           currentEntry = await Entry.create({
             folderId: folder.id,
             sourceEntry,
+            pageNum,
             data: rowData
           });
         }
