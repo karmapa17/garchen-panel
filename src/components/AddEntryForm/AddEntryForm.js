@@ -132,7 +132,7 @@ export default class AddEntryForm extends Component {
       if ('page-num' === field) {
         return (
           <div key="page-num">
-            <Field name="page-num" type="text" component={renderTextField} label={f('page-num')} fullWidth />
+            <Field name="pageNum" type="text" component={renderTextField} label={f('page-num')} fullWidth />
           </div>
         );
       }
