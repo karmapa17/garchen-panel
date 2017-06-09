@@ -7,7 +7,7 @@ import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
 import hasValue from './../../helpers/hasValue';
 
-const fieldsInOrder = ['page-num', 'target-entry', 'explanation', 'category', 'sect'];
+const fieldsInOrder = ['target-entry', 'explanation', 'category', 'sect'];
 
 const hasData = (prop, data) => (prop in data) && hasValue(data[prop]);
 
@@ -44,15 +44,6 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
           </tr>
         );
       });
-  }
-
-  if (hasData('page-num', data)) {
-    fieldData['page-num'] = (
-      <tr key="tr-page-num">
-        <th>{f('page-num')}</th>
-        <td>{data['page-num']}</td>
-      </tr>
-    );
   }
 
   if (hasExplanation({contentFields, targetLanguages})) {
