@@ -1,3 +1,6 @@
+import padPageNumWithZeros from './../../helpers/padPageNumWithZeros';
+import trimFractionLeadingZeros from './../../helpers/trimFractionLeadingZeros';
+import FRACTION_LENGTH from './../../constants/fractionLength';
 
 export default async function addFolderEntry(event, rawData) {
 
@@ -5,7 +8,7 @@ export default async function addFolderEntry(event, rawData) {
   const {folderId, data} = rawData;
 
   const sourceEntry = data.sourceEntry;
-  const pageNum = data.pageNum;
+  const pageNum = padPageNumWithZeros(data.pageNum, FRACTION_LENGTH);
 
   delete data.sourceEntry;
   delete data.folderId;
@@ -16,6 +19,8 @@ export default async function addFolderEntry(event, rawData) {
   if (! entry) {
     return this.reject({message: 'Failed to create folder entry'});
   }
+
+  entry.pageNum = trimFractionLeadingZeros(entry.pageNum);
 
   this.resolve(entry);
 }
