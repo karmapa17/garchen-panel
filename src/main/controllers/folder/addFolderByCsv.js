@@ -8,6 +8,7 @@ import sleep from 'sleep-promise';
 import shortid from 'shortid';
 
 import csvProcessor, {FIELD_PAGE_NUM} from './../../helpers/csvProcessor';
+import padPageNumWithZeros from './../../helpers/padPageNumWithZeros';
 
 export default async function addFolderByCsv(event, data) {
 
@@ -63,7 +64,7 @@ export default async function addFolderByCsv(event, data) {
 
         const rowData = csvProcessor.getRowDataByFields(data, fields);
         const {sourceEntry} = rowData;
-        const pageNum = rowData[FIELD_PAGE_NUM];
+        const pageNum = padPageNumWithZeros(rowData[FIELD_PAGE_NUM], 2);
 
         if (sourceEntry) {
 
