@@ -48,7 +48,7 @@ export default async function addFolderByCsv(event, data) {
     async function handleData(data) {
 
       if (cancelImporting) {
-        throw new Error('User stopped importing');
+        return Promise.reject('User stopped importing');
       }
 
       if (isEmpty(folder) && csvProcessor.isColumnRow(data)) {
