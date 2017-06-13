@@ -121,7 +121,8 @@ export default class PageEntries extends Component {
       setCachePageEntries(folderId, {
         page: nextPage,
         searchKeyword: nextSearchKeyword,
-        searchType: nextSearchType
+        searchType: nextSearchType,
+        pageNumSortMethod: nextPageNumSortMethod
       });
 
       listFolderEntries({
