@@ -26,4 +26,4 @@ This command will create a folder named zip contains windows and iOS platform zi
 npm run build
 ```
 ## License
-MIT © [Dharama Treasure](https://dharma-treasure.org)
+MIT © [Dharma Treasure](https://dharma-treasure.org)
