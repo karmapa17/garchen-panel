@@ -1,33 +1,13 @@
 import {get, isEmpty} from 'lodash';
 import parseJsonFields from './../../helpers/parseJsonFields';
 import trimFractionLeadingZeros from './../../helpers/trimFractionLeadingZeros';
+import padPageNumWithZeros from './../../helpers/padPageNumWithZeros';
+import FRATION_LENGTH from './../../constants/fractionLength';
 
 const trimPageNumZeros = (entry) => {
   entry.pageNum = trimFractionLeadingZeros(entry.pageNum);
   return entry;
 };
-
-async function searchData({db, field, searchKeyword, folderId, perpage, offset}) {
-
-  const searchQuery = db.knex('Entry').where('data', 'like', `%"${field}":"${searchKeyword}"%`)
-    .andWhere('folderId', folderId)
-    .limit(perpage)
-    .offset(offset);
-
-  const rows = await db.raw(searchQuery, true);
-  let entries = parseJsonFields('data', rows);
-
-  entries = entries.map(trimPageNumZeros);
-
-  const countQuery = db.knex('Entry').count('id')
-    .where('data', 'like', `%"${field}":"${searchKeyword}"%`)
-    .andWhere('folderId', folderId);
-
-  const res = await db.raw(countQuery, true);
-  const total = get(res, '[0][\'count("id")\']', 0);
-
-  return {entries, total};
-}
 
 async function searchSourceEntry({db, searchKeyword, folderId, perpage, offset}) {
 
@@ -74,7 +54,10 @@ export default async function listFolderEntries(event, data) {
   }
 
   if ('page-num' === searchType) {
-    const {entries, total} = await searchData({db, field: 'page-num', searchKeyword, folderId, perpage, offset});
+    const pageNum = padPageNumWithZeros(searchKeyword, FRATION_LENGTH);
+    let entries = await Entry.find({folderId, pageNum}, {skip: offset, limit: perpage, order}) || [];
+    entries = entries.map(trimPageNumZeros);
+    const total = await Entry.count({folderId, pageNum});
     this.resolve({data: entries, total});
     return;
   }
