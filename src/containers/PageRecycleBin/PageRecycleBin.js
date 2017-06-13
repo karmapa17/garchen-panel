@@ -14,7 +14,7 @@ import getFontSize from './../../helpers/getFontSize';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
-import {listDeletedFolders, clearRecycleBin, restoreFolders} from './../../redux/modules/folder';
+import {listDeletedFolders, clearRecycleBin, restoreFolders, deleteFolders} from './../../redux/modules/folder';
 import {setSnackBarParams} from './../../redux/modules/ui';
 
 const styles = require('./PageRecycleBin.scss');
@@ -24,7 +24,7 @@ const connectFunc = connect(({main, folder}) => ({
   perpage: folder.get('deletedFolderPerPage'),
   folders: folder.get('deletedFolders'),
   folderCount: folder.get('deletedFolderCount')
-}), {listDeletedFolders, setSnackBarParams, clearRecycleBin, restoreFolders});
+}), {listDeletedFolders, setSnackBarParams, clearRecycleBin, restoreFolders, deleteFolders});
 
 const resolveFunc = resolve(({dispatch}, {perpage}) => {
   const params = Object.assign({page: 1, perpage});
@@ -47,6 +47,7 @@ export class PageRecycleBin extends Component {
     folders: PropTypes.array.isRequired,
     folderCount: PropTypes.number.isRequired,
     listDeletedFolders: PropTypes.func.isRequired,
+    deleteFolders: PropTypes.func.isRequired,
     interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     clearRecycleBin: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
@@ -170,6 +171,30 @@ export class PageRecycleBin extends Component {
     }
   }
 
+  deleteSelectedFolders = async () => {
+    const {f, deleteFolders, setSnackBarParams, folderCount, perpage, listDeletedFolders} = this.props;
+    const {selectedFolderIds, page} = this.state;
+
+    await deleteFolders(selectedFolderIds);
+    const totalPages = Math.ceil((folderCount - selectedFolderIds.length) / perpage);
+    const nextPage = (page > totalPages) ? totalPages : page;
+    await listDeletedFolders({page: nextPage, perpage});
+    setSnackBarParams(true, f('folders-have-been-deleted'));
+    this.updateTableKey();
+    this.setSelectedFolderIds([]);
+  };
+
+  renderDeleteSelectedFoldersButton() {
+    const {f} = this.props;
+    const {selectedFolderIds} = this.state;
+    if (selectedFolderIds.length > 0) {
+      return (
+        <FlatButton label={f('delete-selected-folders')} labelStyle={{fontSize: this.getButtonFontSize()}}
+          icon={<i className="fa fa-trash" />} onTouchTap={this.deleteSelectedFolders} />
+      );
+    }
+  }
+
   clearRecycleBin = () => {
     const {perpage, listDeletedFolders} = this.props;
     this.props.clearRecycleBin();
@@ -217,6 +242,7 @@ export class PageRecycleBin extends Component {
           <Heading>{f('recycle-bin')}</Heading>
           <div>
             {this.renderRecoverButton()}
+            {this.renderDeleteSelectedFoldersButton()}
             <FlatButton label={f('empty-recycle-bin')} labelStyle={{fontSize: this.getButtonFontSize()}}
               icon={<i className="fa fa-trash" />} onTouchTap={this.openConfirmClearRecycleBinDialog} disabled={0 === folderCount} />
           </div>

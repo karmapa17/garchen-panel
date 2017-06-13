@@ -1,4 +1,5 @@
 import {get, isEmpty} from 'lodash';
+import trimFractionLeadingZeros from './../../helpers/trimFractionLeadingZeros';
 
 async function getNextEntryId({entry, db}) {
 
@@ -38,6 +39,8 @@ export default async function getEntry(event, data) {
     this.reject({message: 'entry not found'});
     return;
   }
+
+  entry.pageNum = trimFractionLeadingZeros(entry.pageNum);
 
   const nextEntryId = await getNextEntryId({entry, db});
   const prevEntryId = await getPrevEntryId({entry, db});

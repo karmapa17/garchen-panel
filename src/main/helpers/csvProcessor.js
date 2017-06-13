@@ -1,16 +1,17 @@
 import {uniq, isEmpty} from 'lodash';
 import sortFolderContentFields from './sortFolderContentFields';
 import DICTIONARY_LANGS from './../constants/dictionaryLangs';
+import trimFractionLeadingZeros from './../helpers/trimFractionLeadingZeros';
 
-const FIELD_PAGE_NUM = 'page-num';
-const FIELD_EXPLANATION_NOTE = 'explanation-note';
-const FIELD_EXPLANATION_SOURCE = 'explanation-source';
-const FIELD_EXPLANATION_CATEGORY = 'explanation-category';
+export const FIELD_PAGE_NUM = 'page-num';
+export const FIELD_EXPLANATION_NOTE = 'explanation-note';
+export const FIELD_EXPLANATION_SOURCE = 'explanation-source';
+export const FIELD_EXPLANATION_CATEGORY = 'explanation-category';
 
-const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
-const RE_EXPLANATION = /^explanation-(.+)$/;
-const RE_EXPLANATION_NOTE = /^explanation-note$/;
-const RE_EXPLANATION_CATEGORY = /^explanation-category$/;
+export const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
+export const RE_EXPLANATION = /^explanation-(.+)$/;
+export const RE_EXPLANATION_NOTE = /^explanation-note$/;
+export const RE_EXPLANATION_CATEGORY = /^explanation-category$/;
 
 const getSourceLang = (key) => {
   const [, lang] = key.match(RE_SOURCE_ENTRY) || [];
@@ -154,7 +155,7 @@ export default class CsvProcessor {
     return contentFields.reduce((rows, field) => {
 
       if (FIELD_PAGE_NUM === field) {
-        rows[0][FIELD_PAGE_NUM] = entry.data[FIELD_PAGE_NUM];
+        rows[0][FIELD_PAGE_NUM] = trimFractionLeadingZeros(entry.pageNum);
       }
 
       const [, explanationLang] = field.match(/^explanation-lang-(.+)$/) || [];
