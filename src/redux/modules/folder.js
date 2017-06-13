@@ -113,6 +113,11 @@ export default createReducer(initialState, {
 
   [ADD_FOLDER_BY_CSV_FAIL]: (state, action) => {
     const {messageId, filename, message} = action.error;
+
+    if ('User stopped importing' === message) {
+      return state;
+    }
+
     return state.set('isProcessingCsv', false)
       .set('isOpeningDialog', false)
       .set('importingFolderId', null)

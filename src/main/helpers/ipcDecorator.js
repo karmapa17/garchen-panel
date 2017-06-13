@@ -7,36 +7,38 @@ export default class IpcDecorator {
 
     return (name, event, args) => {
 
-      this.params = {};
+      const self = {};
+
+      self.params = {};
 
       Object.keys(params)
         .forEach((key) => {
-          this.params[key] = params[key];
+          self.params[key] = params[key];
         });
 
-      this.send = (data = {}) => {
+      self.send = (data = {}) => {
         event.sender.send(`${name}::${args._id}`, data);
       };
 
-      this.resolve = this.send;
+      self.resolve = self.send;
 
-      this.reject = (data) => {
+      self.reject = (data) => {
         data._error = true;
-        this.send(data);
+        self.send(data);
       };
 
-      this.broadcast = event.sender.send.bind(event.sender);
+      self.broadcast = event.sender.send.bind(event.sender);
 
       const data = cloneDeep(args);
       delete data._id;
 
-      const promise = fn.call(this, event, data);
+      const promise = fn.call(self, event, data);
 
       // make the error clearer
       if (promise && ('function' === typeof promise.catch)) {
         promise.catch((err) => {
           const message = `unhandled error in event ${name}: `;
-          this.reject({message: message + err.toString()});
+          self.reject({message: message + err.toString()});
           log.error(message, err);
         });
       }
