@@ -117,6 +117,7 @@ export default class PageEntry extends Component {
       entryId: entry.id,
       folderId: folder.id,
       sourceEntry: entry.sourceEntry,
+      pageNum: entry.pageNum,
       ...entry.data
     };
 
@@ -126,6 +127,17 @@ export default class PageEntry extends Component {
 
     const tableFontSize = getFontSize(contentFontSizeScalingFactor, 1);
 
+    let pageNumTr;
+
+    if (entry.pageNum) {
+      pageNumTr = (
+        <tr>
+          <th>{f('page-num')}</th>
+          <td>{entry.pageNum}</td>
+        </tr>
+      );
+    }
+
     return (
       <table className={styles.table} style={{fontSize: tableFontSize}}>
         <tbody>
@@ -133,6 +145,7 @@ export default class PageEntry extends Component {
             <th>{f('source-entry-lang', {lang: f(folder.data.sourceLanguage)})}</th>
             <td>{entry.sourceEntry}</td>
           </tr>
+          {pageNumTr}
           {this.renderContentFields()}
         </tbody>
       </table>
