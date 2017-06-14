@@ -36,6 +36,16 @@ import login from './controllers/auth/login';
 import initDb from './models';
 
 require('electron-debug')({enabled: true});
+require('electron-context-menu')({
+  labels: {
+    cut: 'Cut',
+    copy: 'Copy',
+    paste: 'Paste',
+    save: 'Save',
+    copyLink: 'Copy Link',
+    inspect: 'Inspect'
+  }
+});
 
 let mainWindow = null;
 
