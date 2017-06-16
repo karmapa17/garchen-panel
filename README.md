@@ -18,12 +18,12 @@ npm i
 ```
 ### Developing
 ```console
-npm dev
+npm run dev
 ```
 ### Building production desktop applications (Windows / iOS)
 This command will create a folder named zip contains windows and iOS platform zip files
 ```console
-npm build
+npm run build
 ```
 ## License
 MIT © [Dharma Treasure](https://dharma-treasure.org)
