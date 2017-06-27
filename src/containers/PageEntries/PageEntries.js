@@ -35,13 +35,14 @@ const SORT_CLASSNAME_MAP = {
   desc: 'fa fa-sort-desc'
 };
 
-@connect(({main, folder, entry, cache}) => {
-  const folderRow = folder.get('folder');
-  const folderId = get(folderRow, 'id', '');
+// how to access params outside of react component
+// https://github.com/reactjs/react-router-redux#how-do-i-access-router-state-in-a-container-component
+@connect(({main, folder, entry, cache, routing}, {params}) => {
+  const folderId = parseInt(params.id, 10);
   return {
     cache: get(cache.get('cachePageEntriesDataSet'), folderId, {}),
     perpage: entry.get('perpage'),
-    folder: folderRow,
+    folder: folder.get('folder'),
     importingFolderId: folder.get('importingFolderId'),
     interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
     folderEntries: entry.get('folderEntries'),
