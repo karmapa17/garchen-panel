@@ -56,10 +56,10 @@ const SORT_CLASSNAME_MAP = {
 @resolve(({dispatch}, {params, page, perpage, cache}) => {
 
   const promises = [];
-  promises.push(dispatch(getFolder({id: params.id})));
-  promises.push(dispatch(setSelectedFolderEntryIds([])));
-
   const folderId = params.id;
+
+  promises.push(dispatch(getFolder({id: folderId})));
+  promises.push(dispatch(setSelectedFolderEntryIds([])));
 
   const searchParams = Object.assign({
     folderId,
