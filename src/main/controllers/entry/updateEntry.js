@@ -8,7 +8,7 @@ export default async function updateEntry(event, rawData) {
   const {id, data} = rawData;
 
   const sourceEntry = data.sourceEntry;
-  const pageNum = padPageNumWithZeros(data.pageNum, FRACTION_LENGTH);
+  const pageNum = padPageNumWithZeros(data.pageNum, FRACTION_LENGTH) || '';
 
   delete data.entryId;
   delete data.folderId;
