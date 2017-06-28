@@ -65,7 +65,7 @@ export default class EditEntryForm extends Component {
         }
       }
       return initialIndex;
-    }, 0);
+    }, 1);
   }
 
   getExplanationIndex = (lang) => `explanation-${lang}-index`;
