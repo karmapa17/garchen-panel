@@ -65,7 +65,7 @@ export default async function addFolderByCsv(event, data) {
 
         const rowData = csvProcessor.getRowDataByFields(data, fields);
         const {sourceEntry} = rowData;
-        const pageNum = padPageNumWithZeros(rowData[FIELD_PAGE_NUM], FRACTION_LENGTH) || '';
+        const pageNum = padPageNumWithZeros(rowData[FIELD_PAGE_NUM], FRACTION_LENGTH);
 
         if (sourceEntry) {
 
