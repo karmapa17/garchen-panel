@@ -184,13 +184,15 @@ export default class PageEntries extends Component {
     const {tableKey, pageNumSortMethod} = this.state;
     const {folderEntries, f} = this.props;
 
+    const isPageNumVisible = this.hasPageNumField();
+
     const tableRows = folderEntries.map((entry) => {
       return (
         <TableRow key={`table-row-${entry.id}`}>
           <TableRowColumn style={colStyle}>
             <a onTouchTap={this.goToSingleFolderEntryPage(entry.id)}>{entry.sourceEntry}</a>
           </TableRowColumn>
-          <TableRowColumn style={colStyle}>{get(entry, 'pageNum', '')}</TableRowColumn>
+          {isPageNumVisible && <TableRowColumn style={colStyle}>{get(entry, 'pageNum', '')}</TableRowColumn>}
         </TableRow>
       );
     });
@@ -203,12 +205,12 @@ export default class PageEntries extends Component {
         <TableHeader>
           <TableRow>
             <TableHeaderColumn style={colStyle}>{f('source-entry')}</TableHeaderColumn>
-            <TableHeaderColumn style={colStyle}>
+            {isPageNumVisible && <TableHeaderColumn style={colStyle}>
               <span>{f('page-num')}</span>
               <button className={styles.btnSort} onClick={this.changePageNumberSortMethod}>
                 <i className={SORT_CLASSNAME_MAP[pageNumSortMethod]} />
               </button>
-            </TableHeaderColumn>
+            </TableHeaderColumn>}
           </TableRow>
         </TableHeader>
         <TableBody showRowHover deselectOnClickaway={false}>{tableRows}</TableBody>
