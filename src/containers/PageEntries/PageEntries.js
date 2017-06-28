@@ -106,6 +106,10 @@ export default class PageEntries extends Component {
     }, props.cache);
   }
 
+  hasPageNumField() {
+    return this.props.folder.data.contentFields.includes('page-num');
+  }
+
   componentWillUpdate(nextProps, nextState) {
     const {page, searchKeyword, searchType, pageNumSortMethod} = this.state;
     const {perpage, listFolderEntries, setCachePageEntries} = this.props;
