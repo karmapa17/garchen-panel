@@ -24,11 +24,11 @@ cd dist;
 npm install --production > /dev/null;
 
 electron-packager ./ ${PACKAGE_NAME} --platform=win32 --arch=ia32\
-  --version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=treasure_logo.ico
+  --version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.ico
 zip -r "./../zips/${ZIP_WIN}" "${PACKAGE_NAME}-win32-ia32" > /dev/null
 rm -r "${PACKAGE_NAME}-win32-ia32"
 
 electron-packager ./ ${PACKAGE_NAME} --platform=darwin --arch=x64\
-  --version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=treasure_logo.icns
+  --version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.icns
 zip -r "./../zips/${ZIP_IOS}" "${PACKAGE_NAME}-darwin-x64" > /dev/null
 rm -r "${PACKAGE_NAME}-darwin-x64"
