@@ -1,4 +1,4 @@
-![](media/garchen-logo.png)
+<img src="media/garchen-logo.png" alt="garchen-logo" width="160">
 
 # Garchen Panel
 > Multi-language dictionary creation tool
