@@ -1,3 +1,5 @@
+![](media/garchen-logo.png)
+
 # Garchen Panel
 > Multi-language dictionary creation tool
 
