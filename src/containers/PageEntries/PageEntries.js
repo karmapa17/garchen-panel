@@ -323,6 +323,16 @@ export default class PageEntries extends Component {
     const matchedCount = this.getMatchedCount();
     const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
 
+    let pageNumProps = {};
+
+    if (this.hasPageNumField()) {
+      pageNumProps = {
+        searchTypes: SEARCH_TYPES,
+        selectedSearchType: searchType,
+        onSearchTypeChange: this.handleSearchTypeChange
+      };
+    }
+
     return (
       <div className={c('page-list', styles.pageFolderEntries)}>
         <TopBar>
@@ -339,10 +349,9 @@ export default class PageEntries extends Component {
           </div>
         </TopBar>
         <div className={styles.content}>
-          <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange} searchTypes={SEARCH_TYPES}
+          <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange}
             searchKeyword={searchKeyword} matchedCount={matchedCount}
-            selectedSearchType={searchType} onSearchTypeChange={this.handleSearchTypeChange}
-            onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} />
+            onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} {...pageNumProps} />
           {this.renderFolderEntries()}
           {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
             onButtonTouchTap={this.handlePageButtonTouchTap} />}
