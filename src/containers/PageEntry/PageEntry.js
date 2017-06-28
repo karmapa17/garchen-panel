@@ -108,6 +108,10 @@ export default class PageEntry extends Component {
 
   setEditMode = () => this.setState({isEditMode: true});
 
+  hasPageNumField() {
+    return this.props.folder.data.contentFields.includes('page-num');
+  }
+
   renderContent() {
 
     const {isEditMode} = this.state;
@@ -129,11 +133,11 @@ export default class PageEntry extends Component {
 
     let pageNumTr;
 
-    if (entry.pageNum) {
+    if (this.hasPageNumField()) {
       pageNumTr = (
         <tr>
           <th>{f('page-num')}</th>
-          <td>{entry.pageNum}</td>
+          <td>{entry.pageNum || ''}</td>
         </tr>
       );
     }

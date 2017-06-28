@@ -104,6 +104,15 @@ export default class PageEntries extends Component {
       pageNumSortMethod,
       isConfirmEntryDeletionOpen: false
     }, props.cache);
+
+    if (! this.hasPageNumField()) {
+      this.state.pageNumSortMethod = '';
+      this.state.searchType = 'source-entry';
+    }
+  }
+
+  hasPageNumField() {
+    return this.props.folder.data.contentFields.includes('page-num');
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -175,13 +184,15 @@ export default class PageEntries extends Component {
     const {tableKey, pageNumSortMethod} = this.state;
     const {folderEntries, f} = this.props;
 
+    const isPageNumVisible = this.hasPageNumField();
+
     const tableRows = folderEntries.map((entry) => {
       return (
         <TableRow key={`table-row-${entry.id}`}>
           <TableRowColumn style={colStyle}>
             <a onTouchTap={this.goToSingleFolderEntryPage(entry.id)}>{entry.sourceEntry}</a>
           </TableRowColumn>
-          <TableRowColumn style={colStyle}>{get(entry, 'pageNum', '')}</TableRowColumn>
+          {isPageNumVisible && <TableRowColumn style={colStyle}>{get(entry, 'pageNum', '')}</TableRowColumn>}
         </TableRow>
       );
     });
@@ -194,12 +205,12 @@ export default class PageEntries extends Component {
         <TableHeader>
           <TableRow>
             <TableHeaderColumn style={colStyle}>{f('source-entry')}</TableHeaderColumn>
-            <TableHeaderColumn style={colStyle}>
+            {isPageNumVisible && <TableHeaderColumn style={colStyle}>
               <span>{f('page-num')}</span>
               <button className={styles.btnSort} onClick={this.changePageNumberSortMethod}>
                 <i className={SORT_CLASSNAME_MAP[pageNumSortMethod]} />
               </button>
-            </TableHeaderColumn>
+            </TableHeaderColumn>}
           </TableRow>
         </TableHeader>
         <TableBody showRowHover deselectOnClickaway={false}>{tableRows}</TableBody>
@@ -312,6 +323,16 @@ export default class PageEntries extends Component {
     const matchedCount = this.getMatchedCount();
     const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
 
+    let pageNumProps = {};
+
+    if (this.hasPageNumField()) {
+      pageNumProps = {
+        searchTypes: SEARCH_TYPES,
+        selectedSearchType: searchType,
+        onSearchTypeChange: this.handleSearchTypeChange
+      };
+    }
+
     return (
       <div className={c('page-list', styles.pageFolderEntries)}>
         <TopBar>
@@ -328,10 +349,9 @@ export default class PageEntries extends Component {
           </div>
         </TopBar>
         <div className={styles.content}>
-          <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange} searchTypes={SEARCH_TYPES}
+          <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange}
             searchKeyword={searchKeyword} matchedCount={matchedCount}
-            selectedSearchType={searchType} onSearchTypeChange={this.handleSearchTypeChange}
-            onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} />
+            onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} {...pageNumProps} />
           {this.renderFolderEntries()}
           {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
             onButtonTouchTap={this.handlePageButtonTouchTap} />}
