@@ -104,6 +104,11 @@ export default class PageEntries extends Component {
       pageNumSortMethod,
       isConfirmEntryDeletionOpen: false
     }, props.cache);
+
+    if (! this.hasPageNumField()) {
+      this.state.pageNumSortMethod = '';
+      this.state.searchType = 'source-entry';
+    }
   }
 
   hasPageNumField() {
