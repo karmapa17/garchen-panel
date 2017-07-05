@@ -58,7 +58,7 @@ app.on('ready', handleAppReady);
 async function handleAppReady() {
 
   const {width, height} = screen.getPrimaryDisplay().workAreaSize;
-  mainWindow = new BrowserWindow({width, height, resizable: false});
+  mainWindow = new BrowserWindow({width, height});
 
   const {webContents} = mainWindow;
 
