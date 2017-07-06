@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title></title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        background-color: #000;
+      }
+      #splash-video {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="splash-video" src="./splash.mp4" autoplay></video>
+    <script>
+      const splashVideo = document.getElementById('splash-video');
+
+      splashVideo.addEventListener('ended', () => {
+        document.location.href = 'index.html';
+      });
+    </script>
+  </body>
+</html>

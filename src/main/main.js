@@ -66,7 +66,7 @@ async function handleAppReady() {
     mainWindow = null;
   });
 
-  mainWindow.loadURL('file://' + __dirname + '/../index.html');
+  mainWindow.loadURL('file://' + __dirname + '/../splash.html');
 
   const {db, models} = await initDb();
   const importEmitter = new EventEmitter();

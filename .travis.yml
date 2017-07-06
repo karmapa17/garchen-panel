@@ -1,10 +1,7 @@
 language: node_js
 node_js:
 - '7'
-cache:
-  directories:
-  - $HOME/.npm
-  - node_modules
+cache: yarn
 before_install:
 - npm install --global npm@latest
 before_script:
