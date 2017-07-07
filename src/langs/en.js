@@ -1,4 +1,5 @@
 module.exports = {
+  'dismiss': 'Dismiss',
   'delete-selected-folders': 'Delete Selected Folders',
   'about': 'About',
   'about-version': 'About Version {appVersion}',

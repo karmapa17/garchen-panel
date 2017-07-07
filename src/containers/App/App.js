@@ -162,7 +162,8 @@ export class App extends Component {
             <hr className="divider" />
             <MenuItem primaryText={f('settings')} style={menuItemStyle} leftIcon={(<SettingsIcon />)} onTouchTap={this.handleMenuItemTouchTap('/settings')} />
           </Drawer>
-          <Snackbar open={isSnackBarOpen} message={snackBarMessage} autoHideDuration={4000} onRequestClose={this.handleSnackBarRequestClose} />
+          <Snackbar action={f('dismiss')} open={isSnackBarOpen} message={snackBarMessage}
+            autoHideDuration={4000} onActionTouchTap={this.handleSnackBarRequestClose} onRequestClose={this.handleSnackBarRequestClose} />
         </div>
       </MuiThemeProvider>
     );

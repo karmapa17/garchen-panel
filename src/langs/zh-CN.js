@@ -1,4 +1,5 @@
 module.exports = {
+  'dismiss': '关闭',
   'delete-selected-folders': '删除所选的资料夹',
   'about': '关于',
   'about-version': '关于版本 {appVersion}',
