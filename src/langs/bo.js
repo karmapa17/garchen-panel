@@ -1,4 +1,5 @@
 module.exports = {
+  'dismiss': 'སྒོ་རྒྱག །',
   'about': 'སྐོར།',
   'about-version': 'གསར་ཐོན་གྱི་སྐོར། {appVersion}',
   'account': 'དྲྭ་ཐོ།',
