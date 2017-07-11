@@ -354,10 +354,12 @@ export default class PageEntries extends Component {
             searchKeyword={searchKeyword} matchedCount={matchedCount}
             onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} {...pageNumProps} />
           {this.renderFolderEntries()}
-          {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
-            onButtonTouchTap={this.handlePageButtonTouchTap} />}
-          <PageJumper current={page} total={Math.ceil(folderEntryCount / perpage)}
-            onButtonTouchTap={this.handlePageButtonTouchTap} />
+          <div className={styles.pageEntriesPaginationBar}>
+            {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
+              onButtonTouchTap={this.handlePageButtonTouchTap} />}
+            <PageJumper current={page} total={Math.ceil(folderEntryCount / perpage)}
+              onButtonTouchTap={this.handlePageButtonTouchTap} />
+          </div>
         </div>
         {this.renderConfirmEntryDeletionDialog()}
       </div>
