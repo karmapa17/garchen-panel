@@ -21,6 +21,7 @@ import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
 import Pagination from './../../components/Pagination/Pagination';
+import PageJumper from './../../components/PageJumper/PageJumper';
 import SearchBar from './../../components/SearchBar/SearchBar';
 import hasValue from './../../helpers/hasValue';
 import getFontSize from './../../helpers/getFontSize';
@@ -355,6 +356,8 @@ export default class PageEntries extends Component {
           {this.renderFolderEntries()}
           {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
             onButtonTouchTap={this.handlePageButtonTouchTap} />}
+          <PageJumper current={page} total={Math.ceil(folderEntryCount / perpage)}
+            onButtonTouchTap={this.handlePageButtonTouchTap} />
         </div>
         {this.renderConfirmEntryDeletionDialog()}
       </div>
