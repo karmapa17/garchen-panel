@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 
 import injectF from './../../helpers/injectF';
 
+const styles = require('./PageJumper.scss');
+
 @injectF
 export default class PageJumper extends Component {
 
@@ -33,7 +35,7 @@ export default class PageJumper extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.pageJumper}>
         {this.renderInputPage()}
       </div>
     );
