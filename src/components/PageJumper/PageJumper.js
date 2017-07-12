@@ -11,13 +11,13 @@ export default class PageJumper extends Component {
     f: PropTypes.func.isRequired,
     current: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
-    onButtonTouchTap: PropTypes.func.isRequired
+    onInputSubmit: PropTypes.func.isRequired
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
     const inputPageNum = parseInt(this.input.value, 10);
-    this.props.onButtonTouchTap(inputPageNum);
+    this.props.onInputSubmit(inputPageNum);
   };
 
   render() {
