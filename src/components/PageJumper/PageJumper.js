@@ -14,17 +14,6 @@ export default class PageJumper extends Component {
     onButtonTouchTap: PropTypes.func.isRequired
   };
 
-  renderInputPage() {
-    const {current, total} = this.props;
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <input type="number" name="page" min="1" max={total}
-          ref={(input) => this.input = input} defaultValue={current} />
-        <span>&#47;{total}</span>
-      </form>
-    );
-  }
-
   handleSubmit = (event) => {
     event.preventDefault();
     const inputPageNum = parseInt(this.input.value, 10);
@@ -32,9 +21,16 @@ export default class PageJumper extends Component {
   };
 
   render() {
+
+    const {current, total} = this.props;
+
     return (
       <div className={styles.pageJumper}>
-        {this.renderInputPage()}
+        <form onSubmit={this.handleSubmit}>
+          <input type="number" name="page" min="1" max={total}
+            ref={(input) => this.input = input} defaultValue={current} />
+          <span>&#47;{total}</span>
+        </form>
       </div>
     );
   }
