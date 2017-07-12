@@ -16,7 +16,7 @@ export default class PageJumper extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const inputPageNum = parseInt(this.input.value, 10);
+    const inputPageNum = parseInt(this.refs.input.value, 10);
     this.props.onInputSubmit(inputPageNum);
   };
 
@@ -27,8 +27,7 @@ export default class PageJumper extends Component {
     return (
       <div className={styles.pageJumper}>
         <form onSubmit={this.handleSubmit}>
-          <input type="number" name="page" min="1" max={total}
-            ref={(input) => this.input = input} defaultValue={current} />
+          <input ref="input" type="number" name="page" min="1" max={total} defaultValue={current} />
           <span>&#47;{total}</span>
         </form>
       </div>
