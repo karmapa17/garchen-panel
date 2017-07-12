@@ -28,7 +28,7 @@ export default class PageJumper extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const {current} = this.props;
-    const inputPageNum = parseInt(this.input.value.trim(), 10);
+    const inputPageNum = parseInt(this.input.value, 10);
     const equal = inputPageNum - current;
     this.props.onButtonTouchTap(current + equal);
   };
