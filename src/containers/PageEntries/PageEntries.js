@@ -261,6 +261,11 @@ export default class PageEntries extends Component {
     this.setState({page});
   };
 
+  handlePageInputSubmit = (page) => {
+    this.updateTableKey();
+    this.setState({page});
+  };
+
   handleSearchInputChange = (searchKeyword) => {
     if (this.state.searchKeyword !== searchKeyword) {
       this.setState({page: 1});
@@ -359,7 +364,7 @@ export default class PageEntries extends Component {
             {(folderEntryCount > perpage) && <Pagination current={page} total={total}
               onButtonTouchTap={this.handlePageButtonTouchTap} />}
             {(folderEntryCount > perpage) && <PageJumper current={page} total={total}
-              onButtonTouchTap={this.handlePageButtonTouchTap} />}
+              onInputSubmit={this.handlePageInputSubmit} />}
           </div>
         </div>
         {this.renderConfirmEntryDeletionDialog()}
