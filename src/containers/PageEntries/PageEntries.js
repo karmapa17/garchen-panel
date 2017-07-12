@@ -323,6 +323,7 @@ export default class PageEntries extends Component {
     const {f, folder, folderEntryCount, perpage, interfaceFontSizeScalingFactor} = this.props;
     const matchedCount = this.getMatchedCount();
     const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
+    const total = Math.ceil(folderEntryCount / perpage);
 
     let pageNumProps = {};
 
@@ -355,9 +356,9 @@ export default class PageEntries extends Component {
             onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} {...pageNumProps} />
           {this.renderFolderEntries()}
           <div className={styles.pageEntriesPaginationBar}>
-            {(folderEntryCount > perpage) && <Pagination current={page} total={Math.ceil(folderEntryCount / perpage)}
+            {(folderEntryCount > perpage) && <Pagination current={page} total={total}
               onButtonTouchTap={this.handlePageButtonTouchTap} />}
-            <PageJumper current={page} total={Math.ceil(folderEntryCount / perpage)}
+            <PageJumper current={page} total={total}
               onButtonTouchTap={this.handlePageButtonTouchTap} />
           </div>
         </div>
