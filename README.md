@@ -14,6 +14,7 @@
 - [Usage](#usage)
 
 ## Usage
+
 ### Installation
 ```console
 yarn
