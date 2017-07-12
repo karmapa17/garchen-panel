@@ -358,8 +358,8 @@ export default class PageEntries extends Component {
           <div className={styles.pageEntriesPaginationBar}>
             {(folderEntryCount > perpage) && <Pagination current={page} total={total}
               onButtonTouchTap={this.handlePageButtonTouchTap} />}
-            <PageJumper current={page} total={total}
-              onButtonTouchTap={this.handlePageButtonTouchTap} />
+            {(folderEntryCount > perpage) && <PageJumper current={page} total={total}
+              onButtonTouchTap={this.handlePageButtonTouchTap} />}
           </div>
         </div>
         {this.renderConfirmEntryDeletionDialog()}
