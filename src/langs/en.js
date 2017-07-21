@@ -79,6 +79,7 @@ module.exports = {
   'folder-entry-name-taken': 'Entry already existed in this folder.',
   'folder-has-been-created': 'Folder {folderName} has been created.',
   'folder-has-been-updated': 'Folder {folderName} has been updated.',
+  'folder-has-been-exported': 'Folder {folderName} has been exported.',
   'folder-name': 'Folder Name',
   'folder-name-required': 'Field folder name is required.',
   'folder-name-taken': 'Folder name {folderName} exists',
