@@ -142,12 +142,16 @@ export default class PageFolders extends Component {
   };
 
   handleFolderMenuItemTouchTap = (event, value) => {
+    const {push, exportFolderToCsv, f, setSnackBarParams, folders} = this.props;
     const {type, folderId} = value;
+    const folder = folders.find((row) => row.id === folderId);
+
     switch (type) {
       case 'edit':
-        return this.props.push(`/folders/${folderId}/edit`);
+        return push(`/folders/${folderId}/edit`);
       case 'export':
-        return this.props.exportFolderToCsv(folderId);
+        return exportFolderToCsv(folderId)
+          .then(() => setSnackBarParams(true, f('folder-has-been-exported', {folderName: folder.name})));
       default:
     }
   };
