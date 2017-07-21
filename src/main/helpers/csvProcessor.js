@@ -160,6 +160,12 @@ export default class CsvProcessor {
           const value = data[index];
           rowData[field] = value ? [value.split(',').map(Number)] : [[]];
         }
+        else if ([FIELD_CATEGORY, FIELD_SECT].includes(field)) {
+          const value = parseInt(data[index], 10);
+          if (value) {
+            rowData[field] = value;
+          }
+        }
         else if (isArrayField(field)) {
           rowData[field] = [data[index]]
         }
