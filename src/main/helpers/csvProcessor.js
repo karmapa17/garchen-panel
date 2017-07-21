@@ -22,6 +22,11 @@ const getSourceLang = (key) => {
   return validLangs.includes(lang) ? lang : null;
 };
 
+const getTargetEntryLang = (key) => {
+  const [, lang] = key.match(RE_TARGET_ENTRY) || [];
+  return validLangs.includes(lang) ? lang : null;
+};
+
 const getExplanationLang = (key) => {
   const [, lang] = key.match(RE_EXPLANATION) || [];
   return validLangs.includes(lang) ? lang : null;
