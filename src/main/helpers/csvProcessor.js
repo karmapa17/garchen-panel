@@ -4,6 +4,8 @@ import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 import trimFractionLeadingZeros from './../helpers/trimFractionLeadingZeros';
 
 export const FIELD_PAGE_NUM = 'page-num';
+export const FIELD_CATEGORY = 'category';
+export const FIELD_SECT = 'sect';
 export const FIELD_EXPLANATION_NOTE = 'explanation-note';
 export const FIELD_EXPLANATION_SOURCE = 'explanation-source';
 export const FIELD_EXPLANATION_CATEGORY = 'explanation-category';
@@ -156,6 +158,26 @@ export default class CsvProcessor {
 
       if (FIELD_PAGE_NUM === field) {
         rows[0][FIELD_PAGE_NUM] = trimFractionLeadingZeros(entry.pageNum);
+      }
+
+      if (FIELD_CATEGORY === field) {
+        rows[0][FIELD_CATEGORY] = entry.data.category;
+      }
+
+      if (FIELD_SECT === field) {
+        rows[0][FIELD_SECT] = entry.data.sect;
+      }
+
+      const [, targetEntryLang] = field.match(/^target-entry-lang-(.+)$/) || [];
+
+      if (targetEntryLang) {
+        rows[0][`target-entry-${targetEntryLang}`] = entry.data[`target-entry-${targetEntryLang}`];
+      }
+
+      const [, originalLang] = field.match(/^original-lang-(.+)$/) || [];
+
+      if (originalLang) {
+        rows[0][`original-${originalLang}`] = entry.data[`original-${originalLang}`];
       }
 
       const [, explanationLang] = field.match(/^explanation-lang-(.+)$/) || [];
