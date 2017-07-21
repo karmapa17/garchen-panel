@@ -111,9 +111,17 @@ export default class CsvProcessor {
 
       const sourceLanguage = getSourceLang(key);
       const explanationLanguage = getExplanationLang(key);
+      const targetEntryLanguage = getTargetEntryLang(key);
+      const originalLanguage = getOriginalLang(key);
 
       if (sourceLanguage) {
         fields[index] = 'sourceEntry';
+      }
+      else if (targetEntryLanguage) {
+        fields[index] = `target-entry-${targetEntryLanguage}`;
+      }
+      else if (originalLanguage) {
+        fields[index] = `original-${originalLanguage}`;
       }
       else if (explanationLanguage) {
         fields[index] = `explanation-${explanationLanguage}`;
@@ -129,6 +137,12 @@ export default class CsvProcessor {
       }
       else if (FIELD_PAGE_NUM === key) {
         fields[index] = FIELD_PAGE_NUM;
+      }
+      else if (FIELD_CATEGORY === key) {
+        fields[index] = FIELD_CATEGORY;
+      }
+      else if (FIELD_SECT === key) {
+        fields[index] = FIELD_SECT;
       }
       else {
         // unknown columns
