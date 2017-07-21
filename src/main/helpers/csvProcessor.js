@@ -11,6 +11,7 @@ export const FIELD_EXPLANATION_SOURCE = 'explanation-source';
 export const FIELD_EXPLANATION_CATEGORY = 'explanation-category';
 
 export const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
+export const RE_TARGET_ENTRY = /^target-entry-(.+)$/;
 export const RE_EXPLANATION = /^explanation-(.+)$/;
 export const RE_EXPLANATION_NOTE = /^explanation-note$/;
 export const RE_EXPLANATION_CATEGORY = /^explanation-category$/;
