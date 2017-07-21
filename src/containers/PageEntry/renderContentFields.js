@@ -7,7 +7,7 @@ import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
 import hasValue from './../../helpers/hasValue';
 
-const fieldsInOrder = ['target-entry', 'explanation', 'category', 'sect'];
+const fieldsInOrder = ['target-entry', 'explanation', 'original', 'category', 'sect'];
 
 const hasData = (prop, data) => (prop in data) && hasValue(data[prop]);
 
@@ -25,6 +25,12 @@ function hasExplanation({contentFields, targetLanguages}) {
   });
 }
 
+function hasOriginal({contentFields, targetLanguages}) {
+  return contentFields.some((field) => {
+    const lang = (field.match(/^original-lang-(.+)$/) || [])[1];
+    return targetLanguages.includes(lang);
+  });
+}
 
 function toFieldData({f, data, contentFields, targetLanguages}) {
 
@@ -121,6 +127,22 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
         }
 
         return rows;
+      });
+  }
+
+  if (hasOriginal({contentFields, targetLanguages})) {
+
+    const genOriginalKey = (lang) => `original-${lang}`;
+
+    fieldData.original = targetLanguages.filter((lang) => hasData(genOriginalKey(lang), data))
+      .map((lang) => {
+        const key = genOriginalKey(lang);
+        return (
+          <tr key={`tr-${key}`}>
+            <th>{f('original-lang', {lang: f(lang)})}</th>
+            <td>{data[key]}</td>
+          </tr>
+        );
       });
   }
 
