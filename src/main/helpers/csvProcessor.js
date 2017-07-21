@@ -69,6 +69,28 @@ export default class CsvProcessor {
         columnData.contentFields.push(`explanation-lang-${explanationLanguage}`);
       }
 
+      const targetEntryLanguage = getTargetEntryLang(key);
+
+      if (targetEntryLanguage) {
+        columnData.targetLanguages.push(targetEntryLanguage);
+        columnData.contentFields.push(`target-entry-lang-${targetEntryLanguage}`);
+      }
+
+      const originalLanguage = getOriginalLang(key);
+
+      if (originalLanguage) {
+        columnData.targetLanguages.push(originalLanguage);
+        columnData.contentFields.push(`original-lang-${originalLanguage}`);
+      }
+
+      if (FIELD_CATEGORY === key) {
+        columnData.contentFields.push(FIELD_CATEGORY);
+      }
+
+      if (FIELD_SECT === key) {
+        columnData.contentFields.push(FIELD_SECT);
+      }
+
       if (FIELD_PAGE_NUM === key) {
         columnData.contentFields.push(FIELD_PAGE_NUM);
       }
