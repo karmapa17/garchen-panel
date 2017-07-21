@@ -79,6 +79,7 @@ module.exports = {
   'folder-entry-name-taken': 'ཡིག་སྒྲོམ་འདིར་བཅུག་ཟིན་པའི་ཚིག་ཚན།',
   'folder-has-been-created': '{folderName} ཡིག་སྒྲོམ་འདི་བཀོད་ཟིན།',
   'folder-has-been-updated': '{folderName} ཡིག་སྒྲོམ་ཕྱོགས་སྒྲིག་ཟིན།',
+  'folder-has-been-exported': '{folderName} has been exported',
   'folder-name': 'ཡིག་སྒྲོམ་གྱི་མིང་།',
   'folder-name-required': 'ཡིག་སྒྲོམ་གྱི་མིང་བཅུག་དགོས།',
   'folder-name-taken': '{folderName} ཡིག་སྒྲོམ་གྱི་མིང་བཅུག་ཟིན།',

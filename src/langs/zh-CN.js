@@ -79,6 +79,7 @@ module.exports = {
   'folder-entry-name-taken': '词条在这个资料夹已经存在',
   'folder-has-been-created': '已建立资料夹 {folderName}',
   'folder-has-been-updated': '已更新资料夹 {folderName}',
+  'folder-has-been-exported': '已汇出资料夹 {folderName}',
   'folder-name': '资料夹名称',
   'folder-name-required': '必须填写资料夹名称',
   'folder-name-taken': '资料夹名称 {folderName} 已经存在',
