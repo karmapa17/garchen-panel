@@ -4,17 +4,31 @@ import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 import trimFractionLeadingZeros from './../helpers/trimFractionLeadingZeros';
 
 export const FIELD_PAGE_NUM = 'page-num';
+export const FIELD_CATEGORY = 'category';
+export const FIELD_SECT = 'sect';
 export const FIELD_EXPLANATION_NOTE = 'explanation-note';
 export const FIELD_EXPLANATION_SOURCE = 'explanation-source';
 export const FIELD_EXPLANATION_CATEGORY = 'explanation-category';
 
 export const RE_SOURCE_ENTRY = /^source-entry-(.+)$/;
+export const RE_TARGET_ENTRY = /^target-entry-(.+)$/;
+export const RE_ORIGINAL = /^original-(.+)$/;
 export const RE_EXPLANATION = /^explanation-(.+)$/;
 export const RE_EXPLANATION_NOTE = /^explanation-note$/;
 export const RE_EXPLANATION_CATEGORY = /^explanation-category$/;
 
 const getSourceLang = (key) => {
   const [, lang] = key.match(RE_SOURCE_ENTRY) || [];
+  return validLangs.includes(lang) ? lang : null;
+};
+
+const getTargetEntryLang = (key) => {
+  const [, lang] = key.match(RE_TARGET_ENTRY) || [];
+  return validLangs.includes(lang) ? lang : null;
+};
+
+const getOriginalLang = (key) => {
+  const [, lang] = key.match(RE_ORIGINAL) || [];
   return validLangs.includes(lang) ? lang : null;
 };
 
@@ -55,6 +69,28 @@ export default class CsvProcessor {
         columnData.contentFields.push(`explanation-lang-${explanationLanguage}`);
       }
 
+      const targetEntryLanguage = getTargetEntryLang(key);
+
+      if (targetEntryLanguage) {
+        columnData.targetLanguages.push(targetEntryLanguage);
+        columnData.contentFields.push(`target-entry-lang-${targetEntryLanguage}`);
+      }
+
+      const originalLanguage = getOriginalLang(key);
+
+      if (originalLanguage) {
+        columnData.targetLanguages.push(originalLanguage);
+        columnData.contentFields.push(`original-lang-${originalLanguage}`);
+      }
+
+      if (FIELD_CATEGORY === key) {
+        columnData.contentFields.push(FIELD_CATEGORY);
+      }
+
+      if (FIELD_SECT === key) {
+        columnData.contentFields.push(FIELD_SECT);
+      }
+
       if (FIELD_PAGE_NUM === key) {
         columnData.contentFields.push(FIELD_PAGE_NUM);
       }
@@ -75,9 +111,17 @@ export default class CsvProcessor {
 
       const sourceLanguage = getSourceLang(key);
       const explanationLanguage = getExplanationLang(key);
+      const targetEntryLanguage = getTargetEntryLang(key);
+      const originalLanguage = getOriginalLang(key);
 
       if (sourceLanguage) {
         fields[index] = 'sourceEntry';
+      }
+      else if (targetEntryLanguage) {
+        fields[index] = `target-entry-${targetEntryLanguage}`;
+      }
+      else if (originalLanguage) {
+        fields[index] = `original-${originalLanguage}`;
       }
       else if (explanationLanguage) {
         fields[index] = `explanation-${explanationLanguage}`;
@@ -94,6 +138,12 @@ export default class CsvProcessor {
       else if (FIELD_PAGE_NUM === key) {
         fields[index] = FIELD_PAGE_NUM;
       }
+      else if (FIELD_CATEGORY === key) {
+        fields[index] = FIELD_CATEGORY;
+      }
+      else if (FIELD_SECT === key) {
+        fields[index] = FIELD_SECT;
+      }
       else {
         // unknown columns
         fields[index] = undefined;
@@ -109,6 +159,12 @@ export default class CsvProcessor {
         if (FIELD_EXPLANATION_CATEGORY === field) {
           const value = data[index];
           rowData[field] = value ? [value.split(',').map(Number)] : [[]];
+        }
+        else if ([FIELD_CATEGORY, FIELD_SECT].includes(field)) {
+          const value = parseInt(data[index], 10);
+          if (value) {
+            rowData[field] = value;
+          }
         }
         else if (isArrayField(field)) {
           rowData[field] = [data[index]]
@@ -156,6 +212,26 @@ export default class CsvProcessor {
 
       if (FIELD_PAGE_NUM === field) {
         rows[0][FIELD_PAGE_NUM] = trimFractionLeadingZeros(entry.pageNum);
+      }
+
+      if (FIELD_CATEGORY === field) {
+        rows[0][FIELD_CATEGORY] = entry.data.category;
+      }
+
+      if (FIELD_SECT === field) {
+        rows[0][FIELD_SECT] = entry.data.sect;
+      }
+
+      const [, targetEntryLang] = field.match(/^target-entry-lang-(.+)$/) || [];
+
+      if (targetEntryLang) {
+        rows[0][`target-entry-${targetEntryLang}`] = entry.data[`target-entry-${targetEntryLang}`];
+      }
+
+      const [, originalLang] = field.match(/^original-lang-(.+)$/) || [];
+
+      if (originalLang) {
+        rows[0][`original-${originalLang}`] = entry.data[`original-${originalLang}`];
       }
 
       const [, explanationLang] = field.match(/^explanation-lang-(.+)$/) || [];
