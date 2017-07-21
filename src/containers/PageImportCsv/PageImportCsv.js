@@ -19,8 +19,12 @@ const dictionaryLangs = DICTIONARY_LANGS.map((row) => row.value);
 const langExpression = '{lang}';
 const supportedColumns = [
   {textId: 'source-entry', expression: 'source-entry-{lang}'},
+  {textId: 'target-entry', expression: 'target-entry-{lang}'},
+  {textId: 'original', expression: 'original-{lang}'},
   {textId: 'explanation', expression: 'explanation-{lang}'},
   {textId: 'explanation-note', expression: 'explanation-note'},
+  {textId: 'category', expression: 'category'},
+  {textId: 'sect', expression: 'sect'},
   {textId: 'page-num', expression: 'page-num'},
 ];
 

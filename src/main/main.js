@@ -66,7 +66,13 @@ async function handleAppReady() {
     mainWindow = null;
   });
 
-  mainWindow.loadURL('file://' + __dirname + '/../splash.html');
+  // don't do splash in development cause it's too slow for live reload
+  if ('development' === process.env.NODE_ENV) {
+    mainWindow.loadURL('file://' + __dirname + '/../index.html');
+  }
+  else {
+    mainWindow.loadURL('file://' + __dirname + '/../splash.html');
+  }
 
   const {db, models} = await initDb();
   const importEmitter = new EventEmitter();
