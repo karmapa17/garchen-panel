@@ -151,7 +151,7 @@ export default class PageFolders extends Component {
         return push(`/folders/${folderId}/edit`);
       case 'export':
         return exportFolderToCsv(folderId)
-          .then(() => setSnackBarParams(true, f('folder-has-been-exported', {folderName: folder.name})));
+          .then((onFulfilled) => setSnackBarParams(('done' === onFulfilled.message ? true : false), f('folder-has-been-exported', {folderName: folder.name})));
       default:
     }
   };
