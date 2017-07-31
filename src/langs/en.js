@@ -138,5 +138,5 @@ module.exports = {
   'very-small': 'Very Small',
   'write-delay-with-num': 'Write delay {writeDelay}ms',
   'zh-CN': 'Simplified Chinese',
-  'zh-TW': 'Traditial Chinese'
+  'zh-TW': 'Traditional Chinese'
 };
