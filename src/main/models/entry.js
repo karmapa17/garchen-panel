@@ -4,7 +4,7 @@ module.exports = {
     id: {type: 'increments', primary: true},
     folderId: {type: Number},
     sourceEntry: {type: String, nullable: false},
-    pageNum: {type: String, defaultTo: ''},
+    pageNum: {type: Number},
     data: {type: 'json', defaultTo: '{}'}
   },
   options: {
