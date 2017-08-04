@@ -9,7 +9,8 @@ export default function pageNumToFloat(num, length) {
   const [, wholeNumStr, fractionStr] = /^(\d+)\.(\d+)$/.exec(numStr) || [];
 
   if (undefined === fractionStr) {
-    return numStr;
+    const parsedNum = parseFloat(numStr);
+    return isNaN(parsedNum) ? 0 : parsedNum;
   }
   const fraction = zpad(parseInt(fractionStr, 10), length);
   return parseFloat(`${wholeNumStr}.${fraction}`);
