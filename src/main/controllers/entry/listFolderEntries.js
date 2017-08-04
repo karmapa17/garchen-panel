@@ -5,7 +5,7 @@ import padPageNumWithZeros from './../../helpers/padPageNumWithZeros';
 import FRATION_LENGTH from './../../constants/fractionLength';
 
 const trimPageNumZeros = (entry) => {
-  entry.pageNum = trimFractionLeadingZeros(entry.pageNum);
+  entry.pageNum = trimFractionLeadingZeros(entry.pageNum, FRATION_LENGTH);
   return entry;
 };
 

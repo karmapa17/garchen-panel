@@ -20,7 +20,7 @@ export default async function addFolderEntry(event, rawData) {
     return this.reject({message: 'Failed to create folder entry'});
   }
 
-  entry.pageNum = trimFractionLeadingZeros(entry.pageNum);
+  entry.pageNum = trimFractionLeadingZeros(entry.pageNum, FRACTION_LENGTH);
 
   this.resolve(entry);
 }

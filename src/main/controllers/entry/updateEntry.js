@@ -19,7 +19,7 @@ export default async function updateEntry(event, rawData) {
   await Entry.update({id}, {sourceEntry, pageNum, data});
   const entry = await Entry.findOne({id});
 
-  entry.pageNum = trimFractionLeadingZeros(entry.pageNum);
+  entry.pageNum = trimFractionLeadingZeros(entry.pageNum, FRACTION_LENGTH);
 
   this.resolve(entry);
 }
