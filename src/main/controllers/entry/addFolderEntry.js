@@ -1,4 +1,4 @@
-import padPageNumWithZeros from './../../helpers/padPageNumWithZeros';
+import pageNumToFloat from './../../helpers/pageNumToFloat';
 import trimFractionLeadingZeros from './../../helpers/trimFractionLeadingZeros';
 import FRACTION_LENGTH from './../../constants/fractionLength';
 
@@ -8,7 +8,7 @@ export default async function addFolderEntry(event, rawData) {
   const {folderId, data} = rawData;
 
   const sourceEntry = data.sourceEntry;
-  const pageNum = padPageNumWithZeros(data.pageNum, FRACTION_LENGTH) || '';
+  const pageNum = pageNumToFloat(data.pageNum, FRACTION_LENGTH) || '';
 
   delete data.sourceEntry;
   delete data.folderId;

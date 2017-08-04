@@ -1,7 +1,7 @@
 import {get, isEmpty} from 'lodash';
 import parseJsonFields from './../../helpers/parseJsonFields';
 import trimFractionLeadingZeros from './../../helpers/trimFractionLeadingZeros';
-import padPageNumWithZeros from './../../helpers/padPageNumWithZeros';
+import pageNumToFloat from './../../helpers/pageNumToFloat';
 import FRATION_LENGTH from './../../constants/fractionLength';
 
 const trimPageNumZeros = (entry) => {
@@ -54,7 +54,7 @@ export default async function listFolderEntries(event, data) {
   }
 
   if ('page-num' === searchType) {
-    const pageNum = padPageNumWithZeros(searchKeyword, FRATION_LENGTH);
+    const pageNum = pageNumToFloat(searchKeyword, FRATION_LENGTH);
     let entries = await Entry.find({folderId, pageNum}, {skip: offset, limit: perpage, order}) || [];
     entries = entries.map(trimPageNumZeros);
     const total = await Entry.count({folderId, pageNum});
