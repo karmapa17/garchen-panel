@@ -1,17 +1,16 @@
 import zpad from 'zpad';
 /**
  * This function pad a fraction with leading zero
- * For example, it converts 1.2 to 1.002 when length argument is 3
+ * For example, it converts 1.2 to 1.02 when the argument length is 2
  */
-export default function padPageNumWithZeros(numStr, length) {
+export default function padPageNumWithZeros(num, length) {
 
+  const numStr = String(num);
   const [, wholeNumStr, fractionStr] = /^(\d+)\.(\d+)$/.exec(numStr) || [];
 
   if (undefined === fractionStr) {
     return numStr;
   }
-
   const fraction = zpad(parseInt(fractionStr, 10), length);
-
-  return `${wholeNumStr}.${fraction}`;
+  return parseFloat(`${wholeNumStr}.${fraction}`);
 }
