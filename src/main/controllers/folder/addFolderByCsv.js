@@ -8,7 +8,7 @@ import sleep from 'sleep-promise';
 import shortid from 'shortid';
 
 import csvProcessor, {FIELD_PAGE_NUM} from './../../helpers/csvProcessor';
-import padPageNumWithZeros from './../../helpers/padPageNumWithZeros';
+import pageNumToFloat from './../../helpers/pageNumToFloat';
 import FRACTION_LENGTH from './../../constants/fractionLength';
 
 export default async function addFolderByCsv(event, data) {
@@ -65,7 +65,7 @@ export default async function addFolderByCsv(event, data) {
 
         const rowData = csvProcessor.getRowDataByFields(data, fields);
         const {sourceEntry} = rowData;
-        const pageNum = padPageNumWithZeros(rowData[FIELD_PAGE_NUM], FRACTION_LENGTH) || '';
+        const pageNum = pageNumToFloat(rowData[FIELD_PAGE_NUM], FRACTION_LENGTH) || '';
 
         if (sourceEntry) {
 
