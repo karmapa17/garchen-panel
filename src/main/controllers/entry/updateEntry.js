@@ -1,5 +1,5 @@
-import trimFractionLeadingZeros from './../../helpers/trimFractionLeadingZeros';
-import padPageNumWithZeros from './../../helpers/padPageNumWithZeros';
+import floatToPageNum from './../../helpers/floatToPageNum';
+import pageNumToFloat from './../../helpers/pageNumToFloat';
 import FRACTION_LENGTH from './../../constants/fractionLength';
 
 export default async function updateEntry(event, rawData) {
@@ -8,7 +8,7 @@ export default async function updateEntry(event, rawData) {
   const {id, data} = rawData;
 
   const sourceEntry = data.sourceEntry;
-  const pageNum = padPageNumWithZeros(data.pageNum, FRACTION_LENGTH) || '';
+  const pageNum = pageNumToFloat(data.pageNum, FRACTION_LENGTH) || '';
 
   delete data.entryId;
   delete data.folderId;
@@ -19,7 +19,7 @@ export default async function updateEntry(event, rawData) {
   await Entry.update({id}, {sourceEntry, pageNum, data});
   const entry = await Entry.findOne({id});
 
-  entry.pageNum = trimFractionLeadingZeros(entry.pageNum);
+  entry.pageNum = floatToPageNum(entry.pageNum, FRACTION_LENGTH);
 
   this.resolve(entry);
 }
