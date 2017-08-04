@@ -1,5 +1,5 @@
 import {get, isEmpty} from 'lodash';
-import trimFractionLeadingZeros from './../../helpers/trimFractionLeadingZeros';
+import floatToPageNum from './../../helpers/floatToPageNum';
 import FRACTION_LENGTH from './../../constants/fractionLength';
 
 async function getNextEntryId({entry, db}) {
@@ -41,7 +41,7 @@ export default async function getEntry(event, data) {
     return;
   }
 
-  entry.pageNum = trimFractionLeadingZeros(entry.pageNum, FRACTION_LENGTH);
+  entry.pageNum = floatToPageNum(entry.pageNum, FRACTION_LENGTH);
 
   const nextEntryId = await getNextEntryId({entry, db});
   const prevEntryId = await getPrevEntryId({entry, db});

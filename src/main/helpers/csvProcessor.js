@@ -1,7 +1,7 @@
 import {uniq, isEmpty} from 'lodash';
 import sortFolderContentFields from './sortFolderContentFields';
 import DICTIONARY_LANGS from './../constants/dictionaryLangs';
-import trimFractionLeadingZeros from './../helpers/trimFractionLeadingZeros';
+import floatToPageNum from './../helpers/floatToPageNum';
 
 export const FIELD_PAGE_NUM = 'page-num';
 export const FIELD_CATEGORY = 'category';
@@ -211,7 +211,7 @@ export default class CsvProcessor {
     return contentFields.reduce((rows, field) => {
 
       if (FIELD_PAGE_NUM === field) {
-        rows[0][FIELD_PAGE_NUM] = trimFractionLeadingZeros(entry.pageNum);
+        rows[0][FIELD_PAGE_NUM] = floatToPageNum(entry.pageNum);
       }
 
       if (FIELD_CATEGORY === field) {

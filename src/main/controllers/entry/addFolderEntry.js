@@ -1,5 +1,5 @@
 import pageNumToFloat from './../../helpers/pageNumToFloat';
-import trimFractionLeadingZeros from './../../helpers/trimFractionLeadingZeros';
+import floatToPageNum from './../../helpers/floatToPageNum';
 import FRACTION_LENGTH from './../../constants/fractionLength';
 
 export default async function addFolderEntry(event, rawData) {
@@ -20,7 +20,7 @@ export default async function addFolderEntry(event, rawData) {
     return this.reject({message: 'Failed to create folder entry'});
   }
 
-  entry.pageNum = trimFractionLeadingZeros(entry.pageNum, FRACTION_LENGTH);
+  entry.pageNum = floatToPageNum(entry.pageNum, FRACTION_LENGTH);
 
   this.resolve(entry);
 }

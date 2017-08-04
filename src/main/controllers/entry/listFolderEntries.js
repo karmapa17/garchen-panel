@@ -1,11 +1,11 @@
 import {get, isEmpty} from 'lodash';
 import parseJsonFields from './../../helpers/parseJsonFields';
-import trimFractionLeadingZeros from './../../helpers/trimFractionLeadingZeros';
+import floatToPageNum from './../../helpers/floatToPageNum';
 import pageNumToFloat from './../../helpers/pageNumToFloat';
 import FRATION_LENGTH from './../../constants/fractionLength';
 
 const trimPageNumZeros = (entry) => {
-  entry.pageNum = trimFractionLeadingZeros(entry.pageNum, FRATION_LENGTH);
+  entry.pageNum = floatToPageNum(entry.pageNum, FRATION_LENGTH);
   return entry;
 };
 

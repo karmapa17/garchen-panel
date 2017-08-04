@@ -1,4 +1,4 @@
-export default function trimFractionLeadingZeros(floatNum, length) {
+export default function floatToPageNum(floatNum, length) {
 
   const numStr = String(floatNum);
   const [, wholeNumStr, fractionStr] = /^(\d+)\.(\d+)$/.exec(numStr) || [];
