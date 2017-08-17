@@ -123,7 +123,10 @@ export default class PageEntry extends Component {
     };
 
     if (isEditMode) {
-      return <EditEntryForm ref="editEntryForm" onSubmit={this.handleSubmit} folder={folder} initialValues={initialValues} />;
+      return (
+        <EditEntryForm ref="editEntryForm" onSubmit={this.handleSubmit} folder={folder}
+          initialValues={initialValues} contentFontSizeScalingFactor={contentFontSizeScalingFactor} />
+      );
     }
 
     const tableFontSize = getFontSize(contentFontSizeScalingFactor, 1);
