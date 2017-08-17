@@ -59,6 +59,8 @@ export default class PageEntry extends Component {
     importingFolderId: PropTypes.number
   };
 
+  state = {isEditMode: false};
+
   componentWillReceiveProps(nextProps) {
 
     const {params, getEntry} = this.props;
@@ -68,11 +70,6 @@ export default class PageEntry extends Component {
     if (entryId !== nextEntryId) {
       getEntry({id: nextEntryId});
     }
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {isEditMode: false};
   }
 
   goToFoldersPage = () => this.props.push('/');
