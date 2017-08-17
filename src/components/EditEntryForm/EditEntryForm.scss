@@ -1,3 +1,5 @@
+@import './../../../assets/styles/variables';
+
 .editEntryForm {
 
   .formBody {
@@ -10,5 +12,25 @@
     position: fixed;
     bottom: 14px;
     right: 14px;
+  }
+
+  .formControl {
+    padding: 14px 0;
+    label {
+      display: block;
+    }
+    input, textarea {
+      outline: 0;
+      padding: 7px 0;
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 1px solid rgb(224, 224, 224);
+      font-size: 20px;
+      width: 100%;
+      &:focus {
+        border-bottom: 1px solid $brand-primary;
+      }
+    }
   }
 }
