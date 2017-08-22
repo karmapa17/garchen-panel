@@ -89,7 +89,6 @@
     "jest-cli": "0.9.2",
     "mock-local-storage": "1.0.2",
     "node-libs-browser": "0.5.3",
-    "node-sass": "3.4.2",
     "nodemon": "1.9.0",
     "nyc": "10.3.2",
     "object-assign": "2.0.0",
