@@ -135,3 +135,8 @@ export default async function addFolderByCsv(event, data) {
     processCsv(csvFilePath);
   }
 }
+
+function getEntryBatchInsertQuery(db, entryData) {
+  const formattedData = entryData.map((row) => ({...row, data: JSON.stringify(row.data)}));
+  return db.knex.batchInsert('Entry', formattedData, 200);
+}
