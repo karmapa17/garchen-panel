@@ -38,6 +38,7 @@ export default async function addFolderByCsv(event, data) {
 
     const filename = basename(csvFilePath);
     const stream = fs.createReadStream(csvFilePath);
+    const timeStart = +new Date();
 
     let completedLines = 0;
     let hasColumnRow = false;
@@ -91,7 +92,10 @@ export default async function addFolderByCsv(event, data) {
         }
       }
       ++completedLines;
-      broadcast('csv-processing-status', {completedLines});
+
+      const seconds = parseInt((+new Date() - timeStart) / 1000, 10);
+      const linesPerSecond = Math.floor(completedLines / seconds);
+      broadcast('csv-processing-status', {completedLines, linesPerSecond});
     }
 
     csv.fromStream(stream)

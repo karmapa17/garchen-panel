@@ -67,12 +67,13 @@ export default class PageImportCsv extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      completedLines: 0
+      completedLines: 0,
+      linesPerSecond: 0
     };
   }
 
   handleCsvProcessingStatus = (event, data) => {
-    this.setState({completedLines: data.completedLines});
+    this.setState({completedLines: data.completedLines, linesPerSecond: data.linesPerSecond});
   };
 
   handleCsvFolderCreated = (event, data) => {
@@ -106,14 +107,14 @@ export default class PageImportCsv extends Component {
 
   renderChooseCsvFileButton = () => {
 
-    const {completedLines} = this.state;
+    const {completedLines, linesPerSecond} = this.state;
     const {f, isProcessingCsv, isOpeningDialog, interfaceFontSizeScalingFactor} = this.props;
     const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
 
     if (isProcessingCsv) {
       return (
         <div className={styles.chooseFileBtnWrap}>
-          {(completedLines > 0) && <div className={styles.linesCompleted}>{f('completed-csv-line', {completedLines: `${completedLines}`})}</div>}
+          {(completedLines > 0) && <div className={styles.linesCompleted}>{f('completed-csv-line', {completedLines: `${completedLines}`})}, {linesPerSecond} lines per second</div>}
           <CircularProgress style={{display: 'block', marginLeft: 'auto', marginRight: 'auto', marginBottom: '14px'}} />
           <RaisedButton label={f('cancel-importing')} primary onTouchTap={this.handleCancelImportingCsvButtonTouchTap} />
         </div>
