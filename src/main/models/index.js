@@ -22,7 +22,7 @@ export default async function initDb() {
     log.info('DB file already existed, skip creating file.');
   }
 
-  const options = {client: 'sql.js'};
+  const options = {client: 'sqlite3'};
 
   if ('development' === process.env.NODE_ENV) {
     // options.verbose = (sql) => log.info(`sql: ${sql}`);
