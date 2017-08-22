@@ -113,6 +113,12 @@ export default async function addFolderByCsv(event, data) {
       }
     }
 
+    function done() {
+      broadcast('csv-processing-status', {completedLines});
+      broadcast('csv-processing-done', {filename});
+      resolve({message: 'done'});
+    }
+
     csv.fromStream(stream)
       .validate((data, next) => {
 
