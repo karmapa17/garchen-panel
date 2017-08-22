@@ -139,9 +139,15 @@ export default async function addFolderByCsv(event, data) {
           return;
         }
 
-        broadcast('csv-processing-status', {completedLines});
-        broadcast('csv-processing-done', {filename});
-        resolve({message: 'done'});
+        // finish the rest
+        if (entryData.length > 0) {
+          const insertQuery = getEntryBatchInsertQuery(db, entryData);
+          db.raw(insertQuery)
+            .then(done);
+        }
+        else {
+          done();
+        }
       });
   }
 
