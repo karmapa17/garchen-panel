@@ -56,6 +56,7 @@
     "shortid": "2.2.8",
     "sleep-promise": "2.0.0",
     "sql.js": "0.4.0",
+    "sqlite3": "3.1.9",
     "toastr": "2.1.2",
     "trilogy": "1.1.0",
     "zpad": "0.5.0"
