@@ -46,7 +46,8 @@ export default async function addFolderByCsv(event, data) {
     let hasColumnRow = false;
     let folder = null;
     let fields = [];
-    let currentEntry = null;
+    let currentEntryDatum = null;
+    let entryData = [];
 
     async function handleData(data) {
 
@@ -75,34 +76,48 @@ export default async function addFolderByCsv(event, data) {
           delete rowData.sourceEntry;
           delete rowData[FIELD_PAGE_NUM];
 
-          await sleep(writeDelay);
-          currentEntry = await Entry.create({
+          currentEntryDatum = {
             folderId: folder.id,
             sourceEntry,
             pageNum,
             data: rowData
-          });
-        }
-        else if (currentEntry) {
-          const newData = csvProcessor.appendData(data, currentEntry.data, fields);
-          await sleep(writeDelay);
-          const rowsAffected = await Entry.update({id: currentEntry.id}, {data: newData});
+          };
 
-          if (rowsAffected) {
-            currentEntry.data = newData;
-          }
+          return currentEntryDatum;
+        }
+
+        if (currentEntryDatum) {
+          currentEntryDatum.data = csvProcessor.appendData(data, currentEntryDatum.data, fields);
         }
       }
-      ++completedLines;
+    }
 
-      const seconds = parseInt((+new Date() - timeStart) / 1000, 10);
-      const linesPerSecond = Math.floor(completedLines / seconds);
-      broadcast('csv-processing-status', {completedLines, linesPerSecond});
+    async function batchInsertIfNeeded(entryDatum) {
+
+      if (entryDatum) {
+        entryData.push(entryDatum);
+
+        if (entryData.length > (NUMBER_CONCURRNT_WRITE + 1)) {
+
+          const insertQuery = getEntryBatchInsertQuery(db, entryData.slice(0, entryData.length - 1));
+
+          return db.raw(insertQuery)
+            .then(() => {
+              completedLines += entryData.length - 1;
+              const seconds = parseInt((+new Date() - timeStart) / 1000, 10);
+              const linesPerSecond = Math.floor(completedLines / seconds);
+              broadcast('csv-processing-status', {completedLines, linesPerSecond});
+              entryData = [entryData.pop()];
+            });
+        }
+      }
     }
 
     csv.fromStream(stream)
       .validate((data, next) => {
+
         handleData(data)
+          .then((entryDatum) => batchInsertIfNeeded(entryDatum))
           .then(() => next(null, true))
           .catch((err) => next(err));
       })
