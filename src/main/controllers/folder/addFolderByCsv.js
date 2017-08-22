@@ -16,7 +16,7 @@ const NUMBER_CONCURRNT_WRITE = 5000;
 export default async function addFolderByCsv(event, data) {
 
   const {models, importEmitter, db} = this.params;
-  const {Folder, Entry} = models;
+  const {Folder} = models;
   const {broadcast, resolve, reject} = this;
   const {writeDelay} = data;
 
