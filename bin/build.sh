@@ -22,7 +22,8 @@ cp -r assets/fonts/* dist/src/assets/fonts
 cp -r src/main dist/src
 
 cd dist;
-npm install --production > /dev/null;
+yarn install --production > /dev/null;
+yarn rebuild
 
 electron-packager ./ ${PACKAGE_NAME} --platform=win32 --arch=ia32\
   --version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.ico
