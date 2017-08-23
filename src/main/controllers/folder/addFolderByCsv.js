@@ -11,7 +11,7 @@ import csvProcessor, {FIELD_PAGE_NUM} from './../../helpers/csvProcessor';
 import pageNumToFloat from './../../helpers/pageNumToFloat';
 import FRACTION_LENGTH from './../../constants/fractionLength';
 
-const NUMBER_CONCURRNT_WRITE = 5000;
+const NUMBER_CONCURRNT_WRITE = 50000;
 
 export default async function addFolderByCsv(event, data) {
 
