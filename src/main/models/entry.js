@@ -8,6 +8,6 @@ module.exports = {
     data: {type: 'json', defaultTo: '{}'}
   },
   options: {
-    unique: ['folderId', 'sourceEntry']
+    unique: ['id', 'folderId', 'sourceEntry']
   }
 };
