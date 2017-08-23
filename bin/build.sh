@@ -31,6 +31,6 @@ npm run rebuild
 #rm -r "${PACKAGE_NAME}-win32-ia32"
 
 electron-packager ./ ${PACKAGE_NAME} --platform=darwin --arch=x64\
-  --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.icns
+  --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.icns --prune=false
 zip -r "./../zips/${ZIP_IOS}" "${PACKAGE_NAME}-darwin-x64" > /dev/null
 rm -r "${PACKAGE_NAME}-darwin-x64"
