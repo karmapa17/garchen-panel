@@ -74,8 +74,8 @@
     "cross-env": "5.0.0",
     "css-loader": "0.15.4",
     "electron": "1.6.2",
-    "electron-builder": "19.24.1",
     "electron-ipc-mock": "0.0.2",
+    "electron-rebuild": "1.6.0",
     "enzyme": "2.8.2",
     "eslint": "1.10.3",
     "eslint-config-airbnb": "0.1.0",
@@ -110,7 +110,7 @@
     "electron": "electron .",
     "dev": "cross-env NODE_ENV=development concurrently --kill-others \"node server.js\" \"nodemon --watch src/main/ --exec electron .\"",
     "test": "nyc ava",
-    "rebuild": "electron-builder install-app-deps",
+    "rebuild": "electron-rebuild -f -w sqlite3",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "jest": {
