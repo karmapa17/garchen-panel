@@ -102,8 +102,7 @@ export class PageRecycleBin extends Component {
   updateTableKey = () => this.setState((prevState) => ({tableKey: prevState.tableKey + 1}));
 
   renderFolders() {
-    const fontSize = 20;
-    const colStyle = {fontSize, width: 'initial'};
+    const colStyle = {fontSize: '20px', width: 'initial'};
     const {tableKey} = this.state;
     const {folders, f} = this.props;
 
