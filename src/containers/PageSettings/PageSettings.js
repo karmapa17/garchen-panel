@@ -21,10 +21,7 @@ import DISPLAY_ENTRY_PERPAGE_OPTIONS from './../../constants/displayEntryPerPage
 import DISPLAY_DELETED_FOLDER_PERPAGE_OPTIONS from './../../constants/displayDeletedFolderPerPageOptions';
 
 const styles = require('./PageSettings.scss');
-const iconStyle = {
-  marginRight: '21px',
-  marginBottom: '12px'
-};
+const iconStyle = {marginRight: '21px', marginBottom: '12px'};
 
 @connect(({main, folder, entry}) => ({
   displayEntryPerPage: entry.get('perpage'),
