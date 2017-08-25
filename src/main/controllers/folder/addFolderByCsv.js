@@ -106,6 +106,7 @@ export default async function addFolderByCsv(event, data) {
               const seconds = parseInt((+new Date() - timeStart) / 1000, 10);
               const linesPerSecond = Math.floor(completedLines / seconds);
               broadcast('csv-processing-status', {completedLines, linesPerSecond});
+              // put the last one to new array
               entryData = [entryData.pop()];
             });
         }
