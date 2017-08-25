@@ -16,7 +16,6 @@ import {setCachePageFolders} from './../../redux/modules/cache';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
-import Heading from './../Heading/Heading';
 
 import sortFolderContentFields from './../../main/helpers/sortFolderContentFields';
 import injectF from './../../helpers/injectF';
@@ -252,7 +251,7 @@ export default class PageFolders extends Component {
     return (
       <div className={c('page-list', styles.pageFolders)}>
         <TopBar>
-          <Heading>{f('folders')}</Heading>
+          <h2>{f('folders')}</h2>
           <div>
             {this.renderDeleteButton()}
             <FlatButton icon={<i className="fa fa-search" />} label={f('cross-folder-search')} primary onTouchTap={this.goToPageCrossFolderSearch} />

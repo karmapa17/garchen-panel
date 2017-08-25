@@ -5,7 +5,6 @@ import CloseIcon from 'material-ui/svg-icons/navigation/close';
 
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
-import Heading from './../Heading/Heading';
 import TopBar from './../../components/TopBar/TopBar';
 import SearchBar from './../../components/SearchBar/SearchBar';
 import {search} from './../../redux/modules/crossFolderSearch';
@@ -135,7 +134,7 @@ export default class PageCrossFolderSearch extends Component {
     return (
       <div className={styles.pageCrossFolderSearch}>
         <TopBar>
-          <Heading>{f('cross-folder-search')}</Heading>
+          <h2>{f('cross-folder-search')}</h2>
           <FlatButton icon={<CloseIcon />} onTouchTap={this.goToFoldersPage} />
         </TopBar>
         <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange}

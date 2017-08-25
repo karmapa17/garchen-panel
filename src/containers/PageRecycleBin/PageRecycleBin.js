@@ -7,7 +7,6 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {range, isEmpty} from 'lodash';
-import Heading from './../Heading/Heading';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
 import injectF from './../../helpers/injectF';
@@ -216,7 +215,7 @@ export class PageRecycleBin extends Component {
     return (
       <div className={c('page-list', styles.pageRecycleBin)}>
         <TopBar>
-          <Heading>{f('recycle-bin')}</Heading>
+          <h2>{f('recycle-bin')}</h2>
           <div>
             {this.renderRecoverButton()}
             {this.renderDeleteSelectedFoldersButton()}

@@ -19,7 +19,6 @@ import injectF from './../../helpers/injectF';
 import DISPLAY_FOLDER_PERPAGE_OPTIONS from './../../constants/displayFolderPerPageOptions';
 import DISPLAY_ENTRY_PERPAGE_OPTIONS from './../../constants/displayEntryPerPageOptions';
 import DISPLAY_DELETED_FOLDER_PERPAGE_OPTIONS from './../../constants/displayDeletedFolderPerPageOptions';
-import Heading from './../Heading/Heading';
 
 const styles = require('./PageSettings.scss');
 const iconStyle = {
@@ -127,7 +126,7 @@ export default class PageSettings extends Component {
 
     return (
       <div className={styles.pageSettings}>
-        <Heading>{f('settings')}</Heading>
+        <h2>{f('settings')}</h2>
         <div className={styles.content}>
           <div>
             <LanguageIcon style={iconStyle} />

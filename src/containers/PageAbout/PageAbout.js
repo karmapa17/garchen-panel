@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import injectF from './../../helpers/injectF';
-import Heading from './../Heading/Heading';
 
 const styles = require('./PageAbout.scss');
 
@@ -21,7 +20,7 @@ export default class PageAbout extends Component {
     const {f, appVersion} = this.props;
     return (
       <div className={styles.pageAbout}>
-        <Heading>{f('about-version', {appVersion})}</Heading>
+        <h2>{f('about-version', {appVersion})}</h2>
       </div>
     );
   }
