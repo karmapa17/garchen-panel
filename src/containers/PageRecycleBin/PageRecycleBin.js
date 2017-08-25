@@ -51,17 +51,14 @@ export class PageRecycleBin extends Component {
     setSnackBarParams: PropTypes.func.isRequired
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: 1,
-      targetLanguages: [],
-      isAddFolderDialogOpen: false,
-      tableKey: 0,
-      selectedFolderIds: [],
-      isConfirmClearRecycleBinDialogOpen: false
-    };
-  }
+  state = {
+    page: 1,
+    targetLanguages: [],
+    isAddFolderDialogOpen: false,
+    tableKey: 0,
+    selectedFolderIds: [],
+    isConfirmClearRecycleBinDialogOpen: false
+  };
 
   componentWillUpdate(nextProps, nextState) {
     const {page} = this.state;
