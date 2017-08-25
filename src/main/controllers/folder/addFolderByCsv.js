@@ -10,6 +10,7 @@ import shortid from 'shortid';
 import csvProcessor, {FIELD_PAGE_NUM} from './../../helpers/csvProcessor';
 import pageNumToFloat from './../../helpers/pageNumToFloat';
 import FRACTION_LENGTH from './../../constants/fractionLength';
+import now from './../../helpers/now';
 
 const numberConcurrentWrite = 50000;
 const dialogOptions = {
@@ -38,7 +39,7 @@ export default async function addFolderByCsv(event, data) {
 
     const filename = basename(csvFilePath);
     const stream = fs.createReadStream(csvFilePath);
-    const timeStart = +new Date();
+    const timeStart = now();
 
     let completedLines = 0;
     let hasColumnRow = false;
