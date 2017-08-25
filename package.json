@@ -1,7 +1,7 @@
 {
   "name": "garchen-panel",
-  "version": "0.0.29",
-  "description": "",
+  "version": "0.0.30",
+  "description": "Multi-language dictionary creation tool",
   "main": "index.js",
   "ava": {
     "babel": "inherit",
@@ -33,10 +33,11 @@
     "mkdirp": "0.5.1",
     "moment": "2.18.1",
     "node-fetch": "1.6.3",
-    "node-sass": "4.5.2",
+    "node-sass": "4.5.3",
     "qs": "6.4.0",
     "ramda": "0.23.0",
     "react": "15.4.2",
+    "react-autosize-textarea": "0.4.8",
     "react-dom": "15.4.2",
     "react-inline-css": "2.3.0",
     "react-intl": "2.2.3",
@@ -55,7 +56,7 @@
     "reset-css": "2.2.0",
     "shortid": "2.2.8",
     "sleep-promise": "2.0.0",
-    "sql.js": "0.4.0",
+    "sqlite3": "3.1.9",
     "toastr": "2.1.2",
     "trilogy": "1.1.0",
     "zpad": "0.5.0"
@@ -75,6 +76,7 @@
     "css-loader": "0.15.4",
     "electron": "1.6.2",
     "electron-ipc-mock": "0.0.2",
+    "electron-rebuild": "1.6.0",
     "enzyme": "2.8.2",
     "eslint": "1.10.3",
     "eslint-config-airbnb": "0.1.0",
@@ -87,7 +89,6 @@
     "jest-cli": "0.9.2",
     "mock-local-storage": "1.0.2",
     "node-libs-browser": "0.5.3",
-    "node-sass": "3.4.2",
     "nodemon": "1.9.0",
     "nyc": "10.3.2",
     "object-assign": "2.0.0",
@@ -110,6 +111,7 @@
     "electron": "electron .",
     "dev": "cross-env NODE_ENV=development concurrently --kill-others \"node server.js\" \"nodemon --watch src/main/ --exec electron .\"",
     "test": "nyc ava",
+    "rebuild": "electron-rebuild -f -w sqlite3",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "jest": {
