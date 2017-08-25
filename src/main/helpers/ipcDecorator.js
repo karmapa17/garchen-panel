@@ -7,6 +7,11 @@ export default class IpcDecorator {
 
     return (name, event, args) => {
 
+      // ignore electron internal events
+      if (name.startsWith('ELECTRON')) {
+        return;
+      }
+
       const self = {};
 
       self.params = {};
