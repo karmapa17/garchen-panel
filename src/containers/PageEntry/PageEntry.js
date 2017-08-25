@@ -20,15 +20,12 @@ import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
 import filterLastContinuousUndefinedValues from './../../helpers/filterLastContinuousUndefinedValues';
 import renderContentFields from './renderContentFields';
 import hasValue from './../../helpers/hasValue';
-import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./PageEntry.scss');
 
-@connect(({main, folder, entry}) => ({
+@connect(({folder, entry}) => ({
   folder: folder.get('folder'),
   entry: entry.get('entry'),
-  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
-  contentFontSizeScalingFactor: main.get('contentFontSizeScalingFactor'),
   nextEntryId: entry.get('nextEntryId'),
   prevEntryId: entry.get('prevEntryId'),
   importingFolderId: folder.get('importingFolderId')
@@ -47,8 +44,6 @@ export default class PageEntry extends Component {
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     entry: PropTypes.object.isRequired,
-    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
-    contentFontSizeScalingFactor: PropTypes.number.isRequired,
     nextEntryId: PropTypes.number,
     prevEntryId: PropTypes.number,
     params: PropTypes.object.isRequired,
@@ -112,7 +107,7 @@ export default class PageEntry extends Component {
   renderContent() {
 
     const {isEditMode} = this.state;
-    const {f, folder, entry, contentFontSizeScalingFactor} = this.props;
+    const {f, folder, entry} = this.props;
 
     const initialValues = {
       entryId: entry.id,
@@ -124,12 +119,9 @@ export default class PageEntry extends Component {
 
     if (isEditMode) {
       return (
-        <EditEntryForm ref="editEntryForm" onSubmit={this.handleSubmit} folder={folder}
-          initialValues={initialValues} contentFontSizeScalingFactor={contentFontSizeScalingFactor} />
+        <EditEntryForm ref="editEntryForm" onSubmit={this.handleSubmit} folder={folder} initialValues={initialValues} />
       );
     }
-
-    const tableFontSize = getFontSize(contentFontSizeScalingFactor, 1);
 
     let pageNumTr;
 
@@ -143,7 +135,7 @@ export default class PageEntry extends Component {
     }
 
     return (
-      <table className={styles.table} style={{fontSize: tableFontSize}}>
+      <table className={styles.table}>
         <tbody>
           <tr>
             <th>{f('source-entry-lang', {lang: f(folder.data.sourceLanguage)})}</th>
@@ -217,8 +209,7 @@ export default class PageEntry extends Component {
   render() {
 
     const {isEditMode} = this.state;
-    const {f, folder, entry, interfaceFontSizeScalingFactor} = this.props;
-    const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
+    const {f, folder, entry} = this.props;
 
     return (
       <div className={c('page-info', styles.pageFolderEntry)}>
@@ -232,14 +223,12 @@ export default class PageEntry extends Component {
           </Breadcrumb>
           <div>
 
-           {isEditMode && <FlatButton icon={<i className="fa fa-ban" />} labelStyle={{fontSize: buttonFontSize}}
-              label={f('cancel')} primary onTouchTap={this.cancelEdit} />}
+           {isEditMode && <FlatButton icon={<i className="fa fa-ban" />} label={f('cancel')} primary onTouchTap={this.cancelEdit} />}
 
-           {(! isEditMode) && <FlatButton icon={<i className="fa fa-pencil" />} labelStyle={{fontSize: buttonFontSize}}
-              label={f('edit')} primary disabled={this.isImporting()} onTouchTap={this.setEditMode} />}
+           {(! isEditMode) && <FlatButton icon={<i className="fa fa-pencil" />} label={f('edit')}
+             primary disabled={this.isImporting()} onTouchTap={this.setEditMode} />}
 
-            <FlatButton icon={<i className="fa fa-arrow-left" />} labelStyle={{fontSize: buttonFontSize}}
-              label={f('back')} primary onTouchTap={hashHistory.goBack} />
+            <FlatButton icon={<i className="fa fa-arrow-left" />} label={f('back')} primary onTouchTap={hashHistory.goBack} />
           </div>
         </TopBar>
         <div className={styles.content}>{this.renderContent()}</div>
