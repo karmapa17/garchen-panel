@@ -106,7 +106,7 @@
     "webpack-dev-server": "1.10.1"
   },
   "scripts": {
-    "lint": "eslint *.js",
+    "lint": "eslint src/**/*.js",
     "build": "./bin/build.sh",
     "electron": "electron .",
     "dev": "cross-env NODE_ENV=development concurrently --kill-others \"node server.js\" \"nodemon --watch src/main/ --exec electron .\"",
