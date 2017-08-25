@@ -92,7 +92,6 @@ module.exports = {
   'import-csv-rule-2': '2. {langExpression} means the language code that supposed to be matched. For example, the column name of Source Entry is `source-entry-{langExpression}`.  It becomes source-entry-bo when Tibetan language code is applied.',
   'import-csv-rule-3': '3. Supported column names are {supportedColumnNames}.',
   'import-csv-rule-4': '4. First row should have column definition and MUST have source-entry-[lang], Please refer to our example file ',
-  'import-csv-rule-5': '5. Please increase the write delay in settings page if you experience any slow responses while importing.',
   'large': 'Large',
   'login': 'Login',
   'matched-message': '{count} results for entries matching {keyword}',

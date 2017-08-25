@@ -92,7 +92,6 @@ module.exports = {
   'import-csv-rule-2': '2. 以下有用到多國語言的欄位名稱以 {langExpression} 表示對應的語言代碼, 例如主詞條的欄位 source-entry-{langExpression} 套用藏文後變為 source-entry-bo',
   'import-csv-rule-3': '3. 支援的欄位名稱有: {supportedColumnNames}',
   'import-csv-rule-4': '4. 第一行必須定義欄位, 而且必須包含一個主詞條 source-entry-[lang], 範例檔案請參考',
-  'import-csv-rule-5': '5. 如果覺得匯入期間操作會不順暢可以嘗試把設定頁的寫入延遲加長',
   'large': '大',
   'login': '登入',
   'matched-message': '有 {count} 個結果符合關鍵字 {keyword}',

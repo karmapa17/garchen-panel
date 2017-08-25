@@ -92,7 +92,6 @@ module.exports = {
   'import-csv-rule-2': '2. 以下有用到多国语言的字段名称以 {langExpression} 表示对应的语言代码, 例如主词条的字段 source-entry-{langExpression} 套用藏文后变为 source-entry-bo',
   'import-csv-rule-3': '3. 支援的字段名称有: {supportedColumnNames}',
   'import-csv-rule-4': '4. 第一行必须定义字段, 而且必须包含一个主词条 source-entry-[lang], 范例档案请参考',
-  'import-csv-rule-5': '5. 如果觉得汇入期间操作会不顺畅可以尝试把设定页的写入延迟加长',
   'large': '大',
   'login': '登入',
   'matched-message': '有 {count} 个结果符合关键字 {keyword}',

@@ -27,13 +27,12 @@ const supportedColumns = [
 
 const csvExampleUrl = 'https://goo.gl/YcRMrT';
 
-@connect(({folder, main}) => ({
+@connect(({folder}) => ({
   isProcessingCsv: folder.get('isProcessingCsv'),
   isOpeningDialog: folder.get('isOpeningDialog'),
   errorMessage: folder.get('errorCsvMessage'),
   errorMessageId: folder.get('errorCsvMessageId'),
-  errorFilename: folder.get('errorCsvFilename'),
-  writeDelay: main.get('writeDelay')
+  errorFilename: folder.get('errorCsvFilename')
 }), {addFolderByCsv, setImportingFolderId, cancelImportingCsv, setIsProcessingCsv, setIsOpeningDialog})
 @injectIntl
 @injectPush
@@ -48,7 +47,6 @@ export default class PageImportCsv extends Component {
     errorMessage: PropTypes.string,
     errorMessageId: PropTypes.string,
     errorFilename: PropTypes.string,
-    writeDelay: PropTypes.number.isRequired,
     setIsProcessingCsv: PropTypes.func.isRequired,
     isOpeningDialog: PropTypes.bool.isRequired,
     setImportingFolderId: PropTypes.func.isRequired,
@@ -136,7 +134,6 @@ export default class PageImportCsv extends Component {
             <li>{fh('import-csv-rule-2', {langExpression})}</li>
             <li>{fh('import-csv-rule-3', {supportedColumnNames})}</li>
             <li>{fh('import-csv-rule-4')} {externalLinkButton}</li>
-            <li>{fh('import-csv-rule-5')}</li>
           </ul>
           {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
           {errorMessageId && errorFilename && <div className={styles.errorMessage}>{f(errorMessageId, {errorFilename})}</div>}
