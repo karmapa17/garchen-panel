@@ -23,7 +23,7 @@ const supportedColumns = [
   {textId: 'explanation-note', expression: 'explanation-note'},
   {textId: 'category', expression: 'category'},
   {textId: 'sect', expression: 'sect'},
-  {textId: 'page-num', expression: 'page-num'},
+  {textId: 'page-num', expression: 'page-num'}
 ];
 
 const csvExampleUrl = 'https://goo.gl/YcRMrT';
