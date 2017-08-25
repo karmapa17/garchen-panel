@@ -1,12 +1,7 @@
 import {app, screen, BrowserWindow, ipcMain, Menu} from 'electron';
-import path from 'path';
-import Trilogy from 'trilogy';
 import EventEmitter from 'events';
 
-import mkdirp from './helpers/mkdirp';
 import IpcDecorator from './helpers/IpcDecorator';
-import APP_DATA_PATH from './constants/appDataPath';
-
 import getAppVersion from './controllers/app/getAppVersion';
 import getFolder from './controllers/folder/getFolder';
 import updateFolder from './controllers/folder/updateFolder';
@@ -59,8 +54,6 @@ async function handleAppReady() {
 
   const {width, height} = screen.getPrimaryDisplay().workAreaSize;
   mainWindow = new BrowserWindow({width, height});
-
-  const {webContents} = mainWindow;
 
   mainWindow.on('closed', () => {
     mainWindow = null;
