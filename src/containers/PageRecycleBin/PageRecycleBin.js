@@ -195,9 +195,9 @@ export class PageRecycleBin extends Component {
     }
   }
 
-  clearRecycleBin = () => {
+  clearRecycleBin = async () => {
     const {perpage, listDeletedFolders} = this.props;
-    this.props.clearRecycleBin();
+    await this.props.clearRecycleBin();
     listDeletedFolders({page: 1, perpage});
     this.setState({page: 1});
     this.updateTableKey();

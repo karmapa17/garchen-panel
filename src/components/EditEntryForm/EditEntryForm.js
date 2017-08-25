@@ -11,6 +11,7 @@ import CATEGORY_VALUES from './../../constants/categoryValues';
 import SECT_VALUES from './../../constants/sectValues';
 import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
 import {SELECTED_MENU_STYLE} from './../../constants/constants';
+import Textarea from './../../components/Textarea/Textarea';
 
 // helpers that are shared between AddEntryForm and EditEntryForm
 import getNextExplanationIndex from './../AddEntryForm/getNextExplanationIndex';
@@ -180,7 +181,7 @@ export default class EditEntryForm extends Component {
         return (
           <div key={`original-${lang}`} className={styles.formControl}>
             <label style={{fontSize}}>{f('original-lang', {lang: f(lang)})}</label>
-            <Field name={`original-${lang}`} component="textarea" style={{fontSize}} />
+            <Textarea name={`original-${lang}`} style={{fontSize}} />
           </div>
         );
       }
@@ -193,7 +194,7 @@ export default class EditEntryForm extends Component {
         return (
           <div key={`source-${lang}`} className={styles.formControl}>
             <label style={{fontSize}}>{f('source-lang', {lang: f(lang)})}</label>
-            <Field name={`source-${lang}`} type="text" component="textarea" style={{fontSize}} />
+            <Textarea name={`source-${lang}`} style={{fontSize}} />
           </div>
         );
       }
@@ -207,8 +208,8 @@ export default class EditEntryForm extends Component {
           return (
             <div key={`explanation-${lang}-${index}`} className={styles.formControl}>
               <label style={{fontSize}}>{f('explanation-num-lang', {lang: f(lang), num: (index + 1)})}</label>
-              <Field name={`explanation-${lang}[${index}]`}
-                onChange={this.handleExplanationChange(lang, index)} component="textarea" style={{fontSize}} />
+              <Textarea name={`explanation-${lang}[${index}]`}
+                onChange={this.handleExplanationChange(lang, index)} style={{fontSize}} />
             </div>
           );
         });
@@ -217,11 +218,11 @@ export default class EditEntryForm extends Component {
           <div key={`explanation-extra-info-${index}`}>
             <div key={`explanation-source-${index}`} className={styles.formControl}>
               <label style={{fontSize}}>{f('explanation-source-num', {num: (index + 1)})}</label>
-              <Field name={`explanation-source[${index}]`} component="textarea" style={{fontSize}} />
+              <Textarea name={`explanation-source[${index}]`} style={{fontSize}} />
             </div>
             <div key={`explanation-note-${index}`} className={styles.formControl}>
               <label style={{fontSize}}>{f('explanation-note-num', {num: (index + 1)})}</label>
-              <Field name={`explanation-note[${index}]`} component="textarea" style={{fontSize}} />
+              <Textarea name={`explanation-note[${index}]`} style={{fontSize}} />
             </div>
             <div key={`explanation-category-${index}`} className={styles.formControl}>
               <label style={{fontSize}}>{f('explanation-category-num', {num: (index + 1)})}</label>

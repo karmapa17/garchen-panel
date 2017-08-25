@@ -8,7 +8,7 @@ import {isArray} from 'lodash';
 import APP_DATA_PATH from './../constants/appDataPath';
 
 // if db version change, user will have to convert their db via online tool
-const dbVersion = '0.0.9';
+const dbVersion = '0.0.10';
 
 export default async function initDb() {
 
@@ -22,7 +22,7 @@ export default async function initDb() {
     log.info('DB file already existed, skip creating file.');
   }
 
-  const options = {client: 'sql.js'};
+  const options = {client: 'sqlite3'};
 
   if ('development' === process.env.NODE_ENV) {
     // options.verbose = (sql) => log.info(`sql: ${sql}`);
