@@ -58,13 +58,10 @@ export default class PageImportCsv extends Component {
     addFolderByCsv: PropTypes.func.isRequired
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      completedLines: 0,
-      linesPerSecond: 0
-    };
-  }
+  state = {
+    completedLines: 0,
+    linesPerSecond: 0
+  };
 
   handleCsvProcessingStatus = (event, data) => {
     this.setState({completedLines: data.completedLines, linesPerSecond: data.linesPerSecond});
