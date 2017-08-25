@@ -17,6 +17,7 @@ import {listDeletedFolders, clearRecycleBin, restoreFolders, deleteFolders} from
 import {setSnackBarParams} from './../../redux/modules/ui';
 
 const styles = require('./PageRecycleBin.scss');
+const colStyle = {fontSize: '20px', width: 'initial'};
 
 const connectFunc = connect(({folder}) => ({
   perpage: folder.get('deletedFolderPerPage'),
@@ -102,7 +103,6 @@ export class PageRecycleBin extends Component {
   updateTableKey = () => this.setState((prevState) => ({tableKey: prevState.tableKey + 1}));
 
   renderFolders() {
-    const colStyle = {fontSize: '20px', width: 'initial'};
     const {tableKey} = this.state;
     const {folders, f} = this.props;
 
