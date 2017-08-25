@@ -136,7 +136,7 @@ export class App extends Component {
         <div className={c(styles.app, appLocale)} style={{fontFamily: appFont}}>
 
          <AppBar title={f('garchen')} iconElementRight={this.renderIconElementRight()}
-            titleStyle={{cusror: 'pointer'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
+            titleStyle={{cusror: 'pointer', fontSize: '1em'}} iconStyleRight={{marginTop: 0, marginRight: 0, marginLeft: 0}}
             onLeftIconButtonTouchTap={this.handleHamburgerTouchTap} onTitleTouchTap={this.handleTitleTouchTap} />
 
           <div className={styles.appContent}>{children}</div>
