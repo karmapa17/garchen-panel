@@ -8,8 +8,7 @@ import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
 import injectF from './../../helpers/injectF';
 import ipc from './../../helpers/ipc';
 import injectPush from './../../helpers/injectPush';
-import {addFolderByCsv, setImportingFolderId, cancelImportingCsv, setIsProcessingCsv,
-  setIsOpeningDialog} from './../../redux/modules/folder';
+import {addFolderByCsv, setImportingFolderId, cancelImportingCsv, setIsProcessingCsv, setIsOpeningDialog} from './../../redux/modules/folder';
 import Heading from './../Heading/Heading';
 import ExternalLink from './../ExternalLink/ExternalLink';
 
