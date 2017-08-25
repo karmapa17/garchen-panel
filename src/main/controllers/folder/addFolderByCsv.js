@@ -11,7 +11,7 @@ import csvProcessor, {FIELD_PAGE_NUM} from './../../helpers/csvProcessor';
 import pageNumToFloat from './../../helpers/pageNumToFloat';
 import FRACTION_LENGTH from './../../constants/fractionLength';
 
-const NUMBER_CONCURRNT_WRITE = 50000;
+const numberConcurrentWrite = 50000;
 const options = {
   properties: ['openFile'],
   filters: [
@@ -95,7 +95,7 @@ export default async function addFolderByCsv(event, data) {
       if (entryDatum) {
         entryData.push(entryDatum);
 
-        if (entryData.length > (NUMBER_CONCURRNT_WRITE + 1)) {
+        if (entryData.length > (numberConcurrentWrite + 1)) {
 
           const insertQuery = getEntryBatchInsertQuery(db, entryData.slice(0, entryData.length - 1));
 
