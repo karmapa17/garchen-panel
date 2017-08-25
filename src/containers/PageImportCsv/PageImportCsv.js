@@ -85,13 +85,13 @@ export default class PageImportCsv extends Component {
 
   renderChooseCsvFileButton = () => {
 
-    const {completedLines, linesPerSecond} = this.state;
+    const {completedLines} = this.state;
     const {f, isProcessingCsv, isOpeningDialog} = this.props;
 
     if (isProcessingCsv) {
       return (
         <div className={styles.chooseFileBtnWrap}>
-          {(completedLines > 0) && <div className={styles.linesCompleted}>{f('completed-csv-line', {completedLines: `${completedLines}`})}, {linesPerSecond} lines per second</div>}
+          {completedLines && <div className={styles.linesCompleted}>{f('completed-csv-line', {completedLines})}</div>}
           <CircularProgress style={{display: 'block', marginLeft: 'auto', marginRight: 'auto', marginBottom: '14px'}} />
           <RaisedButton label={f('cancel-importing')} primary onTouchTap={this.handleCancelImportingCsvButtonTouchTap} />
         </div>
