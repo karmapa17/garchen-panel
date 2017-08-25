@@ -157,17 +157,17 @@ export default class PageSettings extends Component {
           <div className={styles.customField}>
             <FormatListNumberIcon style={iconStyle} />
             <SelectField floatingLabelStyle={floatingLabelStyle}
-              floatingLabelText={f('display-deleted-folder-perpage', {perpage: displayDeletedFolderPerPage})}
-              onChange={this.handleDisplayDeletedFolderPerPageSelectFieldChange} value={displayDeletedFolderPerPage}>
-              {this.renderDisplayDeletedFolderPerPageMenuItems()}
+              floatingLabelText={f('display-entry-perpage', {perpage: displayEntryPerPage})}
+              onChange={this.handleDisplayEntryPerPageSelectFieldChange} value={displayEntryPerPage}>
+              {this.renderDisplayEntryPerPageMenuItems()}
             </SelectField>
           </div>
           <div className={styles.customField}>
             <FormatListNumberIcon style={iconStyle} />
             <SelectField floatingLabelStyle={floatingLabelStyle}
-              floatingLabelText={f('display-entry-perpage', {perpage: displayEntryPerPage})}
-              onChange={this.handleDisplayEntryPerPageSelectFieldChange} value={displayEntryPerPage}>
-              {this.renderDisplayEntryPerPageMenuItems()}
+              floatingLabelText={f('display-deleted-folder-perpage', {perpage: displayDeletedFolderPerPage})}
+              onChange={this.handleDisplayDeletedFolderPerPageSelectFieldChange} value={displayDeletedFolderPerPage}>
+              {this.renderDisplayDeletedFolderPerPageMenuItems()}
             </SelectField>
           </div>
         </div>
