@@ -22,6 +22,10 @@ import DISPLAY_DELETED_FOLDER_PERPAGE_OPTIONS from './../../constants/displayDel
 import Heading from './../Heading/Heading';
 
 const styles = require('./PageSettings.scss');
+const iconStyle = {
+  marginRight: '21px',
+  marginBottom: '12px'
+};
 
 @connect(({main, folder, entry}) => ({
   displayEntryPerPage: entry.get('perpage'),
@@ -133,21 +137,21 @@ export default class PageSettings extends Component {
             </SelectField>
           </div>
           <div className={styles.customField}>
-            <TimerIcon style={{marginRight: '21px', marginBottom: '12px'}} />
+            <TimerIcon style={iconStyle} />
             <div className={styles.field}>
               <span style={{fontSize: customLabelFontSize}} className={styles.label}>{f('write-delay-with-num', {writeDelay: `${writeDelay}`})}</span>
               <Slider sliderStyle={{marginTop: '7px', marginBottom: 0}} step={1} style={{width: 240}} min={0} max={1000} defaultValue={writeDelay} onChange={this.handleWriteDelaySliderChange} />
             </div>
           </div>
           <div>
-            <TextFormatIcon style={{marginRight: '21px', marginBottom: '12px'}} />
+            <TextFormatIcon style={iconStyle} />
             <SelectField floatingLabelStyle={floatingLabelStyle} floatingLabelText={f('app-font')}
               onChange={this.handleFontSelectFieldChange} value={appFont}>
               {this.renderFontMenuItems()}
             </SelectField>
           </div>
           <div className={styles.customField}>
-            <FormatListNumberIcon style={{marginRight: '21px', marginBottom: '12px'}} />
+            <FormatListNumberIcon style={iconStyle} />
             <SelectField floatingLabelStyle={floatingLabelStyle}
              floatingLabelText={f('display-folder-perpage', {perpage: displayFolderPerPage})}
               onChange={this.handleDisplayFolderPerPageSelectFieldChange} value={displayFolderPerPage}>
@@ -155,7 +159,7 @@ export default class PageSettings extends Component {
             </SelectField>
           </div>
           <div className={styles.customField}>
-            <FormatListNumberIcon style={{marginRight: '21px', marginBottom: '12px'}} />
+            <FormatListNumberIcon style={iconStyle} />
             <SelectField floatingLabelStyle={floatingLabelStyle}
               floatingLabelText={f('display-deleted-folder-perpage', {perpage: displayDeletedFolderPerPage})}
               onChange={this.handleDisplayDeletedFolderPerPageSelectFieldChange} value={displayDeletedFolderPerPage}>
@@ -163,7 +167,7 @@ export default class PageSettings extends Component {
             </SelectField>
           </div>
           <div className={styles.customField}>
-            <FormatListNumberIcon style={{marginRight: '21px', marginBottom: '12px'}} />
+            <FormatListNumberIcon style={iconStyle} />
             <SelectField floatingLabelStyle={floatingLabelStyle}
               floatingLabelText={f('display-entry-perpage', {perpage: displayEntryPerPage})}
               onChange={this.handleDisplayEntryPerPageSelectFieldChange} value={displayEntryPerPage}>
