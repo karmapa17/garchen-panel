@@ -74,7 +74,7 @@
     "coveralls": "2.13.1",
     "cross-env": "5.0.0",
     "css-loader": "0.15.4",
-    "electron": "1.6.2",
+    "electron": "1.7.6",
     "electron-ipc-mock": "0.0.2",
     "electron-rebuild": "1.6.0",
     "enzyme": "2.8.2",
