@@ -12,7 +12,7 @@ import pageNumToFloat from './../../helpers/pageNumToFloat';
 import FRACTION_LENGTH from './../../constants/fractionLength';
 
 const numberConcurrentWrite = 50000;
-const options = {
+const dialogOptions = {
   properties: ['openFile'],
   filters: [
     {name: 'Csv Files', extensions: ['csv']}
@@ -25,7 +25,7 @@ export default async function addFolderByCsv(event, data) {
   const {Folder} = models;
   const {broadcast, resolve, reject} = this;
 
-  dialog.showOpenDialog(options, handleDialogOpen);
+  dialog.showOpenDialog(dialogOptions, handleDialogOpen);
 
   function processCsv(csvFilePath) {
 
