@@ -57,13 +57,9 @@ export default class PageImportCsv extends Component {
 
   state = {completedLines: 0};
 
-  handleCsvProcessingStatus = (event, data) => {
-    this.setState({completedLines: data.completedLines, linesPerSecond: data.linesPerSecond});
-  };
+  handleCsvProcessingStatus = (event, {completedLines}) => this.setState({completedLines});
 
-  handleCsvFolderCreated = (event, data) => {
-    this.props.setImportingFolderId(data.folderId);
-  };
+  handleCsvFolderCreated = (event, {folderId}) => this.props.setImportingFolderId(folderId);
 
   handleCsvProcessingStart = () => {
     const {setIsProcessingCsv, setIsOpeningDialog} = this.props;
