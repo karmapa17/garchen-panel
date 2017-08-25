@@ -79,10 +79,7 @@ export default class PageImportCsv extends Component {
     ipc.off('csv-processing-status', this.handleCsvProcessingStatus);
   }
 
-  handleChooseCsvFileButtonTouchTap = () => {
-    const {addFolderByCsv, writeDelay} = this.props;
-    addFolderByCsv(writeDelay);
-  }
+  handleChooseCsvFileButtonTouchTap = () => this.props.addFolderByCsv();
 
   handleCancelImportingCsvButtonTouchTap = () => this.props.cancelImportingCsv();
 
