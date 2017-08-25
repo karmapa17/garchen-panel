@@ -2,10 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import LanguageIcon from 'material-ui/svg-icons/action/language';
-import TimerIcon from 'material-ui/svg-icons/image/timer';
 import TextFormatIcon from 'material-ui/svg-icons/content/text-format';
 import FormatListNumberIcon from 'material-ui/svg-icons/editor/format-list-numbered';
-import Slider from 'material-ui/Slider';
 import {connect} from 'react-redux';
 import {injectIntl} from 'react-intl';
 
@@ -28,8 +26,7 @@ const iconStyle = {marginRight: '21px', marginBottom: '12px'};
   displayFolderPerPage: folder.get('perpage'),
   displayDeletedFolderPerPage: folder.get('deletedFolderPerPage'),
   appLocale: main.get('appLocale'),
-  appFont: main.get('appFont'),
-  writeDelay: main.get('writeDelay')
+  appFont: main.get('appFont')
 }), {setIntl, setWriteDelay, setAppFont, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor,
   setDisplayFolderPerPage, setDisplayEntryPerPage, clearCachePageEntries, clearCachePageFolders, setDisplayDeletedFolderPerPage})
 @injectIntl
@@ -52,7 +49,6 @@ export default class PageSettings extends Component {
     displayFolderPerPage: PropTypes.number.isRequired,
     displayDeletedFolderPerPage: PropTypes.number.isRequired,
     displayEntryPerPage: PropTypes.number.isRequired,
-    writeDelay: PropTypes.number.isRequired,
     setWriteDelay: PropTypes.func.isRequired
   };
 
@@ -116,9 +112,8 @@ export default class PageSettings extends Component {
 
   render() {
 
-    const {appLocale, appFont, f, writeDelay, displayFolderPerPage, displayDeletedFolderPerPage, displayEntryPerPage} = this.props;
+    const {appLocale, appFont, f, displayFolderPerPage, displayDeletedFolderPerPage, displayEntryPerPage} = this.props;
     const floatingLabelFontSize = '20px';
-    const customLabelFontSize = '15px';
     const floatingLabelStyle = {fontSize: floatingLabelFontSize, whiteSpace: 'nowrap'};
 
     return (
@@ -131,13 +126,6 @@ export default class PageSettings extends Component {
               onChange={this.handleLangSelectFieldChange} value={appLocale}>
               {this.renderLangMenuItems()}
             </SelectField>
-          </div>
-          <div className={styles.customField}>
-            <TimerIcon style={iconStyle} />
-            <div className={styles.field}>
-              <span style={{fontSize: customLabelFontSize}} className={styles.label}>{f('write-delay-with-num', {writeDelay: `${writeDelay}`})}</span>
-              <Slider sliderStyle={{marginTop: '7px', marginBottom: 0}} step={1} style={{width: 240}} min={0} max={1000} defaultValue={writeDelay} onChange={this.handleWriteDelaySliderChange} />
-            </div>
           </div>
           <div>
             <TextFormatIcon style={iconStyle} />

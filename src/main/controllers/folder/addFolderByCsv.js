@@ -18,7 +18,6 @@ export default async function addFolderByCsv(event, data) {
   const {models, importEmitter, db} = this.params;
   const {Folder} = models;
   const {broadcast, resolve, reject} = this;
-  const {writeDelay} = data;
 
   const options = {
     properties: ['openFile'],
