@@ -91,7 +91,7 @@ export default class PageImportCsv extends Component {
     if (isProcessingCsv) {
       return (
         <div className={styles.chooseFileBtnWrap}>
-          {completedLines && <div className={styles.linesCompleted}>{f('completed-csv-line', {completedLines})}</div>}
+          {(completedLines > 0) && <div className={styles.linesCompleted}>{f('completed-csv-line', {completedLines})}</div>}
           <CircularProgress style={{display: 'block', marginLeft: 'auto', marginRight: 'auto', marginBottom: '14px'}} />
           <RaisedButton label={f('cancel-importing')} primary onTouchTap={this.handleCancelImportingCsvButtonTouchTap} />
         </div>
