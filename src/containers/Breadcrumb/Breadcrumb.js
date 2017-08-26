@@ -1,9 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 import {isFunction} from 'lodash';
 
 const styles = require('./Breadcrumb.scss');
 
-export default class Breadcrumb extends Component {
+export default class Breadcrumb extends PureComponent {
 
   static propTypes = {
     children: PropTypes.oneOfType([
