@@ -3,10 +3,8 @@ import zhTwMessages from './../../../src/langs/zh-TW';
 import enMessages from './../../../src/langs/en';
 import mockStore from './../../helpers/mockStore';
 
-import mainReducer, {setInterfaceFontSizeScalingFactor, SET_INTERFACE_FONT_SIZE_SCALING_FACTOR,
-  setAppFont, SET_APP_FONT, setAppLocale, SET_APP_LOCALE, setWriteDelay,
-  SET_WRITE_DELAY, setIntl, openExternal, OPEN_EXTERNAL,
-  setContentFontSizeScalingFactor, SET_CONTENT_FONT_SIZE_SCALING_FACTOR, getAppVersion,
+import mainReducer, {setAppFont, SET_APP_FONT, setAppLocale, SET_APP_LOCALE, setWriteDelay,
+  SET_WRITE_DELAY, setIntl, openExternal, OPEN_EXTERNAL, getAppVersion,
   GET_APP_VERSION_SUCCESS} from './../../../src/redux/modules/main';
 
 const electron = window.require('electron');
@@ -40,29 +38,6 @@ test('main reducer should handle action SET_APP_FONT', (t) => {
   const appFont = 'Tibetan Machine Uni';
   const result = mainReducer(store.getState(), {type: SET_APP_FONT, appFont});
   t.deepEqual(result.toJS(), {appFont});
-});
-
-test('main reducer should handle action SET_INTERFACE_FONT_SIZE_SCALING_FACTOR', (t) => {
-  const interfaceFontSizeScalingFactor = 1.5;
-  const result = mainReducer(store.getState(), {type: SET_INTERFACE_FONT_SIZE_SCALING_FACTOR, interfaceFontSizeScalingFactor});
-  t.deepEqual(result.toJS(), {interfaceFontSizeScalingFactor});
-});
-
-test('main reducer should handle action SET_CONTENT_FONT_SIZE_SCALING_FACTOR', (t) => {
-  const contentFontSizeScalingFactor = 1.5;
-  const result = mainReducer(store.getState(), {type: SET_CONTENT_FONT_SIZE_SCALING_FACTOR, contentFontSizeScalingFactor});
-  t.deepEqual(result.toJS(), {contentFontSizeScalingFactor});
-});
-
-test('should create an action to set interface font size scaling factor', (t) => {
-
-  const interfaceFontSizeScalingFactor = 1;
-  const expectedAction = {
-    type: SET_INTERFACE_FONT_SIZE_SCALING_FACTOR,
-    interfaceFontSizeScalingFactor
-  };
-
-  t.deepEqual(setInterfaceFontSizeScalingFactor(interfaceFontSizeScalingFactor), expectedAction);
 });
 
 test('should create an action to set app font', (t) => {
