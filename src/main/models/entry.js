@@ -7,7 +7,7 @@ module.exports = {
     pageNum: {type: Number},
     data: {type: 'json', defaultTo: '{}'}
   },
-  options: {
-    unique: ['id', 'folderId', 'sourceEntry']
+  options: (table) => {
+    table.unique(['folderId', 'id']);
   }
 };
