@@ -24,8 +24,8 @@ export default async function initDb() {
 
   const options = {client: 'sqlite3'};
 
-  if ('development' === process.env.NODE_ENV) {
-    // options.verbose = (sql) => log.info(`sql: ${sql}`);
+  if ('development' === process.env.LOG_QUERY) {
+    options.verbose = (sql) => log.info(`sql: ${sql}`);
   }
 
   const db = new Trilogy(dbPath, options);
