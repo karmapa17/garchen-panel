@@ -74,17 +74,6 @@ test('should create an action to set write delay', (t) => {
   t.deepEqual(setWriteDelay(writeDelay), expectedAction);
 });
 
-test('should create an action to set content font size scaling factor', (t) => {
-
-  const contentFontSizeScalingFactor = 1.5;
-  const expectedAction = {
-    type: SET_CONTENT_FONT_SIZE_SCALING_FACTOR,
-    contentFontSizeScalingFactor
-  };
-
-  t.deepEqual(setContentFontSizeScalingFactor(contentFontSizeScalingFactor), expectedAction);
-});
-
 test('should get app version without any errors', async (t) => {
 
   const appVersion = '0.0.1';
