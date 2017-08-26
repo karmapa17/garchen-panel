@@ -10,7 +10,7 @@ import {get} from 'lodash';
 import {hashHistory} from 'react-router';
 
 import TopBar from './../../components/TopBar/TopBar';
-import Breadcrumb from './../Breadcrumb/Breadcrumb';
+import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {setSnackBarParams} from './../../redux/modules/ui';
 import {getFolder} from './../../redux/modules/folder';
 import {listFolderEntries, setSelectedFolderEntryIds, clearSelectedFolderEntryIds,

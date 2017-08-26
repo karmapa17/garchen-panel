@@ -3,7 +3,7 @@ import React from 'react';
 import {shallow, mount} from 'enzyme';
 import {Map} from 'immutable';
 
-import Breadcrumb from './../../../src/containers/Breadcrumb/Breadcrumb';
+import Breadcrumb from './../../../src/components/Breadcrumb/Breadcrumb';
 import configureMockStore from 'redux-mock-store';
 
 const mockStore = configureMockStore([]);

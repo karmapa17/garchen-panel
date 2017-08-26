@@ -15,7 +15,7 @@ import injectF from './../../helpers/injectF';
 import resolve from './../../helpers/resolve';
 import injectPush from './../../helpers/injectPush';
 import TopBar from './../../components/TopBar/TopBar';
-import Breadcrumb from './../Breadcrumb/Breadcrumb';
+import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
 import filterLastContinuousUndefinedValues from './../../helpers/filterLastContinuousUndefinedValues';
 import renderContentFields from './renderContentFields';
