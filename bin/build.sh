@@ -27,7 +27,7 @@ npm run rebuild
 
 if [ "$PLATFORM" == "win32" ]; then
   electron-packager ./ ${PACKAGE_NAME} --platform=win32 --arch=ia32\
-  --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.ico
+  --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.ico --prune=false
   zip -r "./../zips/${ZIP_WIN}" "${PACKAGE_NAME}-win32-ia32" > /dev/null
   rm -r "${PACKAGE_NAME}-win32-ia32"
 fi
