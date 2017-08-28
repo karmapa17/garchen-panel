@@ -107,7 +107,8 @@
   },
   "scripts": {
     "lint": "eslint src/**/*.js",
-    "build": "./bin/build.sh",
+    "build-mac": "PLATFORM=darwin ./bin/build.sh",
+    "build-windows": "PLATFORM=win32 ./bin/build.sh",
     "electron": "electron .",
     "dev": "cross-env NODE_ENV=development concurrently --kill-others \"node server.js\" \"nodemon --watch src/main/ --exec electron .\"",
     "test": "nyc ava",
