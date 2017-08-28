@@ -30,7 +30,7 @@ export default async function exportFolderToCsv(event, data) {
 
     const csvStream = csv.createWriteStream({headers: true});
     const writableStream = fs.createWriteStream(savePath);
-    const size = 100;
+    const size = 50000;
 
     let entries = [];
     let offset = 0;
