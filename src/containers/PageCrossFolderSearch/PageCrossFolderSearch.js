@@ -5,20 +5,17 @@ import CloseIcon from 'material-ui/svg-icons/navigation/close';
 
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
-import Heading from './../Heading/Heading';
 import TopBar from './../../components/TopBar/TopBar';
 import SearchBar from './../../components/SearchBar/SearchBar';
 import {search} from './../../redux/modules/crossFolderSearch';
 import {setCachePageCrossFolderSearch} from './../../redux/modules/cache';
 import Pagination from './../../components/Pagination/Pagination';
-import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./PageCrossFolderSearch.scss');
 
-@connect(({crossFolderSearch, cache, main}) => ({
+@connect(({crossFolderSearch, cache}) => ({
   cache: cache.get('cachePageCrossFolderSearch'),
   total: crossFolderSearch.get('total'),
-  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   perpage: crossFolderSearch.get('perpage'),
   folders: crossFolderSearch.get('folders')
 }), {search, setCachePageCrossFolderSearch})
@@ -28,7 +25,6 @@ export default class PageCrossFolderSearch extends Component {
 
   static propTypes = {
     total: PropTypes.number.isRequired,
-    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     push: PropTypes.func.isRequired,
     perpage: PropTypes.number.isRequired,
     cache: PropTypes.object.isRequired,
@@ -95,28 +91,21 @@ export default class PageCrossFolderSearch extends Component {
   };
 
   renderEntries(entries) {
-    const anchorStyle = {fontSize: this.getContentFontSize()};
     const rows = entries.map((entry) => {
       return (
         <li key={`entry-row-${entry.id}`}>
-          <a style={anchorStyle} onTouchTap={this.handleEntryAnchorTouchTap(entry)}>{entry.sourceEntry}</a>
+          <a onTouchTap={this.handleEntryAnchorTouchTap(entry)}>{entry.sourceEntry}</a>
         </li>
       );
     });
     return <ul className={styles.entryBox}>{rows}</ul>;
   }
 
-  getContentFontSize() {
-    const {interfaceFontSizeScalingFactor} = this.props;
-    return getFontSize(interfaceFontSizeScalingFactor, 1.2);
-  }
-
   renderFolders() {
-    const anchorStyle = {fontSize: this.getContentFontSize()};
     const rows = this.props.folders.map(({id, name, entries}) => {
       return (
         <div key={`folder-row-${id}`} className={styles.folder}>
-          <a style={anchorStyle} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
+          <a onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           {this.renderEntries(entries)}
         </div>
       );
@@ -135,7 +124,7 @@ export default class PageCrossFolderSearch extends Component {
     return (
       <div className={styles.pageCrossFolderSearch}>
         <TopBar>
-          <Heading>{f('cross-folder-search')}</Heading>
+          <h2>{f('cross-folder-search')}</h2>
           <FlatButton icon={<CloseIcon />} onTouchTap={this.goToFoldersPage} />
         </TopBar>
         <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange}

@@ -7,10 +7,8 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {range, isEmpty} from 'lodash';
-import Heading from './../Heading/Heading';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
-import getFontSize from './../../helpers/getFontSize';
 import injectF from './../../helpers/injectF';
 import injectPush from './../../helpers/injectPush';
 import resolve from './../../helpers/resolve';
@@ -18,9 +16,9 @@ import {listDeletedFolders, clearRecycleBin, restoreFolders, deleteFolders} from
 import {setSnackBarParams} from './../../redux/modules/ui';
 
 const styles = require('./PageRecycleBin.scss');
+const colStyle = {fontSize: '20px', width: 'initial'};
 
-const connectFunc = connect(({main, folder}) => ({
-  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
+const connectFunc = connect(({folder}) => ({
   perpage: folder.get('deletedFolderPerPage'),
   folders: folder.get('deletedFolders'),
   folderCount: folder.get('deletedFolderCount')
@@ -48,22 +46,18 @@ export class PageRecycleBin extends Component {
     folderCount: PropTypes.number.isRequired,
     listDeletedFolders: PropTypes.func.isRequired,
     deleteFolders: PropTypes.func.isRequired,
-    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     clearRecycleBin: PropTypes.func.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: 1,
-      targetLanguages: [],
-      isAddFolderDialogOpen: false,
-      tableKey: 0,
-      selectedFolderIds: [],
-      isConfirmClearRecycleBinDialogOpen: false
-    };
-  }
+  state = {
+    page: 1,
+    targetLanguages: [],
+    isAddFolderDialogOpen: false,
+    tableKey: 0,
+    selectedFolderIds: [],
+    isConfirmClearRecycleBinDialogOpen: false
+  };
 
   componentWillUpdate(nextProps, nextState) {
     const {page} = this.state;
@@ -105,8 +99,6 @@ export class PageRecycleBin extends Component {
   updateTableKey = () => this.setState((prevState) => ({tableKey: prevState.tableKey + 1}));
 
   renderFolders() {
-    const fontSize = 20;
-    const colStyle = {fontSize, width: 'initial'};
     const {tableKey} = this.state;
     const {folders, f} = this.props;
 
@@ -144,10 +136,6 @@ export class PageRecycleBin extends Component {
     }
   };
 
-  getButtonFontSize() {
-    return getFontSize(this.props.interfaceFontSizeScalingFactor, 0.9);
-  }
-
   restoreSelectedFolders = async () => {
     const {page, selectedFolderIds} = this.state;
     const {listDeletedFolders, restoreFolders, perpage, folderCount, setSnackBarParams, f} = this.props;
@@ -164,10 +152,7 @@ export class PageRecycleBin extends Component {
     const {f} = this.props;
     const {selectedFolderIds} = this.state;
     if (selectedFolderIds.length > 0) {
-      return (
-        <FlatButton label={f('restore')} labelStyle={{fontSize: this.getButtonFontSize()}}
-          icon={<i className="fa fa-window-restore" />} onTouchTap={this.restoreSelectedFolders} />
-      );
+      return <FlatButton label={f('restore')} icon={<i className="fa fa-window-restore" />} onTouchTap={this.restoreSelectedFolders} />;
     }
   }
 
@@ -188,10 +173,7 @@ export class PageRecycleBin extends Component {
     const {f} = this.props;
     const {selectedFolderIds} = this.state;
     if (selectedFolderIds.length > 0) {
-      return (
-        <FlatButton label={f('delete-selected-folders')} labelStyle={{fontSize: this.getButtonFontSize()}}
-          icon={<i className="fa fa-trash" />} onTouchTap={this.deleteSelectedFolders} />
-      );
+      return <FlatButton label={f('delete-selected-folders')} icon={<i className="fa fa-trash" />} onTouchTap={this.deleteSelectedFolders} />;
     }
   }
 
@@ -211,13 +193,7 @@ export class PageRecycleBin extends Component {
 
   renderConfirmClearRecycleBinDialog() {
     const {isConfirmClearRecycleBinDialogOpen} = this.state;
-    const {f, interfaceFontSizeScalingFactor} = this.props;
-    const dialogContentFontSize = getFontSize(interfaceFontSizeScalingFactor, 1.2);
-    const dialogContentLineHeight = getFontSize(interfaceFontSizeScalingFactor, 1.2);
-    const pStyle = {
-      fontSize: dialogContentFontSize,
-      lineHeight: dialogContentLineHeight
-    };
+    const {f} = this.props;
     const actions = [
       <FlatButton label={f('cancel')} primary onTouchTap={this.closeConfirmClearRecycleBinDialog} />,
       <FlatButton label={f('clear-recycle-bin')} primary keyboardFocused onTouchTap={this.clearRecycleBin} />
@@ -225,8 +201,8 @@ export class PageRecycleBin extends Component {
     return (
       <Dialog title={f('title-confirm-clear-recycle-bin-dialog')} actions={actions}
         modal={false} open={isConfirmClearRecycleBinDialogOpen} onRequestClose={this.closeConfirmClearRecycleBinDialog}>
-        <p style={pStyle}>{f('content-confirm-recycle-bin-dialog1')}</p>
-        <p style={pStyle}>{f('content-confirm-recycle-bin-dialog2')}</p>
+        <p>{f('content-confirm-recycle-bin-dialog1')}</p>
+        <p>{f('content-confirm-recycle-bin-dialog2')}</p>
       </Dialog>
     );
   }
@@ -239,12 +215,12 @@ export class PageRecycleBin extends Component {
     return (
       <div className={c('page-list', styles.pageRecycleBin)}>
         <TopBar>
-          <Heading>{f('recycle-bin')}</Heading>
+          <h2>{f('recycle-bin')}</h2>
           <div>
             {this.renderRecoverButton()}
             {this.renderDeleteSelectedFoldersButton()}
-            <FlatButton label={f('empty-recycle-bin')} labelStyle={{fontSize: this.getButtonFontSize()}}
-              icon={<i className="fa fa-trash" />} onTouchTap={this.openConfirmClearRecycleBinDialog} disabled={0 === folderCount} />
+            <FlatButton label={f('empty-recycle-bin')} icon={<i className="fa fa-trash" />}
+              onTouchTap={this.openConfirmClearRecycleBinDialog} disabled={0 === folderCount} />
           </div>
         </TopBar>
         <div className={styles.content}>

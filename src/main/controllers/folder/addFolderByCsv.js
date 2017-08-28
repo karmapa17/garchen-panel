@@ -10,24 +10,27 @@ import shortid from 'shortid';
 import csvProcessor, {FIELD_PAGE_NUM} from './../../helpers/csvProcessor';
 import pageNumToFloat from './../../helpers/pageNumToFloat';
 import FRACTION_LENGTH from './../../constants/fractionLength';
+import now from './../../helpers/now';
+import Reporter from './../../helpers/Reporter';
 
-const NUMBER_CONCURRNT_WRITE = 50000;
+const reportDuration = 1000;
+const reporter = new Reporter();
+
+const numberConcurrentWrite = 50000;
+const dialogOptions = {
+  properties: ['openFile'],
+  filters: [
+    {name: 'Csv Files', extensions: ['csv']}
+  ]
+};
 
 export default async function addFolderByCsv(event, data) {
 
   const {models, importEmitter, db} = this.params;
   const {Folder} = models;
   const {broadcast, resolve, reject} = this;
-  const {writeDelay} = data;
 
-  const options = {
-    properties: ['openFile'],
-    filters: [
-      {name: 'Csv Files', extensions: ['csv']}
-    ]
-  };
-
-  dialog.showOpenDialog(options, handleDialogOpen);
+  dialog.showOpenDialog(dialogOptions, handleDialogOpen);
 
   function processCsv(csvFilePath) {
 
@@ -40,7 +43,6 @@ export default async function addFolderByCsv(event, data) {
 
     const filename = basename(csvFilePath);
     const stream = fs.createReadStream(csvFilePath);
-    const timeStart = +new Date();
 
     let completedLines = 0;
     let hasColumnRow = false;
@@ -50,6 +52,8 @@ export default async function addFolderByCsv(event, data) {
     let entryData = [];
 
     async function handleData(data) {
+
+      let createdEntryDatum = null;
 
       if (cancelImporting) {
         return Promise.reject('User stopped importing');
@@ -82,13 +86,19 @@ export default async function addFolderByCsv(event, data) {
             pageNum,
             data: rowData
           };
-
-          return currentEntryDatum;
+          createdEntryDatum = currentEntryDatum;
         }
-
-        if (currentEntryDatum) {
+        else if (currentEntryDatum) {
           currentEntryDatum.data = csvProcessor.appendData(data, currentEntryDatum.data, fields);
         }
+      }
+      ++completedLines;
+      reporter.report(() => {
+        broadcast('csv-processing-status', {completedLines});
+      }, reportDuration);
+
+      if (createdEntryDatum) {
+        return createdEntryDatum;
       }
     }
 
@@ -97,16 +107,13 @@ export default async function addFolderByCsv(event, data) {
       if (entryDatum) {
         entryData.push(entryDatum);
 
-        if (entryData.length > (NUMBER_CONCURRNT_WRITE + 1)) {
+        if (entryData.length > (numberConcurrentWrite + 1)) {
 
           const insertQuery = getEntryBatchInsertQuery(db, entryData.slice(0, entryData.length - 1));
 
           return db.raw(insertQuery)
             .then(() => {
-              completedLines += entryData.length - 1;
-              const seconds = parseInt((+new Date() - timeStart) / 1000, 10);
-              const linesPerSecond = Math.floor(completedLines / seconds);
-              broadcast('csv-processing-status', {completedLines, linesPerSecond});
+              // put the last one to new array
               entryData = [entryData.pop()];
             });
         }
@@ -114,7 +121,6 @@ export default async function addFolderByCsv(event, data) {
     }
 
     function done() {
-      broadcast('csv-processing-status', {completedLines});
       broadcast('csv-processing-done', {filename});
       resolve({message: 'done'});
     }

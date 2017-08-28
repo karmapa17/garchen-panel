@@ -10,7 +10,7 @@ import {get} from 'lodash';
 import {hashHistory} from 'react-router';
 
 import TopBar from './../../components/TopBar/TopBar';
-import Breadcrumb from './../Breadcrumb/Breadcrumb';
+import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {setSnackBarParams} from './../../redux/modules/ui';
 import {getFolder} from './../../redux/modules/folder';
 import {listFolderEntries, setSelectedFolderEntryIds, clearSelectedFolderEntryIds,
@@ -24,7 +24,6 @@ import Pagination from './../../components/Pagination/Pagination';
 import PageJumper from './../../components/PageJumper/PageJumper';
 import SearchBar from './../../components/SearchBar/SearchBar';
 import hasValue from './../../helpers/hasValue';
-import getFontSize from './../../helpers/getFontSize';
 import SEARCH_TYPES from './../../constants/searchTypes';
 
 const styles = require('./PageEntries.scss');
@@ -45,7 +44,6 @@ const SORT_CLASSNAME_MAP = {
     perpage: entry.get('perpage'),
     folder: folder.get('folder'),
     importingFolderId: folder.get('importingFolderId'),
-    interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
     folderEntries: entry.get('folderEntries'),
     folderEntryCount: entry.get('folderEntryCount'),
     selectedFolderEntryMap: entry.get('selectedFolderEntryMap')
@@ -81,7 +79,6 @@ export default class PageEntries extends Component {
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     folderEntries: PropTypes.array.isRequired,
-    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     folderEntryCount: PropTypes.number.isRequired,
     params: PropTypes.object.isRequired,
     listFolderEntries: PropTypes.func.isRequired,
@@ -246,13 +243,9 @@ export default class PageEntries extends Component {
   };
 
   renderDeleteButton() {
-    const {selectedFolderEntryMap, f, interfaceFontSizeScalingFactor} = this.props;
+    const {selectedFolderEntryMap, f} = this.props;
     if (Object.keys(selectedFolderEntryMap).length > 0) {
-      const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
-      return (
-        <FlatButton label={f('delete')} labelStyle={{fontSize: buttonFontSize}}
-          icon={<i className="fa fa-trash" />} onTouchTap={this.openConfirmEntryDeletionDialog} />
-      );
+      return <FlatButton label={f('delete')} icon={<i className="fa fa-trash" />} onTouchTap={this.openConfirmEntryDeletionDialog} />;
     }
   }
 
@@ -302,13 +295,7 @@ export default class PageEntries extends Component {
 
   renderConfirmEntryDeletionDialog() {
     const {isConfirmEntryDeletionOpen} = this.state;
-    const {f, interfaceFontSizeScalingFactor} = this.props;
-    const dialogContentFontSize = getFontSize(interfaceFontSizeScalingFactor, 1.2);
-    const dialogContentLineHeight = getFontSize(interfaceFontSizeScalingFactor, 1.2);
-    const pStyle = {
-      fontSize: dialogContentFontSize,
-      lineHeight: dialogContentLineHeight
-    };
+    const {f} = this.props;
     const actions = [
       <FlatButton label={f('cancel')} primary onTouchTap={this.closeConfirmEntryDeletionDialog} />,
       <FlatButton label={f('delete')} primary keyboardFocused onTouchTap={this.deleteSelectedFolderEntries} />
@@ -316,8 +303,8 @@ export default class PageEntries extends Component {
     return (
       <Dialog title={f('title-confirm-delete-dialog')} actions={actions}
         modal={false} open={isConfirmEntryDeletionOpen} onRequestClose={this.closeConfirmEntryDeletionDialog}>
-        <p style={pStyle}>{f('content-confirm-delete-dialog1')}</p>
-        <p style={pStyle}>{f('content-confirm-delete-dialog2')}</p>
+        <p>{f('content-confirm-delete-dialog1')}</p>
+        <p>{f('content-confirm-delete-dialog2')}</p>
       </Dialog>
     );
   }
@@ -325,9 +312,8 @@ export default class PageEntries extends Component {
   render() {
 
     const {page, searchType, searchKeyword} = this.state;
-    const {f, folder, folderEntryCount, perpage, interfaceFontSizeScalingFactor} = this.props;
+    const {f, folder, folderEntryCount, perpage} = this.props;
     const matchedCount = this.getMatchedCount();
-    const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
     const total = Math.ceil(folderEntryCount / perpage);
 
     let pageNumProps = {};
@@ -349,10 +335,8 @@ export default class PageEntries extends Component {
           </Breadcrumb>
           <div>
             {this.renderDeleteButton()}
-            <FlatButton icon={<i className="fa fa-plus" />} labelStyle={{fontSize: buttonFontSize}}
-              label={f('add-entry')} onTouchTap={this.goToAddFolderEntryPage} disabled={this.isImporting()} />
-            <FlatButton icon={<i className="fa fa-arrow-left" />} labelStyle={{fontSize: buttonFontSize}}
-              label={f('back')} onTouchTap={hashHistory.goBack} />
+            <FlatButton icon={<i className="fa fa-plus" />} label={f('add-entry')} onTouchTap={this.goToAddFolderEntryPage} disabled={this.isImporting()} />
+            <FlatButton icon={<i className="fa fa-arrow-left" />} label={f('back')} onTouchTap={hashHistory.goBack} />
           </div>
         </TopBar>
         <div className={styles.content}>

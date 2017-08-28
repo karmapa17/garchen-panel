@@ -46,6 +46,23 @@ export default function getMenuTemplate() {
           selector: 'selectAll:'
         }
       ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        {
+          label: 'Reset Zoom',
+          role: 'resetzoom'
+        },
+        {
+          label: 'Zoom In',
+          role: 'zoomin'
+        },
+        {
+          label: 'Zoom Out',
+          role: 'zoomout'
+        },
+      ]
     }
   ];
 }

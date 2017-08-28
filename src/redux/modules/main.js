@@ -20,9 +20,7 @@ const initialState = Map({
   appVersion: '',
   appLocale: 'en',
   appFont: 'Tibetan Machine Uni',
-  writeDelay: 50,
-  interfaceFontSizeScalingFactor: 1,
-  contentFontSizeScalingFactor: 1
+  writeDelay: 50
 });
 
 export default createReducer(initialState, {
@@ -39,32 +37,10 @@ export default createReducer(initialState, {
     return state.set('appFont', action.appFont);
   },
 
-  [SET_INTERFACE_FONT_SIZE_SCALING_FACTOR]: (state, action) => {
-    return state.set('interfaceFontSizeScalingFactor', action.interfaceFontSizeScalingFactor);
-  },
-
-  [SET_CONTENT_FONT_SIZE_SCALING_FACTOR]: (state, action) => {
-    return state.set('contentFontSizeScalingFactor', action.contentFontSizeScalingFactor);
-  },
-
   [GET_APP_VERSION_SUCCESS]: (state, action) => {
     return state.set('appVersion', action.result.appVersion);
   }
 });
-
-export function setContentFontSizeScalingFactor(contentFontSizeScalingFactor) {
-  return {
-    type: SET_CONTENT_FONT_SIZE_SCALING_FACTOR,
-    contentFontSizeScalingFactor
-  };
-}
-
-export function setInterfaceFontSizeScalingFactor(interfaceFontSizeScalingFactor) {
-  return {
-    type: SET_INTERFACE_FONT_SIZE_SCALING_FACTOR,
-    interfaceFontSizeScalingFactor
-  };
-}
 
 export function setAppFont(appFont) {
   return {

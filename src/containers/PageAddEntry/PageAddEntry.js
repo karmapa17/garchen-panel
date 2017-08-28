@@ -6,7 +6,7 @@ import {isArray} from 'lodash';
 
 import AddEntryForm from './../../components/AddEntryForm/AddEntryForm';
 import TopBar from './../../components/TopBar/TopBar';
-import Breadcrumb from './../Breadcrumb/Breadcrumb';
+import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {getFolder} from './../../redux/modules/folder';
 import {addFolderEntry} from './../../redux/modules/entry';
 import {setSnackBarParams} from './../../redux/modules/ui';

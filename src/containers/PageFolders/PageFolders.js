@@ -16,8 +16,6 @@ import {setCachePageFolders} from './../../redux/modules/cache';
 import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
-import Heading from './../Heading/Heading';
-import getFontSize from './../../helpers/getFontSize';
 
 import sortFolderContentFields from './../../main/helpers/sortFolderContentFields';
 import injectF from './../../helpers/injectF';
@@ -26,9 +24,8 @@ import resolve from './../../helpers/resolve';
 
 const styles = require('./PageFolders.scss');
 
-@connect(({main, folder, cache}) => ({
+@connect(({folder, cache}) => ({
   cache: cache.get('cachePageFolders'),
-  interfaceFontSizeScalingFactor: main.get('interfaceFontSizeScalingFactor'),
   perpage: folder.get('perpage'),
   folders: folder.get('folders'),
   importingFolderId: folder.get('importingFolderId'),
@@ -61,7 +58,6 @@ export default class PageFolders extends Component {
     listFolders: PropTypes.func.isRequired,
     setCachePageFolders: PropTypes.func.isRequired,
     importingFolderId: PropTypes.number,
-    interfaceFontSizeScalingFactor: PropTypes.number.isRequired,
     setSnackBarParams: PropTypes.func.isRequired
   };
 
@@ -188,9 +184,7 @@ export default class PageFolders extends Component {
 
   renderFolders() {
     const {selectedFolderIdData} = this.state;
-    const {f, folders, interfaceFontSizeScalingFactor} = this.props;
-    const linkFontSize = getFontSize(interfaceFontSizeScalingFactor, 1);
-    const menuItemFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
+    const {f, folders} = this.props;
     const rows = folders.map((folder) => {
       const {id, name} = folder;
       const isImporting = this.isImportingFolder(folder.id);
@@ -201,14 +195,14 @@ export default class PageFolders extends Component {
       return (
         <div className={className} key={`paper-${id}`} onTouchTap={this.handleFolderSelect(id)}>
           {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
-          <a style={{fontSize: linkFontSize}} className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
+          <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           {(! isImporting) && <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
             onChange={this.handleFolderMenuItemTouchTap}
             anchorOrigin={{horizontal: 'left', vertical: 'top'}}
             targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-            <MenuItem primaryText={f('edit')} value={{type: 'edit', folderId: id}} style={{fontSize: menuItemFontSize}} />
-            <MenuItem primaryText={f('export')} value={{type: 'export', folderId: id}} style={{fontSize: menuItemFontSize}} />
+            <MenuItem primaryText={f('edit')} value={{type: 'edit', folderId: id}} />
+            <MenuItem primaryText={f('export')} value={{type: 'export', folderId: id}} />
           </IconMenu>}
         </div>
       );
@@ -242,33 +236,26 @@ export default class PageFolders extends Component {
   };
 
   renderDeleteButton() {
-    const {f, interfaceFontSizeScalingFactor} = this.props;
+    const {f} = this.props;
     const {selectedFolderIdData} = this.state;
     if (Object.keys(selectedFolderIdData).length > 0) {
-      const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
-      return (
-        <FlatButton label={f('delete')} labelStyle={{fontSize: buttonFontSize}}
-          icon={<i className="fa fa-trash" />} onTouchTap={this.deleteSelectedFolders} />
-      );
+      return <FlatButton label={f('delete')} icon={<i className="fa fa-trash" />} onTouchTap={this.deleteSelectedFolders} />;
     }
   }
 
   render() {
 
     const {page} = this.state;
-    const {f, perpage, folderCount, interfaceFontSizeScalingFactor} = this.props;
-    const buttonFontSize = getFontSize(interfaceFontSizeScalingFactor, 0.9);
+    const {f, perpage, folderCount} = this.props;
 
     return (
       <div className={c('page-list', styles.pageFolders)}>
         <TopBar>
-          <Heading>{f('folders')}</Heading>
+          <h2>{f('folders')}</h2>
           <div>
             {this.renderDeleteButton()}
-            <FlatButton icon={<i className="fa fa-search" />} labelStyle={{fontSize: buttonFontSize}}
-              label={f('cross-folder-search')} primary onTouchTap={this.goToPageCrossFolderSearch} />
-            <FlatButton icon={<i className="fa fa-plus" />} labelStyle={{fontSize: buttonFontSize}}
-              label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
+            <FlatButton icon={<i className="fa fa-search" />} label={f('cross-folder-search')} primary onTouchTap={this.goToPageCrossFolderSearch} />
+            <FlatButton icon={<i className="fa fa-plus" />} label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
           </div>
         </TopBar>
         {this.renderFolders()}

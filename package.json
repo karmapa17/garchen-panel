@@ -58,7 +58,7 @@
     "sleep-promise": "2.0.0",
     "sqlite3": "3.1.9",
     "toastr": "2.1.2",
-    "trilogy": "1.1.0",
+    "trilogy": "git+ssh://git@github.com:karmapa17/trilogy.git#v1.3.1",
     "zpad": "0.5.0"
   },
   "devDependencies": {
@@ -74,7 +74,7 @@
     "coveralls": "2.13.1",
     "cross-env": "5.0.0",
     "css-loader": "0.15.4",
-    "electron": "1.6.2",
+    "electron": "1.7.6",
     "electron-ipc-mock": "0.0.2",
     "electron-rebuild": "1.6.0",
     "enzyme": "2.8.2",
@@ -106,7 +106,7 @@
     "webpack-dev-server": "1.10.1"
   },
   "scripts": {
-    "lint": "eslint *.js",
+    "lint": "eslint src/**/*.js",
     "build": "./bin/build.sh",
     "electron": "electron .",
     "dev": "cross-env NODE_ENV=development concurrently --kill-others \"node server.js\" \"nodemon --watch src/main/ --exec electron .\"",
@@ -126,7 +126,7 @@
   "author": "karmapa",
   "license": "MIT",
   "engines": {
-    "node": "5.8.0"
+    "node": "8.4.0"
   },
   "false": {}
 }

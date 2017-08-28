@@ -17,7 +17,6 @@ import Textarea from './../../components/Textarea/Textarea';
 import getNextExplanationIndex from './../AddEntryForm/getNextExplanationIndex';
 import getExplanationLangs from './../AddEntryForm/getExplanationLangs';
 import getExplanationLangValues from './../AddEntryForm/getExplanationLangValues';
-import getFontSize from './../../helpers/getFontSize';
 
 const styles = require('./EditEntryForm.scss');
 
@@ -114,16 +113,11 @@ export default class EditEntryForm extends Component {
     });
   }
 
-  getFontSize() {
-    return getFontSize(this.props.contentFontSizeScalingFactor, 1);
-  }
-
   renderContentFields() {
 
     const {explanationIndex, explanationLangs} = this.state;
     const {folder, f, renderSelectField} = this.props;
     const {contentFields} = folder.data;
-    const fontSize = this.getFontSize();
 
     let rows = contentFields.map((field) => {
 
@@ -134,8 +128,8 @@ export default class EditEntryForm extends Component {
 
         return (
           <div key={`target-entry-${lang}`} className={styles.formControl}>
-            <label style={{fontSize}}>{f('target-entry-lang', {lang: f(lang)})}</label>
-            <Field name={`target-entry-${lang}`} type="text" component="input" style={{fontSize}} />
+            <label>{f('target-entry-lang', {lang: f(lang)})}</label>
+            <Field name={`target-entry-${lang}`} type="text" component="input" />
           </div>
         );
       }
@@ -143,9 +137,8 @@ export default class EditEntryForm extends Component {
       if ('category' === field) {
         return (
           <div key="category">
-            <label style={{fontSize}}>{f('category')}</label>
-            <Field name="category" component={renderSelectField} selectedMenuItemStyle={SELECTED_MENU_STYLE}
-              labelStyle={{fontSize}} menuItemStyle={{fontSize}} fullWidth>
+            <label>{f('category')}</label>
+            <Field name="category" component={renderSelectField} selectedMenuItemStyle={SELECTED_MENU_STYLE} fullWidth>
               {this.renderCategoryMenuItems()}
             </Field>
           </div>
@@ -155,9 +148,8 @@ export default class EditEntryForm extends Component {
       if ('sect' === field) {
         return (
           <div key="sect">
-            <label style={{fontSize}}>{f('sect')}</label>
-            <Field name="sect" component={renderSelectField} selectedMenuItemStyle={SELECTED_MENU_STYLE}
-              labelStyle={{fontSize}} menuItemStyle={{fontSize}} fullWidth>
+            <label>{f('sect')}</label>
+            <Field name="sect" component={renderSelectField} selectedMenuItemStyle={SELECTED_MENU_STYLE} fullWidth>
               {this.renderSectMenuItems()}
             </Field>
           </div>
@@ -167,8 +159,8 @@ export default class EditEntryForm extends Component {
       if ('page-num' === field) {
         return (
           <div key="page-num" className={styles.formControl}>
-            <label style={{fontSize}}>{f('page-num')}</label>
-            <Field style={{fontSize}} name="pageNum" type="text" component="input" />
+            <label>{f('page-num')}</label>
+            <Field name="pageNum" type="text" component="input" />
           </div>
         );
       }
@@ -180,8 +172,8 @@ export default class EditEntryForm extends Component {
 
         return (
           <div key={`original-${lang}`} className={styles.formControl}>
-            <label style={{fontSize}}>{f('original-lang', {lang: f(lang)})}</label>
-            <Textarea name={`original-${lang}`} style={{fontSize}} />
+            <label>{f('original-lang', {lang: f(lang)})}</label>
+            <Textarea name={`original-${lang}`} />
           </div>
         );
       }
@@ -193,8 +185,8 @@ export default class EditEntryForm extends Component {
 
         return (
           <div key={`source-${lang}`} className={styles.formControl}>
-            <label style={{fontSize}}>{f('source-lang', {lang: f(lang)})}</label>
-            <Textarea name={`source-${lang}`} style={{fontSize}} />
+            <label>{f('source-lang', {lang: f(lang)})}</label>
+            <Textarea name={`source-${lang}`} />
           </div>
         );
       }
@@ -207,9 +199,9 @@ export default class EditEntryForm extends Component {
         const explanationLangRows = explanationLangs.map((lang) => {
           return (
             <div key={`explanation-${lang}-${index}`} className={styles.formControl}>
-              <label style={{fontSize}}>{f('explanation-num-lang', {lang: f(lang), num: (index + 1)})}</label>
+              <label>{f('explanation-num-lang', {lang: f(lang), num: (index + 1)})}</label>
               <Textarea name={`explanation-${lang}[${index}]`}
-                onChange={this.handleExplanationChange(lang, index)} style={{fontSize}} />
+                onChange={this.handleExplanationChange(lang, index)} />
             </div>
           );
         });
@@ -217,17 +209,16 @@ export default class EditEntryForm extends Component {
         explanationLangRows.push((
           <div key={`explanation-extra-info-${index}`}>
             <div key={`explanation-source-${index}`} className={styles.formControl}>
-              <label style={{fontSize}}>{f('explanation-source-num', {num: (index + 1)})}</label>
-              <Textarea name={`explanation-source[${index}]`} style={{fontSize}} />
+              <label>{f('explanation-source-num', {num: (index + 1)})}</label>
+              <Textarea name={`explanation-source[${index}]`} />
             </div>
             <div key={`explanation-note-${index}`} className={styles.formControl}>
-              <label style={{fontSize}}>{f('explanation-note-num', {num: (index + 1)})}</label>
-              <Textarea name={`explanation-note[${index}]`} style={{fontSize}} />
+              <label>{f('explanation-note-num', {num: (index + 1)})}</label>
+              <Textarea name={`explanation-note[${index}]`} />
             </div>
             <div key={`explanation-category-${index}`} className={styles.formControl}>
-              <label style={{fontSize}}>{f('explanation-category-num', {num: (index + 1)})}</label>
-              <Field name={`explanation-category[${index}]`} fullWidth selectedMenuItemStyle={SELECTED_MENU_STYLE} labelStyle={{fontSize}} menuItemStyle={{fontSize}}
-                component={renderSelectField} multiple>
+              <label>{f('explanation-category-num', {num: (index + 1)})}</label>
+              <Field name={`explanation-category[${index}]`} fullWidth selectedMenuItemStyle={SELECTED_MENU_STYLE} component={renderSelectField} multiple>
                 {this.renderExplanationCategoryMenuItems()}
               </Field>
             </div>
@@ -244,14 +235,13 @@ export default class EditEntryForm extends Component {
 
     const {handleSubmit, f, invalid, folder} = this.props;
     const {sourceLanguage} = folder.data;
-    const fontSize = this.getFontSize();
 
     return (
       <form className={styles.editEntryForm} onSubmit={handleSubmit}>
         <div className={styles.formBody}>
           <div className={styles.formControl}>
-            <label style={{fontSize}}>{f('source-entry-lang', {lang: f(sourceLanguage)})}</label>
-            <Field name="sourceEntry" type="text" component="input" style={{fontSize}} />
+            <label>{f('source-entry-lang', {lang: f(sourceLanguage)})}</label>
+            <Field name="sourceEntry" type="text" component="input" />
           </div>
           <div>{this.renderContentFields()}</div>
         </div>
