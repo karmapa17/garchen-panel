@@ -7734,9 +7734,9 @@ tree-kill@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.1.0.tgz#c963dcf03722892ec59cba569e940b71954d1729"
 
-"trilogy@git+ssh://git@github.com:karmapa17/trilogy.git#v1.3.1":
+"trilogy@https://github.com/karmapa17/trilogy.git#v1.3.1":
   version "1.3.0"
-  resolved "git+ssh://git@github.com:karmapa17/trilogy.git#91c0e2de9233f8a8513ab18f5188ce742866b501"
+  resolved "https://github.com/karmapa17/trilogy.git#91c0e2de9233f8a8513ab18f5188ce742866b501"
   dependencies:
     component-type "^1.2.1"
     generic-pool "^3.1.7"
