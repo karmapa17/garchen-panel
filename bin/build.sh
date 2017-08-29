@@ -22,10 +22,18 @@ cp -r assets/fonts/* dist/src/assets/fonts
 cp -r src/main dist/src
 
 cd dist
-npm install
-npm run rebuild
+npm i --prod
 
-if [ "$PLATFORM" == "win32" ]; then
+if [ "$PLATFORM" == "win32-ia32" ]; then
+  npm run rebuild-ia32
+  electron-packager ./ ${PACKAGE_NAME} --platform=win32 --arch=ia32\
+  --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.ico --no-prune
+  zip -r "./../zips/${ZIP_WIN}" "${PACKAGE_NAME}-win32-ia32" > /dev/null
+  rm -r "${PACKAGE_NAME}-win32-ia32"
+fi
+
+if [ "$PLATFORM" == "win32-x64" ]; then
+  npm run rebuild
   electron-packager ./ ${PACKAGE_NAME} --platform=win32 --arch=ia32\
   --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.ico --no-prune
   zip -r "./../zips/${ZIP_WIN}" "${PACKAGE_NAME}-win32-ia32" > /dev/null
@@ -33,6 +41,7 @@ if [ "$PLATFORM" == "win32" ]; then
 fi
 
 if [ "$PLATFORM" == "darwin" ]; then
+  npm run rebuild
   electron-packager ./ ${PACKAGE_NAME} --platform=darwin --arch=x64\
     --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.icns --no-prune
   zip -r "./../zips/${ZIP_IOS}" "${PACKAGE_NAME}-darwin-x64" > /dev/null
