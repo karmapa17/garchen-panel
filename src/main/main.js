@@ -71,7 +71,7 @@ async function handleAppReady() {
   const importEmitter = new EventEmitter();
   const ipc = IpcDecorator.decorate(ipcMain, {db, models, importEmitter});
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate(getMenuTemplate()));
+  Menu.setApplicationMenu(Menu.buildFromTemplate(getMenuTemplate(mainWindow)));
 
   ipc.on('get-folder', getFolder);
   ipc.on('check-folder-exists', checkFolderExists);
