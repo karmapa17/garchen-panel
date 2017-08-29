@@ -27,14 +27,14 @@ npm run rebuild
 
 if [ "$PLATFORM" == "win32" ]; then
   electron-packager ./ ${PACKAGE_NAME} --platform=win32 --arch=ia32\
-  --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.ico --prune=false
+  --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.ico --no-prune
   zip -r "./../zips/${ZIP_WIN}" "${PACKAGE_NAME}-win32-ia32" > /dev/null
   rm -r "${PACKAGE_NAME}-win32-ia32"
 fi
 
 if [ "$PLATFORM" == "darwin" ]; then
   electron-packager ./ ${PACKAGE_NAME} --platform=darwin --arch=x64\
-    --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.icns --prune=false
+    --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.icns --no-prune
   zip -r "./../zips/${ZIP_IOS}" "${PACKAGE_NAME}-darwin-x64" > /dev/null
   rm -r "${PACKAGE_NAME}-darwin-x64"
 fi
