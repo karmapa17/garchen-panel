@@ -7,5 +7,5 @@ PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $
 ZIP_IOS="${PACKAGE_NAME}-darwin-x64-v${PACKAGE_VERSION}.zip"
 
 if [ "$PLATFORM" == "darwin" ]; then
-  gdrive upload --parent 0B-dB2SJOjmDIdEFFVFR2aGxwaGc "./zips/${ZIP_IOS}"
+  aws s3 cp "./zips/${ZIP_IOS}" s3://garchen-download/
 fi

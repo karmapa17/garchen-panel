@@ -1,10 +1,16 @@
 language: node_js
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode9
 node_js:
 - 8.4.0
 cache: yarn
 before_install:
+- npm i -g electron-packager@9.0.0
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.28.4
 - export PATH="$HOME/.yarn/bin:$PATH"
+- brew install awscli
 after_success:
 - npm run coveralls
 - test $TRAVIS_BRANCH = "master" && yarn build-mac && yarn upload-mac
