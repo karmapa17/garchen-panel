@@ -108,6 +108,7 @@
   "scripts": {
     "lint": "eslint src/**/*.js",
     "build-mac": "cross-env PLATFORM=darwin ./bin/build.sh",
+    "upload-mac": "cross-env PLATFORM=darwin ./bin/upload.sh",
     "build-windows-ia32": "cross-env PLATFORM=win32-ia32 ./bin/build.sh",
     "build-windows-x64": "cross-env PLATFORM=win32-x64 ./bin/build.sh",
     "electron": "electron .",
