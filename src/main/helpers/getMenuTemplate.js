@@ -1,7 +1,7 @@
 import {app} from 'electron';
 import addFolderByCsv from './../controllers/folder/addFolderByCsv';
 
-export default function getMenuTemplate() {
+export default function getMenuTemplate(mainWindow) {
 
   return [
     {
@@ -62,6 +62,12 @@ export default function getMenuTemplate() {
           label: 'Zoom Out',
           role: 'zoomout'
         },
+        {
+          label: 'Developer Tools',
+          click: () => {
+            mainWindow.webContents.openDevTools();
+          }
+        }
       ]
     }
   ];

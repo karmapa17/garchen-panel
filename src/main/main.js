@@ -64,14 +64,14 @@ async function handleAppReady() {
     mainWindow.loadURL('file://' + __dirname + '/../index.html');
   }
   else {
-    mainWindow.loadURL('file://' + __dirname + '/../splash.html');
+    mainWindow.loadURL('file://' + __dirname + '/../index.html');
   }
 
   const {db, models} = await initDb();
   const importEmitter = new EventEmitter();
   const ipc = IpcDecorator.decorate(ipcMain, {db, models, importEmitter});
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate(getMenuTemplate()));
+  Menu.setApplicationMenu(Menu.buildFromTemplate(getMenuTemplate(mainWindow)));
 
   ipc.on('get-folder', getFolder);
   ipc.on('check-folder-exists', checkFolderExists);

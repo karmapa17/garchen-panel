@@ -41,32 +41,3 @@ test('clientMiddleware should dispatch directly if action does not have promise 
   };
   t.deepEqual(dispatchWithStoreOf({}, action), action);
 });
-
-test('clientMiddleware should dispatch with error', async (t) => {
-
-  const action = {
-    types: [TEST, TEST_SUCCESS, TEST_FAIL],
-    promise: () => Promise.reject('dead')
-  };
-
-  const result = dispatchWithStoreOf({}, action);
-  const rejectedMessage = 'intentionally reject';
-
-  let times = 0;
-
-  const next = (actionAttempt) => {
-
-    if (rejectedMessage === actionAttempt.error) {
-      t.pass();
-    }
-
-    ++times;
-
-    if (2 === times) {
-      return Promise.reject(rejectedMessage);
-    }
-  };
-
-  const dispatch = clientMiddleware(ipc)(mockStore({}))(next);
-  dispatch(action);
-});
