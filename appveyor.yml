@@ -17,16 +17,16 @@ build_script:
 
 deploy:
   provider: S3
-  access_key_id:
-    secret_access_key:
-      bucket:
-        region: eu-west-1
-        unzip: false
-        set_public: false
-        folder:
-          artifact:
-            - path: zips/*.zip
-              name: garchen-panel
+  access_key_id: $(AWS_ACCESS_KEY_ID)
+  secret_access_key: $(AWS_SECRET_ACCESS_KEY)
+  bucket: $(AWS_S3_BUCKET)
+    region: eu-west-1
+    unzip: false
+    set_public: false
+    folder:
+      artifact:
+        - path: zips/*.zip
+          name: garchen-panel
 
 on_failure:
   - appveyor PushArtifact zips/*.zip
