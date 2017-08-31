@@ -18,7 +18,7 @@
   test: off
 
   install:
-    - ps: Install-Product node $env:nodejs_version
+    - ps: Install-Product node $env:nodejs_version x64
     - npm i -g npm@5.4.0
     - npm i -g electron-packager@9.0.0
     - npm i
