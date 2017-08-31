@@ -1,0 +1,32 @@
+image:
+  - Visual Studio 2017
+
+environment:
+  matrix:
+  - MSYSTEM: MINGW64
+    PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
+
+install:
+  - ps: Install-Product node 8.4.0
+  - npm i -g electron-packager@9.0.0
+  - npm i
+
+build_script:
+  - C:\msys64\usr\bin\bash -lc "npm run build-windows-ia32"
+  - C:\msys64\usr\bin\bash -lc "npm run build-windows-x64"
+
+deploy:
+  provider: S3
+  access_key_id:
+    secret_access_key:
+      bucket:
+        region: eu-west-1
+        unzip: false
+        set_public: false
+        folder:
+          artifact:
+            - path: zips/*.zip
+              name: garchen-panel
+
+on_failure:
+  - appveyor PushArtifact zips/*.zip
