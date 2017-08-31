@@ -10,7 +10,7 @@ ZIP_IOS="${PACKAGE_NAME}-darwin-x64-v${PACKAGE_VERSION}.zip"
 ZIP_WIN="${PACKAGE_NAME}-win32-ia32-v${PACKAGE_VERSION}.zip"
 
 cd $ROOT_DIR
-rm -r dist zips
+rm -r dist
 mkdir -p dist/src/assets/fonts
 mkdir -p zips
 NODE_ENV=production webpack
