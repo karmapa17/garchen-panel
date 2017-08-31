@@ -8,6 +8,7 @@ environment:
     PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
 
 install:
+  - npm i -g npm@5.4.0
   - npm i -g electron-packager@9.0.0
   - npm i
 
