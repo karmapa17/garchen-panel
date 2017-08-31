@@ -1,20 +1,19 @@
-image:
-  - Visual Studio 2017
-
-platform:
-  - x64
-
-environment:
-  nodejs_version: "8"
-  matrix:
-  - MSYSTEM: MINGW64
-    PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
-
-for:
 -
   branches:
     only:
       - master
+
+  image:
+    - Visual Studio 2017
+
+  platform:
+    - x64
+
+  environment:
+    nodejs_version: "8"
+    matrix:
+    - MSYSTEM: MINGW64
+      PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
 
   install:
     - ps: Install-Product node $env:nodejs_version
