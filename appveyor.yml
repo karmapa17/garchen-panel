@@ -16,6 +16,7 @@ build_script:
   - C:\msys64\usr\bin\bash -lc "npm run build-windows-x64"
 
 deploy:
+  name: s3-deployment
   provider: S3
   access_key_id: $(AWS_ACCESS_KEY_ID)
   secret_access_key: $(AWS_SECRET_ACCESS_KEY)
@@ -23,9 +24,6 @@ deploy:
   region: ap-southeast-1
   unzip: false
   set_public: false
-  artifact:
-    - path: zips\*.zip
-      name: garchen-panel
 
-on_failure:
-  - appveyor PushArtifact zips\*.zip
+after_build:
+  - ps: Get-ChildItem .\zips\*.zip | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name -DeploymentName s3-deployment }
