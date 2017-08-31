@@ -55,7 +55,7 @@ export default class CsvProcessor {
 
   static getColumnData(data) {
 
-    const result = data.reduce((columnData, key, index) => {
+    const result = data.reduce((columnData, key) => {
 
       const sourceLanguage = getSourceLang(key);
 
