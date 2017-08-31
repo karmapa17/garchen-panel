@@ -21,7 +21,7 @@
     - ps: Install-Product node $env:nodejs_version x64
     - npm i -g npm@5.4.0
     - npm i -g electron-packager@9.0.0
-    - npm i
+    - npm i --force
 
   build_script:
     - C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; npm run build-windows-ia32"
