@@ -3,7 +3,7 @@ import {BrowserWindow} from 'electron';
 import fetch from 'node-fetch';
 import {stringify} from 'qs';
 
-const OAuth2 = google.auth.OAuth2
+const OAuth2 = google.auth.OAuth2;
 
 export default class GoogleOAuth {
 

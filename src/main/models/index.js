@@ -3,7 +3,6 @@ import path from 'path';
 import fs from 'fs';
 import log from 'karmapa-log';
 import {indexBy, prop} from 'ramda';
-import {isArray} from 'lodash';
 
 import APP_DATA_PATH from './../constants/appDataPath';
 

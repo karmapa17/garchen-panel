@@ -55,7 +55,7 @@ export default class CsvProcessor {
 
   static getColumnData(data) {
 
-    const result = data.reduce((columnData, key, index) => {
+    const result = data.reduce((columnData, key) => {
 
       const sourceLanguage = getSourceLang(key);
 
@@ -168,7 +168,7 @@ export default class CsvProcessor {
           }
         }
         else if (isArrayField(field)) {
-          rowData[field] = [data[index]]
+          rowData[field] = [data[index]];
         }
         else {
           rowData[field] = data[index];
@@ -280,6 +280,6 @@ export default class CsvProcessor {
       }
 
       return rows;
-    }, [defaultData])
+    }, [defaultData]);
   }
 }

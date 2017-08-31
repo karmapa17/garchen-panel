@@ -1,5 +1,4 @@
 import {app} from 'electron';
-import addFolderByCsv from './../controllers/folder/addFolderByCsv';
 
 export default function getMenuTemplate(mainWindow) {
 
@@ -8,8 +7,8 @@ export default function getMenuTemplate(mainWindow) {
       label: 'App',
       submenu: [
         {
-          label: "Quit",
-          accelerator: "Command+Q",
+          label: 'Quit',
+          accelerator: 'Command+Q',
           click: () => app.quit()
         },
         {
