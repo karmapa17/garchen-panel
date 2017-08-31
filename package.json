@@ -106,7 +106,7 @@
     "webpack-dev-server": "1.10.1"
   },
   "scripts": {
-    "lint": "eslint src/**/*.js",
+    "lint": "eslint src/main/**/*.js",
     "build-mac": "cross-env PLATFORM=darwin ./bin/build.sh",
     "upload-mac": "cross-env PLATFORM=darwin ./bin/upload.sh",
     "build-windows-ia32": "cross-env PLATFORM=win32-ia32 ./bin/build.sh",
