@@ -10,8 +10,8 @@
     - x64
 
   environment:
-    nodejs_version: $env:8.1.4
     matrix:
+    - nodejs_version: '8.1.4'
     - MSYSTEM: MINGW64
       PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
 
