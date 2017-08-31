@@ -1,5 +1,4 @@
 import {app} from 'electron';
-import addFolderByCsv from './../controllers/folder/addFolderByCsv';
 
 export default function getMenuTemplate(mainWindow) {
 
