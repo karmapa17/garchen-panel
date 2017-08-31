@@ -24,8 +24,8 @@ deploy:
   unzip: false
   set_public: false
   artifact:
-    - path: zips/*.zip
+    - path: zips\*.zip
       name: garchen-panel
 
 on_failure:
-  - appveyor PushArtifact zips/*.zip
+  - appveyor PushArtifact zips\*.zip
