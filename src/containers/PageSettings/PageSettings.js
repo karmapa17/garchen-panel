@@ -27,8 +27,8 @@ const iconStyle = {marginRight: '21px', marginBottom: '12px'};
   displayDeletedFolderPerPage: folder.get('deletedFolderPerPage'),
   appLocale: main.get('appLocale'),
   appFont: main.get('appFont')
-}), {setIntl, setWriteDelay, setAppFont,
-  setDisplayFolderPerPage, setDisplayEntryPerPage, clearCachePageEntries, clearCachePageFolders, setDisplayDeletedFolderPerPage})
+}), {setIntl, setWriteDelay, setAppFont, setDisplayFolderPerPage, setDisplayEntryPerPage,
+  clearCachePageEntries, clearCachePageFolders, setDisplayDeletedFolderPerPage})
 @injectIntl
 @injectF
 export default class PageSettings extends Component {
