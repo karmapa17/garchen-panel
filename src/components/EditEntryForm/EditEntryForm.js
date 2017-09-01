@@ -4,8 +4,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import {range} from 'ramda';
 
-import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
-import injectF from './../../helpers/injectF';
+import injectMuiReduxFormHelper from './../../utils/injectMuiReduxFormHelper';
+import injectF from './../../utils/injectF';
 import asyncValidate from './editEntryFormAsyncValidate';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import SECT_VALUES from './../../constants/sectValues';

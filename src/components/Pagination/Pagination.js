@@ -2,7 +2,7 @@ import FlatButton from 'material-ui/FlatButton';
 import React, {Component, PropTypes} from 'react';
 import {range} from 'ramda';
 
-import injectF from './../../helpers/injectF';
+import injectF from './../../utils/injectF';
 import {COLOR_LINK_EX} from './../../constants/constants';
 
 const styles = require('./Pagination.scss');

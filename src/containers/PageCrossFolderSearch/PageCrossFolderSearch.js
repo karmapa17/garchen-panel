@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 
-import injectF from './../../helpers/injectF';
-import injectPush from './../../helpers/injectPush';
+import injectF from './../../utils/injectF';
+import injectPush from './../../utils/injectPush';
 import TopBar from './../../components/TopBar/TopBar';
 import SearchBar from './../../components/SearchBar/SearchBar';
 import {search} from './../../redux/modules/crossFolderSearch';

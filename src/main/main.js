@@ -1,7 +1,7 @@
 import {app, screen, BrowserWindow, ipcMain, Menu} from 'electron';
 import EventEmitter from 'events';
 
-import IpcDecorator from './helpers/IpcDecorator';
+import IpcDecorator from './utils/IpcDecorator';
 import getAppVersion from './controllers/app/getAppVersion';
 import getFolder from './controllers/folder/getFolder';
 import updateFolder from './controllers/folder/updateFolder';
@@ -23,7 +23,7 @@ import restoreFolders from './controllers/folder/restoreFolders';
 import getEntry from './controllers/entry/getEntry';
 import deleteEntries from './controllers/entry/deleteEntries';
 import updateEntry from './controllers/entry/updateEntry';
-import getMenuTemplate from './helpers/getMenuTemplate';
+import getMenuTemplate from './utils/getMenuTemplate';
 import crossFolderSearch from './controllers/entry/crossFolderSearch';
 
 import login from './controllers/auth/login';

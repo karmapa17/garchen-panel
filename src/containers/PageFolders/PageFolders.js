@@ -17,10 +17,10 @@ import AddFolderForm from './../../components/AddFolderForm/AddFolderForm';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
 
-import sortFolderContentFields from './../../main/helpers/sortFolderContentFields';
-import injectF from './../../helpers/injectF';
-import injectPush from './../../helpers/injectPush';
-import resolve from './../../helpers/resolve';
+import sortFolderContentFields from './../../main/utils/sortFolderContentFields';
+import injectF from './../../utils/injectF';
+import injectPush from './../../utils/injectPush';
+import resolve from './../../utils/resolve';
 
 const styles = require('./PageFolders.scss');
 

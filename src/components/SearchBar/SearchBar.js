@@ -6,8 +6,8 @@ import SelectField from 'material-ui/SelectField';
 import ActionClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
 
-import injectF from './../../helpers/injectF';
-import hasValue from './../../helpers/hasValue';
+import injectF from './../../utils/injectF';
+import hasValue from './../../utils/hasValue';
 
 const styles = require('./SearchBar.scss');
 

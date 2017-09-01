@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import getSubset from './../../src/helpers/getSubset';
+import getSubset from './../../src/utils/getSubset';
 
 test('getSubset should filter my paths', (t) => {
 

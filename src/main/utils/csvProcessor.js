@@ -2,7 +2,7 @@ import {uniq, isEmpty} from 'lodash';
 import sortFolderContentFields from './sortFolderContentFields';
 import DICTIONARY_LANGS from './../constants/dictionaryLangs';
 import FRATION_LENGTH from './../constants/fractionLength';
-import floatToPageNum from './../helpers/floatToPageNum';
+import floatToPageNum from './../utils/floatToPageNum';
 
 export const FIELD_PAGE_NUM = 'page-num';
 export const FIELD_CATEGORY = 'category';

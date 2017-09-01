@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import hasValue from './../../src/helpers/hasValue';
+import hasValue from './../../src/utils/hasValue';
 
 test('hasValue should return false when null is present', (t) => {
   const result = hasValue(null);

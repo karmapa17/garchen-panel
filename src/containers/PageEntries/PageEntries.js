@@ -17,13 +17,13 @@ import {listFolderEntries, setSelectedFolderEntryIds, clearSelectedFolderEntryId
   deleteEntries} from './../../redux/modules/entry';
 import {setCachePageEntries} from './../../redux/modules/cache';
 
-import injectF from './../../helpers/injectF';
-import injectPush from './../../helpers/injectPush';
-import resolve from './../../helpers/resolve';
+import injectF from './../../utils/injectF';
+import injectPush from './../../utils/injectPush';
+import resolve from './../../utils/resolve';
 import Pagination from './../../components/Pagination/Pagination';
 import PageJumper from './../../components/PageJumper/PageJumper';
 import SearchBar from './../../components/SearchBar/SearchBar';
-import hasValue from './../../helpers/hasValue';
+import hasValue from './../../utils/hasValue';
 import SEARCH_TYPES from './../../constants/searchTypes';
 
 const styles = require('./PageEntries.scss');

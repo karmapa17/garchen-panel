@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {mount} from 'enzyme';
 import {Provider} from 'react-redux';
 import mockStore from './../helpers/mockStore';
-import resolve from './../../src/helpers/resolve';
+import resolve from './../../src/utils/resolve';
 import muiTheme from './../../src/constants/muiTheme';
 
 let store;

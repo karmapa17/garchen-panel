@@ -9,9 +9,9 @@ import {connect} from 'react-redux';
 import {range, isEmpty} from 'lodash';
 import Pagination from './../../components/Pagination/Pagination';
 import TopBar from './../../components/TopBar/TopBar';
-import injectF from './../../helpers/injectF';
-import injectPush from './../../helpers/injectPush';
-import resolve from './../../helpers/resolve';
+import injectF from './../../utils/injectF';
+import injectPush from './../../utils/injectPush';
+import resolve from './../../utils/resolve';
 import {listDeletedFolders, clearRecycleBin, restoreFolders, deleteFolders} from './../../redux/modules/folder';
 import {setSnackBarParams} from './../../redux/modules/ui';
 

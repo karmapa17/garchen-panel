@@ -5,9 +5,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 
 import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
-import injectF from './../../helpers/injectF';
-import ipc from './../../helpers/ipc';
-import injectPush from './../../helpers/injectPush';
+import injectF from './../../utils/injectF';
+import ipc from './../../utils/ipc';
+import injectPush from './../../utils/injectPush';
 import {addFolderByCsv, setImportingFolderId, cancelImportingCsv, setIsProcessingCsv, setIsOpeningDialog} from './../../redux/modules/folder';
 import ExternalLink from './../ExternalLink/ExternalLink';
 

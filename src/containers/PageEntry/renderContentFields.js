@@ -1,9 +1,9 @@
 import React from 'react';
 import {sortBy, get} from 'lodash';
 import {range} from 'ramda';
-import hasValue from './../../helpers/hasValue';
-import hasData from './../../helpers/hasData';
-import toMap from './../../helpers/toMap';
+import hasValue from './../../utils/hasValue';
+import hasData from './../../utils/hasData';
+import toMap from './../../utils/toMap';
 import getTargetEntryFields from './getTargetEntryFields';
 import getExplanationFields from './getExplanationFields';
 import getOriginalFields from './getOriginalFields';

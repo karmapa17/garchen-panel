@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import filterFolderContentFields from './../../src/helpers/filterFolderContentFields';
+import filterFolderContentFields from './../../src/utils/filterFolderContentFields';
 
 test('filterFolderContentFields should filter with given langs', (t) => {
   const result = filterFolderContentFields(['en'], ['target-entry-en', 'target-entry-bo', 'explanation-lang-en', 'source']);

@@ -1,5 +1,5 @@
 import {get, isEmpty} from 'lodash';
-import floatToPageNum from './../../helpers/floatToPageNum';
+import floatToPageNum from './../../utils/floatToPageNum';
 import FRACTION_LENGTH from './../../constants/fractionLength';
 
 async function getNextEntryId({entry, db}) {

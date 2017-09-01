@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import Cache from './../../src/helpers/Cache';
+import Cache from './../../src/utils/Cache';
 
 test('Cache should save my value', (t) => {
   const value = {test: 1};

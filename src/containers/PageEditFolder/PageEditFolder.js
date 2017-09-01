@@ -5,15 +5,15 @@ import FlatButton from 'material-ui/FlatButton';
 import {cloneDeep} from 'lodash';
 import {Link} from 'react-router';
 
-import sortFolderContentFields from './../../main/helpers/sortFolderContentFields';
-import filterFolderContentFields from './../../helpers/filterFolderContentFields';
+import sortFolderContentFields from './../../main/utils/sortFolderContentFields';
+import filterFolderContentFields from './../../utils/filterFolderContentFields';
 import EditFolderForm from './../../components/EditFolderForm/EditFolderForm';
 import {getFolder, updateFolder} from './../../redux/modules/folder';
 import {deleteCachePageEntries} from './../../redux/modules/cache';
 import {setSnackBarParams} from './../../redux/modules/ui';
-import injectF from './../../helpers/injectF';
-import resolve from './../../helpers/resolve';
-import injectPush from './../../helpers/injectPush';
+import injectF from './../../utils/injectF';
+import resolve from './../../utils/resolve';
+import injectPush from './../../utils/injectPush';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 

@@ -13,7 +13,7 @@ import {setIntl, setAppFont, setWriteDelay} from './../../redux/modules/main';
 import {setDisplayFolderPerPage, setDisplayDeletedFolderPerPage} from './../../redux/modules/folder';
 import {setDisplayEntryPerPage} from './../../redux/modules/entry';
 import {clearCachePageEntries, clearCachePageFolders} from './../../redux/modules/cache';
-import injectF from './../../helpers/injectF';
+import injectF from './../../utils/injectF';
 import DISPLAY_FOLDER_PERPAGE_OPTIONS from './../../constants/displayFolderPerPageOptions';
 import DISPLAY_ENTRY_PERPAGE_OPTIONS from './../../constants/displayEntryPerPageOptions';
 import DISPLAY_DELETED_FOLDER_PERPAGE_OPTIONS from './../../constants/displayDeletedFolderPerPageOptions';
