@@ -9,8 +9,7 @@ import getOriginalFields from './getOriginalFields';
 import SECT_VALUES from './../../constants/sectValues';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
-
-const fieldsInOrder = ['target-entry', 'explanation', 'original', 'category', 'sect'];
+import FIELD_ORDER from './fieldOrder';
 
 const hasData = (prop, data) => (prop in data) && hasValue(data[prop]);
 
@@ -153,6 +152,6 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
 
 export default function renderContentFields({f, data, contentFields, targetLanguages}) {
   const fieldData = toFieldData({f, data, contentFields, targetLanguages});
-  return sortBy(Object.keys(fieldData), (field) => fieldsInOrder.indexOf(field))
+  return sortBy(Object.keys(fieldData), (field) => FIELD_ORDER.indexOf(field))
     .map((field) => fieldData[field]);
 }
