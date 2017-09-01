@@ -1,12 +1,11 @@
 import React from 'react';
 import {sortBy, get} from 'lodash';
 import {range} from 'ramda';
-
+import hasValue from './../../helpers/hasValue';
+import toMap from './../../helpers/toMap';
 import SECT_VALUES from './../../constants/sectValues';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
-import hasValue from './../../helpers/hasValue';
-import toMap from './../../helpers/toMap';
 
 const fieldsInOrder = ['target-entry', 'explanation', 'original', 'category', 'sect'];
 
