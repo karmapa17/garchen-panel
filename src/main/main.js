@@ -64,7 +64,7 @@ async function handleAppReady() {
     mainWindow.loadURL('file://' + __dirname + '/../index.html');
   }
   else {
-    mainWindow.loadURL('file://' + __dirname + '/../index.html');
+    mainWindow.loadURL('file://' + __dirname + '/../splash.html');
   }
 
   const {db, models} = await initDb();
