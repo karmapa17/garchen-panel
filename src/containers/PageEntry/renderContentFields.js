@@ -3,6 +3,7 @@ import {sortBy, get} from 'lodash';
 import {range} from 'ramda';
 import hasValue from './../../helpers/hasValue';
 import toMap from './../../helpers/toMap';
+import getTargetEntryFields from './getTargetEntryFields';
 import SECT_VALUES from './../../constants/sectValues';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
@@ -10,11 +11,6 @@ import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryVa
 const fieldsInOrder = ['target-entry', 'explanation', 'original', 'category', 'sect'];
 
 const hasData = (prop, data) => (prop in data) && hasValue(data[prop]);
-
-function getTargetEntryFields({fieldMap, targetLanguages}) {
-  return targetLanguages.filter((lang) => fieldMap[`target-entry-lang-${lang}`])
-    .map((lang) => ({prop: `target-entry-${lang}`, lang}));
-}
 
 function getExplanationFields({fieldMap, targetLanguages}) {
   return targetLanguages.filter((lang) => fieldMap[`explanation-lang-${lang}`])
