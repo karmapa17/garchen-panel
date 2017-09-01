@@ -1,7 +1,7 @@
 import {get, isEmpty} from 'lodash';
-import parseJsonFields from './../../helpers/parseJsonFields';
-import floatToPageNum from './../../helpers/floatToPageNum';
-import pageNumToFloat from './../../helpers/pageNumToFloat';
+import parseJsonFields from './../../utils/parseJsonFields';
+import floatToPageNum from './../../utils/floatToPageNum';
+import pageNumToFloat from './../../utils/pageNumToFloat';
 import FRATION_LENGTH from './../../constants/fractionLength';
 
 const trimPageNumZeros = (entry) => {

@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-import injectF from './../../helpers/injectF';
+import injectF from './../../utils/injectF';
 
 const styles = require('./PageJumper.scss');
 

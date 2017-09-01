@@ -2,7 +2,7 @@ import {Map} from 'immutable';
 import {createReducer} from 'redux-immutablejs';
 import {updateIntl} from 'react-intl-redux';
 
-import i18n from './../../helpers/i18n';
+import i18n from './../../utils/i18n';
 
 export const SET_APP_LOCALE = 'garchen-panel/main/SET_APP_LOCALE';
 export const OPEN_EXTERNAL = 'garchen-panel/main/OPEN_EXTERNAL';

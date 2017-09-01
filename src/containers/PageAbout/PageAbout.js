@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import injectF from './../../helpers/injectF';
+import injectF from './../../utils/injectF';
 
 const styles = require('./PageAbout.scss');
 

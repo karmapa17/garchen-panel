@@ -9,11 +9,11 @@ import {injectIntl} from 'react-intl';
 
 import APP_LANGS from './../../constants/appLangs';
 import APP_FONTS from './../../constants/appFonts';
-import {setIntl, setAppFont, setWriteDelay, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor} from './../../redux/modules/main';
+import {setIntl, setAppFont, setWriteDelay} from './../../redux/modules/main';
 import {setDisplayFolderPerPage, setDisplayDeletedFolderPerPage} from './../../redux/modules/folder';
 import {setDisplayEntryPerPage} from './../../redux/modules/entry';
 import {clearCachePageEntries, clearCachePageFolders} from './../../redux/modules/cache';
-import injectF from './../../helpers/injectF';
+import injectF from './../../utils/injectF';
 import DISPLAY_FOLDER_PERPAGE_OPTIONS from './../../constants/displayFolderPerPageOptions';
 import DISPLAY_ENTRY_PERPAGE_OPTIONS from './../../constants/displayEntryPerPageOptions';
 import DISPLAY_DELETED_FOLDER_PERPAGE_OPTIONS from './../../constants/displayDeletedFolderPerPageOptions';
@@ -27,8 +27,8 @@ const iconStyle = {marginRight: '21px', marginBottom: '12px'};
   displayDeletedFolderPerPage: folder.get('deletedFolderPerPage'),
   appLocale: main.get('appLocale'),
   appFont: main.get('appFont')
-}), {setIntl, setWriteDelay, setAppFont, setInterfaceFontSizeScalingFactor, setContentFontSizeScalingFactor,
-  setDisplayFolderPerPage, setDisplayEntryPerPage, clearCachePageEntries, clearCachePageFolders, setDisplayDeletedFolderPerPage})
+}), {setIntl, setWriteDelay, setAppFont, setDisplayFolderPerPage, setDisplayEntryPerPage,
+  clearCachePageEntries, clearCachePageFolders, setDisplayDeletedFolderPerPage})
 @injectIntl
 @injectF
 export default class PageSettings extends Component {
@@ -38,8 +38,6 @@ export default class PageSettings extends Component {
     appLocale: PropTypes.string.isRequired,
     appFont: PropTypes.string.isRequired,
     setIntl: PropTypes.func.isRequired,
-    setInterfaceFontSizeScalingFactor: PropTypes.func.isRequired,
-    setContentFontSizeScalingFactor: PropTypes.func.isRequired,
     setAppFont: PropTypes.func.isRequired,
     setDisplayFolderPerPage: PropTypes.func.isRequired,
     setDisplayEntryPerPage: PropTypes.func.isRequired,

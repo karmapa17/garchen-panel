@@ -3,8 +3,8 @@ import {Field, reduxForm} from 'redux-form';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 
-import injectF from './../../helpers/injectF';
-import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
+import injectF from './../../utils/injectF';
+import injectMuiReduxFormHelper from './../../utils/injectMuiReduxFormHelper';
 import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
 import validate from './addFolderFormValidate';
 import asyncValidate from './addFolderFormAsyncValidate';

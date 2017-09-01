@@ -15,9 +15,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 
-import ipc from './../../helpers/ipc';
-import injectF from './../../helpers/injectF';
-import injectPush from './../../helpers/injectPush';
+import ipc from './../../utils/ipc';
+import injectF from './../../utils/injectF';
+import injectPush from './../../utils/injectPush';
 import muiTheme from './../../constants/muiTheme';
 import {login, logout} from './../../redux/modules/auth';
 import {setDrawerOpen, setSnackBarParams} from './../../redux/modules/ui';

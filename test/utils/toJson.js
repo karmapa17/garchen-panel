@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import toJson from './../../src/helpers/toJson';
+import toJson from './../../src/utils/toJson';
 
 test('toJson should check if children have toJSON function and call it', (t) => {
   const result = toJson({
