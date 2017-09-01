@@ -119,10 +119,10 @@ export default class EditEntryForm extends Component {
 
     let rows = contentFields.map((field) => {
 
-      const matchTargetLanguage = field.match(/^target-entry-lang-(.+)$/);
+      const matchTargetLang = field.match(/^target-entry-lang-(.+)$/);
 
-      if (matchTargetLanguage) {
-        const lang = matchTargetLanguage[1];
+      if (matchTargetLang) {
+        const lang = matchTargetLang[1];
 
         return (
           <div key={`target-entry-${lang}`}>
