@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import ipc from './../../src/helpers/ipc';
+import ipc from './../../src/utils/ipc';
 
 const electron = window.require('electron');
 const {ipcRenderer, ipcMain} = electron;

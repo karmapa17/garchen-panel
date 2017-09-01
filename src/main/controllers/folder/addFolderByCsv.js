@@ -7,11 +7,11 @@ import log from 'karmapa-log';
 import sleep from 'sleep-promise';
 import shortid from 'shortid';
 
-import csvProcessor, {FIELD_PAGE_NUM} from './../../helpers/csvProcessor';
-import pageNumToFloat from './../../helpers/pageNumToFloat';
+import csvProcessor, {FIELD_PAGE_NUM} from './../../utils/csvProcessor';
+import pageNumToFloat from './../../utils/pageNumToFloat';
 import FRACTION_LENGTH from './../../constants/fractionLength';
-import now from './../../helpers/now';
-import Reporter from './../../helpers/Reporter';
+import now from './../../utils/now';
+import Reporter from './../../utils/Reporter';
 
 const reportDuration = 1000;
 const reporter = new Reporter();

@@ -7,7 +7,7 @@ import log from 'karmapa-log';
 import sleep from 'sleep-promise';
 import shortid from 'shortid';
 
-import csvProcessor from './../../helpers/csvProcessor';
+import csvProcessor from './../../utils/csvProcessor';
 
 export default async function exportFolderToCsv(event, data) {
 

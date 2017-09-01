@@ -6,8 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import DICTIONARY_LANGS from './../../main/constants/dictionaryLangs';
 import asyncValidate from './editFolderFormAsyncValidate';
 import validate from './editFolderFormValidate';
-import injectF from './../../helpers/injectF';
-import injectMuiReduxFormHelper from './../../helpers/injectMuiReduxFormHelper';
+import injectF from './../../utils/injectF';
+import injectMuiReduxFormHelper from './../../utils/injectMuiReduxFormHelper';
 import MULTI_LANG_FIELDS from './../../constants/multiLangFields';
 import REGULAR_FIELDS from './../../constants/regularFields';
 import {SELECTED_MENU_STYLE} from './../../constants/constants';
@@ -25,7 +25,6 @@ export default class EditFolderForm extends Component {
     renderTextField: PropTypes.func.isRequired,
     renderSelectField: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    buttonFontSize: PropTypes.string.isRequired,
     initialValues: PropTypes.object.isRequired,
     targetLanguages: PropTypes.array.isRequired,
     onTargetLanguagesChange: PropTypes.func.isRequired,
@@ -58,7 +57,7 @@ export default class EditFolderForm extends Component {
 
   render() {
 
-    const {handleSubmit, f, renderTextField, renderSelectField, onTargetLanguagesChange, buttonFontSize} = this.props;
+    const {handleSubmit, f, renderTextField, renderSelectField, onTargetLanguagesChange} = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
@@ -93,7 +92,7 @@ export default class EditFolderForm extends Component {
         </div>
 
         <div className="button-wrap">
-          <RaisedButton primary type="submit" label={f('update')} labelStyle={{fontSize: buttonFontSize}} />
+          <RaisedButton primary type="submit" label={f('update')} />
         </div>
       </form>
     );

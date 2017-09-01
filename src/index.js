@@ -19,11 +19,11 @@ import bo from 'react-intl/locale-data/bo';
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
 
-import i18n from './helpers/i18n';
-import ipc from './helpers/ipc';
+import i18n from './utils/i18n';
+import ipc from './utils/ipc';
 import getRoutes from './routes';
-import serialize from './helpers/serialize';
-import deserialize from './helpers/deserialize';
+import serialize from './utils/serialize';
+import deserialize from './utils/deserialize';
 import LOCAL_STORAGE_KEY from './constants/localStorageKey';
 
 addLocaleData([...en, ...bo, ...zh]);

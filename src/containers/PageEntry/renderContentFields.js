@@ -1,64 +1,42 @@
 import React from 'react';
 import {sortBy, get} from 'lodash';
 import {range} from 'ramda';
-
+import hasValue from './../../utils/hasValue';
+import hasData from './../../utils/hasData';
+import toMap from './../../utils/toMap';
+import getTargetEntryFields from './getTargetEntryFields';
+import getExplanationFields from './getExplanationFields';
+import getOriginalFields from './getOriginalFields';
 import SECT_VALUES from './../../constants/sectValues';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
-import hasValue from './../../helpers/hasValue';
+import FIELD_ORDER from './fieldOrder';
 
-const fieldsInOrder = ['target-entry', 'explanation', 'original', 'category', 'sect'];
+function toFieldData(f, data, contentFields, targetLanguages) {
 
-const hasData = (prop, data) => (prop in data) && hasValue(data[prop]);
-
-function hasTagetEntry({contentFields, targetLanguages}) {
-  return contentFields.some((field) => {
-    const lang = (field.match(/^target-entry-lang-(.+)$/) || [])[1];
-    return targetLanguages.includes(lang);
-  });
-}
-
-function hasExplanation({contentFields, targetLanguages}) {
-  return contentFields.some((field) => {
-    const lang = (field.match(/^explanation-lang-(.+)$/) || [])[1];
-    return targetLanguages.includes(lang);
-  });
-}
-
-function hasOriginal({contentFields, targetLanguages}) {
-  return contentFields.some((field) => {
-    const lang = (field.match(/^original-lang-(.+)$/) || [])[1];
-    return targetLanguages.includes(lang);
-  });
-}
-
-function toFieldData({f, data, contentFields, targetLanguages}) {
-
+  const fieldMap = toMap(contentFields);
   const fieldData = {};
+  const targetEntryFields = getTargetEntryFields({fieldMap, targetLanguages});
 
-  if (hasTagetEntry({contentFields, targetLanguages})) {
+  if (targetEntryFields.length > 0) {
 
-    const genTargetEntryKey = (lang) => `target-entry-${lang}`;
-
-    fieldData['target-entry'] = targetLanguages.filter((lang) => hasData(genTargetEntryKey(lang), data))
-      .map((lang) => {
-        const key = genTargetEntryKey(lang);
+    fieldData['target-entry'] = targetEntryFields.filter(({prop}) => hasData(prop, data))
+      .map(({prop, lang}) => {
         return (
-          <tr key={`tr-${key}`}>
+          <tr key={`tr-${prop}`}>
             <th>{f('target-entry-lang', {lang: f(lang)})}</th>
-            <td>{data[key]}</td>
+            <td>{data[prop]}</td>
           </tr>
         );
       });
   }
 
-  if (hasExplanation({contentFields, targetLanguages})) {
+  const explanationFields = getExplanationFields({fieldMap, targetLanguages});
 
-    const getExplanationKey = (lang) => `explanation-${lang}`;
+  if (explanationFields.length > 0) {
 
-    const highestIndex = targetLanguages.reduce((index, lang) => {
-      const key = getExplanationKey(lang);
-      const arr = data[key] || [];
+    const highestIndex = explanationFields.reduce((index, {prop}) => {
+      const arr = data[prop] || [];
       const length = arr.length;
       return (length > index) ? length : index;
     }, 0);
@@ -70,11 +48,9 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
     fieldData.explanation = range(0, highestIndex)
       .map((index) => {
 
-        const rows = targetLanguages.map((lang) => {
-          const key = getExplanationKey(lang);
-          const arr = data[key] || [];
-          const value = arr[index];
-          return {lang, value};
+        const rows = explanationFields.map(({prop, lang}) => {
+          const arr = data[prop] || [];
+          return {lang, value: arr[index]};
         })
         .filter(({value}) => hasValue(value))
         .map(({lang, value}) => {
@@ -130,23 +106,22 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
       });
   }
 
-  if (hasOriginal({contentFields, targetLanguages})) {
+  const originalFields = getOriginalFields({fieldMap, targetLanguages});
 
-    const genOriginalKey = (lang) => `original-${lang}`;
+  if (originalFields.length > 0) {
 
-    fieldData.original = targetLanguages.filter((lang) => hasData(genOriginalKey(lang), data))
-      .map((lang) => {
-        const key = genOriginalKey(lang);
+    fieldData.original = originalFields.filter(({prop}) => hasData(prop, data))
+      .map(({prop, lang}) => {
         return (
-          <tr key={`tr-${key}`}>
+          <tr key={`tr-${prop}`}>
             <th>{f('original-lang', {lang: f(lang)})}</th>
-            <td>{data[key]}</td>
+            <td>{data[prop]}</td>
           </tr>
         );
       });
   }
 
-  if (hasData('category', data)) {
+  if (fieldMap.category && hasData('category', data)) {
     const value = data.category;
     const categoryId = CATEGORY_VALUES.find((row) => row.value === value).id;
 
@@ -158,7 +133,7 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
     );
   }
 
-  if (hasData('sect', data)) {
+  if (fieldMap.sect && hasData('sect', data)) {
 
     const value = data.sect;
     const sectId = SECT_VALUES.find((row) => row.value === value).id;
@@ -170,16 +145,11 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
       </tr>
     );
   }
-
   return fieldData;
 }
 
-function render(fieldData) {
-  const fields = sortBy(Object.keys(fieldData), (field) => fieldsInOrder.indexOf(field));
-  return fields.map((field) => fieldData[field]);
-}
-
 export default function renderContentFields({f, data, contentFields, targetLanguages}) {
-  const fieldData = toFieldData({f, data, contentFields, targetLanguages});
-  return render(fieldData);
+  const fieldData = toFieldData(f, data, contentFields, targetLanguages);
+  return sortBy(Object.keys(fieldData), (field) => FIELD_ORDER.indexOf(field))
+    .map((field) => fieldData[field]);
 }

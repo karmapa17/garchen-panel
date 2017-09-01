@@ -1,5 +1,5 @@
 import log from 'karmapa-log';
-import GoogleOAuth from './../../helpers/GoogleOAuth';
+import GoogleOAuth from './../../utils/GoogleOAuth';
 
 export default async function login(event, data) {
 

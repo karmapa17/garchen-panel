@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import i18n from './../../src/helpers/i18n';
+import i18n from './../../src/utils/i18n';
 
 test('i18n.getLocale should work as expected', (t) => {
   const result = i18n.getLocale();

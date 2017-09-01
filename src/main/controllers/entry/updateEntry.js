@@ -1,5 +1,5 @@
-import floatToPageNum from './../../helpers/floatToPageNum';
-import pageNumToFloat from './../../helpers/pageNumToFloat';
+import floatToPageNum from './../../utils/floatToPageNum';
+import pageNumToFloat from './../../utils/pageNumToFloat';
 import FRACTION_LENGTH from './../../constants/fractionLength';
 
 export default async function updateEntry(event, rawData) {

@@ -11,15 +11,15 @@ import {hashHistory} from 'react-router';
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry} from './../../redux/modules/entry';
 import {setSnackBarParams} from './../../redux/modules/ui';
-import injectF from './../../helpers/injectF';
-import resolve from './../../helpers/resolve';
-import injectPush from './../../helpers/injectPush';
+import injectF from './../../utils/injectF';
+import resolve from './../../utils/resolve';
+import injectPush from './../../utils/injectPush';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import EditEntryForm from './../../components/EditEntryForm/EditEntryForm';
-import filterLastContinuousUndefinedValues from './../../helpers/filterLastContinuousUndefinedValues';
+import filterLastContinuousUndefinedValues from './../../utils/filterLastContinuousUndefinedValues';
 import renderContentFields from './renderContentFields';
-import hasValue from './../../helpers/hasValue';
+import hasValue from './../../utils/hasValue';
 
 const styles = require('./PageEntry.scss');
 

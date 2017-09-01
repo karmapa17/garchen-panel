@@ -10,10 +10,10 @@ import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {getFolder} from './../../redux/modules/folder';
 import {addFolderEntry} from './../../redux/modules/entry';
 import {setSnackBarParams} from './../../redux/modules/ui';
-import injectF from './../../helpers/injectF';
-import resolve from './../../helpers/resolve';
-import injectPush from './../../helpers/injectPush';
-import filterLastContinuousUndefinedValues from './../../helpers/filterLastContinuousUndefinedValues';
+import injectF from './../../utils/injectF';
+import resolve from './../../utils/resolve';
+import injectPush from './../../utils/injectPush';
+import filterLastContinuousUndefinedValues from './../../utils/filterLastContinuousUndefinedValues';
 
 const styles = require('./PageAddEntry.scss');
 
