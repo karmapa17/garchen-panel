@@ -4,6 +4,7 @@ import {range} from 'ramda';
 import hasValue from './../../helpers/hasValue';
 import toMap from './../../helpers/toMap';
 import getTargetEntryFields from './getTargetEntryFields';
+import getExplanationFields from './getExplanationFields';
 import SECT_VALUES from './../../constants/sectValues';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
@@ -11,11 +12,6 @@ import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryVa
 const fieldsInOrder = ['target-entry', 'explanation', 'original', 'category', 'sect'];
 
 const hasData = (prop, data) => (prop in data) && hasValue(data[prop]);
-
-function getExplanationFields({fieldMap, targetLanguages}) {
-  return targetLanguages.filter((lang) => fieldMap[`explanation-lang-${lang}`])
-    .map((lang) => ({prop: `explanation-${lang}`, lang}));
-}
 
 function getOriginalFields({fieldMap, targetLanguages}) {
   return targetLanguages.filter((lang) => fieldMap[`original-lang-${lang}`])
