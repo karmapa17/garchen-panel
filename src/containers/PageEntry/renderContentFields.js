@@ -2,6 +2,7 @@ import React from 'react';
 import {sortBy, get} from 'lodash';
 import {range} from 'ramda';
 import hasValue from './../../helpers/hasValue';
+import hasData from './../../helpers/hasData';
 import toMap from './../../helpers/toMap';
 import getTargetEntryFields from './getTargetEntryFields';
 import getExplanationFields from './getExplanationFields';
@@ -10,8 +11,6 @@ import SECT_VALUES from './../../constants/sectValues';
 import CATEGORY_VALUES from './../../constants/categoryValues';
 import EXPLANATION_CATEGORY_VALUES from './../../constants/explanationCategoryValues';
 import FIELD_ORDER from './fieldOrder';
-
-const hasData = (prop, data) => (prop in data) && hasValue(data[prop]);
 
 function toFieldData(f, data, contentFields, targetLanguages) {
 
