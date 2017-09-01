@@ -146,7 +146,6 @@ function toFieldData(f, data, contentFields, targetLanguages) {
       </tr>
     );
   }
-
   return fieldData;
 }
 
