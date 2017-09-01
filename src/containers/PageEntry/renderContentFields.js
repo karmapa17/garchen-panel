@@ -163,12 +163,8 @@ function toFieldData({f, data, contentFields, targetLanguages}) {
   return fieldData;
 }
 
-function render(fieldData) {
-  const fields = sortBy(Object.keys(fieldData), (field) => fieldsInOrder.indexOf(field));
-  return fields.map((field) => fieldData[field]);
-}
-
 export default function renderContentFields({f, data, contentFields, targetLanguages}) {
   const fieldData = toFieldData({f, data, contentFields, targetLanguages});
-  return render(fieldData);
+  return sortBy(Object.keys(fieldData), (field) => fieldsInOrder.indexOf(field))
+    .map((field) => fieldData[field]);
 }
