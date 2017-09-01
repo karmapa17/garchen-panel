@@ -4,11 +4,9 @@ import injectF from './../../utils/injectF';
 
 const styles = require('./PageJumper.scss');
 
-@injectF
 export default class PageJumper extends Component {
 
   static propTypes = {
-    f: PropTypes.func.isRequired,
     current: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
     onInputSubmit: PropTypes.func.isRequired
