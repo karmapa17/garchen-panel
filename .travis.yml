@@ -11,9 +11,14 @@ before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.28.4
 - export PATH="$HOME/.yarn/bin:$PATH"
 - brew install awscli
-after_success:
+script:
+- test $TRAVIS_BRANCH = "master" && yarn build-mac
 - npm run coveralls
-- test $TRAVIS_BRANCH = "master" && yarn build-mac && yarn upload-mac
+addons:
+  artifacts:
+    branch: master
+    paths:
+    - $(ls ./zips/*.zip | tr "\n" ":")
 notifications:
   slack:
     secure: A71W7ennsPU8SpP938cWgYYRE56smK8zoOmND9uv+tfEP57jS0R43WmtLcmdzFppJbL8unuqy19PP/6mwg5hGdWx29FRLDYlREJfxNdKAcUjF8IvkKyvYyhR5TToxdc5FBRWJzWvlXON+ehyA8RXP1z5TqI7u0fOR8B1YPYnV7DP0HDVx5AAwFi7ThI6Z+vbtV6mZz2P8eq+Fhbgck+eqtWf7ciwUZ/3MOUsPHXADXTZYuEMpB8YM0mZTADczD/YCciG3qtqo6JdEBQnMDQ0uab9RhJmFOCNAFVysAj0vmaIY3H/vK9WqKMKNu9hQc28hTuv2gyOAGw6vHzb//OVUv5vNkTo35R2A2P3bGiiEO4Agc3ee9+/k9gx2oosa7vVVk7e00Am3FcA+vPY+CNg8SiAE5dmJOwm95/6ByvyRyG5J0+PdY5yHPan+aZjFV4Tw0gTNmDTkV1tbpwNPklcyWJqg9Vsf2rQQ4qHJ1rQGfs/9xzfGyToJ30AfRT4M9+YoDygfp7aQVIDPbeWo2y++yxCgcRJR03NIjz13UNSGUAFxFqpyFOn5bQ86F25hiIbIk1WdMl8UdEIfgsoFufPfq4CoQbSv1wF4h+Eanh/89Y5yl+lORYG5apEKF3BSO58zsCS73SHHIYrPENiq843UUfRrn2koDKEWr7IiWtwP9w=
