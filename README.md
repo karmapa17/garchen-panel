@@ -20,14 +20,17 @@
 ```console
 yarn
 ```
+
 ### Developing
 ```console
 yarn dev
 ```
+
 ### Building production desktop applications (Windows / iOS)
 This command will create a folder named zip contains windows and iOS platform zip files
 ```console
 yarn build
 ```
+
 ## License
 MIT © [Dharma Treasure](https://dharma-treasure.org)
