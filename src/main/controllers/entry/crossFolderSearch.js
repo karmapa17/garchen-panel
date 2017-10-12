@@ -22,7 +22,8 @@ async function searchSourceEntry({db, searchKeyword, perpage, offset}) {
 async function getFoldersByFolderIds({db, folderIds = []}) {
 
   const query = db.knex('Folder')
-    .whereIn('id', folderIds);
+    .whereIn('id', folderIds)
+    .andWhere('deletedAt', 0);
 
   return await db.raw(query, true);
 }

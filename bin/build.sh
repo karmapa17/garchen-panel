@@ -22,7 +22,7 @@ cp -r src/main dist/src
 cd dist
 npm i --prod
 
-if [ "$PLATFORM" == "win32-ia32" ]; then
+if [ "$APP_PLATFORM" == "win32-ia32" ]; then
   npm run rebuild-ia32
   electron-packager ./ ${PACKAGE_NAME} --platform=win32 --arch=ia32\
   --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.ico --no-prune
@@ -30,7 +30,7 @@ if [ "$PLATFORM" == "win32-ia32" ]; then
   rm -r "${PACKAGE_NAME}-win32-ia32"
 fi
 
-if [ "$PLATFORM" == "win32-x64" ]; then
+if [ "$APP_PLATFORM" == "win32-x64" ]; then
   npm run rebuild
   electron-packager ./ ${PACKAGE_NAME} --platform=win32 --arch=x64\
   --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.ico --no-prune
@@ -38,7 +38,7 @@ if [ "$PLATFORM" == "win32-x64" ]; then
   rm -r "${PACKAGE_NAME}-win32-x64"
 fi
 
-if [ "$PLATFORM" == "darwin" ]; then
+if [ "$APP_PLATFORM" == "darwin" ]; then
   npm run rebuild
   electron-packager ./ ${PACKAGE_NAME} --platform=darwin --arch=x64\
     --electron-version="${ELECTRON_VERSION}" --app-version="${PACKAGE_VERSION}" --icon=garchen-logo.icns --no-prune

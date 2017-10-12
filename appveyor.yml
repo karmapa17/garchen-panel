@@ -1,28 +1,27 @@
-image:
-  - Visual Studio 2017
-
-platform:
-  - x64
-
-environment:
-  nodejs_version: "8"
-  matrix:
-  - MSYSTEM: MINGW64
-    PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
-
-install:
-  - ps: Install-Product node $env:nodejs_version
-  - npm i -g npm@5.4.0
-  - npm i
-
-for:
 -
   branches:
     only:
       - master
 
+  image:
+    - Visual Studio 2017
+
+  platform:
+    - x64
+
+  environment:
+    matrix:
+    - nodejs_version: '8.1.4'
+      MSYSTEM: MINGW64
+      PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
+
+  test: off
+
   install:
+    - ps: Install-Product node $env:nodejs_version x64
+    - npm i -g npm@5.4.0
     - npm i -g electron-packager@9.0.0
+    - npm i --force
 
   build_script:
     - C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; npm run build-windows-ia32"

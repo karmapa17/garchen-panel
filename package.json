@@ -1,6 +1,6 @@
 {
   "name": "garchen-panel",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "Multi-language dictionary creation tool",
   "main": "index.js",
   "ava": {
@@ -107,10 +107,10 @@
   },
   "scripts": {
     "lint": "eslint src/main/**/*.js",
-    "build-mac": "cross-env PLATFORM=darwin ./bin/build.sh",
-    "upload-mac": "cross-env PLATFORM=darwin ./bin/upload.sh",
-    "build-windows-ia32": "cross-env PLATFORM=win32-ia32 ./bin/build.sh",
-    "build-windows-x64": "cross-env PLATFORM=win32-x64 ./bin/build.sh",
+    "build-mac": "cross-env APP_PLATFORM=darwin ./bin/build.sh",
+    "upload-mac": "cross-env APP_PLATFORM=darwin ./bin/upload.sh",
+    "build-windows-ia32": "cross-env APP_PLATFORM=win32-ia32 ./bin/build.sh",
+    "build-windows-x64": "cross-env APP_PLATFORM=win32-x64 ./bin/build.sh",
     "electron": "electron .",
     "dev": "cross-env NODE_ENV=development concurrently --kill-others \"node server.js\" \"nodemon --watch src/main/ --exec 'npm run lint && electron .'\"",
     "test": "nyc ava",
