@@ -1,6 +1,6 @@
 {
   "name": "garchen-panel",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "Multi-language dictionary creation tool",
   "main": "index.js",
   "ava": {
