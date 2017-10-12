@@ -1,2 +1,16 @@
-.app {
+.pageAbout {
+  h2 {
+    font-size: 20px;
+  }
+  .aboutContent {
+    font-size: 16px;
+    margin: 1.4em 0;
+    line-height: 2em;
+  }
+}
+
+:global(.bo) .pageAbout {
+  .aboutContent {
+    line-height: 3em;
+  }
 }
