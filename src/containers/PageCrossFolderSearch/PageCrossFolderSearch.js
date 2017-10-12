@@ -42,6 +42,18 @@ export default class PageCrossFolderSearch extends Component {
     }, props.cache);
   }
 
+  componentWillMount() {
+
+    const {page, searchKeyword} = this.state;
+    const {perpage, search} = this.props;
+
+    search({
+      page,
+      perpage,
+      searchKeyword: searchKeyword.trim()
+    });
+  }
+
   componentWillUpdate(nextProps, nextState) {
     const {page, searchKeyword} = this.state;
     const {perpage, search, setCachePageCrossFolderSearch} = this.props;
