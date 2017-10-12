@@ -3,18 +3,28 @@ import {get, isEmpty, isArray} from 'lodash';
 async function searchSourceEntry({db, searchKeyword, perpage, offset}) {
 
   const searchQuery = db.knex('Entry')
+    .select(['Entry.id as pk', '*'])
+    .leftJoin('Folder', 'Entry.folderId', 'Folder.id')
     .where('sourceEntry', 'like', `%${searchKeyword}%`)
+    .andWhere('Folder.deletedAt', 0)
     .orderBy('folderId', 'asc')
     .limit(perpage)
     .offset(offset);
 
-  const entries = await db.raw(searchQuery, true);
+  const entries = (await db.raw(searchQuery, true)).map((entry) => {
+    const id = entry.pk;
+    delete entry.pk;
+    return Object.assign({}, entry, {id});
+  });
 
-  const countQuery = db.knex('Entry').count('id')
-    .where('sourceEntry', 'like', `%${searchKeyword}%`);
+  const countQuery = db.knex('Entry')
+    .leftJoin('Folder', 'Entry.folderId', 'Folder.id')
+    .count('Entry.id')
+    .where('sourceEntry', 'like', `%${searchKeyword}%`)
+    .andWhere('Folder.deletedAt', 0);
 
   const res = await db.raw(countQuery, true);
-  const total = get(res, '[0][\'count("id")\']', 0);
+  const total = get(res, '[0][\'count("Entry"."id")\']', 0);
 
   return {entries, total};
 }
@@ -22,8 +32,7 @@ async function searchSourceEntry({db, searchKeyword, perpage, offset}) {
 async function getFoldersByFolderIds({db, folderIds = []}) {
 
   const query = db.knex('Folder')
-    .whereIn('id', folderIds)
-    .andWhere('deletedAt', 0);
+    .whereIn('id', folderIds);
 
   return await db.raw(query, true);
 }
