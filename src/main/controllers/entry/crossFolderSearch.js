@@ -57,6 +57,9 @@ export default async function crossFolderSearch(event, data) {
 
   entries.forEach((entry) => {
     const folder = folderData[entry.folderId];
+    if (! folder) {
+      return;
+    }
     if (! isArray(folder.entries)) {
       folder.entries = [];
     }
