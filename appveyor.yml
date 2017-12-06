@@ -11,7 +11,7 @@
 
   environment:
     matrix:
-    - nodejs_version: '8.1.4'
+    - nodejs_version: '9.2.0'
       MSYSTEM: MINGW64
       PATH: C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Windows\System32;C:\Windows;%PATH%
 
