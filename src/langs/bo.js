@@ -1,4 +1,5 @@
 module.exports = {
+  'delete-current-entry': 'Delete Current Entry',
   'dismiss': 'སྒོ་རྒྱག །',
   'about': 'སྐོར།',
   'about-heading': 'ངོ་སྤྲོད་དོར་བསྡུས།',

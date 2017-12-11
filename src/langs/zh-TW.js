@@ -1,4 +1,5 @@
 module.exports = {
+  'delete-current-entry': '刪除當前詞條',
   'dismiss': '關閉',
   'delete-selected-folders': '刪除所選的資料夾',
   'about': '關於',

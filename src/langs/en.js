@@ -1,4 +1,5 @@
 module.exports = {
+  'delete-current-entry': 'Delete Current Entry',
   'dismiss': 'Dismiss',
   'delete-selected-folders': 'Delete Selected Folders',
   'about': 'About',
