@@ -1,5 +1,6 @@
 module.exports = {
   'delete-current-entry': 'Delete Current Entry',
+  'modal-delete-entry-content': 'Are you sure you want to delete current entry ?',
   'dismiss': 'Dismiss',
   'delete-selected-folders': 'Delete Selected Folders',
   'about': 'About',
