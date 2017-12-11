@@ -1,6 +1,7 @@
 module.exports = {
   'delete-current-entry': '删除当前词条',
   'modal-delete-entry-content': '你确定要删除当前词条吗?',
+  'modal-delete-entry-title': '删除当前词条',
   'dismiss': '关闭',
   'delete-selected-folders': '删除所选的资料夹',
   'about': '关于',

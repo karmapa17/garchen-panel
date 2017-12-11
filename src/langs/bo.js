@@ -1,6 +1,7 @@
 module.exports = {
   'delete-current-entry': 'Delete Current Entry',
   'modal-delete-entry-content': 'Are you sure you want to delete current entry ?',
+  'modal-delete-entry-title': 'This action cannot be undone',
   'dismiss': 'སྒོ་རྒྱག །',
   'about': 'སྐོར།',
   'about-heading': 'ངོ་སྤྲོད་དོར་བསྡུས།',
