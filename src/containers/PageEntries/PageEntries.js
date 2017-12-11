@@ -41,6 +41,7 @@ const SORT_CLASSNAME_MAP = {
   const folderId = parseInt(params.id, 10);
   return {
     cache: get(cache.get('cachePageEntriesDataSet'), folderId, {}),
+    isListingFolderEntries: entry.get('isListingFolderEntries'),
     perpage: entry.get('perpage'),
     folder: folder.get('folder'),
     importingFolderId: folder.get('importingFolderId'),
@@ -79,6 +80,7 @@ export default class PageEntries extends Component {
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     folderEntries: PropTypes.array.isRequired,
+    isListingFolderEntries: PropTypes.bool.isRequired,
     folderEntryCount: PropTypes.number.isRequired,
     params: PropTypes.object.isRequired,
     listFolderEntries: PropTypes.func.isRequired,
@@ -312,7 +314,7 @@ export default class PageEntries extends Component {
   render() {
 
     const {page, searchType, searchKeyword} = this.state;
-    const {f, folder, folderEntryCount, perpage} = this.props;
+    const {f, folder, folderEntryCount, perpage, isListingFolderEntries} = this.props;
     const matchedCount = this.getMatchedCount();
     const total = Math.ceil(folderEntryCount / perpage);
 
@@ -341,7 +343,7 @@ export default class PageEntries extends Component {
         </TopBar>
         <div className={styles.content}>
           <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange}
-            searchKeyword={searchKeyword} matchedCount={matchedCount}
+            searchKeyword={searchKeyword} matchedCount={matchedCount} isListingFolderEntries={isListingFolderEntries}
             onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} {...pageNumProps} />
           {this.renderFolderEntries()}
           <div className={styles.pageEntriesPaginationBar}>
