@@ -9,7 +9,7 @@ import ChevronLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 import {hashHistory} from 'react-router';
 
 import {getFolder} from './../../redux/modules/folder';
-import {getEntry, updateEntry} from './../../redux/modules/entry';
+import {getEntry, updateEntry, deleteEntries} from './../../redux/modules/entry';
 import {setSnackBarParams} from './../../redux/modules/ui';
 import injectF from './../../utils/injectF';
 import resolve from './../../utils/resolve';
@@ -29,7 +29,7 @@ const styles = require('./PageEntry.scss');
   nextEntryId: entry.get('nextEntryId'),
   prevEntryId: entry.get('prevEntryId'),
   importingFolderId: folder.get('importingFolderId')
-}), {setSnackBarParams, updateEntry, getEntry})
+}), {setSnackBarParams, updateEntry, getEntry, deleteEntries})
 @injectF
 @injectPush
 @resolve(({dispatch, getState}, {params}) => {
@@ -48,6 +48,7 @@ export default class PageEntry extends Component {
     prevEntryId: PropTypes.number,
     params: PropTypes.object.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
+    deleteEntries: PropTypes.func.isRequired,
     getEntry: PropTypes.func.isRequired,
     updateEntry: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,
