@@ -33,6 +33,7 @@ const UPDATE_ENTRY_FAIL = 'garchen-panel/entry/UPDATE_ENTRY_FAIL';
 const SET_DISPLAY_ENTRY_PERPAGE = 'garchen-panel/entry/SET_DISPLAY_ENTRY_PERPAGE';
 
 const initialState = Map({
+  isListingFolderEntries: false,
   entry: null,
   nextEntryId: null,
   prevEntryId: null,
@@ -55,9 +56,14 @@ export default createReducer(initialState, {
     return state.set('entry', action.result);
   },
 
+  [LIST_FOLDER_ENTRIES]: (state) => {
+    return state.set('isListingFolderEntries', true);
+  },
+
   [LIST_FOLDER_ENTRIES_SUCCESS]: (state, action) => {
     return state.set('folderEntries', action.result.data)
-      .set('folderEntryCount', action.result.total);
+      .set('folderEntryCount', action.result.total)
+      .set('isListingFolderEntries', false);
   },
 
   [SET_SELECTED_FOLDER_ENTRY_IDS]: (state, action) => {
