@@ -6,6 +6,7 @@ export const CROSS_FOLDER_SEARCH_SUCCESS = 'garchen-panel/crossFolderSearch/CROS
 export const CROSS_FOLDER_SEARCH_FAIL = 'garchen-panel/crossFolderSearch/CROSS_FOLDER_SEARCH_FAIL';
 
 const initialState = Map({
+  isSearching: false,
   searchKeyword: '',
   perpage: 10,
   folders: [],
@@ -14,10 +15,15 @@ const initialState = Map({
 
 export default createReducer(initialState, {
 
+  [CROSS_FOLDER_SEARCH]: (state) => {
+    return state.set('isSearching', true);
+  },
+
   [CROSS_FOLDER_SEARCH_SUCCESS]: (state, action) => {
     const {folders, total} = action.result;
     return state.set('folders', folders)
-      .set('total', total);
+      .set('total', total)
+      .set('isSearching', false);
   }
 });
 

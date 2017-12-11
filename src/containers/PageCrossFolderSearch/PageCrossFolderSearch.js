@@ -14,6 +14,7 @@ import Pagination from './../../components/Pagination/Pagination';
 const styles = require('./PageCrossFolderSearch.scss');
 
 @connect(({crossFolderSearch, cache}) => ({
+  isSearching: crossFolderSearch.get('isSearching'),
   cache: cache.get('cachePageCrossFolderSearch'),
   total: crossFolderSearch.get('total'),
   perpage: crossFolderSearch.get('perpage'),
@@ -29,6 +30,7 @@ export default class PageCrossFolderSearch extends Component {
     perpage: PropTypes.number.isRequired,
     cache: PropTypes.object.isRequired,
     search: PropTypes.func.isRequired,
+    isSearching: PropTypes.bool.isRequired,
     setCachePageCrossFolderSearch: PropTypes.func.isRequired,
     folders: PropTypes.array.isRequired,
     f: PropTypes.func.isRequired
@@ -131,7 +133,7 @@ export default class PageCrossFolderSearch extends Component {
 
   render() {
     const {searchKeyword, page} = this.state;
-    const {f, total, perpage} = this.props;
+    const {f, total, perpage, isSearching} = this.props;
 
     return (
       <div className={styles.pageCrossFolderSearch}>
@@ -139,7 +141,7 @@ export default class PageCrossFolderSearch extends Component {
           <h2>{f('cross-folder-search')}</h2>
           <FlatButton icon={<CloseIcon />} onTouchTap={this.goToFoldersPage} />
         </TopBar>
-        <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange}
+        <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange} isLoading={isSearching}
           searchKeyword={searchKeyword} matchedCount={total} autoFocus
           onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} />
         {this.renderFolders()}
