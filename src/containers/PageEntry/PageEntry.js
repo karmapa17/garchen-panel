@@ -7,7 +7,7 @@ import {isArray} from 'lodash';
 import ChevronRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import ChevronLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
 import {hashHistory} from 'react-router';
-
+import Dialog from 'material-ui/Dialog';
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry, deleteEntries} from './../../redux/modules/entry';
 import {setSnackBarParams} from './../../redux/modules/ui';
@@ -55,7 +55,10 @@ export default class PageEntry extends Component {
     importingFolderId: PropTypes.number
   };
 
-  state = {isEditMode: false};
+  state = {
+    isEditMode: false,
+    isModelDeleteEntryOpen: false
+  };
 
   componentWillReceiveProps(nextProps) {
 
@@ -207,10 +210,33 @@ export default class PageEntry extends Component {
     }
   }
 
+  handleDeleteButtonTouchTap = () => this.setState({isModelDeleteEntryOpen: true});
+
+  handleModalDeleteEntryClose = () => this.setState({isModelDeleteEntryOpen: false});
+
+  deleteCurrentEntry = async () => {
+    const {folder, push, entry, deleteEntries, prevEntryId, nextEntryId} = this.props;
+    await deleteEntries({ids: [entry.id]});
+    this.handleModalDeleteEntryClose();
+
+    if (hasValue(prevEntryId)) {
+      return this.handlePrevButtonTouchTap();
+    }
+    if (hasValue(nextEntryId)) {
+      return this.handleNextButtonTouchTap();
+    }
+    return push(`/folders/${folder.id}/entries`);
+  };
+
   render() {
 
-    const {isEditMode} = this.state;
+    const {isEditMode, isModelDeleteEntryOpen} = this.state;
     const {f, folder, entry} = this.props;
+
+    const modalDeleteEntryActions = [
+      <FlatButton label={f('cancel')} onClick={this.handleModalDeleteEntryClose} />,
+      <FlatButton label={f('submit')} primary onClick={this.deleteCurrentEntry} />
+    ];
 
     return (
       <div className={c('page-info', styles.pageFolderEntry)}>
@@ -224,6 +250,8 @@ export default class PageEntry extends Component {
           </Breadcrumb>
           <div>
 
+           <FlatButton icon={<i className="fa fa-trash" />} label={f('delete-current-entry')} primary onTouchTap={this.handleDeleteButtonTouchTap} />
+
            {isEditMode && <FlatButton icon={<i className="fa fa-ban" />} label={f('cancel')} primary onTouchTap={this.cancelEdit} />}
 
            {(! isEditMode) && <FlatButton icon={<i className="fa fa-pencil" />} label={f('edit')}
@@ -233,6 +261,10 @@ export default class PageEntry extends Component {
           </div>
         </TopBar>
         <div className={styles.content}>{this.renderContent()}</div>
+        <Dialog title={f('modal-delete-entry-title')} actions={modalDeleteEntryActions}
+          open={isModelDeleteEntryOpen} onRequestClose={this.handleModalDeleteEntryClose}>
+          {f('modal-delete-entry-content')}
+        </Dialog>
       </div>
     );
   }
