@@ -54,6 +54,10 @@ export default createReducer(initialState, {
     }
 
     return state.set('routeHistory', routeHistory);
+  },
+
+  [CLEAR_ROUTE_HISTORY]: state => {
+    return state.set('routeHistory', []);
   }
 });
 
@@ -110,5 +114,11 @@ export function addRouteHistory(record) {
   return {
     type: ADD_ROUTE_HISTORY,
     record
+  };
+}
+
+export function clearRouteHistory() {
+  return {
+    type: CLEAR_ROUTE_HISTORY
   };
 }
