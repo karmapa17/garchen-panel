@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
+import bindAppHistory from './../../utils/bindAppHistory';
 
 import injectF from './../../utils/injectF';
 import injectPush from './../../utils/injectPush';
@@ -22,6 +23,7 @@ const styles = require('./PageCrossFolderSearch.scss');
 }), {search, setCachePageCrossFolderSearch})
 @injectPush
 @injectF
+@bindAppHistory
 export default class PageCrossFolderSearch extends Component {
 
   static propTypes = {

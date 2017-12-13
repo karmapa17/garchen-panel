@@ -15,12 +15,15 @@ export const SET_CONTENT_FONT_SIZE_SCALING_FACTOR = 'garchen/main/SET_CONTENT_FO
 export const GET_APP_VERSION = 'garchen-panel/main/GET_APP_VERSION';
 export const GET_APP_VERSION_SUCCESS = 'garchen-panel/main/GET_APP_VERSION_SUCCESS';
 export const GET_APP_VERSION_FAIL = 'garchen-panel/main/GET_APP_VERSION_FAIL';
+export const ADD_ROUTE_HISTORY = 'garchen-panel/main/ADD_ROUTE_HISTORY';
+export const CLEAR_ROUTE_HISTORY = 'garchen-panel/main/CLEAR_ROUTE_HISTORY';
 
 const initialState = Map({
   appVersion: '',
   appLocale: 'en',
   appFont: 'Tibetan Machine Uni',
-  writeDelay: 50
+  writeDelay: 50,
+  routeHistory: []
 });
 
 export default createReducer(initialState, {
@@ -39,6 +42,22 @@ export default createReducer(initialState, {
 
   [GET_APP_VERSION_SUCCESS]: (state, action) => {
     return state.set('appVersion', action.result.appVersion);
+  },
+
+  [ADD_ROUTE_HISTORY]: (state, action) => {
+    let routeHistory = state.get('routeHistory');
+    routeHistory.push(action.record);
+
+    // keep the newest two history records
+    if (routeHistory.length > 2) {
+      routeHistory = [routeHistory[1], routeHistory[2]];
+    }
+
+    return state.set('routeHistory', routeHistory);
+  },
+
+  [CLEAR_ROUTE_HISTORY]: state => {
+    return state.set('routeHistory', []);
   }
 });
 
@@ -88,5 +107,18 @@ export function getAppVersion() {
     promise: (client) => {
       return client.send('get-app-version');
     }
+  };
+}
+
+export function addRouteHistory(record) {
+  return {
+    type: ADD_ROUTE_HISTORY,
+    record
+  };
+}
+
+export function clearRouteHistory() {
+  return {
+    type: CLEAR_ROUTE_HISTORY
   };
 }
