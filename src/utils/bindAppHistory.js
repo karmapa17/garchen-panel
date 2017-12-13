@@ -23,9 +23,12 @@ export default function bindAppHistory(Target) {
       const goBack = () => {
         const {store} = this.context;
         const routeHistory = store.getState().main.get('routeHistory');
-        const [firstRouteHistory] = routeHistory;
-        this.context.store.dispatch(clearRouteHistory());
-        push(firstRouteHistory);
+
+        if (routeHistory.length > 1) {
+          const [firstRouteHistory] = routeHistory;
+          this.context.store.dispatch(clearRouteHistory());
+          push(firstRouteHistory);
+        }
       };
       return <Target {...this.props} goBack={goBack} />;
     }
