@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import bindAppHistory from './../../utils/bindAppHistory';
-
+import CircularProgress from 'material-ui/CircularProgress';
 import injectF from './../../utils/injectF';
 import injectPush from './../../utils/injectPush';
 import TopBar from './../../components/TopBar/TopBar';
@@ -118,6 +118,16 @@ export default class PageCrossFolderSearch extends Component {
   }
 
   renderFolders() {
+    const {page} = this.state;
+    const {total, perpage, isSearching} = this.props;
+
+    if (isSearching) {
+      return (
+        <CircularProgress mode="indeterminate" size={80}
+          style={{textAlign: 'center', marginTop: '80px', marginRight: 'auto', marginLeft: 'auto', display: 'block'}} />
+      );
+    }
+
     const rows = this.props.folders.map(({id, name, entries}) => {
       return (
         <div key={`folder-row-${id}`} className={styles.folder}>
@@ -126,7 +136,14 @@ export default class PageCrossFolderSearch extends Component {
         </div>
       );
     });
-    return <div className={styles.folderBox}>{rows}</div>;
+
+    return (
+      <div>
+        <div className={styles.folderBox}>{rows}</div>
+        {(total > perpage) && <Pagination current={page} total={Math.ceil(total / perpage)}
+          onButtonTouchTap={this.handlePageButtonTouchTap} />}
+      </div>
+    );
   }
 
   handlePageButtonTouchTap = (page) => {
@@ -134,8 +151,8 @@ export default class PageCrossFolderSearch extends Component {
   };
 
   render() {
-    const {searchKeyword, page} = this.state;
-    const {f, total, perpage, isSearching} = this.props;
+    const {searchKeyword} = this.state;
+    const {f, total, isSearching} = this.props;
 
     return (
       <div className={styles.pageCrossFolderSearch}>
@@ -147,8 +164,6 @@ export default class PageCrossFolderSearch extends Component {
           searchKeyword={searchKeyword} matchedCount={total} autoFocus
           onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} />
         {this.renderFolders()}
-        {(total > perpage) && <Pagination current={page} total={Math.ceil(total / perpage)}
-          onButtonTouchTap={this.handlePageButtonTouchTap} />}
       </div>
     );
   }
