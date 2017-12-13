@@ -343,7 +343,7 @@ export default class PageEntries extends Component {
         </TopBar>
         <div className={styles.content}>
           <SearchBar ref="searchBar" onInputChange={this.handleSearchInputChange}
-            searchKeyword={searchKeyword} matchedCount={matchedCount} isListingFolderEntries={isListingFolderEntries}
+            searchKeyword={searchKeyword} matchedCount={matchedCount} isLoading={isListingFolderEntries}
             onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} {...pageNumProps} />
           {this.renderFolderEntries()}
           <div className={styles.pageEntriesPaginationBar}>

@@ -17,7 +17,7 @@ export default class SearchBar extends Component {
   static propTypes = {
     f: PropTypes.func.isRequired,
     selectedSearchType: PropTypes.string,
-    isListingFolderEntries: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     autoFocus: PropTypes.bool,
     searchTypes: PropTypes.array,
     onInputChange: PropTypes.func.isRequired,
@@ -53,8 +53,8 @@ export default class SearchBar extends Component {
   }
 
   renderMatchedMessage() {
-    const {f, searchKeyword, matchedCount, onClearFilterButtonTouchTap, isListingFolderEntries} = this.props;
-    if (isListingFolderEntries) {
+    const {f, searchKeyword, matchedCount, onClearFilterButtonTouchTap, isLoading} = this.props;
+    if (isLoading) {
       return false;
     }
     if (hasValue(searchKeyword)) {
