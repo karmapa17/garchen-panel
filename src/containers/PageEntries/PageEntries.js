@@ -6,8 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {range} from 'ramda';
 import {Link} from 'react-router';
-import {get} from 'lodash';
-import {hashHistory} from 'react-router';
+import {get, isEmpty} from 'lodash';
 
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
@@ -67,7 +66,17 @@ const SORT_CLASSNAME_MAP = {
     perpage,
     pageNumSortMethod: ''
   }, cache);
-  promises.push(dispatch(listFolderEntries(searchParams)));
+
+  const promiseToListEntries = dispatch(listFolderEntries(searchParams))
+    .then(res => {
+      if (isEmpty(res.data) && (searchParams.page > 1)) {
+        searchParams.page -= 1;
+        return dispatch(listFolderEntries(searchParams));
+      }
+      return res;
+    });
+
+  promises.push(promiseToListEntries);
 
   return Promise.all(promises);
 })
