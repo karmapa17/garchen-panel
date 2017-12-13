@@ -15,6 +15,7 @@ import {getFolder} from './../../redux/modules/folder';
 import {listFolderEntries, setSelectedFolderEntryIds, clearSelectedFolderEntryIds,
   deleteEntries} from './../../redux/modules/entry';
 import {setCachePageEntries} from './../../redux/modules/cache';
+import bindAppHistory from './../../utils/bindAppHistory';
 
 import injectF from './../../utils/injectF';
 import injectPush from './../../utils/injectPush';
@@ -52,6 +53,7 @@ const SORT_CLASSNAME_MAP = {
   deleteEntries, clearSelectedFolderEntryIds})
 @injectPush
 @injectF
+@bindAppHistory
 @resolve(({dispatch}, {params, page, perpage, cache}) => {
 
   const promises = [];
@@ -86,6 +88,7 @@ export default class PageEntries extends Component {
     cache: PropTypes.object.isRequired,
     push: PropTypes.func.isRequired,
     perpage: PropTypes.number.isRequired,
+    goBack: PropTypes.func.isRequired,
     f: PropTypes.func.isRequired,
     folder: PropTypes.object.isRequired,
     folderEntries: PropTypes.array.isRequired,
@@ -323,7 +326,7 @@ export default class PageEntries extends Component {
   render() {
 
     const {page, searchType, searchKeyword} = this.state;
-    const {f, folder, folderEntryCount, perpage, isListingFolderEntries} = this.props;
+    const {f, folder, folderEntryCount, perpage, isListingFolderEntries, goBack} = this.props;
     const matchedCount = this.getMatchedCount();
     const total = Math.ceil(folderEntryCount / perpage);
 
@@ -347,7 +350,7 @@ export default class PageEntries extends Component {
           <div>
             {this.renderDeleteButton()}
             <FlatButton icon={<i className="fa fa-plus" />} label={f('add-entry')} onTouchTap={this.goToAddFolderEntryPage} disabled={this.isImporting()} />
-            <FlatButton icon={<i className="fa fa-arrow-left" />} label={f('back')} onTouchTap={hashHistory.goBack} />
+            <FlatButton icon={<i className="fa fa-arrow-left" />} label={f('back')} onTouchTap={goBack} />
           </div>
         </TopBar>
         <div className={styles.content}>
