@@ -42,6 +42,18 @@ export default createReducer(initialState, {
 
   [GET_APP_VERSION_SUCCESS]: (state, action) => {
     return state.set('appVersion', action.result.appVersion);
+  },
+
+  [ADD_ROUTE_HISTORY]: (state, action) => {
+    let routeHistory = state.get('routeHistory');
+    routeHistory.push(action.record);
+
+    // keep the newest two history records
+    if (routeHistory.length > 2) {
+      routeHistory = [routeHistory[1], routeHistory[2]];
+    }
+
+    return state.set('routeHistory', routeHistory);
   }
 });
 
@@ -91,5 +103,12 @@ export function getAppVersion() {
     promise: (client) => {
       return client.send('get-app-version');
     }
+  };
+}
+
+export function addRouteHistory(record) {
+  return {
+    type: ADD_ROUTE_HISTORY,
+    record
   };
 }
