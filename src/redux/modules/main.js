@@ -16,6 +16,7 @@ export const GET_APP_VERSION = 'garchen-panel/main/GET_APP_VERSION';
 export const GET_APP_VERSION_SUCCESS = 'garchen-panel/main/GET_APP_VERSION_SUCCESS';
 export const GET_APP_VERSION_FAIL = 'garchen-panel/main/GET_APP_VERSION_FAIL';
 export const ADD_ROUTE_HISTORY = 'garchen-panel/main/ADD_ROUTE_HISTORY';
+export const CLEAR_ROUTE_HISTORY = 'garchen-panel/main/CLEAR_ROUTE_HISTORY';
 
 const initialState = Map({
   appVersion: '',
