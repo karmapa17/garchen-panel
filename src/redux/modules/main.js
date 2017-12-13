@@ -22,7 +22,8 @@ const initialState = Map({
   appVersion: '',
   appLocale: 'en',
   appFont: 'Tibetan Machine Uni',
-  writeDelay: 50
+  writeDelay: 50,
+  routeHistory: []
 });
 
 export default createReducer(initialState, {
