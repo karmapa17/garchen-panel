@@ -6,13 +6,13 @@ import {Link} from 'react-router';
 import {isArray} from 'lodash';
 import ChevronRightIcon from 'material-ui/svg-icons/navigation/chevron-right';
 import ChevronLeftIcon from 'material-ui/svg-icons/navigation/chevron-left';
-import {hashHistory} from 'react-router';
 import Dialog from 'material-ui/Dialog';
 import {getFolder} from './../../redux/modules/folder';
 import {getEntry, updateEntry, deleteEntries} from './../../redux/modules/entry';
 import {setSnackBarParams} from './../../redux/modules/ui';
 import injectF from './../../utils/injectF';
 import resolve from './../../utils/resolve';
+import bindAppHistory from './../../utils/bindAppHistory';
 import injectPush from './../../utils/injectPush';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
@@ -30,14 +30,15 @@ const styles = require('./PageEntry.scss');
   prevEntryId: entry.get('prevEntryId'),
   importingFolderId: folder.get('importingFolderId')
 }), {setSnackBarParams, updateEntry, getEntry, deleteEntries})
-@injectF
-@injectPush
 @resolve(({dispatch, getState}, {params}) => {
   const promises = [];
   promises.push(dispatch(getFolder({id: params.folderId})));
   promises.push(dispatch(getEntry({id: params.entryId})));
   return Promise.all(promises);
 })
+@injectF
+@injectPush
+@bindAppHistory
 export default class PageEntry extends Component {
 
   static propTypes = {
@@ -49,6 +50,7 @@ export default class PageEntry extends Component {
     params: PropTypes.object.isRequired,
     setSnackBarParams: PropTypes.func.isRequired,
     deleteEntries: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired,
     getEntry: PropTypes.func.isRequired,
     updateEntry: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,
@@ -231,7 +233,7 @@ export default class PageEntry extends Component {
   render() {
 
     const {isEditMode, isModelDeleteEntryOpen} = this.state;
-    const {f, folder, entry} = this.props;
+    const {f, folder, entry, goBack} = this.props;
 
     const modalDeleteEntryActions = [
       <FlatButton label={f('cancel')} onClick={this.handleModalDeleteEntryClose} />,
@@ -257,7 +259,7 @@ export default class PageEntry extends Component {
            {(! isEditMode) && <FlatButton icon={<i className="fa fa-pencil" />} label={f('edit')}
              primary disabled={this.isImporting()} onTouchTap={this.setEditMode} />}
 
-            <FlatButton icon={<i className="fa fa-arrow-left" />} label={f('back')} primary onTouchTap={hashHistory.goBack} />
+            <FlatButton icon={<i className="fa fa-arrow-left" />} label={f('back')} primary onTouchTap={goBack} />
           </div>
         </TopBar>
         <div className={styles.content}>{this.renderContent()}</div>
