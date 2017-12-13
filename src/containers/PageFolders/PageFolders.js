@@ -21,6 +21,7 @@ import sortFolderContentFields from './../../main/utils/sortFolderContentFields'
 import injectF from './../../utils/injectF';
 import injectPush from './../../utils/injectPush';
 import resolve from './../../utils/resolve';
+import bindAppHistory from './../../utils/bindAppHistory';
 
 const styles = require('./PageFolders.scss');
 
@@ -31,8 +32,6 @@ const styles = require('./PageFolders.scss');
   importingFolderId: folder.get('importingFolderId'),
   folderCount: folder.get('folderCount')
 }), {listFolders, addFolder, setSnackBarParams, exportFolderToCsv, setCachePageFolders, markDeletedAtToFolders})
-@injectPush
-@injectF
 @resolve(({dispatch}, {perpage, cache}) => {
   const params = Object.assign({page: 1, perpage}, cache);
   return dispatch(listFolders(params))
@@ -43,6 +42,9 @@ const styles = require('./PageFolders.scss');
       return res;
     });
 })
+@injectF
+@injectPush
+@bindAppHistory
 export default class PageFolders extends Component {
 
   static propTypes = {
