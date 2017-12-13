@@ -7,7 +7,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {range} from 'ramda';
 import {Link} from 'react-router';
 import {get, isEmpty} from 'lodash';
-
+import CircularProgress from 'material-ui/CircularProgress';
 import TopBar from './../../components/TopBar/TopBar';
 import Breadcrumb from './../../components/Breadcrumb/Breadcrumb';
 import {setSnackBarParams} from './../../redux/modules/ui';
@@ -193,8 +193,15 @@ export default class PageEntries extends Component {
 
     const fontSize = 20;
     const colStyle = {fontSize, width: 'initial'};
-    const {tableKey, pageNumSortMethod} = this.state;
-    const {folderEntries, f} = this.props;
+    const {page, tableKey, pageNumSortMethod} = this.state;
+    const {folderEntries, f, folderEntryCount, perpage, isListingFolderEntries} = this.props;
+
+    if (isListingFolderEntries) {
+      return (
+        <CircularProgress mode="indeterminate" size={80}
+          style={{textAlign: 'center', marginTop: '80px', marginRight: 'auto', marginLeft: 'auto', display: 'block'}} />
+      );
+    }
 
     const isPageNumVisible = this.hasPageNumField();
 
@@ -211,22 +218,31 @@ export default class PageEntries extends Component {
 
     // https://github.com/callemall/material-ui/issues/6006#issuecomment-277669719
     const key = `table-workaround-${tableKey}`;
+    const total = Math.ceil(folderEntryCount / perpage);
 
     return (
-      <Table key={key} className={styles.entryTable} multiSelectable onRowSelection={this.handleRowSelection}>
-        <TableHeader>
-          <TableRow>
-            <TableHeaderColumn style={colStyle}>{f('source-entry')}</TableHeaderColumn>
-            {isPageNumVisible && <TableHeaderColumn style={colStyle}>
-              <span>{f('page-num')}</span>
-              <button className={styles.btnSort} onClick={this.changePageNumberSortMethod}>
-                <i className={SORT_CLASSNAME_MAP[pageNumSortMethod]} />
-              </button>
-            </TableHeaderColumn>}
-          </TableRow>
-        </TableHeader>
-        <TableBody showRowHover deselectOnClickaway={false}>{tableRows}</TableBody>
-      </Table>
+      <div>
+        <Table key={key} className={styles.entryTable} multiSelectable onRowSelection={this.handleRowSelection}>
+          <TableHeader>
+            <TableRow>
+              <TableHeaderColumn style={colStyle}>{f('source-entry')}</TableHeaderColumn>
+              {isPageNumVisible && <TableHeaderColumn style={colStyle}>
+                <span>{f('page-num')}</span>
+                <button className={styles.btnSort} onClick={this.changePageNumberSortMethod}>
+                  <i className={SORT_CLASSNAME_MAP[pageNumSortMethod]} />
+                </button>
+              </TableHeaderColumn>}
+            </TableRow>
+          </TableHeader>
+          <TableBody showRowHover deselectOnClickaway={false}>{tableRows}</TableBody>
+        </Table>
+        <div className={styles.pageEntriesPaginationBar}>
+          {(folderEntryCount > perpage) && <Pagination current={page} total={total}
+            onButtonTouchTap={this.handlePageButtonTouchTap} />}
+          {(folderEntryCount > perpage) && <PageJumper current={page} total={total}
+            onInputSubmit={this.handlePageInputSubmit} />}
+        </div>
+      </div>
     );
   }
 
@@ -325,10 +341,9 @@ export default class PageEntries extends Component {
 
   render() {
 
-    const {page, searchType, searchKeyword} = this.state;
-    const {f, folder, folderEntryCount, perpage, isListingFolderEntries, goBack} = this.props;
+    const {searchType, searchKeyword} = this.state;
+    const {f, folder, isListingFolderEntries, goBack} = this.props;
     const matchedCount = this.getMatchedCount();
-    const total = Math.ceil(folderEntryCount / perpage);
 
     let pageNumProps = {};
 
@@ -358,12 +373,6 @@ export default class PageEntries extends Component {
             searchKeyword={searchKeyword} matchedCount={matchedCount} isLoading={isListingFolderEntries}
             onClearFilterButtonTouchTap={this.handleClearSearchButtonTouchTap} {...pageNumProps} />
           {this.renderFolderEntries()}
-          <div className={styles.pageEntriesPaginationBar}>
-            {(folderEntryCount > perpage) && <Pagination current={page} total={total}
-              onButtonTouchTap={this.handlePageButtonTouchTap} />}
-            {(folderEntryCount > perpage) && <PageJumper current={page} total={total}
-              onInputSubmit={this.handlePageInputSubmit} />}
-          </div>
         </div>
         {this.renderConfirmEntryDeletionDialog()}
       </div>
