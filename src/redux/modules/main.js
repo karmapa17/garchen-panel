@@ -15,6 +15,7 @@ export const SET_CONTENT_FONT_SIZE_SCALING_FACTOR = 'garchen/main/SET_CONTENT_FO
 export const GET_APP_VERSION = 'garchen-panel/main/GET_APP_VERSION';
 export const GET_APP_VERSION_SUCCESS = 'garchen-panel/main/GET_APP_VERSION_SUCCESS';
 export const GET_APP_VERSION_FAIL = 'garchen-panel/main/GET_APP_VERSION_FAIL';
+export const ADD_ROUTE_HISTORY = 'garchen-panel/main/ADD_ROUTE_HISTORY';
 
 const initialState = Map({
   appVersion: '',
