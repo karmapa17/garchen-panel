@@ -22,6 +22,6 @@ test('hasValue should work as expected', (t) => {
   t.is(hasValue(0), true);
   t.is(hasValue(1.2), true);
   t.is(hasValue({}), true);
-  t.is(hasValue([]), true);
+  t.is(hasValue([]), false);
   t.is(hasValue(() => {}), true);
 });
