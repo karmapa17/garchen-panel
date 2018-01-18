@@ -24,7 +24,8 @@
       text-align: left;
     }
     td {
-      white-space: pre;
+      word-break: break-word;
+      white-space: pre-wrap;
       padding: 7px;
     }
   }
