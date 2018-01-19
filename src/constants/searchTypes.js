@@ -1,4 +1,5 @@
 export default [
   'source-entry',
-  'page-num'
+  'page-num',
+  'other-fields'
 ];
