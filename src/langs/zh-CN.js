@@ -1,4 +1,5 @@
 module.exports = {
+  'other-fields': '其他字段',
   'delete-current-entry': '删除当前词条',
   'modal-delete-entry-content': '你确定要删除当前词条吗?',
   'modal-delete-entry-title': '删除当前词条',
