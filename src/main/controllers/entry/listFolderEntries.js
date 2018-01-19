@@ -9,9 +9,16 @@ const trimPageNumZeros = (entry) => {
   return entry;
 };
 
-async function searchSourceEntry({db, searchKeyword, folderId, perpage, offset}) {
+function getSearchFieldBySearchType(searchType) {
+  if ('other-fields' === searchType) {
+    return 'data';
+  }
+  return 'sourceEntry';
+}
 
-  const searchQuery = db.knex('Entry').where('sourceEntry', 'like', `%${searchKeyword}%`)
+async function searchSourceEntry({db, searchKeyword, field, folderId, perpage, offset}) {
+
+  const searchQuery = db.knex('Entry').where(field, 'like', `%${searchKeyword}%`)
     .andWhere('folderId', folderId)
     .limit(perpage)
     .offset(offset);
@@ -22,7 +29,7 @@ async function searchSourceEntry({db, searchKeyword, folderId, perpage, offset})
   entries = entries.map(trimPageNumZeros);
 
   const countQuery = db.knex('Entry').count('id')
-    .where('sourceEntry', 'like', `%${searchKeyword}%`)
+    .where(field, 'like', `%${searchKeyword}%`)
     .andWhere('folderId', folderId);
 
   const res = await db.raw(countQuery, true);
@@ -62,6 +69,7 @@ export default async function listFolderEntries(event, data) {
     return;
   }
 
-  const {entries, total} = await searchSourceEntry({db, searchKeyword, folderId, perpage, offset});
+  const field = getSearchFieldBySearchType(searchType);
+  const {entries, total} = await searchSourceEntry({db, searchKeyword, folderId, perpage, offset, field});
   this.resolve({data: entries, total});
 }
