@@ -44,9 +44,7 @@ require('electron-context-menu')({
 
 let mainWindow = null;
 
-app.on('window-all-closed', () => {
-  app.quit();
-});
+app.on('window-all-closed', app.quit);
 
 app.on('ready', handleAppReady);
 
