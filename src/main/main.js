@@ -44,8 +44,10 @@ require('electron-context-menu')({
 
 let mainWindow = null;
 
-app.on('window-all-closed', () => {
-  app.quit();
+app.on('window-all-closed', app.quit);
+app.on('before-quit', () => {
+  mainWindow.removeAllListeners('close');
+  mainWindow.close();
 });
 
 app.on('ready', handleAppReady);
