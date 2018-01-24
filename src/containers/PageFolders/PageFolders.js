@@ -255,6 +255,7 @@ export default class PageFolders extends Component {
         <TopBar>
           <h2>{f('folders')}</h2>
           <div>
+            <button>PICS</button> / <button>LIST</button>
             {this.renderDeleteButton()}
             <FlatButton icon={<i className="fa fa-search" />} label={f('cross-folder-search')} primary onTouchTap={this.goToPageCrossFolderSearch} />
             <FlatButton icon={<i className="fa fa-plus" />} label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
