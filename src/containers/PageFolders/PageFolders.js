@@ -246,6 +246,18 @@ export default class PageFolders extends Component {
     }
   }
 
+  handleFolderList = () => {
+    this.setState({
+      isFolderList: true
+    });
+  }
+
+  handleFolderBox = () => {
+    this.setState({
+      isFolderList: false
+    });
+  }
+
   render() {
 
     const {page, isFolderList} = this.state;
@@ -256,7 +268,7 @@ export default class PageFolders extends Component {
         <TopBar>
           <h2>{f('folders')}</h2>
           <div>
-            <button>PICS</button> / <button>LIST</button>
+            <button onClick={this.handleFolderBox}>PICS</button> / <button onClick={this.handleFolderList}>LIST</button>
             {this.renderDeleteButton()}
             <FlatButton icon={<i className="fa fa-search" />} label={f('cross-folder-search')} primary onTouchTap={this.goToPageCrossFolderSearch} />
             <FlatButton icon={<i className="fa fa-plus" />} label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
