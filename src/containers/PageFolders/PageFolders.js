@@ -213,6 +213,43 @@ export default class PageFolders extends Component {
     return <div className={styles.folderBox}>{rows}</div>;
   }
 
+  renderListFolders() {
+    const {f, folders} = this.props;
+    const rowsList = folders.map((folder) => {
+      const {id, name} = folder;
+      const isImporting = this.isImportingFolder(folder.id);
+      return (
+        <tr key={`paper-${id}`} onTouchTap={this.handleFolderSelect(id)}>
+          <td>
+            {isImporting && <LinearProgress mode="indeterminate" />}
+            <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
+          </td>
+          <td>date
+          </td>
+          <td>source
+          </td>
+          <td>
+              {(! isImporting) && <IconMenu className={styles.folderIconMenu}
+              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              onChange={this.handleFolderMenuItemTouchTap}
+              anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+              targetOrigin={{horizontal: 'left', vertical: 'top'}}>
+              <MenuItem primaryText={f('edit')} value={{type: 'edit', folderId: id}} />
+              <MenuItem primaryText={f('export')} value={{type: 'export', folderId: id}} />
+              </IconMenu>}
+          </td>
+        </tr>
+      );
+    });
+
+    return (
+          <table>
+            <tr className={styles.tableHeader}><td>Name</td><td>Date</td><td>Source</td><td></td></tr>
+            {rowsList}
+          </table>
+    );
+  }
+
   handlePageButtonTouchTap = (newPage) => {
     const {page} = this.state;
     if (page !== newPage) {

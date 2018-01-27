@@ -37,4 +37,22 @@
       right: 0;
     }
   }
+
+  table {
+    width: 90vw;
+    margin: 0 auto;
+  }
+  table tr {
+    border-top: 1px solid #1E626B;
+    padding: 15px;
+  }
+  table tr td{
+    padding: 15px;
+  }
+  .tableHeader{
+    background-color: #1E626B;
+    color: #ffffff;
+  }
+
+
 }
