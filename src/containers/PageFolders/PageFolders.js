@@ -69,6 +69,7 @@ export default class PageFolders extends Component {
       page: 1,
       targetLanguages: [],
       isAddFolderDialogOpen: false,
+      isFolderList: false,
       selectedFolderIdData: {}
     }, props.cache);
   }
@@ -247,7 +248,7 @@ export default class PageFolders extends Component {
 
   render() {
 
-    const {page} = this.state;
+    const {page, isFolderList} = this.state;
     const {f, perpage, folderCount} = this.props;
 
     return (
@@ -261,7 +262,12 @@ export default class PageFolders extends Component {
             <FlatButton icon={<i className="fa fa-plus" />} label={f('add-folder')} primary onTouchTap={this.openAddFolderDialog} />
           </div>
         </TopBar>
-        {this.renderFolders()}
+        <div className={isFolderList ? styles.folderHidden : ''}>
+          {this.renderFolders()}
+        </div>
+        <div className={isFolderList ? '' : styles.folderHidden}>
+          FolderList
+        </div>
         {(folderCount > perpage) && <Pagination current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />}
         {this.renderAddFolderDialog()}
       </div>
