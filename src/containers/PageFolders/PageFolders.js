@@ -244,8 +244,10 @@ export default class PageFolders extends Component {
 
     return (
           <table>
-            <tr className={styles.tableHeader}><td>Name</td><td>Date</td><td>Source</td><td></td></tr>
-            {rowsList}
+            <tbody>
+              <tr className={styles.tableHeader}><td>Name</td><td>Date</td><td>Source</td><td></td></tr>
+              {rowsList}
+            </tbody>
           </table>
     );
   }
@@ -315,7 +317,7 @@ export default class PageFolders extends Component {
           {this.renderFolders()}
         </div>
         <div className={isFolderList ? '' : styles.folderHidden}>
-          FolderList
+          {this.renderListFolders()}
         </div>
         {(folderCount > perpage) && <Pagination current={page} total={Math.ceil(folderCount / perpage)} onButtonTouchTap={this.handlePageButtonTouchTap} />}
         {this.renderAddFolderDialog()}
