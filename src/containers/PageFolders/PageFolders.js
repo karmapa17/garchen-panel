@@ -189,7 +189,7 @@ export default class PageFolders extends Component {
     const {selectedFolderIdData} = this.state;
     const {f, folders} = this.props;
     const rows = folders.map((folder) => {
-      const {id, name} = folder;
+      const {id, name, coverPic} = folder;
       const isImporting = this.isImportingFolder(folder.id);
       const className = c({
         [styles.folder]: true,
@@ -198,6 +198,7 @@ export default class PageFolders extends Component {
       return (
         <div className={className} key={`paper-${id}`} onTouchTap={this.handleFolderSelect(id)}>
           {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
+          <img src={coverPic} />
           <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           {(! isImporting) && <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
