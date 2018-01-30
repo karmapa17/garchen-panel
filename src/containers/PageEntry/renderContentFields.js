@@ -41,6 +41,7 @@ function toFieldData(f, data, contentFields, targetLanguages) {
       return (length > index) ? length : index;
     }, 0);
 
+    const coverData = data['explanation-coverPic'];
     const sourceData = data['explanation-source'];
     const noteData = data['explanation-note'];
     const categoryData = data['explanation-category'];
@@ -61,6 +62,17 @@ function toFieldData(f, data, contentFields, targetLanguages) {
             </tr>
           );
         });
+
+        const coverPic = get(coverData, index);
+
+        if (hasValue(coverPic)) {
+          rows.push((
+            <tr key={'explanation-coverPic'}>
+              <th>{f('explanation-coverPic-num', {num: `${index + 1}`})}</th>
+              <td>{coverPic}</td>
+            </tr>
+          ));
+        }
 
         const source = get(sourceData, index);
 
