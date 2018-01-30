@@ -77,7 +77,8 @@ export default class PageEditFolder extends Component {
       targetLanguages: folder.data.targetLanguages,
       sourceLanguage,
       contentFields,
-      source: folder.source
+      source: folder.source,
+      coverPic: folder.coverPic
     };
 
     return (

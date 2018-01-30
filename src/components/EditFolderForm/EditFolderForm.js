@@ -91,6 +91,10 @@ export default class EditFolderForm extends Component {
           <Field name="source" component={renderTextField} label={f('source')} />
         </div>
 
+        <div>
+          <Field name="coverPic" component={renderTextField} label={'cover link'} />
+        </div>
+
         <div className="button-wrap">
           <RaisedButton primary type="submit" label={f('update')} />
         </div>
