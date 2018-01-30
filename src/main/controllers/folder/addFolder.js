@@ -1,13 +1,16 @@
 import {pick, isEmpty} from 'lodash';
+import dateTime from 'date-time';
 
 export default async function addFolder(event, data) {
 
   const {Folder} =  this.params.models;
+  const buildDate = dateTime();
 
   const folder = await Folder.create({
     name: data.folderName,
     source: data.source || '',
-    data: pick(data, ['sourceLanguage', 'targetLanguages', 'contentFields'])
+    data: pick(data, ['sourceLanguage', 'targetLanguages', 'contentFields']),
+    dateInfo: buildDate
   });
 
   if (isEmpty(folder)) {

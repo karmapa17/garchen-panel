@@ -5,6 +5,7 @@ module.exports = {
     name: {type: String, unique: true, nullable: false},
     source: {type: String, defaultTo: ''},
     data: {type: 'json', defaultTo: '{}'},
-    deletedAt: {type: Number, defaultTo: 0}
-  }
+    dateInfo: {type: String, defaultTo: ''},
+    deletedAt: {type: Number, defaultTo: 0},
+  },
 };
