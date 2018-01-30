@@ -9,6 +9,7 @@ export default async function addFolder(event, data) {
   const folder = await Folder.create({
     name: data.folderName,
     source: data.source || '',
+    coverPic: '',
     data: pick(data, ['sourceLanguage', 'targetLanguages', 'contentFields']),
     dateInfo: buildDate
   });
