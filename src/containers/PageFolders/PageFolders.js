@@ -216,7 +216,7 @@ export default class PageFolders extends Component {
   renderListFolders() {
     const {f, folders} = this.props;
     const rowsList = folders.map((folder) => {
-      const {id, name} = folder;
+      const {id, name, dateInfo, source} = folder;
       const isImporting = this.isImportingFolder(folder.id);
       return (
         <tr key={`paper-${id}`} onTouchTap={this.handleFolderSelect(id)}>
@@ -224,9 +224,9 @@ export default class PageFolders extends Component {
             {isImporting && <LinearProgress mode="indeterminate" />}
             <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           </td>
-          <td>date
+          <td>{dateInfo}
           </td>
-          <td>source
+          <td>{source}
           </td>
           <td>
               {(! isImporting) && <IconMenu className={styles.folderIconMenu}
