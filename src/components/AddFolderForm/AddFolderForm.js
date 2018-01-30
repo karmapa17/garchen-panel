@@ -103,6 +103,10 @@ export default class AddFolderForm extends Component {
           <div>
             <Field name="source" component={renderTextField} label={f('source')} />
           </div>
+
+          <div>
+            <Field name="coverPic" component={renderTextField} label={'cover link'} />
+          </div>
         </div>
 
         <div className={styles.formFooter}>
