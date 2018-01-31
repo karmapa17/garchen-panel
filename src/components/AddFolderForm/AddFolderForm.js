@@ -11,6 +11,7 @@ import asyncValidate from './addFolderFormAsyncValidate';
 import MULTI_LANG_FIELDS from './../../constants/multiLangFields';
 import REGULAR_FIELDS from './../../constants/regularFields';
 import {SELECTED_MENU_STYLE} from './../../constants/constants';
+import CropImg from './../CropImg/CropImg';
 
 const styles = require('./AddFolderForm.scss');
 
@@ -107,6 +108,11 @@ export default class AddFolderForm extends Component {
           <div>
             <Field name="coverPic" component={renderTextField} label={'cover link'} />
           </div>
+
+          <div>
+            <CropImg />
+          </div>
+
         </div>
 
         <div className={styles.formFooter}>
