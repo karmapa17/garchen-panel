@@ -38,7 +38,7 @@ export default class CropImg extends Component {
   render() {
     return (
       <div>
-        <div className="avatar-photo">
+        <div className={styles.avatarPhoto}>
           <FileUpload handleFileChange={this.handleFileChange} />
           <div className="avatar-edit">
             <span>Click to Pick Avatar</span>
