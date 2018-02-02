@@ -27,6 +27,7 @@
 
     .folderName {
       cursor: pointer;
+      padding-left: 10px;
       &:hover, &:active {
         text-decoration: underline;
       }
@@ -35,6 +36,12 @@
       position: absolute;
       bottom: 0;
       right: 0;
+    }
+    img {
+      width: 120px;
+      height: 120px;
+      float: left;
+      background-color: #D7E6BC;
     }
   }
 

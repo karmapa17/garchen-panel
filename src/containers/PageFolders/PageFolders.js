@@ -197,8 +197,8 @@ export default class PageFolders extends Component {
       });
       return (
         <div className={className} key={`paper-${id}`} onTouchTap={this.handleFolderSelect(id)}>
-          {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
           <img src={coverPic} />
+          {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
           <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
           {(! isImporting) && <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
