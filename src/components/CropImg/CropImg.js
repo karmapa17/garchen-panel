@@ -3,6 +3,8 @@ import AvatarCropper from 'react-avatar-cropper';
 
 import FileUpload from './FileUpload';
 
+const styles = require('./CropImg.scss');
+
 export default class CropImg extends Component {
 
   state = {

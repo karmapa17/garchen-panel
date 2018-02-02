@@ -1,0 +1,16 @@
+:global(.AvatarCropper-base) {
+  background-color: #ffffff;
+  z-index: 1800;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  top: 0px;
+}
+
+:global(.AvatarCropper-canvas) {
+  padding-top: 50px;
+  opacity: 1;
+  canvas {
+    border: 6px solid #1E626B;
+  }
+}
