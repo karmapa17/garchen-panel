@@ -10,7 +10,7 @@ export default class CropImg extends Component {
   state = {
     cropperOpen: false,
     img: null,
-    croppedImg: 'http://www.fillmurray.com/400/400'
+    croppedImg: ''
   };
 
   handleFileChange = (dataURI) => {
