@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import AvatarCropper from 'react-avatar-cropper';
 
 import FileUpload from './FileUpload';
@@ -6,6 +6,10 @@ import FileUpload from './FileUpload';
 const styles = require('./CropImg.scss');
 
 export default class CropImg extends Component {
+
+  static propTypes = {
+    input: PropTypes.any.isRequired
+  };
 
   state = {
     cropperOpen: false,
@@ -22,11 +26,13 @@ export default class CropImg extends Component {
   }
 
   handleCrop = (dataURI) => {
+    const {input: {onChange}} = this.props;
     this.setState({
       cropperOpen: false,
       img: null,
       croppedImg: dataURI
     });
+    onChange(dataURI);
   }
 
   handleRequestHide = () => {
