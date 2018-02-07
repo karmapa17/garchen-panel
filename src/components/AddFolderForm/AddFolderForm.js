@@ -106,11 +106,7 @@ export default class AddFolderForm extends Component {
           </div>
 
           <div>
-            <Field name="coverPic" component={renderTextField} label={'cover link'} />
-          </div>
-
-          <div>
-            <CropImg />
+            <Field name="coverPic" type="file" component={CropImg}/>
           </div>
 
         </div>
