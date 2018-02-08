@@ -15,7 +15,7 @@ export default class CropImg extends Component {
   state = {
     cropperOpen: false,
     img: null,
-    croppedImg: this.props.coverPic
+    croppedImg: this.props.coverPic || ''
   };
 
   handleFileChange = (dataURI) => {
@@ -56,9 +56,15 @@ export default class CropImg extends Component {
             <span>Click to Pick Avatar</span>
             <i className="fa fa-camera"></i>
           </div>
-          <img src={this.state.croppedImg} />
+          { '' === this.state.croppedImg ?
+            null :
+            <div>
+              <img src={this.state.croppedImg} />
+              <br />
+              <button className={styles.removeBtn} onClick={this.handleRemoveCover}>Remove Cover</button>
+            </div>
+          }
         </div>
-        <button className={styles.removeBtn} onClick={this.handleRemoveCover}>Remove Cover</button>
         {this.state.cropperOpen &&
           <AvatarCropper
             onRequestHide={this.handleRequestHide}
