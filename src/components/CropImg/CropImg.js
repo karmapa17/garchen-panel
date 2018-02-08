@@ -8,7 +8,8 @@ const styles = require('./CropImg.scss');
 export default class CropImg extends Component {
 
   static propTypes = {
-    input: PropTypes.any.isRequired
+    input: PropTypes.any.isRequired,
+    coverPic: PropTypes.string
   };
 
   state = {
