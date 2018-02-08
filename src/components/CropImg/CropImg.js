@@ -15,7 +15,7 @@ export default class CropImg extends Component {
   state = {
     cropperOpen: false,
     img: null,
-    croppedImg: ''
+    croppedImg: this.props.coverPic
   };
 
   handleFileChange = (dataURI) => {
@@ -42,6 +42,11 @@ export default class CropImg extends Component {
     });
   }
 
+  handleRemoveCover = () => {
+    this.handleRequestHide();
+    this.handleCrop('');
+  }
+
   render() {
     return (
       <div>
@@ -53,6 +58,7 @@ export default class CropImg extends Component {
           </div>
           <img src={this.state.croppedImg} />
         </div>
+        <button className={styles.removeBtn} onClick={this.handleRemoveCover}>Remove Cover</button>
         {this.state.cropperOpen &&
           <AvatarCropper
             onRequestHide={this.handleRequestHide}
