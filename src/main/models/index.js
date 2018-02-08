@@ -7,7 +7,7 @@ import {indexBy, prop} from 'ramda';
 import APP_DATA_PATH from './../constants/appDataPath';
 
 // if db version change, user will have to convert their db via online tool
-const dbVersion = '0.0.11';
+const dbVersion = '0.0.12';
 
 export default async function initDb() {
 
