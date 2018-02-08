@@ -11,6 +11,7 @@ import injectMuiReduxFormHelper from './../../utils/injectMuiReduxFormHelper';
 import MULTI_LANG_FIELDS from './../../constants/multiLangFields';
 import REGULAR_FIELDS from './../../constants/regularFields';
 import {SELECTED_MENU_STYLE} from './../../constants/constants';
+import CropImg from './../CropImg/CropImg';
 
 @reduxForm({
   form: 'editFolderForm',
@@ -57,7 +58,7 @@ export default class EditFolderForm extends Component {
 
   render() {
 
-    const {handleSubmit, f, renderTextField, renderSelectField, onTargetLanguagesChange} = this.props;
+    const {handleSubmit, f, renderTextField, renderSelectField, onTargetLanguagesChange, initialValues} = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
@@ -92,7 +93,7 @@ export default class EditFolderForm extends Component {
         </div>
 
         <div>
-          <Field name="coverPic" component={renderTextField} label={'cover link'} />
+          <Field name="coverPic" type="file" component={CropImg} coverPic={initialValues.coverPic} />
         </div>
 
         <div className="button-wrap">
