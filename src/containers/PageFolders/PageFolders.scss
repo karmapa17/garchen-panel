@@ -27,10 +27,14 @@
 
     .folderName {
       cursor: pointer;
-      padding-left: 10px;
       &:hover, &:active {
         text-decoration: underline;
       }
+    }
+
+    .rightSec {
+      float: right;
+      width: 140px;
     }
     .folderIconMenu {
       position: absolute;
@@ -38,8 +42,8 @@
       right: 0;
     }
     img {
-      width: 120px;
-      height: 120px;
+      width: 84px;
+      height: 112px;
       float: left;
       background-color: #D7E6BC;
     }

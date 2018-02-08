@@ -65,8 +65,8 @@ export default class CropImg extends Component {
             cropperOpen={this.state.cropperOpen}
             onCrop={this.handleCrop}
             image={this.state.img}
-            width={400}
-            height={400}
+            width={294}
+            height={392}
           />
         }
       </div>

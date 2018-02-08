@@ -198,16 +198,18 @@ export default class PageFolders extends Component {
       return (
         <div className={className} key={`paper-${id}`} onTouchTap={this.handleFolderSelect(id)}>
           <img src={coverPic} />
-          {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
-          <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
-          {(! isImporting) && <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            onChange={this.handleFolderMenuItemTouchTap}
-            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-            targetOrigin={{horizontal: 'left', vertical: 'top'}}>
-            <MenuItem primaryText={f('edit')} value={{type: 'edit', folderId: id}} />
-            <MenuItem primaryText={f('export')} value={{type: 'export', folderId: id}} />
-          </IconMenu>}
+          <div className={styles.rightSec}>
+            {isImporting && <LinearProgress mode="indeterminate" style={{marginBottom: '7px'}} />}
+            <a className={styles.folderName} onTouchTap={this.handleFolderAnchorTouchTap(id)}>{name}</a>
+            {(! isImporting) && <IconMenu className={styles.folderIconMenu} style={{display: 'block', position: 'absolute'}}
+              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+              onChange={this.handleFolderMenuItemTouchTap}
+              anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+              targetOrigin={{horizontal: 'left', vertical: 'top'}}>
+              <MenuItem primaryText={f('edit')} value={{type: 'edit', folderId: id}} />
+              <MenuItem primaryText={f('export')} value={{type: 'export', folderId: id}} />
+            </IconMenu>}
+          </div>
         </div>
       );
     });
