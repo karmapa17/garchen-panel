@@ -1,4 +1,8 @@
+@import './../../../assets/styles/variables';
+
 .pageAbout {
+    width: $page-width;
+    margin: 0 auto;
   h2 {
     font-size: 20px;
   }
