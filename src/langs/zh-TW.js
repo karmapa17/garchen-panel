@@ -7,7 +7,7 @@ module.exports = {
   'delete-selected-folders': '刪除所選的資料夾',
   'about': '關於',
   'about-heading': '關於 Garchen Panel',
-  'about-content': '<p>噶千詞典編輯平台是一套整合多國語系介面的詞典編輯工具。</p><p>藉由這個編輯平台，使用者可以編輯詞條、解釋、分類及註記。並且可以搜尋詞條，閱讀詞條內容與解釋。</p><p>使用者可以將詞條做不同解釋的資料分類，也可以加上註記、出處。未來我們將利用這套編輯平台進行噶千詞典的編撰整理。</p><p>這套編輯平台也是一套方便使用的電子詞典資料庫，我們可以進行一個或多個字典資料庫的搜尋。</p>',
+  'about-content': '<p>噶千詞典編輯平台是一套整合多國語系介面的詞典編輯工具。</p><p>藉由這個編輯平台，使用者可以編輯詞條、解釋、分類及註記。並且可以搜尋詞條，閱讀詞條內容與解釋。</p><p>使用者可以將詞條做不同解釋的資料分類，也可以加上註記、出處。未來我們將利用這套編輯平台進行噶千詞典的編撰整理。</p><p>這套編輯平台也是一套方便使用的電子詞典資料庫，我們可以進行一個或多個字典資料庫的搜尋。</p></p><hr/><p><table width="100%"><tr align="center"><td><a href="https://youtu.be/xzEkK07CbSc" target="_blank">介紹影片</a><br><iframe width="400px" height="225px" src="https://www.youtube.com/embed/xzEkK07CbSc?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></td><td><a href="https://youtu.be/4yf-wq147Po" target="_blank">使用教學</a><br/><iframe width="400" height="225" src="https://www.youtube.com/embed/4yf-wq147Po" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></td></tr></table></p>',
   'account': '帳號',
   'add-a-folder': '新增一個資料夾',
   'add-entry': '新增詞條',
