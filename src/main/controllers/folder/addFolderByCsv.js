@@ -41,7 +41,7 @@ export default async function addFolderByCsv(event, data) {
       cancelImporting = true;
     });
 
-    const filename = basename(csvFilePath);
+    const filename = basename(csvFilePath).replace('.csv', '');
     const stream = fs.createReadStream(csvFilePath);
 
     let completedLines = 0;

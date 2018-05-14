@@ -3,7 +3,7 @@
 set -x
 
 PACKAGE_NAME=$(cat package.json | grep name | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | xargs)
-ELECTRON_VERSION=1.7.6
+ELECTRON_VERSION=1.8.3
 PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | xargs)
 ROOT_DIR=$(cd $(dirname $0)/..; pwd)
 
