@@ -140,5 +140,10 @@ module.exports = {
   'very-small': 'Very Small',
   'write-delay-with-num': 'Write delay {writeDelay}ms',
   'zh-CN': 'Simplified Chinese',
-  'zh-TW': 'Traditional Chinese'
+  'zh-TW': 'Traditional Chinese',
+  'sa': 'Sanskrit',
+  'pi': 'Pali',
+  'fr': 'French',
+  'jp': 'Japanese',
+  'de': 'German'
 };
