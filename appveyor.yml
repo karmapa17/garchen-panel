@@ -24,6 +24,7 @@
     - npm i -g electron-packager@10.1.0
     - npm i -g node-gyp
     - npm i --force
+    - npm config set msvs_version 2017 --global
 
   build_script:
     - C:\msys64\usr\bin\bash -lc "cd $APPVEYOR_BUILD_FOLDER; npm run build-windows-ia32"
