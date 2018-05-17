@@ -21,7 +21,8 @@
   install:
     - ps: Install-Product node $env:nodejs_version x64
     - npm i -g npm@5.6.0
-    - npm i -g electron-packager@9.0.0
+    - npm i -g electron-packager@10.1.0
+    - npm i -g node-gyp
     - npm i --force
 
   build_script:
