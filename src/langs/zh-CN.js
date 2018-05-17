@@ -140,5 +140,10 @@ module.exports = {
   'very-small': '非常小',
   'write-delay-with-num': '写入延迟时间 {writeDelay} 毫秒',
   'zh-CN': '简体中文',
-  'zh-TW': '繁体中文'
+  'zh-TW': '繁体中文',
+  'sa': '梵文',
+  'pi': '巴利文',
+  'fr': '法文',
+  'jp': '日文',
+  'de': '德文'
 };
