@@ -33,8 +33,12 @@ export default class Pagination extends Component {
 
     const {current, total} = this.props;
 
-    let firstNum;
-    let lastNum;
+    if (!current && current > total) {
+      this.props.current = total;
+    }
+
+    let firstNum = 1;
+    let lastNum = total;
 
     if ((current - LIMIT > 1) && ((current + LIMIT - 1) < total)) {
       firstNum = current - LIMIT;
