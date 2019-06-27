@@ -18,7 +18,8 @@ function getSearchFieldBySearchType(searchType) {
 
 async function searchSourceEntry({db, searchKeyword, field, folderId, perpage, offset}) {
 
-  const searchQuery = db.knex('Entry').where(field, 'like', `%${searchKeyword}%`)
+  const searchKey = ('data' === field) ? `%${searchKeyword}%` : `${searchKeyword}%`;
+  const searchQuery = db.knex('Entry').where(field, 'like', searchKey)
     .andWhere('folderId', folderId)
     .limit(perpage)
     .offset(offset);
@@ -29,7 +30,7 @@ async function searchSourceEntry({db, searchKeyword, field, folderId, perpage, o
   entries = entries.map(trimPageNumZeros);
 
   const countQuery = db.knex('Entry').count('id')
-    .where(field, 'like', `%${searchKeyword}%`)
+    .where(field, 'like', searchKey)
     .andWhere('folderId', folderId);
 
   const res = await db.raw(countQuery, true);
