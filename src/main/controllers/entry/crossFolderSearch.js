@@ -5,7 +5,7 @@ async function searchSourceEntry({db, searchKeyword, perpage, offset}) {
   const searchQuery = db.knex('Entry')
     .select(['Entry.id as pk', '*'])
     .leftJoin('Folder', 'Entry.folderId', 'Folder.id')
-    .where('sourceEntry', 'like', `%${searchKeyword}%`)
+    .where('sourceEntry', 'like', `${searchKeyword}%`)
     .andWhere('Folder.deletedAt', 0)
     .orderBy('folderId', 'asc')
     .limit(perpage)
@@ -20,7 +20,7 @@ async function searchSourceEntry({db, searchKeyword, perpage, offset}) {
   const countQuery = db.knex('Entry')
     .leftJoin('Folder', 'Entry.folderId', 'Folder.id')
     .count('Entry.id')
-    .where('sourceEntry', 'like', `%${searchKeyword}%`)
+    .where('sourceEntry', 'like', `${searchKeyword}%`)
     .andWhere('Folder.deletedAt', 0);
 
   const res = await db.raw(countQuery, true);
