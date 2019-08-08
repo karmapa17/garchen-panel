@@ -1,8 +1,8 @@
 language: node_js
 matrix:
   include:
-    - os: osx
-      osx_image: xcode9
+  - os: osx
+    osx_image: xcode9
 node_js:
 - 9.2.0
 cache: yarn
@@ -17,4 +17,4 @@ after_success:
 - test $TRAVIS_BRANCH = "master" && yarn build-mac && yarn upload-mac
 notifications:
   slack:
-    secure: A71W7ennsPU8SpP938cWgYYRE56smK8zoOmND9uv+tfEP57jS0R43WmtLcmdzFppJbL8unuqy19PP/6mwg5hGdWx29FRLDYlREJfxNdKAcUjF8IvkKyvYyhR5TToxdc5FBRWJzWvlXON+ehyA8RXP1z5TqI7u0fOR8B1YPYnV7DP0HDVx5AAwFi7ThI6Z+vbtV6mZz2P8eq+Fhbgck+eqtWf7ciwUZ/3MOUsPHXADXTZYuEMpB8YM0mZTADczD/YCciG3qtqo6JdEBQnMDQ0uab9RhJmFOCNAFVysAj0vmaIY3H/vK9WqKMKNu9hQc28hTuv2gyOAGw6vHzb//OVUv5vNkTo35R2A2P3bGiiEO4Agc3ee9+/k9gx2oosa7vVVk7e00Am3FcA+vPY+CNg8SiAE5dmJOwm95/6ByvyRyG5J0+PdY5yHPan+aZjFV4Tw0gTNmDTkV1tbpwNPklcyWJqg9Vsf2rQQ4qHJ1rQGfs/9xzfGyToJ30AfRT4M9+YoDygfp7aQVIDPbeWo2y++yxCgcRJR03NIjz13UNSGUAFxFqpyFOn5bQ86F25hiIbIk1WdMl8UdEIfgsoFufPfq4CoQbSv1wF4h+Eanh/89Y5yl+lORYG5apEKF3BSO58zsCS73SHHIYrPENiq843UUfRrn2koDKEWr7IiWtwP9w=
+    secure: yLbRaM1Jqb439HU4S+Dsh63xNHBm1puEiZCnkoSliWkhUgINgbjKd1tZDSgK55RJ3FEelsUGkxtMQukH3lGfbvinaPOthITNAs2TAEQLyMyVXdodXVIq6/okdKiihWghQYFy4dcbW2UBVjQOuVBsi80Isw7T//tqYIDnNP+vW2orItbp7jI+FjeMhuJAfBP1MhATox4DnA8SLBRKRIxu2tYbOOBN6t7hdpr6hIHF5f08nAAhqWwQtAniyxo6ZKdleyPGjdQuxdzVpGXEsZc3lM9AOVp9reKimhXGlxWRvUndPrxLThymqn6Iaa+nFAmUdmSRw1dkSGyvq2tqtBpXiN+Yk97Dv925vpo969ycWaw6xlW1KHisvamC14oWs6KT91UqAJtJjyLWjhW180cPWQtcilPCSBDPegAeHoYMHD38Jm5RyYs45whZKDGjl+6Y5VtmXQSMVgk1msMml6fK5RCWX/SU8MzomN2WKwDz8U5TwsY8QEFCgWb8WNxaOXP2xkql/vr2mcxj+lkz0EZQZX4r9od1zvxstoOSZqWYhfJmfMBDfOIZZDl/BqTdluad1OJeK2RBPdcYw88e/6eTCtuBEbfQez+L1vkLWpf5raOg0KTggPC2y8OLFqfDfX41xbmurTqbuI6GS6b6A9nGN/HtdEfisWG647ZmEGztNao=
