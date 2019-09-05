@@ -63,7 +63,7 @@
     "sleep-promise": "2.0.0",
     "sqlite3": "3.1.13",
     "toastr": "2.1.2",
-    "trilogy": "https://github.com/karmapa17/trilogy.git#v1.3.1",
+    "trilogy": "https://github.com/karmapa17/trilogy.git#v1.3.2",
     "zpad": "0.5.0"
   },
   "devDependencies": {
