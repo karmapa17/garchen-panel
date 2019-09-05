@@ -12,6 +12,7 @@ before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.3.2
 - export PATH="$HOME/.yarn/bin:$PATH"
 - brew install awscli
+- yarn cache clean
 after_success:
 - npm run coveralls
 - test $TRAVIS_BRANCH = "master" && yarn build-mac && yarn upload-mac
