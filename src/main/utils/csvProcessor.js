@@ -188,10 +188,14 @@ export default class CsvProcessor {
 
         if (value && (FIELD_EXPLANATION_CATEGORY === field)) {
           arr.push(value.split(',').map(Number));
+          return oldData;
         }
         else if (value) {
           arr.push(value);
+          return oldData;
         }
+
+        arr.length++;
       }
       return oldData;
     }, oldData);
