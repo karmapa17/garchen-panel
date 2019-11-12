@@ -186,16 +186,12 @@ export default class CsvProcessor {
         const arr = oldData[field];
         const value = newData[index];
 
-        if (value && (FIELD_EXPLANATION_CATEGORY === field)) {
-          arr.push(value.split(',').map(Number));
-          return oldData;
-        }
-        else if (value) {
-          arr.push(value);
+        if (FIELD_EXPLANATION_CATEGORY === field) {
+          arr.push(value ? value.split(',').map(Number) : null);
           return oldData;
         }
 
-        arr.length++;
+        arr.push(value ? value : null);
       }
       return oldData;
     }, oldData);
