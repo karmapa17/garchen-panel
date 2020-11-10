@@ -3174,10 +3174,9 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
-fast-csv@2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/fast-csv/-/fast-csv-2.4.1.tgz#bd7dd268391f729367b59445b8dd0ad026881b26"
-  integrity sha1-vX3SaDkfcpNntZRFuN0K0CaIGyY=
+fast-csv@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/fast-csv/-/fast-csv-2.4.0.tgz#f6e93185b6d290e5808948869c3fd09f64fbc842"
   dependencies:
     extended "0.0.6"
     is-extended "0.0.10"
