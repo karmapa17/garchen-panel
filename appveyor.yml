@@ -21,7 +21,7 @@
   install:
     - ps: Install-Product node $env:nodejs_version x64
     - npm i -g npm@5.6.0
-    - npm i -g electron-packager@10.1.0
+    - npm i -g electron-packager@14.2.1
     - npm i --force
     - npm i --g --production windows-build-tools
     - npm config set msvs_version 2017 --g
