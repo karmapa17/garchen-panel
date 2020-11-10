@@ -17,6 +17,7 @@ export default async function exportFolderToCsv(event, data) {
   const {writeDelay, folderId} = data;
 
   const folder = await Folder.findOne({id: folderId});
+  const csvHeaders = csvProcessor.getCsvHeaders(folder);
   const filename = `${folder.name}.csv`;
 
   const options = {
@@ -28,7 +29,7 @@ export default async function exportFolderToCsv(event, data) {
 
   async function writeCsv(savePath) {
 
-    const csvStream = csv.createWriteStream({headers: true});
+    const csvStream = csv.createWriteStream({headers: csvHeaders});
     const writableStream = fs.createWriteStream(savePath);
     const size = 50000;
 

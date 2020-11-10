@@ -17,7 +17,7 @@ export default class PageAbout extends Component {
     return (
       <div className={styles.pageAbout}>
         <h2>{f('about-heading')}</h2>
-        <p>Version 0.0.55</p>
+        <p>Version 0.0.56</p>
         <div className={styles.aboutContent}>
           <FormattedHTMLMessage id="about-content" />
         </div>
