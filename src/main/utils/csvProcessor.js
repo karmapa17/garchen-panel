@@ -198,6 +198,28 @@ export default class CsvProcessor {
   }
 
   // for csv export
+  static getCsvHeaders(folder) {
+    const {sourceLanguage, contentFields} = folder.data;
+
+    let hasExplanation = false;
+
+    let csvHeaders = contentFields.reduce((fields, field) => {
+      const csvField = field.replace('-lang-', '-');
+
+      if (RE_EXPLANATION.test(csvField)) {
+        hasExplanation = true;
+      }
+
+      return [...fields, csvField];
+    }, [`source-entry-${sourceLanguage}`]);
+
+    if (hasExplanation) {
+      csvHeaders = [...csvHeaders, FIELD_EXPLANATION_NOTE, FIELD_EXPLANATION_CATEGORY, FIELD_EXPLANATION_SOURCE];
+    }
+
+    return csvHeaders;
+  }
+
   static getCsvRowsByEntry({folder, entry}) {
 
     const {sourceLanguage, contentFields} = folder.data;
