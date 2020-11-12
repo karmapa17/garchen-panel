@@ -4,7 +4,6 @@ import csv from 'fast-csv';
 import fs from 'fs';
 import {basename} from 'path';
 import log from 'karmapa-log';
-import sleep from 'sleep-promise';
 import shortid from 'shortid';
 
 import csvProcessor, {FIELD_PAGE_NUM} from './../../utils/csvProcessor';

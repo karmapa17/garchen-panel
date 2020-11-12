@@ -1,10 +1,8 @@
 import {dialog} from 'electron';
-import {isEmpty, first} from 'lodash';
+import {isEmpty} from 'lodash';
 import csv from 'fast-csv';
 import fs from 'fs';
-import {basename} from 'path';
 import log from 'karmapa-log';
-import sleep from 'sleep-promise';
 import shortid from 'shortid';
 
 import csvProcessor from './../../utils/csvProcessor';

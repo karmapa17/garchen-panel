@@ -7889,10 +7889,6 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-sleep-promise@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/sleep-promise/-/sleep-promise-2.0.0.tgz#e7e798dfe56c044da85882d76d22a99804663c41"
-
 slice-ansi@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-1.0.0.tgz#044f1a49d8842ff307aad6b505ed178bd950134d"
