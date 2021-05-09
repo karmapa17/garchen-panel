@@ -31,7 +31,7 @@
     "googleapis": "19.0.0",
     "immutable": "3.8.1",
     "karmapa-log": "0.0.1",
-    "lodash": "4.17.4",
+    "lodash": "4.17.21",
     "material-ui": "0.17.4",
     "mkdirp": "0.5.1",
     "moment": "2.22.1",
