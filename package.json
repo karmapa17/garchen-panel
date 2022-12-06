@@ -37,7 +37,7 @@
     "moment": "2.22.1",
     "node-fetch": "1.6.3",
     "node-sass": "4.7.2",
-    "qs": "6.4.0",
+    "qs": "6.4.1",
     "ramda": "0.23.0",
     "react": "15.4.2",
     "react-autosize-textarea": "0.4.8",
