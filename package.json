@@ -28,7 +28,7 @@
     "fast-csv": "2.4.1",
     "font-awesome": "4.7.0",
     "font-awesome-sass-loader": "1.0.3",
-    "googleapis": "19.0.0",
+    "googleapis": "39.1.0",
     "immutable": "3.8.1",
     "karmapa-log": "0.0.1",
     "lodash": "4.17.4",
